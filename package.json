@@ -1,0 +1,63 @@
+{
+  "name": "react-ui",
+  "version": "1.0.0",
+  "description": "",
+  "license": "BSD-3-Clause",
+  "private": true,
+  "scripts": {
+    "build": "d2-app-scripts build",
+    "start": "d2-app-scripts start",
+    "test": "d2-app-scripts test",
+    "deploy": "d2-app-scripts deploy",
+    "lint": "yarn d2-style check",
+    "lint:staged": "yarn lint --staged",
+    "format": "yarn d2-style apply",
+    "format:staged": "yarn format --staged",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
+  },
+  "devDependencies": {
+    "@dhis2/cli-app-scripts": "^8.2.3",
+    "@dhis2/cli-style": "^9.3.1",
+    "@dhis2/cli-utils-cypress": "^8.0.4",
+    "@dhis2/cypress-commands": "^8.0.4",
+    "@dhis2/cypress-plugins": "^8.0.4",
+    "@storybook/addon-actions": "^6.3.12",
+    "@storybook/addon-essentials": "^6.3.12",
+    "@storybook/addon-links": "^6.3.12",
+    "@storybook/node-logger": "^6.3.12",
+    "@storybook/preset-create-react-app": "^3.2.0",
+    "@storybook/react": "^6.3.12",
+    "@types/jest": "^27.0.2",
+    "@types/node": "^16.11.3",
+    "@types/react": "16.14.0",
+    "@types/react-dom": "^17.0.10",
+    "cypress": "^8.6.0",
+    "react": "16.14.0",
+    "typescript": "^4.4.4"
+  },
+  "dependencies": {
+    "@dhis2/app-runtime": "^3.2.3"
+  },
+  "main": "./build/cjs/index.js",
+  "module": "./build/es/index.js",
+  "exports": {
+    "import": "./build/es/index.js",
+    "require": "./build/cjs/index.js"
+  },
+  "peerDependencies": {
+    "cypress": "^8.6.0"
+  },
+  "eslintConfig": {
+    "overrides": [
+      {
+        "files": [
+          "**/*.stories.*"
+        ],
+        "rules": {
+          "import/no-anonymous-default-export": "off"
+        }
+      }
+    ]
+  }
+}

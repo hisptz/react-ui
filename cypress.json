@@ -1,0 +1,12 @@
+{
+  "baseUrl": "http://localhost:3000",
+  "video": true,
+  "projectId": "w8u5sk",
+  "env": {
+    "dhis2DataTestPrefix": "dhis2-reactui",
+    "networkMode": "live",
+    "dhis2ApiVersion": "36"
+  },
+  "experimentalInteractiveRunEvents": true,
+  "testFiles": "**/*.feature"
+}
