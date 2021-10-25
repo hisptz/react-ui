@@ -1,3 +1,4 @@
+const injectDevServer = require("@cypress/react/plugins/react-scripts")
 const {
   networkShim,
   chromeAllowXSiteCookies,
@@ -9,4 +10,6 @@ module.exports = (on, config) => {
   networkShim(on);
   chromeAllowXSiteCookies(on);
   cucumberPreprocessor(on, config);
+  injectDevServer(on, config)
+  return config;
 };

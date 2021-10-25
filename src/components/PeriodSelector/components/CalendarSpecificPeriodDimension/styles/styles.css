@@ -1,0 +1,23 @@
+.pt-8{
+    padding-top: 8px;
+}
+.pb-8{
+    padding-bottom: 8px;
+}
+
+.w-100{
+    width: 100%;
+}
+
+.align-items-center{
+    align-items: center;
+}
+
+.column{
+    display: flex;
+    flex-direction: column;
+}
+
+.center{
+    justify-content: center;
+}
