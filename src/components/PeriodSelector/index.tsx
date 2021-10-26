@@ -7,7 +7,9 @@ export default function PeriodSelector({
                                            excludedPeriodTypes,
                                            calendar,
                                            selectedPeriods,
-                                           onSelect
+                                           onSelect,
+                                           excludeFixedPeriods,
+                                           excludeRelativePeriods
                                        }: PeriodSelectorProps) {
 
 
@@ -15,6 +17,8 @@ export default function PeriodSelector({
         excludedPeriodTypes={excludedPeriodTypes ?? []}
         calendar={calendar ?? CalendarTypes.GREGORIAN} onSelect={onSelect}
         selectedPeriods={selectedPeriods}
+        excludeFixedPeriods={excludeFixedPeriods}
+        excludeRelativePeriods={excludeRelativePeriods}
     />
 }
 

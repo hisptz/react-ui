@@ -5,5 +5,7 @@ export interface PeriodSelectorProps {
     excludedPeriodTypes?: Array<string>,
     calendar?: string,
     selectedPeriods: Array<Period>,
-    onSelect: ({items}: { items: Array<Period> }) => void
+    onSelect: ({items}: { items: Array<Period> }) => void,
+    excludeRelativePeriods?: boolean
+    excludeFixedPeriods?: boolean
 }

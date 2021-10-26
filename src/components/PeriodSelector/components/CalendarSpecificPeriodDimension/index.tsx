@@ -4,7 +4,7 @@ import {Period} from "@iapps/period-utilities";
 import PeriodIcon from "@material-ui/icons/AccessTime";
 import {filter, find, head, isEmpty} from "lodash";
 import PropTypes from "prop-types";
-import React, {useMemo, useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import {Period as PeriodInterface} from './interfaces/period'
 import {CalendarSpecificPeriodSelectorProps} from "./interfaces/props";
 import {CalendarTypes} from "components/PeriodSelector/components/CalendarSpecificPeriodDimension/constants/calendar";
@@ -16,6 +16,8 @@ export default function CalendarSpecificPeriodSelector({
                                                            calendar,
                                                            onSelect,
                                                            selectedPeriods,
+                                                           excludeFixedPeriods,
+                                                           excludeRelativePeriods
                                                        }: CalendarSpecificPeriodSelectorProps) {
     const periodInstance = new Period().setCalendar(calendar);
     periodInstance.setPreferences({allowFuturePeriods: true});
@@ -24,6 +26,8 @@ export default function CalendarSpecificPeriodSelector({
     const {_periodType} = periodInstance.get() ?? {};
     const {_periodTypes} = _periodType ?? {};
     const filteredPeriodTypes = filter(_periodTypes, ({id}) => !excludedPeriodTypes.includes(id))
+
+
     const relativePeriodTypes = filter(filteredPeriodTypes, ({id}) =>
         id.toLowerCase().match(RegExp("relative".toLowerCase()))
     );
@@ -43,10 +47,10 @@ export default function CalendarSpecificPeriodSelector({
 
     const tabs = useMemo(() => {
         const tabs = []
-        if (!isEmpty(relativePeriodTypes)) {
+        if (!isEmpty(relativePeriodTypes) && !excludeRelativePeriods) {
             tabs.push(find(Object.values(PeriodCategories), ['key', 'relative']))
         }
-        if (!isEmpty(fixedPeriodTypes)) {
+        if (!isEmpty(fixedPeriodTypes) && !excludeFixedPeriods) {
             tabs.push(find(Object.values(PeriodCategories), ['key', 'fixed']))
         }
 
@@ -56,6 +60,13 @@ export default function CalendarSpecificPeriodSelector({
     const [selectedPeriodCategory, setSelectedPeriodCategory] = useState(
         head(tabs)
     );
+
+    useEffect(() => {
+       if(excludeFixedPeriods && excludeRelativePeriods){
+           throw Error("Both Fixed and Relative Periods are excluded.")
+       }
+    }, [excludeFixedPeriods, excludeRelativePeriods]);
+
 
     const periods = useMemo(() => {
         if (selectedPeriodCategory) {
@@ -114,6 +125,7 @@ export default function CalendarSpecificPeriodSelector({
                         {selectedPeriodCategory?.key === "relative" ? (
                             <div className="pt-8 pb-8">
                                 <SingleSelectField
+                                    dataTest={"relative-period-type-selector"}
                                     dense
                                     selected={selectedRelativePeriodType}
                                     onChange={({selected}: { selected: string }) =>
@@ -123,6 +135,7 @@ export default function CalendarSpecificPeriodSelector({
                                 >
                                     {relativePeriodTypes?.map((periodType) => (
                                         <SingleSelectOption
+                                            dataTest={`${periodType?.id}-type`}
                                             key={periodType?.id}
                                             label={periodType?.name}
                                             value={periodType?.id}
@@ -135,6 +148,7 @@ export default function CalendarSpecificPeriodSelector({
                                 <div className="w-60">
                                     <SingleSelectField
                                         dense
+                                        dataTest={"fixed-period-type-selector"}
                                         selected={selectedFixedPeriodType}
                                         onChange={({selected}: { selected: string }) =>
                                             setSelectedFixedPeriodType(selected)
@@ -143,6 +157,7 @@ export default function CalendarSpecificPeriodSelector({
                                     >
                                         {fixedPeriodTypes?.map((periodType) => (
                                             <SingleSelectOption
+                                                dataTest={`${periodType?.id}-type`}
                                                 key={periodType?.id}
                                                 label={periodType?.name}
                                                 value={periodType?.id}
@@ -152,6 +167,7 @@ export default function CalendarSpecificPeriodSelector({
                                 </div>
                                 <div className="w-40">
                                     <InputField
+                                        dataTest="year-input"
                                         name={"year"}
                                         dense
                                         label={i18n.t("Year")}
@@ -170,6 +186,7 @@ export default function CalendarSpecificPeriodSelector({
                 }))}
                 renderOption={(options: any) => (
                     <TransferOption
+                        dataTest={`${options?.value?.id}-option`}
                         icon={<PeriodIcon style={{fontSize: 12}}/>}
                         {...options}
                     />
