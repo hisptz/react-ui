@@ -19,8 +19,19 @@ export default function CalendarSpecificPeriodSelector({
                                                            excludeFixedPeriods,
                                                            excludeRelativePeriods
                                                        }: CalendarSpecificPeriodSelectorProps) {
-    const periodInstance = new Period().setCalendar(calendar);
-    periodInstance.setPreferences({allowFuturePeriods: true});
+    const periodInstance = new Period().setCalendar(CalendarTypes.ETHIOPIAN);
+
+    const [year, setYear] = useState<number>(new Date().getFullYear());
+
+    useEffect(() => {
+        periodInstance.setPreferences({allowFuturePeriods: true});
+        periodInstance.setCalendar(calendar)
+        if (calendar === CalendarTypes.ETHIOPIAN) {
+            setYear((new Date().getFullYear() - 7))
+        } else {
+            setYear((new Date().getFullYear()))
+        }
+    }, [calendar]);
 
     // @ts-ignore
     const {_periodType} = periodInstance.get() ?? {};
@@ -43,7 +54,6 @@ export default function CalendarSpecificPeriodSelector({
         head(fixedPeriodTypes)?.id
     );
 
-    const [year, setYear] = useState<number>(new Date().getFullYear());
 
     const tabs = useMemo(() => {
         const tabs = []
@@ -62,9 +72,9 @@ export default function CalendarSpecificPeriodSelector({
     );
 
     useEffect(() => {
-       if(excludeFixedPeriods && excludeRelativePeriods){
-           throw Error("Both Fixed and Relative Periods are excluded.")
-       }
+        if (excludeFixedPeriods && excludeRelativePeriods) {
+            throw Error("Both Fixed and Relative Periods are excluded.")
+        }
     }, [excludeFixedPeriods, excludeRelativePeriods]);
 
 
@@ -183,6 +193,7 @@ export default function CalendarSpecificPeriodSelector({
                 options={[...periods, ...selectedPeriods]?.map((period) => ({
                     label: period?.name,
                     value: period,
+                    key: period?.id
                 }))}
                 renderOption={(options: any) => (
                     <TransferOption
