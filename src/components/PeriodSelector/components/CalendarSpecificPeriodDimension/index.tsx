@@ -10,8 +10,7 @@ import PeriodTransferOption
     from "components/PeriodSelector/components/CalendarSpecificPeriodDimension/components/TransferOption";
 import {CalendarTypes} from "components/PeriodSelector/components/CalendarSpecificPeriodDimension/constants/calendar";
 import {PeriodCategories} from "components/PeriodSelector/components/CalendarSpecificPeriodDimension/constants/period";
-import './styles/styles.css'
-
+import 'styles/styles.css'
 
 export default function CalendarSpecificPeriodSelector({
                                                            excludedPeriodTypes,
