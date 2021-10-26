@@ -15,7 +15,8 @@
     "format:staged": "yarn format --staged",
     "sb": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "cy:open": "yarn cypress open-ct"
+    "cy:open": "yarn cypress open-ct",
+    "ts:gen": "tsc --emitDeclarationOnly --declaration --allowJs"
   },
   "devDependencies": {
     "@cypress/react": "^5.10.1",
@@ -49,11 +50,11 @@
     "@dhis2/ui": "^7.4.1",
     "@iapps/period-utilities": "^1.0.0-beta.4"
   },
-  "main": "./build/cjs/index.js",
-  "module": "./build/es/index.js",
+  "main": "./build/cjs/index.d.js",
+  "module": "./build/es/index.d.js",
   "exports": {
-    "import": "./build/es/index.js",
-    "require": "./build/cjs/index.js"
+    "import": "./build/es/index.d.js",
+    "require": "./build/cjs/index.d.js"
   },
   "peerDependencies": {
     "cypress": "^8.6.0"
