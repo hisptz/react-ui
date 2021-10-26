@@ -1,15 +1,33 @@
+/* eslint-disable max-params */
+/* eslint-disable no-unused-vars */
+import HighCharts from 'highcharts';
 import * as _ from 'lodash';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { getCharObject } from '../../../helper/get-chart-object.helper';
 import { ChartConfigurationProps } from 'components/ChartAnalytics/interfaces/props';
 
-export default function ChartItemComponent(chartHeight: number,analyticsObject: object,ChartConfiguration:ChartConfigurationProps){
+export default function ChartItemComponent(analysisData:any,chartHeight: number,analyticsObject: any, chartConfiguration:ChartConfigurationProps){
 
 
- const [drawChartConfiguration, setdrawChartConfiguration] = useState();
+ const [drawChartConfiguration] = useState({"d":"d"});
+ 
+ let chart:any = '';
 
- function drawChart(){
+
+useEffect(() => {
+    drawChart(analysisData['_data'], drawChartConfiguration);  
+  
+}, [analysisData,chartConfiguration.layout,chartConfiguration.currentChartType]);
+
+ function drawChart(analyticsObject:any, drawChartConfiguration:any){
      if(drawChartConfiguration && analyticsObject ){
-            drawChartConfiguration(analyticsObject);
+            const chartObject = getCharObject(analyticsObject, drawChartConfiguration);
+            if(chartObject){
+                setTimeout(()=>{
+chart = HighCharts.chart("renderId",chartObject)
+                },20)
+            }
+
      }
  }
 
