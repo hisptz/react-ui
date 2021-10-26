@@ -1,15 +1,17 @@
 import i18n from "@dhis2/d2-i18n";
-import {InputField, SingleSelectField, SingleSelectOption, Tab, TabBar, Transfer, TransferOption} from "@dhis2/ui";
+import {CssReset, InputField, SingleSelectField, SingleSelectOption, Tab, TabBar, Transfer} from "@dhis2/ui";
 import {Period} from "@iapps/period-utilities";
-import PeriodIcon from "@material-ui/icons/AccessTime";
 import {filter, find, head, isEmpty} from "lodash";
 import PropTypes from "prop-types";
 import React, {useEffect, useMemo, useState} from "react";
 import {Period as PeriodInterface} from './interfaces/period'
 import {CalendarSpecificPeriodSelectorProps} from "./interfaces/props";
+import PeriodTransferOption
+    from "components/PeriodSelector/components/CalendarSpecificPeriodDimension/components/TransferOption";
 import {CalendarTypes} from "components/PeriodSelector/components/CalendarSpecificPeriodDimension/constants/calendar";
 import {PeriodCategories} from "components/PeriodSelector/components/CalendarSpecificPeriodDimension/constants/period";
 import './styles/styles.css'
+
 
 export default function CalendarSpecificPeriodSelector({
                                                            excludedPeriodTypes,
@@ -110,7 +112,8 @@ export default function CalendarSpecificPeriodSelector({
     ]);
 
     return (
-        <div className="column center align-items-center w-100">
+        <div className="column center align-items-center w-100 m-8">
+            <CssReset/>
             <Transfer
                 selected={selectedPeriods}
                 selectedWidth={"400px"}
@@ -196,9 +199,7 @@ export default function CalendarSpecificPeriodSelector({
                     key: period?.id
                 }))}
                 renderOption={(options: any) => (
-                    <TransferOption
-                        dataTest={`${options?.value?.id}-option`}
-                        icon={<PeriodIcon style={{fontSize: 12}}/>}
+                    <PeriodTransferOption
                         {...options}
                     />
                 )}
