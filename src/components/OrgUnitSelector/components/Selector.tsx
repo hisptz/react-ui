@@ -119,6 +119,7 @@ export default function OrgUnitSelector({
                     >
                         {
                             showUserOptions && <div
+                                data-test="user-options-selector"
                                 style={{background: colors.grey200}}
                                 className="row space-between p-16"
                             >
@@ -178,7 +179,7 @@ export default function OrgUnitSelector({
                         (showLevels || showGroups) &&
                         <div className="row pt-32 w-75 space-between">
                             {
-                                showLevels && <div className="column w-100">
+                                showLevels && <div data-test="levels-selector" className="column w-100">
                                     <MultiSelectField
                                         disabled={disableSelections}
                                         clearable
@@ -197,7 +198,7 @@ export default function OrgUnitSelector({
                                 </div>
                             }
                             {
-                                showGroups && <div className="column w-100">
+                                showGroups && <div data-test="groups-selector" className="column w-100">
                                     <MultiSelectField
                                         disabled={disableSelections}
                                         clearable

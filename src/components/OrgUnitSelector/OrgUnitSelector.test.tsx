@@ -22,4 +22,38 @@ describe("Org Unit Selector", () => {
             }}/>
         </DHIS2Provider>)
     });
+
+    it('should render with user options', function () {
+        mount(<DHIS2Provider>
+            <OrgUnitSelector
+                value={{orgUnits: [], levels: []}}
+                onUpdate={() => {
+                }}
+            />
+        </DHIS2Provider>)
+
+
+    });
+    it('should render with levels', function () {
+        mount(<DHIS2Provider>
+            <OrgUnitSelector
+                value={{orgUnits: [], levels: []}}
+                onUpdate={() => {
+                }}
+                showLevels
+            />
+        </DHIS2Provider>)
+        cy.get("[data-test='levels-selector']").should('exist')
+    });
+    it('should render with groups', function () {
+        mount(<DHIS2Provider>
+            <OrgUnitSelector
+                value={{orgUnits: [], levels: []}}
+                onUpdate={() => {
+                }}
+                showGroups
+            />
+        </DHIS2Provider>)
+        cy.get("[data-test='groups-selector']").should('exist')
+    });
 })
