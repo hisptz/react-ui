@@ -48,7 +48,8 @@
     "@dhis2/analytics": "^20.6.4",
     "@dhis2/app-runtime": "^3.2.3",
     "@dhis2/ui": "^7.4.1",
-    "@iapps/period-utilities": "^1.0.0-beta.4"
+    "@iapps/period-utilities": "^1.0.0-beta.4",
+    "recoil": "^0.4.1"
   },
   "main": "./build/cjs/index.d.js",
   "module": "./build/es/index.d.js",

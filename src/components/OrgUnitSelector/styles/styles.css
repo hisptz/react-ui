@@ -1,0 +1,6 @@
+
+.container-bordered {
+    box-sizing: border-box;
+    border-radius: 4px;
+    border: 1px solid #A0ADBA;
+}
