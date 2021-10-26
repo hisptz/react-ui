@@ -17,15 +17,6 @@ Default.args = {
     calendar: CalendarTypes.GREGORIAN
 }
 
-export const Ethiopia = Template.bind({})
-Ethiopia.args = {
-    onSelect: ({items}) => {
-        console.log(items)
-    },
-    selectedPeriods: [],
-    excludedPeriodTypes: [],
-    calendar: CalendarTypes.ETHIOPIAN
-}
 export default {
     title: 'Components/Period Selector',
     component: PeriodSelector,
