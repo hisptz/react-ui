@@ -5,14 +5,14 @@ import * as _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { getCharObject } from "../../../helper/get-chart-object.helper";
 import { getChartConfiguration } from "components/ChartAnalytics/helper/get-chart-configuration.helper";
-import { ChartConfigurationProps } from "components/ChartAnalytics/interfaces/props";
+import { ChartAnalyticsProps, ChartConfigurationProps } from "components/ChartAnalytics/interfaces/props";
 import { CHART_TYPES } from "core/constant/chart-types.constant";
+import './chart-item-component.css';
 
 export default function ChartItemComponent(
-  analysisData: any,
-  chartHeight: number,
-  analyticsObject: any,
-  chartConfiguration: ChartConfigurationProps
+{  analysisData,
+  chartHeight,
+  chartConfiguration}:ChartAnalyticsProps
 ) {
   const [drawChartConfiguration] = useState(
     chartConfigurationSelector(

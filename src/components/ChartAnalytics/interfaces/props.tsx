@@ -10,6 +10,15 @@ export interface ChartConfigurationProps{
 
 }
 
+export interface ChartAnalyticsProps {
+    analysisData:any,
+    chartHeight:number,
+    chartConfiguration:ChartConfigurationProps
+
+}
+
+
+
 export interface ChartConfiguration {
     renderId: string;
     type: string;

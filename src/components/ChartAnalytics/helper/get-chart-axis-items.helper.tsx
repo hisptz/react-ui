@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { assign, map } from "lodash";
 
 export function getChartAxisItems(analyticsObject:any, axisTypeArray:Array<any>, isCategory:boolean = false) {

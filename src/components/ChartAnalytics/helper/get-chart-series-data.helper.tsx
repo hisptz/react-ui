@@ -1,6 +1,7 @@
 /* eslint-disable max-params */
 import { find, findIndex, map } from "lodash";
 import { getChartSeriesDataLabelsOptions } from "./get-chart-series-data-label-options.helper";
+import { getChartSeriesValue } from "./get-chart-series-value.helper";
 
 export function getChartSeriesData(
   analyticsObject:any,

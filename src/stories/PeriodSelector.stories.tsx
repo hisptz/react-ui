@@ -20,14 +20,6 @@ Default.args = {
 export default {
     title: 'Components/Period Selector',
     component: PeriodSelector,
-    argTypes: {
-        selectedPeriods: {
-            control: 'array'
-        },
-        calendar: {
-            control: 'radio',
-        },
-
-    }
+  
 
 }
