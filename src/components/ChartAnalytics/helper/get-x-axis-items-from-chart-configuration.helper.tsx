@@ -1,5 +1,5 @@
 import { find } from "lodash";
-import { ChartConfiguration } from "../interfaces/props";
+import { ChartConfiguration } from "../types/props";
 
 export function getXAxisItemsFromChartConfiguration(chartConfiguration:ChartConfiguration) {
   return (chartConfiguration ? chartConfiguration.xAxisType : []).map(

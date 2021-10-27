@@ -3,9 +3,9 @@
 import HighCharts from "highcharts";
 import * as _ from "lodash";
 import React, { useEffect, useState } from "react";
-import { getCharObject } from "../../../helper/get-chart-object.helper";
+import { getCharObject } from "../../helper/get-chart-object.helper";
 import { getChartConfiguration } from "components/ChartAnalytics/helper/get-chart-configuration.helper";
-import { ChartAnalyticsProps, ChartConfigurationProps } from "components/ChartAnalytics/interfaces/props";
+import { ChartAnalyticsProps, ChartConfigurationProps } from "components/ChartAnalytics/types/props";
 import { CHART_TYPES } from "core/constant/chart-types.constant";
 import './chart-item-component.css';
 

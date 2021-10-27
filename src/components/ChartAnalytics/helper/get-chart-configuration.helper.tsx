@@ -1,6 +1,6 @@
 /* eslint-disable max-params */
 /* eslint-disable no-prototype-builtins */
-import { ChartConfiguration } from "../interfaces/props";
+import { ChartConfiguration } from "../types/props";
 
 export function getChartConfiguration(
     visualizationSettings:any,

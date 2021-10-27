@@ -1,5 +1,5 @@
 
-import { ChartConfiguration } from '../interfaces/props';
+import { ChartConfiguration } from '../types/props';
 import { getChartAttributeOptions } from './get-chart-attribute-options.helper';
 import { getChartColors } from './get-chart-colors.helper';
 import { getChartCreditsOptions } from './get-chart-credit-options.helper';

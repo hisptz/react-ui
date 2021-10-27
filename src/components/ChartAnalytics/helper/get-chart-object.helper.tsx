@@ -1,6 +1,6 @@
 /* eslint-disable no-case-declarations */
 import { clone } from "lodash";
-import { ChartConfiguration } from "../interfaces/props";
+import { ChartConfiguration } from "../types/props";
 import { getInitialChartObject } from "./get-initial-chart-object.helper";
 import { getSanitizedanalyticsBasedOnConfiguration } from "./get-sanitized-analytics-based-on-chart-configuration.helper";
 import { getSanitizedChartObject } from "./get-sanitized-chart-object.helper";

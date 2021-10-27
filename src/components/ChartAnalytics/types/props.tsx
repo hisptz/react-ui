@@ -1,6 +1,6 @@
 
 
-export interface ChartConfigurationProps{
+export type ChartConfigurationProps={
     layout:{
         column:Array<string>,
         row:Array<string>,
@@ -10,7 +10,7 @@ export interface ChartConfigurationProps{
 
 }
 
-export interface ChartAnalyticsProps {
+export type ChartAnalyticsProps ={
     analysisData:any,
     chartHeight:number,
     chartConfiguration:ChartConfigurationProps
@@ -19,7 +19,7 @@ export interface ChartAnalyticsProps {
 
 
 
-export interface ChartConfiguration {
+export type ChartConfiguration = {
     renderId: string;
     type: string;
     title: string;

@@ -1,8 +1,8 @@
 /* eslint-disable max-params */
 import React, { Suspense } from 'react';
-import { ChartAnalyticsProps, } from '../interfaces/props';
+import { ChartAnalyticsProps, } from '../types/props';
 import '../styles/index.css';
-import ChartItemComponent from './components/chart-item/chart-item-component';
+import ChartItemComponent from './chart-item/chart-item-component';
 
 export default function ChartAnalytics({ analysisData,
   chartHeight = 1000,

@@ -1,0 +1,6 @@
+{
+  "trailingComma": "es5",
+  "useTabs": true,
+  "jsxBracketSameLine": true,
+  "printWidth": 160
+}

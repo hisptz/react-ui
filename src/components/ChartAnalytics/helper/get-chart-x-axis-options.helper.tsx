@@ -1,5 +1,5 @@
 import { assign } from "lodash";
-import { ChartConfiguration } from "../interfaces/props";
+import { ChartConfiguration } from "../types/props";
 
 export function getChartXAxisOptions(xAxisCategories:any[], chartConfiguration:ChartConfiguration) {
   let xAxisOptions = {};

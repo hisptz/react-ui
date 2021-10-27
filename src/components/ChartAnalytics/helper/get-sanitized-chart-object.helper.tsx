@@ -1,5 +1,5 @@
 import { each, filter, find, flatten, intersection, map, some } from "lodash";
-import { ChartConfiguration } from "../interfaces/props";
+import { ChartConfiguration } from "../types/props";
 import { getChartExportingOptions } from "./get-chart-exporting-options.helper";
 
 export function getSanitizedChartObject(chartObject:any, chartConfiguration:ChartConfiguration) {

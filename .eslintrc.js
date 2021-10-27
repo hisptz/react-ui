@@ -1,7 +1,7 @@
 const {config} = require("@dhis2/cli-style");
 
 module.exports = {
-    extends: [config.eslintReact],
+    extends: [config.eslintReact, "plugin:cypress/recommended"],
     settings: {
         "import/resolver": {
             node: {
@@ -9,5 +9,8 @@ module.exports = {
                 moduleDirectory: ['node_modules', 'src/'],
             }
         }
+    },
+    globals: {
+        cy: true
     }
 };
