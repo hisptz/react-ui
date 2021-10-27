@@ -16,7 +16,7 @@ export default function ChartItemComponent(
 ) {
  
   const [chartTypes] = useState(CHART_TYPES);
-  const [currentChartType, setCurrentChartType] = useState("column");
+  const [currentChartType, setCurrentChartType] = useState("pie");
   const [chartUpdate, setChartUpdate] = useState({
     id: "",
     type: "",
@@ -24,14 +24,14 @@ export default function ChartItemComponent(
 
   let chart: any = "";
 
-  const [drawChartConfiguration] = useState(
+  const [drawChartConfiguration,setDrawChartConfiguration] = useState(
     chartConfigurationSelector(
       chartConfiguration.layout,
       currentChartType
     )
   );
 
-  useEffect(() => {
+  useEffect(() => {   
     drawChart(analysisData["_data"], drawChartConfiguration);
   }, [
     analysisData,
@@ -68,6 +68,10 @@ export default function ChartItemComponent(
     event.stopPropagation();
     
     setCurrentChartType(chartType);
+    setDrawChartConfiguration( chartConfigurationSelector(
+      chartConfiguration.layout,
+      chartType
+    ))
     drawChart(analysisData["_data"], {
       ...drawChartConfiguration,
       type: chartType,
