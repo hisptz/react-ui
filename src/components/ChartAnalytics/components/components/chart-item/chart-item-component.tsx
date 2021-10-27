@@ -16,7 +16,7 @@ export default function ChartItemComponent(
 ) {
  
   const [chartTypes] = useState(CHART_TYPES);
-  const [currentChartType, setCurrentChartType] = useState("pie");
+  const [currentChartType, setCurrentChartType] = useState(chartConfiguration.currentChartType);
   const [chartUpdate, setChartUpdate] = useState({
     id: "",
     type: "",

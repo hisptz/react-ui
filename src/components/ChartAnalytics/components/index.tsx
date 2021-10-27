@@ -5,7 +5,7 @@ import '../styles/index.css';
 import ChartItemComponent from './components/chart-item/chart-item-component';
 
 export default function ChartAnalytics({ analysisData,
-  chartHeight = 2000,
+  chartHeight = 1000,
   chartConfiguration}:ChartAnalyticsProps){
     return <div>
          <div className="chart-list">

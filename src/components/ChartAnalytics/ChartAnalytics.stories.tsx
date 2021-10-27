@@ -6,8 +6,8 @@ import { ChartAnalyticsProps } from "./interfaces/props";
 
 const Template :Story<ChartAnalyticsProps> =(args) => <ChartAnalytics {...args} />
 
-export const Dat = Template.bind({});
-Dat.args = {
+export const Charts = Template.bind({});
+Charts.args = {
     analysisData: {
         "_data": {
           "headers": [
@@ -112,7 +112,7 @@ Dat.args = {
               "ou"
             ]
           },
-        currentChartType:''
+        currentChartType:'column'
     }
 
 }
