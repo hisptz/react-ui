@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { CalendarSpecificPeriodSelectorProps } from "./interfaces/props";
-import './styles/styles.css';
+import 'styles/styles.css';
 declare function CalendarSpecificPeriodSelector({ excludedPeriodTypes, calendar, onSelect, selectedPeriods, excludeFixedPeriods, excludeRelativePeriods }: CalendarSpecificPeriodSelectorProps): JSX.Element;
 declare namespace CalendarSpecificPeriodSelector {
     var propTypes: {

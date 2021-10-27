@@ -1,6 +1,6 @@
 import { Story } from "@storybook/react";
 import PeriodSelector from "components/PeriodSelector/index";
-import { PeriodSelectorProps } from "components/PeriodSelector/interfaces/props";
+import { PeriodSelectorProps } from "components/PeriodSelector/types/props";
 export declare const Default: Story<PeriodSelectorProps>;
 export declare const Ethiopian: Story<PeriodSelectorProps>;
 export declare const ExcludedFixedPeriodTypes: Story<PeriodSelectorProps>;
