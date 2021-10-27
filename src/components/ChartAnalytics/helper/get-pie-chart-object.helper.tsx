@@ -2,6 +2,7 @@ import { assign, clone } from "lodash";
 import { getChartAxisItems } from "./get-chart-axis-items.helper";
 import { getChartSeries } from "./get-chart-series.helper";
 import { getDrilldownedChartSeries } from "./get-drilldowned-chart-series.helper";
+import { getSortedChartSeries } from "./get-sorted-chart-series.helper";
 
 export function getPieChartObject(
   initialChartObject:any,

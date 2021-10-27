@@ -6,7 +6,7 @@ export interface ChartConfigurationProps{
         row:Array<string>,
         filter:Array<string>
     },
-    currentChartType:string
+    currentChartType?:string
 
 }
 

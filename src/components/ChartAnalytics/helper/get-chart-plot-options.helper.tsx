@@ -10,7 +10,7 @@ export function getPlotOptions(chartConfiguration:any) {
       point: {
         events: {
           click: function () {
-            const clickedChart:any = (window["clickedCharts"] || {})[this.id];
+            const clickedChart = (window["clickedCharts"] || {})[this.id];
             const currentColor:any = this.color;
 
             if (!clickedChart) {

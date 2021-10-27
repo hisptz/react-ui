@@ -14,12 +14,7 @@ export default function ChartItemComponent(
   chartHeight,
   chartConfiguration}:ChartAnalyticsProps
 ) {
-  const [drawChartConfiguration] = useState(
-    chartConfigurationSelector(
-      chartConfiguration.layout,
-      chartConfiguration.currentChartType
-    )
-  );
+ 
   const [chartTypes] = useState(CHART_TYPES);
   const [currentChartType, setCurrentChartType] = useState("column");
   const [chartUpdate, setChartUpdate] = useState({
@@ -29,12 +24,19 @@ export default function ChartItemComponent(
 
   let chart: any = "";
 
+  const [drawChartConfiguration] = useState(
+    chartConfigurationSelector(
+      chartConfiguration.layout,
+      currentChartType
+    )
+  );
+
   useEffect(() => {
     drawChart(analysisData["_data"], drawChartConfiguration);
   }, [
     analysisData,
     chartConfiguration.layout,
-    chartConfiguration.currentChartType,
+    currentChartType,
   ]);
 
   function drawChart(analyticsObject: any, drawChartConfiguration: any) {
@@ -64,9 +66,10 @@ export default function ChartItemComponent(
 
   function updateChartType(chartType: any, event: any) {
     event.stopPropagation();
+    
     setCurrentChartType(chartType);
     drawChart(analysisData["_data"], {
-      ...chartConfiguration,
+      ...drawChartConfiguration,
       type: chartType,
     });
 

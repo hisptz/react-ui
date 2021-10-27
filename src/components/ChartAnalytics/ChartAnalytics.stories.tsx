@@ -112,81 +112,12 @@ Dat.args = {
               "ou"
             ]
           },
-        currentChartType:'column'
+        currentChartType:''
     }
 
 }
-/**
- * layout: 
- * 
 
-currentChartType:'Column'
-
-
-
-analysisData:
-
-
-
-
-
-
-
-
-
-
- * 
- */
 export default {
     title: 'Components/Chart Analytics',
     components:ChartAnalytics,
-    argTypes:{
-        analysisData:{
-            control:'any'
-        },
-        chartConfiguration:{
-            control:'radio'
-        }
-
-    }
-    
 }
-
-/**
- * dataChartConfiguration:
- * 
- * {
-  "renderId": "render-id-unique",
-  "type": "column",
-  "title": "undefined",
-  "subtitle": "",
-  "hideTitle": true,
-  "hideSubtitle": false,
-  "showData": true,
-  "hideEmptyRows": true,
-  "hideLegend": true,
-  "cumulativeValues": false,
-  "targetLineLabel": "",
-  "baseLineLabel": "",
-  "legendAlign": "bottom",
-  "categoryRotation": 0,
-  "reverseLegend": false,
-  "showLabels": true,
-  "axes": [],
-  "rangeAxisMaxValue": 90,
-  "sortOrder": 0,
-  "percentStackedValues": true,
-  "multiAxisTypes": [],
-  "xAxisType": [
-    "pe"
-  ],
-  "yAxisType": [
-    "dx"
-  ],
-  "zAxisType": [
-    "ou"
-  ],
-  "dataSelections": []
-}
- * 
- */
