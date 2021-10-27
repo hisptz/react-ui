@@ -5,3 +5,5 @@ src/locales
 build
 /cypress.env.json
 *.log
+cypress/screenshots
+cypress/videos

@@ -10,7 +10,15 @@
   "component": {
     "testFiles": "**/*.test.{js,ts,jsx,tsx}",
     "componentFolder": "src",
-    "baseUrl": "http://localhost:8080"
+    "baseUrl": "http://localhost:8080",
+    "env": {
+      "dhis2Username": "admin",
+      "dhis2Password": "district",
+      "dhis2BaseUrl": "http://localhost:8080",
+      "dhis2ApiVersion": "36"
+    },
+    "viewportHeight": 763,
+    "viewportWidth": 1366
   },
   "experimentalInteractiveRunEvents": true,
   "testFiles": "**/*.feature"
