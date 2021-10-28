@@ -4,7 +4,7 @@ import { ChartAnalyticsProps } from "./types/props";
 import ChartAnalytics from ".";
 
 
-const Template :Story<ChartAnalyticsProps> =(args) => <ChartAnalytics {...args} />
+const Template: Story<ChartAnalyticsProps> =(args) =>( <ChartAnalytics {...args} />)
 
 export const Default = Template.bind({});
 Default.args = {
@@ -384,5 +384,5 @@ LinkedChart.args = {
 
 export default {
     title: 'Components/Chart Analytics',
-    components:ChartAnalytics,
+    component:ChartAnalytics,
 }
