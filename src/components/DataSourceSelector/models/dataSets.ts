@@ -1,7 +1,7 @@
 import { filter as _filter, flattenDeep } from "lodash";
 import DataSource from "components/DataSourceSelector/models/dataSource";
 import { DataSourceResponse } from "components/DataSourceSelector/types";
-import { updatePager } from "utils";
+import { updatePager } from "core/utils";
 
 export default class DataSets extends DataSource {
   groupKey: string = "dataSets.id";
