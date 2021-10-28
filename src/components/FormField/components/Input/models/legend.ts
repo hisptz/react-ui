@@ -1,5 +1,5 @@
 import { cloneDeep } from "lodash";
-import { uid } from "utils";
+import { uid } from "core/utils";
 
 export default class Legend {
 	id: string;

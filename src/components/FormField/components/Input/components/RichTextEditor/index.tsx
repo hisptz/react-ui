@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 import { Field } from "@dhis2/ui";
 import JoditEditor from "jodit-react";
 import PropTypes from "prop-types";

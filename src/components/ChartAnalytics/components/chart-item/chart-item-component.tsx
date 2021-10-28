@@ -2,12 +2,13 @@
 /* eslint-disable no-unused-vars */
 import HighCharts from "highcharts";
 import * as _ from "lodash";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { getCharObject } from "../../helper/get-chart-object.helper";
 import { getChartConfiguration } from "components/ChartAnalytics/helper/get-chart-configuration.helper";
 import { ChartAnalyticsProps, ChartConfigurationProps } from "components/ChartAnalytics/types/props";
 import { CHART_TYPES } from "core/constant/chart-types.constant";
 import './chart-item-component.css';
+import { uid } from "core/utils";
 
 export default function ChartItemComponent(
 {  analysisData,
@@ -38,6 +39,7 @@ export default function ChartItemComponent(
     chartConfiguration.layout,
     currentChartType,
   ]);
+  const renderId:any = useMemo(() => uid(), [])
 
   function drawChart(analyticsObject: any, drawChartConfiguration: any) {
     if (drawChartConfiguration && analyticsObject) {
@@ -47,7 +49,7 @@ export default function ChartItemComponent(
       );
       if (chartObject) {
         setTimeout(() => {
-          chart = HighCharts.chart("renderId", chartObject);
+          chart = HighCharts.chart(renderId, chartObject);
         }, 20);
       }
     }
@@ -86,7 +88,7 @@ export default function ChartItemComponent(
   return (
     <div className="chart-item-container" style={{ width: "100%" }}>
       <div
-        id="renderId"        
+        id={renderId}        
         className="chart-block"
         style={{ height: "calc(" + chartHeight + "px-20px", width: "100%" }}
       ></div>
