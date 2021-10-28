@@ -1,0 +1,66 @@
+/*Padding*/
+.pt-8 {
+    padding-top: 8px;
+}
+
+.pb-8 {
+    padding-bottom: 8px;
+}
+
+.p-16 {
+    padding: 16px;
+}
+
+.pt-32 {
+    padding-top: 32px;
+}
+
+
+/*Margin*/
+.m-8 {
+    margin: 8px;
+}
+
+/*Width*/
+.w-100 {
+    width: 100%;
+}
+
+.w-75 {
+    width: 75%;
+}
+
+/*Height*/
+
+.h-100 {
+    height: 100%;
+}
+
+/*Alignment*/
+.align-items-center {
+    align-items: center;
+}
+
+.align-items-end {
+    align-items: end;
+}
+
+.center {
+    justify-content: center;
+}
+
+.space-between {
+    justify-content: space-between;
+}
+
+
+/*Display*/
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+}

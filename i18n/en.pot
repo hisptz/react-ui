@@ -5,8 +5,17 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-10-22T10:28:33.738Z\n"
-"PO-Revision-Date: 2021-10-22T10:28:33.738Z\n"
+"POT-Creation-Date: 2021-10-26T10:24:52.581Z\n"
+"PO-Revision-Date: 2021-10-26T10:24:52.581Z\n"
 
-msgid "Hello World!"
-msgstr "Hello World!"
+msgid "Relative Periods"
+msgstr "Relative Periods"
+
+msgid "Fixed Periods"
+msgstr "Fixed Periods"
+
+msgid "Period Type"
+msgstr "Period Type"
+
+msgid "Year"
+msgstr "Year"
