@@ -1,29 +1,23 @@
 import { SingleSelectField, SingleSelectOption } from "@dhis2/ui";
 import { find, isEmpty } from "lodash";
-import PropTypes from "prop-types";
 import React, { useMemo } from "react";
-import useDataGroups from "./hooks/useDataGroups";
+import useDataGroups from "components/DataSourceSelector/components/GroupSelector/hooks/useDataGroups";
+import { GroupSelectorProps } from "components/DataSourceSelector/types";
 
-export default function GroupSelector({
-  selectedDataType,
-  onSelect,
-  selectedGroup,
-}) {
+export default function GroupSelector({ selectedDataType, onSelect, selectedGroup }: GroupSelectorProps) {
   const { loading, groups, error } = useDataGroups(selectedDataType);
   const disabled = useMemo(
-    () =>
-      isEmpty(selectedDataType) ||
-      (isEmpty(selectedDataType.groupResource) &&
-        selectedDataType.type !== "customFunction"),
+    // eslint-disable-next-line react/prop-types
+    () => isEmpty(selectedDataType) || (isEmpty(selectedDataType.groupResource) && selectedDataType.type !== "customFunction"),
     [selectedDataType.groupResource, groups, loading]
   );
 
   return (
-    <div className="pb-8">
+    <div className="pb-8 w-100">
       <SingleSelectField
         clearable
         selected={selectedGroup?.id}
-        onChange={({ selected: newValue }) => {
+        onChange={({ selected: newValue }: { selected: string }) => {
           const selectedGroup = find(groups, ["id", newValue]);
           onSelect(selectedGroup);
         }}
@@ -31,22 +25,11 @@ export default function GroupSelector({
         validationText={error?.message}
         loading={loading}
         disabled={disabled}
-        label={
-          selectedDataType.groupResource === "programs"
-            ? "Select Program"
-            : "Select Group"
-        }
-      >
-        {groups?.map(({ displayName, id }) => {
+        label={selectedDataType.groupResource === "programs" ? "Select Program" : "Select Group"}>
+        {groups?.map(({ displayName, id }: { displayName: string; id: string }) => {
           return <SingleSelectOption key={id} value={id} label={displayName} />;
         })}
       </SingleSelectField>
     </div>
   );
 }
-
-GroupSelector.propTypes = {
-  selectedDataType: PropTypes.object,
-  selectedGroup: PropTypes.object,
-  onSelect: PropTypes.func,
-};

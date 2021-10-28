@@ -2,21 +2,13 @@ import { Field, Transfer } from "@dhis2/ui";
 import { debounce, find, findIndex, uniqBy } from "lodash";
 import PropTypes from "prop-types";
 import React, { useMemo, useState } from "react";
-import DataSourceSearch from "../Search";
-import useDataSources from "./hooks/useDataSources";
+import useDataSources from "components/DataSourceSelector/components/DataSource/hooks/useDataSources";
+import DataSourceSearch from "components/DataSourceSelector/components/Search";
+import { DataSourceProps } from "components/DataSourceSelector/types";
 
-export default function DataSource({
-  selectedDataSourceType,
-  selectedGroup,
-  onChange,
-  selected,
-  disabled,
-}) {
-  const [searchKeyword, setSearchKeyword] = useState();
-  const { loading, data, error, nexPage, search } = useDataSources(
-    selectedDataSourceType,
-    selectedGroup
-  );
+export default function DataSource({ selectedDataSourceType, selectedGroup, onChange, selected, disabled, maxSelections }: DataSourceProps) {
+  const [searchKeyword, setSearchKeyword] = useState<string | undefined>();
+  const { loading, data, error, nexPage, search } = useDataSources(selectedDataSourceType, selectedGroup);
 
   const dataSources = useMemo(() => {
     const loadedData = data || [];
@@ -33,7 +25,7 @@ export default function DataSource({
 
   const onSearchChange = debounce(search, 1000, { maxWait: 1500 });
 
-  const setSearchChange = (keyword) => {
+  const setSearchChange = (keyword: string) => {
     setSearchKeyword(keyword);
     onSearchChange(keyword);
   };
@@ -41,9 +33,10 @@ export default function DataSource({
   return (
     <Field error={error} validationText={error?.message}>
       <Transfer
+        maxSelections={typeof maxSelections === "number" ? maxSelections : null}
         onEndReached={onEndReached}
         loading={loading}
-        onChange={(value) => {
+        onChange={(value: { selected: Array<any> }) => {
           onChange(
             value.selected.map((id) => {
               const selectedDataSource = find(dataSources, ["id", id]);
@@ -62,12 +55,7 @@ export default function DataSource({
             disabled: findIndex(disabled, (val) => val === source.id) >= 0,
           })) || []
         }
-        leftHeader={
-          <DataSourceSearch
-            setSearchKeyword={setSearchChange}
-            keyword={searchKeyword}
-          />
-        }
+        leftHeader={<DataSourceSearch setSearchKeyword={setSearchChange} keyword={searchKeyword} />}
       />
     </Field>
   );
