@@ -8,6 +8,7 @@
     "build": "d2-app-scripts build",
     "start": "d2-app-scripts start",
     "test": "cypress run-ct",
+    "cy:run":"cypress run",
     "deploy": "d2-app-scripts deploy",
     "lint": "yarn d2-style check",
     "lint:staged": "yarn lint --staged",

@@ -1,13 +1,13 @@
 import { Story } from "@storybook/react";
 import React from 'react';
-import ChartAnalytics from "./components";
 import { ChartAnalyticsProps } from "./types/props";
+import ChartAnalytics from ".";
 
 
 const Template :Story<ChartAnalyticsProps> =(args) => <ChartAnalytics {...args} />
 
-export const Chart = Template.bind({});
-Chart.args = {
+export const Default = Template.bind({});
+Default.args = {
     analysisData: {
         "_data": {
           "headers": [
@@ -377,7 +377,7 @@ LinkedChart.args = {
               "ou"
             ]
           },
-        currentChartType:'column'
+        currentChartType:'line'
     }
 
 }

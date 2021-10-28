@@ -86,12 +86,13 @@ export default function ChartItemComponent(
   return (
     <div className="chart-item-container" style={{ width: "100%" }}>
       <div
-        id="renderId"
+        id="renderId"        
         className="chart-block"
         style={{ height: "calc(" + chartHeight + "px-20px", width: "100%" }}
       ></div>
 
-      <ul className="chart-type-list animated fadeInRight">
+      <ul 
+                  id="dataImg" className="chart-type-list animated fadeInRight">
         {chartTypes?.map((chartType, chartTypePosition) => {
           return (
             <li key={"chart-type" + chartTypePosition}>
