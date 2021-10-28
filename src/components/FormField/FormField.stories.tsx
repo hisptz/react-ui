@@ -7,8 +7,8 @@ import { Input } from "components/FormField/index";
 
 const Template: Story<InputProps> = (args) => <Input {...args} />;
 
-export const NormalInputs = Template.bind({});
-NormalInputs.args = {
+export const NativeInputs = Template.bind({});
+NativeInputs.args = {
   valueType: VALUE_TYPES.TEXT.name,
   input: {
     value: "Text field",

@@ -1,15 +1,7 @@
-import { Provider } from "@dhis2/app-runtime";
 import { Story } from "@storybook/react";
 import React from "react";
 import OrgUnitSelector from "components/OrgUnitSelector/index";
 import { OrgUnitSelectorProps } from "components/OrgUnitSelector/types";
-
-const appConfig = {
-  baseUrl: process.env.STORYBOOK_DHIS2_BASE_URL ?? "http://localhost:8080",
-  apiVersion: parseInt(process.env.STORYBOOK_DHIS2_API_VERSION ?? "") ?? 36,
-};
-
-const DHIS2Provider = ({ children }: { children: any }) => <Provider config={appConfig}>{children}</Provider>;
 
 const Template: Story<OrgUnitSelectorProps> = (args) => <OrgUnitSelector {...args} />;
 
@@ -72,11 +64,4 @@ WithAllOptions.args = {
 export default {
   title: "Components/Organisation Unit Selector",
   component: OrgUnitSelector,
-  decorators: [
-    (OrgUnitStory: any) => (
-      <DHIS2Provider>
-        <OrgUnitStory />
-      </DHIS2Provider>
-    ),
-  ],
 };
