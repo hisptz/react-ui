@@ -10,7 +10,8 @@
 .p-16 {
     padding: 16px;
 }
-.pt-32{
+
+.pt-32 {
     padding-top: 32px;
 }
 
@@ -24,19 +25,24 @@
 .w-100 {
     width: 100%;
 }
-.w-75{
+
+.w-75 {
     width: 75%;
 }
 
 /*Height*/
 
-.h-100{
+.h-100 {
     height: 100%;
 }
 
 /*Alignment*/
 .align-items-center {
     align-items: center;
+}
+
+.align-items-end {
+    align-items: end;
 }
 
 .center {
