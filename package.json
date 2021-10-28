@@ -8,6 +8,7 @@
     "build": "d2-app-scripts build",
     "start": "d2-app-scripts start",
     "test": "cypress run-ct",
+    "cy:run":"cypress run",
     "test:record": "cypress run-ct --record --key 724de287-3ccd-4481-997a-b6d9cf2c9af0",
     "deploy": "d2-app-scripts deploy",
     "lint": "yarn d2-style check",
@@ -52,6 +53,7 @@
     "@dhis2/app-runtime": "^3.2.3",
     "@dhis2/ui": "^7.4.1",
     "@iapps/period-utilities": "^1.0.0-beta.4",
+    "highcharts": "^9.3.0",
     "jodit-react": "^1.1.10",
     "react-color": "^2.19.3",
     "recoil": "^0.4.1"
