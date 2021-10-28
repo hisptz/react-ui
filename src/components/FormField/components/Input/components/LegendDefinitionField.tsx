@@ -1,9 +1,10 @@
+/* eslint-disable import/no-unresolved */
 import { Field, Input, Popover } from "@dhis2/ui";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { SketchPicker } from "react-color";
 import { FinalFormFieldInput } from "components/FormField/components/Input/types";
-import { uid } from "utils";
+import { uid } from "core/utils";
 import "../styles/style.css";
 
 type ColorPickerProps = {
