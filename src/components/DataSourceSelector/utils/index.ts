@@ -1,11 +1,11 @@
 import { compact, find, isArray, isEmpty, map } from "lodash";
-import { DATA_SOURCES } from "components/DataSourceSelector/constants";
-import CustomFunctions from "components/DataSourceSelector/models/customFunctions";
-import DataElements from "components/DataSourceSelector/models/dataElements";
-import DataSets from "components/DataSourceSelector/models/dataSets";
-import DataSourceModel from "components/DataSourceSelector/models/dataSource";
-import NativeDataSource from "components/DataSourceSelector/models/nativeDataSource";
-import { DataSourceType } from "components/DataSourceSelector/types";
+import { DATA_SOURCES } from "../constants";
+import CustomFunctions from "../models/customFunctions";
+import DataElements from "../models/dataElements";
+import DataSets from "../models/dataSets";
+import DataSourceModel from "../models/dataSource";
+import NativeDataSource from "../models/nativeDataSource";
+import { DataSourceType } from "../types";
 
 export function getDataSourcesList(dataSourcesConfig?: Array<string>): Array<DataSourceModel> {
   if (isArray(dataSourcesConfig) && !isEmpty(dataSourcesConfig)) {

@@ -2,11 +2,10 @@ import i18n from "@dhis2/d2-i18n";
 import { Box, CenteredContent, CheckboxField, CircularLoader, colors, MultiSelectField, MultiSelectOption, OrganisationUnitTree } from "@dhis2/ui";
 import ErrorIcon from "@material-ui/icons/Error";
 import { cloneDeep, find, isEmpty, remove } from "lodash";
-import PropTypes from "prop-types";
 import React, { Fragment, useMemo } from "react";
 import { useOrgUnitLevelsAndGroups, useOrgUnitsRoot } from "../hooks";
-import { OrgUnitSelectorProps } from "components/OrgUnitSelector/types";
-import "styles/styles.css";
+import { OrgUnitSelectorProps } from "../types";
+import "../../../styles/styles.css";
 import "../styles/styles.css";
 
 export default function OrgUnitSelector({ value, onUpdate, showLevels, showUserOptions, showGroups, singleSelection }: OrgUnitSelectorProps) {
@@ -195,11 +194,3 @@ export default function OrgUnitSelector({ value, onUpdate, showLevels, showUserO
     </Box>
   );
 }
-
-OrgUnitSelector.propTypes = {
-  value: PropTypes.object.isRequired,
-  showGroups: PropTypes.bool,
-  showLevels: PropTypes.bool,
-  showUserOptions: PropTypes.bool,
-  onUpdate: PropTypes.func,
-};

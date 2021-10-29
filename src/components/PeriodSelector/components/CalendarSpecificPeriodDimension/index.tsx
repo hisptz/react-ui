@@ -2,13 +2,12 @@ import i18n from "@dhis2/d2-i18n";
 import { CssReset, InputField, SingleSelectField, SingleSelectOption, Tab, TabBar, Transfer } from "@dhis2/ui";
 import { Period } from "@iapps/period-utilities";
 import { filter, find, head, isEmpty } from "lodash";
-import PropTypes from "prop-types";
 import React, { useEffect, useMemo, useState } from "react";
+import PeriodTransferOption from "./components/TransferOption";
+import { CalendarTypes } from "./constants/calendar";
+import { PeriodCategories } from "./constants/period";
 import { Period as PeriodInterface } from "./interfaces/period";
 import { CalendarSpecificPeriodSelectorProps } from "./interfaces/props";
-import PeriodTransferOption from "components/PeriodSelector/components/CalendarSpecificPeriodDimension/components/TransferOption";
-import { CalendarTypes } from "components/PeriodSelector/components/CalendarSpecificPeriodDimension/constants/calendar";
-import { PeriodCategories } from "components/PeriodSelector/components/CalendarSpecificPeriodDimension/constants/period";
 import "styles/styles.css";
 
 export default function CalendarSpecificPeriodSelector({
@@ -98,8 +97,7 @@ export default function CalendarSpecificPeriodSelector({
                     setSelectedPeriodCategory(periodCategory);
                   }}
                   selected={selectedPeriodCategory?.key === periodCategory?.key}
-                  key={`${periodCategory?.key}-tab`}
-                >
+                  key={`${periodCategory?.key}-tab`}>
                   {periodCategory?.name}
                 </Tab>
               ))}
@@ -111,8 +109,7 @@ export default function CalendarSpecificPeriodSelector({
                   dense
                   selected={selectedRelativePeriodType}
                   onChange={({ selected }: { selected: string }) => setSelectedRelativePeriodType(selected)}
-                  label={i18n.t("Period Type")}
-                >
+                  label={i18n.t("Period Type")}>
                   {relativePeriodTypes?.map((periodType) => (
                     <SingleSelectOption dataTest={`${periodType?.id}-type`} key={periodType?.id} label={periodType?.name} value={periodType?.id} />
                   ))}
@@ -126,8 +123,7 @@ export default function CalendarSpecificPeriodSelector({
                     dataTest={"fixed-period-type-selector"}
                     selected={selectedFixedPeriodType}
                     onChange={({ selected }: { selected: string }) => setSelectedFixedPeriodType(selected)}
-                    label={i18n.t("Period Type")}
-                  >
+                    label={i18n.t("Period Type")}>
                     {fixedPeriodTypes?.map((periodType) => (
                       <SingleSelectOption dataTest={`${periodType?.id}-type`} key={periodType?.id} label={periodType?.name} value={periodType?.id} />
                     ))}
@@ -148,25 +144,20 @@ export default function CalendarSpecificPeriodSelector({
             )}
           </div>
         }
-        options={[...periods, ...selectedPeriods]?.map((period) => ({
+        options={[...periods, ...(selectedPeriods ?? [])]?.map((period) => ({
           label: period?.name,
           value: period,
           key: period?.id,
         }))}
         renderOption={(options: any) => <PeriodTransferOption {...options} />}
         onChange={({ selected }: { selected: Array<PeriodInterface> }) => {
-          onSelect({
-            items: selected,
-          });
+          if (onSelect) {
+            onSelect({
+              items: selected,
+            });
+          }
         }}
       />
     </div>
   );
 }
-
-CalendarSpecificPeriodSelector.propTypes = {
-  calendar: PropTypes.oneOf(Object.values(CalendarTypes)).isRequired,
-  selectedPeriods: PropTypes.array.isRequired,
-  onSelect: PropTypes.func.isRequired,
-  excludedPeriodTypes: PropTypes.arrayOf(PropTypes.string),
-};

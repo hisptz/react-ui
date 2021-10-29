@@ -1,7 +1,7 @@
 import { CssReset } from "@dhis2/ui";
 import React from "react";
 import Selector from "./components/Selector";
-import { OrgUnitSelectorProps } from "components/OrgUnitSelector/types";
+import { OrgUnitSelectorProps } from "./types";
 
 export default function OrgUnitSelector(props: OrgUnitSelectorProps) {
   return (

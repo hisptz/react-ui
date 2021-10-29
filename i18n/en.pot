@@ -5,8 +5,47 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-10-26T10:24:52.581Z\n"
-"PO-Revision-Date: 2021-10-26T10:24:52.581Z\n"
+"POT-Creation-Date: 2021-10-29T14:20:19.156Z\n"
+"PO-Revision-Date: 2021-10-29T14:20:19.156Z\n"
+
+msgid "Loading ....."
+msgstr "Loading ....."
+
+msgid "Delete"
+msgstr "Delete"
+
+msgid "Add Item"
+msgstr "Add Item"
+
+msgid "Select Organisation Unit(s)"
+msgstr "Select Organisation Unit(s)"
+
+msgid "Cancel"
+msgstr "Cancel"
+
+msgid "Update"
+msgstr "Update"
+
+msgid "Select Period"
+msgstr "Select Period"
+
+msgid "User organisation unit"
+msgstr "User organisation unit"
+
+msgid "User sub-units"
+msgstr "User sub-units"
+
+msgid "User sub-x2-units"
+msgstr "User sub-x2-units"
+
+msgid "Clear"
+msgstr "Clear"
+
+msgid "Select Level(s)"
+msgstr "Select Level(s)"
+
+msgid "Select Group(s)"
+msgstr "Select Group(s)"
 
 msgid "Relative Periods"
 msgstr "Relative Periods"
