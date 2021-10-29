@@ -12,6 +12,14 @@ Default.args = {
     console.log(value);
   },
 };
+export const SingleSelection = Template.bind({});
+SingleSelection.args = {
+  value: { orgUnits: [] },
+  onUpdate: (value) => {
+    console.log(value);
+  },
+  singleSelection: true,
+};
 
 export const WithUserOptions = Template.bind({});
 WithUserOptions.args = {

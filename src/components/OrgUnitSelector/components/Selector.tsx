@@ -1,5 +1,6 @@
 import i18n from "@dhis2/d2-i18n";
 import { Box, CenteredContent, CheckboxField, CircularLoader, colors, MultiSelectField, MultiSelectOption, OrganisationUnitTree } from "@dhis2/ui";
+import ErrorIcon from "@material-ui/icons/Error";
 import { cloneDeep, find, isEmpty, remove } from "lodash";
 import PropTypes from "prop-types";
 import React, { Fragment, useMemo } from "react";
@@ -8,7 +9,7 @@ import { OrgUnitSelectorProps } from "components/OrgUnitSelector/types";
 import "styles/styles.css";
 import "../styles/styles.css";
 
-export default function OrgUnitSelector({ value, onUpdate, showLevels, showUserOptions, showGroups }: OrgUnitSelectorProps) {
+export default function OrgUnitSelector({ value, onUpdate, showLevels, showUserOptions, showGroups, singleSelection }: OrgUnitSelectorProps) {
   const { roots, error, loading } = useOrgUnitsRoot();
   const { orgUnits: selectedOrgUnits = [], levels: selectedLevels, groups: selectedGroups, userOrgUnit, userSubUnit, userSubX2Unit } = value || {};
   const { groups, levels, error: levelsAndGroupsError, loading: levelsAndGroupsLoading } = useOrgUnitLevelsAndGroups();
@@ -18,64 +19,87 @@ export default function OrgUnitSelector({ value, onUpdate, showLevels, showUserO
   }
 
   const onSelectOrgUnit = (orgUnit: any) => {
-    onUpdate({
-      ...value,
-      orgUnits: [...selectedOrgUnits, orgUnit],
-    });
+    if (onUpdate) {
+      onUpdate({
+        ...value,
+        orgUnits: [...selectedOrgUnits, orgUnit],
+      });
+    }
   };
 
   const onDeselectOrgUnit = (orgUnit: { id: any | string }) => {
     const updateValue = cloneDeep(selectedOrgUnits);
     remove(updateValue, ["id", orgUnit.id]);
-    onUpdate({
-      ...value,
-      orgUnits: updateValue,
-    });
+    if (onUpdate) {
+      onUpdate({
+        ...value,
+        orgUnits: updateValue,
+      });
+    }
   };
   const onLevelSelect = ({ selected }: { selected: Array<string> }) => {
-    onUpdate({
-      ...value,
-      levels: selected,
-    });
+    if (onUpdate) {
+      onUpdate({
+        ...value,
+        levels: selected,
+      });
+    }
   };
 
   const onGroupSelect = ({ selected }: { selected: Array<string> }) => {
-    onUpdate({
-      ...value,
-      groups: selected,
-    });
+    if (onUpdate) {
+      onUpdate({
+        ...value,
+        groups: selected,
+      });
+    }
   };
 
   const onUserOrUnitChange = ({ checked }: { checked: boolean }) => {
-    onUpdate({
-      ...value,
-      userOrgUnit: checked,
-      orgUnits: [],
-      levels: [],
-      groups: [],
-    });
+    if (onUpdate) {
+      onUpdate({
+        ...value,
+        userOrgUnit: checked,
+        orgUnits: [],
+        levels: [],
+        groups: [],
+      });
+    }
   };
   const onUserSubUnitsChange = ({ checked }: { checked: boolean }) => {
-    onUpdate({
-      ...value,
-      userSubUnit: checked,
-      orgUnits: [],
-      levels: [],
-      groups: [],
-    });
+    if (onUpdate) {
+      onUpdate({
+        ...value,
+        userSubUnit: checked,
+        orgUnits: [],
+        levels: [],
+        groups: [],
+      });
+    }
   };
 
   const onUserSubX2Units = ({ checked }: { checked: boolean }) => {
-    onUpdate({
-      ...value,
-      userSubX2Unit: checked,
-      orgUnits: [],
-      levels: [],
-      groups: [],
-    });
+    if (onUpdate) {
+      onUpdate({
+        ...value,
+        userSubX2Unit: checked,
+        orgUnits: [],
+        levels: [],
+        groups: [],
+      });
+    }
   };
 
   const disableSelections = useMemo(() => userOrgUnit || userSubX2Unit || userSubUnit, [userOrgUnit, userSubUnit, userSubX2Unit]);
+
+  if (error) {
+    return (
+      <div className="column center align-items-center" style={{ height: 400, width: 500 }}>
+        <ErrorIcon style={{ color: colors.grey700 }} />
+        <p style={{ color: colors.grey700 }}>{error.message ?? "Something went wrong"}</p>
+      </div>
+    );
+  }
 
   return (
     <Box minHeight="400px" maxWidth={"700px"} minWidth={"500px"}>
@@ -113,7 +137,7 @@ export default function OrgUnitSelector({ value, onUpdate, showLevels, showUserO
                         onSelectOrgUnit(orgUnit);
                       }
                     }}
-                    singleSelection
+                    singleSelection={singleSelection}
                   />
                 </div>
               )}

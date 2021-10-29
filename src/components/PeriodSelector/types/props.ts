@@ -3,8 +3,8 @@ import { Period } from "components/PeriodSelector/components/CalendarSpecificPer
 export type PeriodSelectorProps = {
   excludedPeriodTypes?: Array<string>;
   calendar?: string;
-  selectedPeriods: Array<Period>;
-  onSelect: ({ items }: { items: Array<Period> }) => void;
+  selectedPeriods?: Array<Period>;
+  onSelect?: ({ items }: { items: Array<Period> }) => void;
   excludeRelativePeriods?: boolean;
   excludeFixedPeriods?: boolean;
 };
