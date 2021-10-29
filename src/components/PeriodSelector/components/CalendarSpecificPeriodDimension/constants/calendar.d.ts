@@ -1,4 +1,4 @@
 export declare const CalendarTypes: {
-  ETHIOPIAN: string;
-  GREGORIAN: string;
+    ETHIOPIAN: string;
+    GREGORIAN: string;
 };
