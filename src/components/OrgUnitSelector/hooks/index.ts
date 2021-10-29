@@ -10,13 +10,13 @@ export function useOrgUnitsRoot(): { roots?: Array<any>; loading: boolean; error
 
   useEffect(() => {
     async function getOrgUnits() {
+      setLoading(true);
       try {
-        setLoading(true);
         setRoots(await apiFetchOrganisationUnitRoots(engine));
-        setLoading(false);
       } catch (e) {
         setError(e);
       }
+      setLoading(false);
     }
 
     getOrgUnits();

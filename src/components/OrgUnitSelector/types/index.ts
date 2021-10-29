@@ -1,5 +1,5 @@
 export type OrgUnitSelectorValue = {
-  orgUnits: Array<any>;
+  orgUnits?: Array<any>;
   levels?: Array<string>;
   groups?: Array<string>;
   userOrgUnit?: boolean;
@@ -8,9 +8,10 @@ export type OrgUnitSelectorValue = {
 };
 
 export type OrgUnitSelectorProps = {
-  value: OrgUnitSelectorValue;
-  onUpdate: (value: OrgUnitSelectorValue) => void;
+  value?: OrgUnitSelectorValue;
+  onUpdate?: (value: OrgUnitSelectorValue) => void;
   showLevels?: boolean;
   showGroups?: boolean;
   showUserOptions?: boolean;
+  singleSelection?: boolean;
 };
