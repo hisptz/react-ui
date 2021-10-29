@@ -14,6 +14,7 @@ jobs:
           node-version: 15
       - run: yarn
       - run: yarn build
+        continue-on-error: true
       - run: zip -r ${{env.GITHUB_REF}}.zip build
       - uses: ncipollo/release-action@v1
         with:
