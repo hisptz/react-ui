@@ -46,3 +46,7 @@
 .MuiPaper-root.MuiStepper-root.MuiStepper-horizontal.MuiPaper-elevation0 {
     background: transparent;
 }
+
+#stepper{
+    color:yellow
+}

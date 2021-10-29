@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { Button, ButtonStrip } from "@dhis2/ui";
 import { Step, StepLabel, Stepper } from "@material-ui/core";
-// import { Steps } from "intro.js-react";
 import { findIndex } from "lodash";
 import React, { Suspense, useMemo, useState, useLayoutEffect } from "react";
 import { useHistory } from "react-router-dom";
@@ -32,6 +31,7 @@ export default function ConfigurationStepper({
   const [saving, setSaving] = useState(false);
   const [activeStep, setActiveStep] = useState(stepsManagement[0]);
   const Component = activeStep.component;
+
 
   const onNextStep = () => {
     if (!hasNextStep) {
@@ -95,3 +95,4 @@ export default function ConfigurationStepper({
     </Suspense>
   );
 }
+
