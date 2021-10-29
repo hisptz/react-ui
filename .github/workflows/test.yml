@@ -1,0 +1,24 @@
+name: Test
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  test:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Check out code 🛎
+        uses: actions/checkout@v2
+
+      - name: Run E2E tests 🧪
+        uses: cypress-io/github-action@v2
+
+      - name: Run Component tests 🧪
+        uses: cypress-io/github-action@v2
+        with:
+          # we have already installed everything
+          install: true
+          # to run component tests we need to use "cypress run-ct"
+          command: yarn cypress run-ct --record --key {{secrets.CYPRESS_RECORD_KEY}}

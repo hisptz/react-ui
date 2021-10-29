@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: Build
         uses: actions/checkout@v1
-        run: |
+      - run: |
           yarn
           yarn predeploy
 
