@@ -78,7 +78,7 @@ export default function OrgUnitSelector({ value, onUpdate, showLevels, showUserO
   const disableSelections = useMemo(() => userOrgUnit || userSubX2Unit || userSubUnit, [userOrgUnit, userSubUnit, userSubX2Unit]);
 
   return (
-    <Box minHeight="400px" maxWidth={"700px"}>
+    <Box minHeight="400px" maxWidth={"700px"} minWidth={"500px"}>
       {levelsAndGroupsLoading || loading ? (
         <div className="column align-items-center center w-100 h-100">
           <CircularLoader small />
@@ -137,8 +137,7 @@ export default function OrgUnitSelector({ value, onUpdate, showLevels, showUserO
                     onChange={onLevelSelect}
                     selected={selectedLevels}
                     clearText={i18n.t("Clear")}
-                    label={i18n.t("Select Level(s)")}
-                  >
+                    label={i18n.t("Select Level(s)")}>
                     {levels?.map(({ displayName, id }: { displayName: string; id: string }) => (
                       <MultiSelectOption label={displayName} value={id} key={id} />
                     ))}
@@ -157,8 +156,7 @@ export default function OrgUnitSelector({ value, onUpdate, showLevels, showUserO
                     selected={selectedGroups}
                     dataTest={"select-facility-group"}
                     clearText={i18n.t("Clear")}
-                    label={i18n.t("Select Group(s)")}
-                  >
+                    label={i18n.t("Select Group(s)")}>
                     {/* eslint-disable react/no-unused-prop-types */}
                     {groups?.map(({ displayName, id }: { displayName: string; id: string }) => (
                       <MultiSelectOption label={displayName} value={id} key={id} />
