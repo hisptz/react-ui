@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { FinalFormFieldInput } from "components/FormField/components/Input/types";
+import { FinalFormFieldInput } from "../../types";
 declare function RichTextEditor({ name, label, value, onChange, ...props }: FinalFormFieldInput): JSX.Element;
 declare namespace RichTextEditor {
     var propTypes: {

@@ -1,6 +1,6 @@
 import { Story } from "@storybook/react";
-import { InputProps } from "components/FormField/components/Input/types";
-import { Input } from "components/FormField/index";
+import { InputProps } from "./components/Input/types";
+import { Input } from "./index";
 export declare const NativeInputs: Story<InputProps>;
 export declare const LegendDefinitionInput: Story<InputProps>;
 export declare const LegendMinMax: Story<InputProps>;

@@ -1,5 +1,5 @@
-import DataSource from "components/DataSourceSelector/models/dataSource";
-import { DataSourceResponse } from "components/DataSourceSelector/types";
+import { DataSourceResponse } from "../types";
+import DataSource from "./dataSource";
 export default class DataSets extends DataSource {
     groupKey: string;
     groupResource: string;

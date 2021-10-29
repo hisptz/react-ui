@@ -1,4 +1,4 @@
-import { FormFieldProps } from "components/FormField/types";
+import { FormFieldProps } from "../../../types";
 export default class FormFieldModel {
     id: string | undefined;
     name: string;

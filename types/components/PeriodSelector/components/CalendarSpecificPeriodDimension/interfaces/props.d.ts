@@ -2,10 +2,10 @@ import { Period } from "./period";
 export interface CalendarSpecificPeriodSelectorProps {
     excludedPeriodTypes: Array<string>;
     calendar: string;
-    onSelect: ({ items }: {
+    onSelect?: ({ items }: {
         items: Array<Period>;
     }) => void;
-    selectedPeriods: Array<Period>;
+    selectedPeriods?: Array<Period>;
     excludeRelativePeriods?: boolean;
     excludeFixedPeriods?: boolean;
 }

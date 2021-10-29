@@ -1,6 +1,6 @@
 import { Story } from "@storybook/react";
-import OrgUnitSelector from "components/OrgUnitSelector/index";
-import { OrgUnitSelectorProps } from "components/OrgUnitSelector/types";
+import { OrgUnitSelectorProps } from "./types";
+import OrgUnitSelector from "./index";
 export declare const Default: Story<OrgUnitSelectorProps>;
 export declare const SingleSelection: Story<OrgUnitSelectorProps>;
 export declare const WithUserOptions: Story<OrgUnitSelectorProps>;

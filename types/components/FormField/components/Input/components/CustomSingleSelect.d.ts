@@ -1,4 +1,4 @@
-import { OnChange } from "components/FormField/components/Input/types";
+import { OnChange } from "../types";
 declare type CustomSingleSelectProps = {
     options: Array<{
         label: string;
