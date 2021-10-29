@@ -1,102 +1,107 @@
 {
-  "name": "@hisptz/react-ui",
-  "homepage": "https://hisptz.github.io/react-ui",
-  "version": "1.0.0-alpha-02",
-  "description": "This project was bootstrapped with [DHIS2 Application Platform](https://github.com/dhis2/app-platform).",
-  "license": "BSD-3-Clause",
-  "scripts": {
-    "build": "d2-app-scripts build",
-    "start": "d2-app-scripts start",
-    "test": "cypress run-ct",
-    "cy:run": "cypress run",
-    "test:record": "cypress run-ct --record --key 724de287-3ccd-4481-997a-b6d9cf2c9af0",
-    "deploy": "d2-app-scripts deploy",
-    "lint": "yarn d2-style check",
-    "lint:staged": "yarn lint --staged",
-    "format": "yarn d2-style apply",
-    "format:staged": "yarn format --staged",
-    "sb": "start-storybook -p 6006",
-    "build-storybook": "build-storybook",
-    "cy:open": "yarn cypress open-ct",
-    "ts:gen": "tsc --emitDeclarationOnly --declaration --allowJs",
-    "predeploy": "yarn build-storybook",
-    "deploy-storybook": "gh-pages -d storybook-static"
-  },
-  "devDependencies": {
-    "@cypress/react": "^5.10.1",
-    "@cypress/webpack-dev-server": "^1.7.0",
-    "@dhis2/cli-app-scripts": "^8.2.3",
-    "@dhis2/cli-style": "^9.3.1",
-    "@dhis2/cli-utils-cypress": "^8.0.4",
-    "@dhis2/cypress-commands": "^8.0.4",
-    "@dhis2/cypress-plugins": "^8.0.4",
-    "@storybook/addon-actions": "^6.3.12",
-    "@storybook/addon-essentials": "^6.3.12",
-    "@storybook/addon-links": "^6.3.12",
-    "@storybook/addons": "^6.3.12",
-    "@storybook/node-logger": "^6.3.12",
-    "@storybook/preset-create-react-app": "^3.2.0",
-    "@storybook/react": "^6.3.12",
-    "@storybook/theming": "^6.3.12",
-    "@types/jest": "^27.0.2",
-    "@types/lodash": "^4.14.176",
-    "@types/node": "^16.11.3",
-    "@types/react": "16.14.0",
-    "@types/react-color": "^3.0.6",
-    "@types/react-dom": "^17.0.10",
-    "cypress": "^8.6.0",
-    "eslint-plugin-cypress": "^2.12.1",
-    "gh-pages": "^3.2.3",
-    "prettier": "^2.4.1",
-    "react": "16.14.0",
-    "react-scripts": "^4.0.3",
-    "typescript": "^4.4.4",
-    "webpack-dev-server": "^4.3.1"
-  },
-  "dependencies": {
-    "@dhis2/analytics": "^20.6.4",
-    "@dhis2/app-runtime": "^3.2.3",
-    "@dhis2/d2-i18n": "^1.1.0",
-    "@dhis2/ui": "^7.4.1",
-    "@iapps/period-utilities": "^1.0.0-beta.4",
-    "highcharts": "^9.3.0",
-    "highcharts-react-official": "^3.1.0",
-    "jodit-react": "^1.1.10",
-    "react-color": "^2.19.3"
-  },
-  "main": "./build/cjs/index.d.js",
-  "module": "./build/es/index.d.js",
-  "exports": {
-    "import": "./build/es/index.d.js",
-    "require": "./build/cjs/index.d.js"
-  },
-  "peerDependencies": {
-    "cypress": "^8.6.0"
-  },
-  "eslintConfig": {
-    "overrides": [
-      {
-        "files": [
-          "**/*.stories.*"
-        ],
-        "rules": {
-          "import/no-anonymous-default-export": "off"
-        }
-      }
-    ]
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/hisptz/react-ui.git"
-  },
-  "keywords": [
-    "react",
-    "dhis2",
-    "dhis2-ui",
-    "hisptz"
-  ],
-  "author": "HISP Tanzania",
-  "bugs": {
-    "url": "https://github.com/hisptz/react-ui/issues"
-  }
+    "name": "@hisptz/react-ui",
+    "homepage": "https://hisptz.github.io/react-ui",
+    "version": "1.0.0-alpha-02",
+    "description": "This project was bootstrapped with [DHIS2 Application Platform](https://github.com/dhis2/app-platform).",
+    "license": "BSD-3-Clause",
+    "scripts": {
+        "build": "d2-app-scripts build",
+        "start": "d2-app-scripts start",
+        "test": "cypress run-ct",
+        "cy:run": "cypress run",
+        "test:record": "cypress run-ct --record --key 724de287-3ccd-4481-997a-b6d9cf2c9af0",
+        "deploy": "d2-app-scripts deploy",
+        "lint": "yarn d2-style check",
+        "lint:staged": "yarn lint --staged",
+        "format": "yarn d2-style apply",
+        "format:staged": "yarn format --staged",
+        "sb": "start-storybook -p 6006",
+        "build-storybook": "build-storybook",
+        "cy:open": "yarn cypress open-ct",
+        "ts:gen": "tsc --emitDeclarationOnly --declaration --allowJs --outDir types",
+        "predeploy": "yarn build-storybook",
+        "deploy-storybook": "gh-pages -d storybook-static"
+    },
+    "devDependencies": {
+        "@cypress/react": "^5.10.1",
+        "@cypress/webpack-dev-server": "^1.7.0",
+        "@dhis2/cli-app-scripts": "^8.2.3",
+        "@dhis2/cli-style": "^9.3.1",
+        "@dhis2/cli-utils-cypress": "^8.0.4",
+        "@dhis2/cypress-commands": "^8.0.4",
+        "@dhis2/cypress-plugins": "^8.0.4",
+        "@storybook/addon-actions": "^6.3.12",
+        "@storybook/addon-essentials": "^6.3.12",
+        "@storybook/addon-links": "^6.3.12",
+        "@storybook/addons": "^6.3.12",
+        "@storybook/node-logger": "^6.3.12",
+        "@storybook/preset-create-react-app": "^3.2.0",
+        "@storybook/react": "^6.3.12",
+        "@storybook/theming": "^6.3.12",
+        "@types/jest": "^27.0.2",
+        "@types/lodash": "^4.14.176",
+        "@types/node": "^16.11.3",
+        "@types/react": "16.14.0",
+        "@types/react-color": "^3.0.6",
+        "@types/react-dom": "^17.0.10",
+        "cypress": "^8.6.0",
+        "eslint-plugin-cypress": "^2.12.1",
+        "gh-pages": "^3.2.3",
+        "prettier": "^2.4.1",
+        "react": "16.14.0",
+        "react-scripts": "^4.0.3",
+        "typescript": "^4.4.4",
+        "webpack-dev-server": "^4.3.1",
+        "@dhis2/analytics": "^20.6.4",
+        "@dhis2/app-runtime": "^3.2.3",
+        "@dhis2/d2-i18n": "^1.1.0",
+        "@dhis2/ui": "^7.4.1",
+        "@iapps/period-utilities": "^1.0.0-beta.4"
+    },
+    "dependencies": {
+        "highcharts": "^9.3.0",
+        "highcharts-react-official": "^3.1.0",
+        "jodit-react": "^1.1.10",
+        "react-color": "^2.19.3"
+    },
+    "main": "./build/cjs/index.js",
+    "module": "./build/es/index.js",
+    "exports": {
+        "import": "./build/es/index.js",
+        "require": "./build/cjs/index.js"
+    },
+    "peerDependencies": {
+        "@dhis2/analytics": "20.x",
+        "@dhis2/app-runtime": "3.x",
+        "@dhis2/d2-i18n": "^1.x",
+        "@dhis2/ui": "7.x",
+        "@iapps/period-utilities": "1.x",
+        "react": "16.x"
+    },
+    "eslintConfig": {
+        "overrides": [
+            {
+                "files": [
+                    "**/*.stories.*"
+                ],
+                "rules": {
+                    "import/no-anonymous-default-export": "off"
+                }
+            }
+        ]
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/hisptz/react-ui.git"
+    },
+    "keywords": [
+        "react",
+        "dhis2",
+        "dhis2-ui",
+        "hisptz"
+    ],
+    "author": "HISP Tanzania",
+    "bugs": {
+        "url": "https://github.com/hisptz/react-ui/issues"
+    }
 }

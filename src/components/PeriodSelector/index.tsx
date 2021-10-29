@@ -1,7 +1,7 @@
 import React from "react";
+import CalendarSpecificPeriodSelector from "./components/CalendarSpecificPeriodDimension";
 import { CalendarTypes } from "./components/CalendarSpecificPeriodDimension/constants/calendar";
 import { PeriodSelectorProps } from "./types/props";
-import CalendarSpecificPeriodSelector from "components/PeriodSelector/components/CalendarSpecificPeriodDimension";
 
 export default function PeriodSelector({
   excludedPeriodTypes,

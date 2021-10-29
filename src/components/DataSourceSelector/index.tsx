@@ -1,6 +1,5 @@
 import { Chip, CssReset } from "@dhis2/ui";
 import { head } from "lodash";
-import PropTypes from "prop-types";
 import React, { useMemo, useState } from "react";
 import DataSourceModel from "./models/dataSource";
 import { getDataSourcesList } from "./utils";
@@ -58,7 +57,3 @@ export default function DataSourceSelector({ onSubmit, disabled, dataSources, ma
     </div>
   );
 }
-DataSourceSelector.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-  disabled: PropTypes.array,
-};
