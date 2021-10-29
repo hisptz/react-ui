@@ -4,7 +4,6 @@
   "version": "1.0.0-alpha-01",
   "description": "This project was bootstrapped with [DHIS2 Application Platform](https://github.com/dhis2/app-platform).",
   "license": "BSD-3-Clause",
-  "private": true,
   "scripts": {
     "build": "d2-app-scripts build",
     "start": "d2-app-scripts start",
