@@ -8,16 +8,16 @@ export declare const ExcludedRelativePeriodTypes: Story<PeriodSelectorProps>;
 export declare const ExcludedPeriodTypes: Story<PeriodSelectorProps>;
 export declare const SelectedPeriods: Story<PeriodSelectorProps>;
 declare const _default: {
-  title: string;
-  component: typeof PeriodSelector;
-  argTypes: {
-    selectedPeriods: {
-      control: string;
+    title: string;
+    component: typeof PeriodSelector;
+    argTypes: {
+        selectedPeriods: {
+            control: string;
+        };
+        calendar: {
+            control: string;
+            options: string[];
+        };
     };
-    calendar: {
-      control: string;
-      options: string[];
-    };
-  };
 };
 export default _default;

@@ -1,8 +1,8 @@
 {
-  "name": "react-ui",
+  "name": "@hisptz/react-ui",
   "homepage": "https://hisptz.github.io/react-ui",
   "version": "1.0.0-alpha",
-  "description": "",
+  "description": "This project was bootstrapped with [DHIS2 Application Platform](https://github.com/dhis2/app-platform).",
   "license": "BSD-3-Clause",
   "private": true,
   "scripts": {
@@ -85,5 +85,19 @@
         }
       }
     ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hisptz/react-ui.git"
+  },
+  "keywords": [
+    "react",
+    "dhis2",
+    "dhis2-ui",
+    "hisptz"
+  ],
+  "author": "HISP Tanzania",
+  "bugs": {
+    "url": "https://github.com/hisptz/react-ui/issues"
   }
 }
