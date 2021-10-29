@@ -55,17 +55,18 @@
         "@dhis2/analytics": "^20.6.4",
         "@dhis2/app-runtime": "^3.2.3",
         "@dhis2/d2-i18n": "^1.1.0",
-        "@dhis2/ui": "^7.4.1",
-        "@iapps/period-utilities": "^1.0.0-beta.4"
+        "@dhis2/ui": "^7.4.1"
     },
     "dependencies": {
         "highcharts": "^9.3.0",
         "highcharts-react-official": "^3.1.0",
         "jodit-react": "^1.1.10",
-        "react-color": "^2.19.3"
+        "react-color": "^2.19.3",
+        "@iapps/period-utilities": "^1.0.0-beta.4"
     },
     "main": "./build/cjs/index.js",
     "module": "./build/es/index.js",
+    "types": "type/index.d.ts",
     "exports": {
         "import": "./build/es/index.js",
         "require": "./build/cjs/index.js"

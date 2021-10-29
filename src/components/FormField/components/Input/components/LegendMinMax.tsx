@@ -1,8 +1,8 @@
 import { Field, InputField } from "@dhis2/ui";
 import PropTypes from "prop-types";
 import React, { useMemo } from "react";
-import Legend from "components/FormField/components/Input/models/legend";
-import { FinalFormFieldInput, LegendDefinition } from "components/FormField/components/Input/types";
+import Legend from "../models/legend";
+import { FinalFormFieldInput, LegendDefinition } from "../types";
 
 type LegendMinMaxProps = FinalFormFieldInput & {
   legendDefinition: LegendDefinition;

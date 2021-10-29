@@ -1,4 +1,4 @@
-import { LegendDefinition, OptionSet } from "components/FormField/components/Input/types";
+import { LegendDefinition, OptionSet } from "../components/Input/types";
 
 export type FormFieldProps = {
   valueType: string;

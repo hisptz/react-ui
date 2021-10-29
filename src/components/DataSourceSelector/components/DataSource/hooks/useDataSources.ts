@@ -1,8 +1,8 @@
 import { useDataEngine } from "@dhis2/app-runtime";
 import { isArray } from "lodash";
 import { useCallback, useEffect, useState } from "react";
-import DataSource from "components/DataSourceSelector/models/dataSource";
-import { DataSourceResponse } from "components/DataSourceSelector/types";
+import DataSource from "../../../models/dataSource";
+import { DataSourceResponse } from "../../../types";
 
 export default function useDataSources(selectedDataSourceType: DataSource, selectedGroup?: { id: string }) {
   const [page, setPage] = useState(1);

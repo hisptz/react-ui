@@ -1,5 +1,5 @@
+import { DataSourceType } from "../types";
 import DataSource from "./dataSource";
-import { DataSourceType } from "components/DataSourceSelector/types";
 /* eslint-disable no-unused-vars */
 export default class NativeDataSource extends DataSource {
   resource: string;

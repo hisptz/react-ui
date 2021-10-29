@@ -1,6 +1,6 @@
 import { SingleSelectField, SingleSelectOption } from "@dhis2/ui";
 import React from "react";
-import { OnChange } from "components/FormField/components/Input/types";
+import { OnChange } from "../types";
 
 type CustomSingleSelectProps = {
   options: Array<{ label: string; value: any }>;

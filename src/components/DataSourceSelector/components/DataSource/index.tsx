@@ -2,9 +2,9 @@ import { Field, Transfer } from "@dhis2/ui";
 import { debounce, find, findIndex, uniqBy } from "lodash";
 import PropTypes from "prop-types";
 import React, { useMemo, useState } from "react";
-import useDataSources from "components/DataSourceSelector/components/DataSource/hooks/useDataSources";
-import DataSourceSearch from "components/DataSourceSelector/components/Search";
-import { DataSourceProps } from "components/DataSourceSelector/types";
+import { DataSourceProps } from "../../types";
+import DataSourceSearch from "../Search";
+import useDataSources from "./hooks/useDataSources";
 
 export default function DataSource({ selectedDataSourceType, selectedGroup, onChange, selected, disabled, maxSelections }: DataSourceProps) {
   const [searchKeyword, setSearchKeyword] = useState<string | undefined>();

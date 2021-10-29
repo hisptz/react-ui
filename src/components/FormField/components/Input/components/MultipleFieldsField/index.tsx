@@ -5,10 +5,10 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import { remove, set } from "lodash";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
+import { FormFieldProps } from "../../../../types";
 import Input from "../../index";
 import FormFieldModel from "../../models/field";
-import { FinalFormFieldInput } from "components/FormField/components/Input/types";
-import { FormFieldProps } from "components/FormField/types";
+import { FinalFormFieldInput } from "../../types";
 type MultipleFieldsFieldProps = FinalFormFieldInput & {
   multipleField: FormFieldProps;
   initialFieldCount?: number;

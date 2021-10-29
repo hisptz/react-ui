@@ -1,6 +1,6 @@
 import { filter as _filter, flattenDeep } from "lodash";
-import DataSource from "components/DataSourceSelector/models/dataSource";
-import { DataSourceResponse } from "components/DataSourceSelector/types";
+import { DataSourceResponse } from "../types";
+import DataSource from "./dataSource";
 import { updatePager } from "core/utils";
 
 export default class DataSets extends DataSource {

@@ -1,9 +1,9 @@
 import { Story } from "@storybook/react";
 import React from "react";
-import FormFieldModel from "components/FormField/components/Input/models/field";
-import { InputProps } from "components/FormField/components/Input/types";
-import { VALUE_TYPES } from "components/FormField/constants";
-import { Input } from "components/FormField/index";
+import FormFieldModel from "./components/Input/models/field";
+import { InputProps } from "./components/Input/types";
+import { VALUE_TYPES } from "./constants";
+import { Input } from "./index";
 
 const Template: Story<InputProps> = (args) => <Input {...args} />;
 

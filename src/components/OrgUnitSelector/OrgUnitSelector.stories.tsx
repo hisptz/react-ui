@@ -1,7 +1,7 @@
 import { Story } from "@storybook/react";
 import React from "react";
-import OrgUnitSelector from "components/OrgUnitSelector/index";
-import { OrgUnitSelectorProps } from "components/OrgUnitSelector/types";
+import { OrgUnitSelectorProps } from "./types";
+import OrgUnitSelector from "./index";
 
 const Template: Story<OrgUnitSelectorProps> = (args) => <OrgUnitSelector {...args} />;
 

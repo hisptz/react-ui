@@ -1,7 +1,7 @@
 import { filter as _filter, flattenDeep, fromPairs, isArray, isEmpty } from "lodash";
 import { DATASTORE_FUNCTIONS_ENDPOINT } from "../constants";
-import DataSource from "components/DataSourceSelector/models/dataSource";
-import { DataSourceResponse } from "components/DataSourceSelector/types";
+import { DataSourceResponse } from "../types";
+import DataSource from "./dataSource";
 
 const keysQuery = {
   keys: {

@@ -1,4 +1,4 @@
-import { DataSourceType } from "components/DataSourceSelector/types";
+import { DataSourceType } from "../types";
 
 export const DATA_SOURCES: Array<DataSourceType> = [
   {

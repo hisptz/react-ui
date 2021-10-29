@@ -3,7 +3,7 @@ import { Field, Input, Popover } from "@dhis2/ui";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { SketchPicker } from "react-color";
-import { FinalFormFieldInput } from "components/FormField/components/Input/types";
+import { FinalFormFieldInput } from "../../Input/types";
 import { uid } from "core/utils";
 import "../styles/style.css";
 
@@ -71,8 +71,7 @@ export default function LegendDefinitionField({ name, label, value, onChange }: 
           id={`color-selector-btn-${name}`}
           onClick={(e) => setReference(e.currentTarget)}
           style={{ background: color, borderColor: "#D5DDE5" }}
-          className={"legend-color"}
-        >
+          className={"legend-color"}>
           {color}
         </div>
         <div className={"legend-input"}>

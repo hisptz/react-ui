@@ -1,4 +1,4 @@
-import { DataSourceResponse } from "components/DataSourceSelector/types";
+import { DataSourceResponse } from "../types";
 /* eslint-disable no-unused-vars */
 export default class DataSource {
   label: string;
