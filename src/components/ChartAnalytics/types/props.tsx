@@ -14,7 +14,6 @@ export type ChartAnalyticsProps ={
     analysisData:any,
     chartHeight:number,
     chartConfiguration:ChartConfigurationProps
-
 }
 
 
