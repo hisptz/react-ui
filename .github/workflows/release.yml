@@ -1,0 +1,23 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - '*'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 15
+      - run: yarn
+      - run: yarn build
+      - run: zip -r ${{env.GITHUB_REF}}.zip build
+      - uses: ncipollo/release-action@v1
+        with:
+          artifacts: "${{env.GITHUB_REF}}.zip"
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+
