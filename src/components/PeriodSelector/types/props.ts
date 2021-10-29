@@ -1,4 +1,4 @@
-import { Period } from "components/PeriodSelector/components/CalendarSpecificPeriodDimension/interfaces/period";
+import { Period } from "../components/CalendarSpecificPeriodDimension/interfaces/period";
 
 export type PeriodSelectorProps = {
   excludedPeriodTypes?: Array<string>;

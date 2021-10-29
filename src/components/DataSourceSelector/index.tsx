@@ -1,13 +1,13 @@
 import { Chip, CssReset } from "@dhis2/ui";
 import { head } from "lodash";
 import React, { useMemo, useState } from "react";
+import DataSource from "./components/DataSource";
+import GroupSelector from "./components/GroupSelector";
+import { DATA_SOURCES } from "./constants";
 import DataSourceModel from "./models/dataSource";
+import NativeDataSource from "./models/nativeDataSource";
+import { DataSourceSelectorProps } from "./types";
 import { getDataSourcesList } from "./utils";
-import DataSource from "components/DataSourceSelector/components/DataSource";
-import GroupSelector from "components/DataSourceSelector/components/GroupSelector";
-import { DATA_SOURCES } from "components/DataSourceSelector/constants";
-import NativeDataSource from "components/DataSourceSelector/models/nativeDataSource";
-import { DataSourceSelectorProps } from "components/DataSourceSelector/types";
 import "styles/styles.css";
 export default function DataSourceSelector({ onSubmit, disabled, dataSources, maxSelections }: DataSourceSelectorProps) {
   const dataSourcesList = useMemo(() => getDataSourcesList(dataSources), [dataSources]);

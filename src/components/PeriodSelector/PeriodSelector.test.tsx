@@ -1,7 +1,7 @@
 import { mount } from "@cypress/react";
 import React from "react";
-import { Period } from "components/PeriodSelector/components/CalendarSpecificPeriodDimension/interfaces/period";
-import PeriodSelector from "components/PeriodSelector/index";
+import { Period } from "./components/CalendarSpecificPeriodDimension/interfaces/period";
+import PeriodSelector from "./index";
 
 describe("Period Selector Tests", () => {
   it("Renders", () => {

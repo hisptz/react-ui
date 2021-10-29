@@ -1,14 +1,14 @@
 import { CssReset, InputField, TextAreaField } from "@dhis2/ui";
 import { map } from "lodash";
 import React, { useMemo } from "react";
-import CustomCheckboxField from "components/FormField/components/Input/components/CustomCheckboxField";
-import CustomSingleSelect from "components/FormField/components/Input/components/CustomSingleSelect";
-import LegendDefinitionField from "components/FormField/components/Input/components/LegendDefinitionField";
-import LegendMinMax from "components/FormField/components/Input/components/LegendMinMax";
-import MultipleFieldsField from "components/FormField/components/Input/components/MultipleFieldsField";
-import RichTextEditor from "components/FormField/components/Input/components/RichTextEditor";
-import { InputProps, Option } from "components/FormField/components/Input/types";
-import { VALUE_TYPES } from "components/FormField/constants";
+import { VALUE_TYPES } from "../../constants";
+import CustomCheckboxField from "./components/CustomCheckboxField";
+import CustomSingleSelect from "./components/CustomSingleSelect";
+import LegendDefinitionField from "./components/LegendDefinitionField";
+import LegendMinMax from "./components/LegendMinMax";
+import MultipleFieldsField from "./components/MultipleFieldsField";
+import RichTextEditor from "./components/RichTextEditor";
+import { InputProps, Option } from "./types";
 import "./styles/style.css";
 
 export default function Input({ input, valueType, optionSet, ...props }: InputProps) {

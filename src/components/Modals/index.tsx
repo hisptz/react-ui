@@ -1,4 +1,4 @@
-import OrgUnitSelectorModal from "components/Modals/components/OrgUnitSelectorModal";
-import PeriodSelectorModal from "components/Modals/components/PeriodSelectorModal";
+import OrgUnitSelectorModal from "./components/OrgUnitSelectorModal";
+import PeriodSelectorModal from "./components/PeriodSelectorModal";
 
 export { PeriodSelectorModal, OrgUnitSelectorModal };

@@ -1,9 +1,9 @@
 import { Story } from "@storybook/react";
 import React from "react";
+import { OrgUnitSelectorProps } from "../OrgUnitSelector/types";
 import OrgUnitSelectorModal from "./components/OrgUnitSelectorModal";
 import PeriodSelectorModal from "./components/PeriodSelectorModal";
 import { ModalProps } from "components/Modals/types";
-import { OrgUnitSelectorProps } from "components/OrgUnitSelector/types/index";
 
 const PeriodTemplate: Story<ModalProps> = (args) => <PeriodSelectorModal {...args} />;
 const OrgUnitTemplate: Story<ModalProps & OrgUnitSelectorProps> = (args) => <OrgUnitSelectorModal {...args} />;

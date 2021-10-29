@@ -1,6 +1,6 @@
 import { useDataEngine } from "@dhis2/app-runtime";
 import { useEffect, useState } from "react";
-import DataSource from "components/DataSourceSelector/models/dataSource";
+import DataSource from "../../../models/dataSource";
 
 export default function useDataGroups(initialSelectedDataType: DataSource): { groups: Array<any>; loading: boolean; error: any } {
   const [data, setData] = useState<Array<any> | undefined>();

@@ -1,7 +1,7 @@
 import { mount } from "@cypress/react";
 import { Provider } from "@dhis2/app-runtime";
 import React from "react";
-import DataSourceSelector from "components/DataSourceSelector/index";
+import DataSourceSelector from "./index";
 
 const appConfig = {
   baseUrl: Cypress.env("dhis2BaseUrl"),

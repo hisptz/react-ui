@@ -1,4 +1,4 @@
-import DataSource from "components/DataSourceSelector/models/dataSource";
+import DataSource from "../models/dataSource";
 
 type dataSource = "indicator" | "programIndicator" | "dataSet" | "dataElement" | "customFunction";
 export type DataSourceType = {

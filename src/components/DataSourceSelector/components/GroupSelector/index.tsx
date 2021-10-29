@@ -1,8 +1,8 @@
 import { SingleSelectField, SingleSelectOption } from "@dhis2/ui";
 import { find, isEmpty } from "lodash";
 import React, { useMemo } from "react";
-import useDataGroups from "components/DataSourceSelector/components/GroupSelector/hooks/useDataGroups";
-import { GroupSelectorProps } from "components/DataSourceSelector/types";
+import { GroupSelectorProps } from "../../types";
+import useDataGroups from "./hooks/useDataGroups";
 
 export default function GroupSelector({ selectedDataType, onSelect, selectedGroup }: GroupSelectorProps) {
   const { loading, groups, error } = useDataGroups(selectedDataType);
