@@ -1,0 +1,21 @@
+name: Deploy Documentation
+
+on:
+  deployment
+
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Build
+        uses: actions/checkout@v1
+      - run: |
+          yarn
+          yarn predeploy
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./storybook-static

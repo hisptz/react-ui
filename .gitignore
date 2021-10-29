@@ -5,3 +5,10 @@ src/locales
 build
 /cypress.env.json
 *.log
+cypress/screenshots
+cypress/videos
+.env.example
+*.env
+.env.development
+.env.production
+/storybook-static/
