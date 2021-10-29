@@ -1,9 +1,11 @@
 name: Publish to NPM
 
 on:
-  release:
+  workflow_run:
+    workflows:
+      - "Release"
     types:
-      - released
+      - completed
 
 jobs:
   publish:

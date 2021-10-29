@@ -1,0 +1,36 @@
+### Example user template template
+### Example user template
+
+# IntelliJ project files
+.idea
+*.iml
+out
+gen
+.github
+.hooks
+.storybook
+.vscode
+cypress
+src
+storybook-static
+
+/.cypress-cucumber-preprocessorrc.json
+/.eslintrc.js
+
+/.gitignore
+
+/.prettierrc.json
+
+/cypress.env.example.json
+
+/cypress.json
+
+/d2.config.js
+
+/README.md
+
+/tsconfig.json
+
+/yarn.lock
+
+/yarn-error.log
