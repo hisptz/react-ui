@@ -1,0 +1,48 @@
+.MuiSvgIcon-root {
+    width: 8px;
+}
+
+.MuiSvgIcon-root.MuiStepIcon-root.MuiStepIcon-active {
+    color: #FFFFFF;
+    text-decoration-color: #00695c;
+}
+
+.MuiSvgIcon-root.MuiStepIcon-root.MuiStepIcon-active > text {
+    fill: #00695c !important;
+    font-weight: bold;
+}
+
+.MuiSvgIcon-root.MuiStepIcon-root > text {
+    font-weight: bold;
+}
+
+.MuiStepIcon-text.active {
+
+}
+
+.MuiSvgIcon-root.MuiStepIcon-root {
+    width: 32px;
+    height: 32px;
+}
+
+.MuiTypography-root.MuiStepLabel-label.MuiStepLabel-active.MuiTypography-body2.MuiTypography-displayBlock {
+    color: #FFFFFF;
+}
+
+.MuiTypography-root.MuiStepLabel-label.MuiTypography-body2.MuiTypography-displayBlock {
+    font-weight: bold;
+}
+
+.MuiStep-root.MuiStep-horizontal {
+    margin: 0 8px;
+    padding: 8px;
+    border-radius: 8px;
+}
+
+.MuiStepConnector-line.MuiStepConnector-lineHorizontal {
+    border-width: 2px;
+}
+
+.MuiPaper-root.MuiStepper-root.MuiStepper-horizontal.MuiPaper-elevation0 {
+    background: transparent;
+}
