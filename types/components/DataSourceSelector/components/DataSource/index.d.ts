@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { DataSourceProps } from "components/DataSourceSelector/types";
+import { DataSourceProps } from "../../types";
 declare function DataSource({ selectedDataSourceType, selectedGroup, onChange, selected, disabled, maxSelections }: DataSourceProps): JSX.Element;
 declare namespace DataSource {
     var propTypes: {

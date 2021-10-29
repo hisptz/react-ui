@@ -1,4 +1,4 @@
-import { Pager } from "core/interfaces/pager";
+import { Pager } from "../interfaces/pager";
 
 export function uid() {
   const letters = "abcdefghijklmnopqrstuvwxyz" + "ABCDEFGHIJKLMNOPQRSTUVWXYZ";

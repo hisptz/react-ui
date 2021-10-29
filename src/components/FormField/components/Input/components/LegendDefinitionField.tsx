@@ -3,8 +3,8 @@ import { Field, Input, Popover } from "@dhis2/ui";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { SketchPicker } from "react-color";
+import { uid } from "../../../../../core/utils";
 import { FinalFormFieldInput } from "../../Input/types";
-import { uid } from "core/utils";
 import "../styles/style.css";
 
 type ColorPickerProps = {

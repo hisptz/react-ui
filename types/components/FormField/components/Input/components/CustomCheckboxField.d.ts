@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { FinalFormFieldInput } from "components/FormField/components/Input/types";
+import { FinalFormFieldInput } from "../types";
 declare function CustomCheckboxField({ name, value, onChange, ...props }: FinalFormFieldInput): JSX.Element;
 declare namespace CustomCheckboxField {
     var propTypes: {

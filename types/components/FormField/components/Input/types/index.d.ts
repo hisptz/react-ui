@@ -1,4 +1,4 @@
-import FormFieldModel from "components/FormField/components/Input/models/field";
+import FormFieldModel from "../models/field";
 export declare type OnChange = (payload: {
     value: any;
     name: string;

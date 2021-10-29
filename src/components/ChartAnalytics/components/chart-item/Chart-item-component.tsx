@@ -2,10 +2,10 @@
 import HighCharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import React, { useEffect, useState } from "react";
+import { CHART_TYPES } from "../../../../core/constant/chart-types.constant";
 import { getChartConfiguration } from "../../helper/get-chart-configuration.helper";
 import { getCharObject } from "../../helper/get-chart-object.helper";
 import { ChartAnalyticsProps } from "../../types/props";
-import { CHART_TYPES } from "core/constant/chart-types.constant";
 import "./chart-item-component.css";
 
 export default function ChartItemComponent({ analysisData, chartHeight, chartConfiguration }: ChartAnalyticsProps) {

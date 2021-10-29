@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
+import { FormFieldProps } from "../../../../types";
 import FormFieldModel from "../../models/field";
-import { FinalFormFieldInput } from "components/FormField/components/Input/types";
-import { FormFieldProps } from "components/FormField/types";
+import { FinalFormFieldInput } from "../../types";
 declare type MultipleFieldsFieldProps = FinalFormFieldInput & {
     multipleField: FormFieldProps;
     initialFieldCount?: number;

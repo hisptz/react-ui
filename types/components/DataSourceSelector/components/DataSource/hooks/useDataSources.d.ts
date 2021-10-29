@@ -1,4 +1,4 @@
-import DataSource from "components/DataSourceSelector/models/dataSource";
+import DataSource from "../../../models/dataSource";
 export default function useDataSources(selectedDataSourceType: DataSource, selectedGroup?: {
     id: string;
 }): {

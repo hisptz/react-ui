@@ -1,4 +1,4 @@
-import NativeDataSource from "components/DataSourceSelector/models/nativeDataSource";
+import NativeDataSource from "./nativeDataSource";
 export default class DataElements extends NativeDataSource {
     getDataSources(engine: any, { page, filter }: {
         page: number;

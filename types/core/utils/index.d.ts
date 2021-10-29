@@ -1,4 +1,4 @@
-import { Pager } from "core/interfaces/pager";
+import { Pager } from "../interfaces/pager";
 export declare function uid(): string;
 export declare function updatePager(pager: Pager, itemListLength: number): {
     page: number;

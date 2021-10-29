@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { FinalFormFieldInput, LegendDefinition } from "components/FormField/components/Input/types";
+import { FinalFormFieldInput, LegendDefinition } from "../types";
 declare type LegendMinMaxProps = FinalFormFieldInput & {
     legendDefinition: LegendDefinition;
 };

@@ -8,7 +8,7 @@ import { CalendarTypes } from "./constants/calendar";
 import { PeriodCategories } from "./constants/period";
 import { Period as PeriodInterface } from "./interfaces/period";
 import { CalendarSpecificPeriodSelectorProps } from "./interfaces/props";
-import "styles/styles.css";
+import "../../../../styles/styles.css";
 
 export default function CalendarSpecificPeriodSelector({
   excludedPeriodTypes,

@@ -2,9 +2,9 @@ import i18n from "@dhis2/d2-i18n";
 import { Button, ButtonStrip, Modal, ModalActions, ModalContent, ModalTitle } from "@dhis2/ui";
 import { flatten, last } from "lodash";
 import React, { useCallback, useState } from "react";
+import OrgUnitSelector from "../../OrgUnitSelector";
 import { OrgUnitSelectorProps, OrgUnitSelectorValue } from "../../OrgUnitSelector/types";
 import { ModalProps } from "../types";
-import OrgUnitSelector from "components/OrgUnitSelector/index";
 
 export default function OrgUnitSelectorModal({
   small,
