@@ -3,7 +3,7 @@ import React from "react";
 import { OrgUnitSelectorProps } from "../OrgUnitSelector/types";
 import OrgUnitSelectorModal from "./components/OrgUnitSelectorModal";
 import PeriodSelectorModal from "./components/PeriodSelectorModal";
-import { ModalProps } from "components/Modals/types";
+import { ModalProps } from "./types";
 
 const PeriodTemplate: Story<ModalProps> = (args) => <PeriodSelectorModal {...args} />;
 const OrgUnitTemplate: Story<ModalProps & OrgUnitSelectorProps> = (args) => <OrgUnitSelectorModal {...args} />;
