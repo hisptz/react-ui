@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
 import { Button, ButtonStrip } from "@dhis2/ui";
 import { Step, StepLabel, Stepper } from "@material-ui/core";
+import { makeStyles } from '@mui/styles';
 import { findIndex } from "lodash";
 import React, { Suspense, useMemo, useState, useLayoutEffect } from "react";
-import { useHistory } from "react-router-dom";
 import { ConfigurationStepperProps, StepsList } from "./types/props";
 import FullPageLoader from "core/shared-components/FullPageLoader";
 import "./styles/index.css";
@@ -18,14 +18,14 @@ export default function ConfigurationStepper({
   const [routeState, setRouteState] = useState({
     previous: "/",
   });
-  const history = useHistory();
+  // const history = useHistory();
 
   const onNavigate = () => {
     setRouteState({
       ...routeState,
       previous: "/edit/stepperid",
     });
-    history.replace(routeState?.previous);
+    // history.replace(routeState?.previous);
   };
 
   const [saving, setSaving] = useState(false);
@@ -56,6 +56,23 @@ export default function ConfigurationStepper({
 
   const currentIndex = useMemo(() => findIndex(stepsManagement, ["label", activeStep.label]), [activeStep]);
 
+
+const useStyles = makeStyles({
+  root: {
+    margin:'0 8px',
+    padding: '8px',
+    fontweight: 'bold',
+    height: '32px',
+    color: '#FFFFFF',
+    borderRadius: 3,
+    borderwidth: '2px',
+    boxShadow: '0 3px 5px 2px transparent',
+  },
+});
+
+
+
+const classes = useStyles();
   return (
     <Suspense fallback={<FullPageLoader />}>
       <div className="column">
@@ -63,6 +80,7 @@ export default function ConfigurationStepper({
           {stepsManagement?.map((step) => (
             <Step
               id="stepper"
+              className={classes.root}
               style={step.label === activeStep.label ? { background: activeStepperBackGroundColor } : undefined}
               active={step.label === activeStep.label}
               onClick={() => setActiveStep(step)}
@@ -95,4 +113,6 @@ export default function ConfigurationStepper({
     </Suspense>
   );
 }
+
+
 
