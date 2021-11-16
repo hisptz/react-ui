@@ -18,7 +18,10 @@ jobs:
       - run: yarn
       - run: yarn build
         continue-on-error: true
-      - run: yarn publish --new-version=${GITHUB_RUN_NUMBER}
+      - name: get-npm-version
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@master
+      - run: yarn publish --new-version=${{ steps.package-version.outputs.current-version}}
       - uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_TOKEN }}
