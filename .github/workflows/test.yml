@@ -16,7 +16,7 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           install: true
-          command: yarn cypress run-ct --record --key ${{secrets.CYPRESS_RECORD_KEY}}
+          command: yarn cypress run-ct --record --key ${{secrets.CYPRESS_RECORD_KEY}} --browser electron
         env:
           CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}

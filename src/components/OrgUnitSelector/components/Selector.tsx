@@ -21,7 +21,7 @@ export default function OrgUnitSelector({ value, onUpdate, showLevels, showUserO
     if (onUpdate) {
       onUpdate({
         ...value,
-        orgUnits: [...selectedOrgUnits, orgUnit],
+        orgUnits: [...selectedOrgUnits, { id: orgUnit?.id, displayName: orgUnit?.displayName, path: orgUnit?.path }],
       });
     }
   };
@@ -148,21 +148,21 @@ export default function OrgUnitSelector({ value, onUpdate, showLevels, showUserO
             </div>
           </div>
           {(showLevels || showGroups) && (
-            <div className="row pt-32 w-75 space-between">
+            <div className="row pt-32" style={{ gap: 16 }}>
               {showLevels && (
                 <div data-test="levels-selector" className="column w-100">
                   <MultiSelectField
-                    disabled={disableSelections}
+                    disabled={disableSelections || levelsAndGroupsLoading}
                     clearable
                     loading={levelsAndGroupsLoading}
                     error={levelsAndGroupsError}
                     validationText={levelsAndGroupsError?.message}
                     onChange={onLevelSelect}
-                    selected={selectedLevels}
+                    selected={levelsAndGroupsLoading ? [] : selectedLevels}
                     clearText={i18n.t("Clear")}
                     label={i18n.t("Select Level(s)")}>
                     {levels?.map(({ displayName, id }: { displayName: string; id: string }) => (
-                      <MultiSelectOption label={displayName} value={id} key={id} />
+                      <MultiSelectOption dataTest={`${displayName}-option`} label={displayName} value={id} key={id} />
                     ))}
                   </MultiSelectField>
                 </div>
@@ -170,19 +170,19 @@ export default function OrgUnitSelector({ value, onUpdate, showLevels, showUserO
               {showGroups && (
                 <div data-test="groups-selector" className="column w-100">
                   <MultiSelectField
-                    disabled={disableSelections}
+                    disabled={disableSelections || levelsAndGroupsLoading}
                     clearable
                     loading={levelsAndGroupsLoading}
                     error={levelsAndGroupsError}
                     validationText={levelsAndGroupsError?.message}
                     onChange={onGroupSelect}
-                    selected={selectedGroups}
+                    selected={levelsAndGroupsLoading ? [] : selectedGroups}
                     dataTest={"select-facility-group"}
                     clearText={i18n.t("Clear")}
                     label={i18n.t("Select Group(s)")}>
                     {/* eslint-disable react/no-unused-prop-types */}
                     {groups?.map(({ displayName, id }: { displayName: string; id: string }) => (
-                      <MultiSelectOption label={displayName} value={id} key={id} />
+                      <MultiSelectOption dataTest={`${displayName}-option`} label={displayName} value={id} key={id} />
                     ))}
                   </MultiSelectField>
                 </div>
