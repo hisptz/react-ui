@@ -15,9 +15,10 @@ export default function OrgUnitSelectorModal({
   onUpdate,
   updateButtonLabel,
   singleSelection,
+  value,
   ...props
 }: ModalProps & OrgUnitSelectorProps) {
-  const [selectedOrgUnits, setSelectedOrgUnits] = useState<OrgUnitSelectorValue>({ orgUnits: [] });
+  const [selectedOrgUnits, setSelectedOrgUnits] = useState<OrgUnitSelectorValue | undefined>(value);
 
   const onSelect = useCallback(
     (value: OrgUnitSelectorValue) => {

@@ -1,7 +1,7 @@
 {
     "name": "@hisptz/react-ui",
     "homepage": "https://hisptz.github.io/react-ui",
-    "version": "1.0.0-alpha-06",
+    "version": "1.0.1",
     "description": "This project was bootstrapped with [DHIS2 Application Platform](https://github.com/dhis2/app-platform).",
     "license": "BSD-3-Clause",
     "scripts": {
@@ -20,7 +20,7 @@
         "sb": "start-storybook -p 6006",
         "build-storybook": "build-storybook",
         "cy:open": "yarn cypress open-ct",
-        "predeploy": "yarn build-storybook",
+        "predeploy:storybook": "yarn build-storybook",
         "deploy-storybook": "gh-pages -d storybook-static"
     },
     "devDependencies": {

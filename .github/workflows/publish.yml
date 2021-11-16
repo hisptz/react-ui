@@ -17,6 +17,8 @@ jobs:
           node-version: 15
       - run: yarn
       - run: yarn build
+        continue-on-error: true
+      - run: yarn publish --new-version=${GITHUB_RUN_NUMBER}
       - uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_TOKEN }}
