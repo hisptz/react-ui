@@ -1,7 +1,7 @@
 {
     "name": "@hisptz/react-ui",
     "homepage": "https://hisptz.github.io/react-ui",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "This project was bootstrapped with [DHIS2 Application Platform](https://github.com/dhis2/app-platform).",
     "license": "BSD-3-Clause",
     "scripts": {
@@ -9,9 +9,8 @@
         "build:package": "d2-app-scripts build",
         "build": "concurrently -n build,types \"yarn build:package\" \"yarn build:types\"",
         "start": "d2-app-scripts start",
-        "test": "cypress run-ct",
-        "cy:run": "cypress run",
-        "test:record": "cypress run-ct --record --key 724de287-3ccd-4481-997a-b6d9cf2c9af0",
+        "test": "cypress run-ct --browser electron",
+        "cy:run": "cypress run --browser electron",
         "deploy": "d2-app-scripts deploy",
         "lint": "yarn d2-style check",
         "lint:staged": "yarn lint --staged",

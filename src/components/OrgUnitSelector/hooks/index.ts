@@ -27,7 +27,7 @@ export function useOrgUnitsRoot(): { roots?: Array<any>; loading: boolean; error
 
 export function useOrgUnitLevelsAndGroups(): { levels: Array<any>; groups: Array<any>; loading: boolean; error: any } {
   const engine = useDataEngine();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<any | undefined>();
   const [levels, setLevels] = useState([]);
   const [groups, setGroups] = useState([]);
