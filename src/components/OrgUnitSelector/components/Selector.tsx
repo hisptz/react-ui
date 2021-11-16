@@ -111,9 +111,9 @@ export default function OrgUnitSelector({ value, onUpdate, showLevels, showUserO
           <div style={{ minHeight: 400, maxHeight: 500, overflow: "hidden" }} className="container-bordered">
             {showUserOptions && (
               <div data-test="user-options-selector" style={{ background: colors.grey200 }} className="row space-between p-16">
-                <CheckboxField checked={userOrgUnit} onChange={onUserOrUnitChange} label={i18n.t("User organisation unit")} />
-                <CheckboxField checked={userSubUnit} onChange={onUserSubUnitsChange} label={i18n.t("User sub-units")} />
-                <CheckboxField checked={userSubX2Unit} onChange={onUserSubX2Units} label={i18n.t("User sub-x2-units")} />
+                <CheckboxField dataTest={"user-org-unit"} checked={userOrgUnit} onChange={onUserOrUnitChange} label={i18n.t("User organisation unit")} />
+                <CheckboxField dataTest={"user-sub-org-unit"} checked={userSubUnit} onChange={onUserSubUnitsChange} label={i18n.t("User sub-units")} />
+                <CheckboxField dataTest={"user-sub-x2-org-unit"} checked={userSubX2Unit} onChange={onUserSubX2Units} label={i18n.t("User sub-x2-units")} />
               </div>
             )}
             {error && (
