@@ -1,5 +1,11 @@
+export type OrgUnit = {
+  id: string;
+  path?: string;
+  displayName?: string;
+};
+
 export type OrgUnitSelectorValue = {
-  orgUnits?: Array<any>;
+  orgUnits?: Array<OrgUnit>;
   levels?: Array<string>;
   groups?: Array<string>;
   userOrgUnit?: boolean;

@@ -1,10 +1,9 @@
 import { mount } from "@cypress/react";
 import { Provider } from "@dhis2/app-runtime";
 import React from "react";
-import OrgUnitSelector from "../OrgUnitSelector";
 import { OrgUnitSelectorValue } from "../OrgUnitSelector/types";
 import { Period } from "../PeriodSelector/components/CalendarSpecificPeriodDimension/interfaces/period";
-import { PeriodSelectorModal } from "./index";
+import { OrgUnitSelectorModal, PeriodSelectorModal } from "./index";
 
 const appConfig = {
   baseUrl: Cypress.env("dhis2BaseUrl"),
@@ -41,7 +40,7 @@ describe("Org Unit Modal test", () => {
   it("should render", () => {
     mount(
       <DHIS2Provider>
-        <OrgUnitSelector value={{ orgUnits: [], levels: [] }} onUpdate={() => {}} />
+        <OrgUnitSelectorModal hide={false} onClose={() => {}} value={{ orgUnits: [], levels: [] }} onUpdate={() => {}} />
       </DHIS2Provider>
     );
   });
@@ -54,7 +53,7 @@ describe("Org Unit Modal test", () => {
 
     mount(
       <DHIS2Provider>
-        <OrgUnitSelector value={{ orgUnits: [], levels: [] }} onUpdate={onUpdate} />
+        <OrgUnitSelectorModal hide={false} onClose={() => {}} showUserOptions value={{ orgUnits: [], levels: [] }} onUpdate={onUpdate} />
       </DHIS2Provider>
     );
 
