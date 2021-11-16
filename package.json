@@ -11,7 +11,6 @@
         "start": "d2-app-scripts start",
         "test": "cypress run-ct --browser electron",
         "cy:run": "cypress run --browser electron",
-        "test:record": "cypress run-ct --record --key 724de287-3ccd-4481-997a-b6d9cf2c9af0 --browser electron",
         "deploy": "d2-app-scripts deploy",
         "lint": "yarn d2-style check",
         "lint:staged": "yarn lint --staged",
