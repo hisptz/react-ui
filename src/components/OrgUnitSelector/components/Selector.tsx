@@ -10,7 +10,7 @@ import "../styles/styles.css";
 
 export default function OrgUnitSelector({ value, onUpdate, showLevels, showUserOptions, showGroups, singleSelection }: OrgUnitSelectorProps) {
   const { roots, error, loading } = useOrgUnitsRoot();
-  const { orgUnits: selectedOrgUnits = [], levels: selectedLevels, groups: selectedGroups, userOrgUnit, userSubUnit, userSubX2Unit } = value || {};
+  const { orgUnits: selectedOrgUnits = [], levels: selectedLevels, groups: selectedGroups, userOrgUnit, userSubUnit, userSubX2Unit } = value ?? {};
   const { groups, levels, error: levelsAndGroupsError, loading: levelsAndGroupsLoading } = useOrgUnitLevelsAndGroups();
 
   function isOrgUnitSelected(orgUnit: { id: any | string }) {
