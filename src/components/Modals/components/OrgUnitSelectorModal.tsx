@@ -19,18 +19,21 @@ export default function OrgUnitSelectorModal({
 }: ModalProps & OrgUnitSelectorProps) {
   const [selectedOrgUnits, setSelectedOrgUnits] = useState<OrgUnitSelectorValue>({ orgUnits: [] });
 
-  const onSelect = useCallback((value: OrgUnitSelectorValue) => {
-    if (singleSelection) {
-      const updatedValue = { ...value, orgUnits: flatten([last(value.orgUnits) ?? []]) };
-      setSelectedOrgUnits(updatedValue);
-      return;
-    }
-    setSelectedOrgUnits(value);
-  }, []);
+  const onSelect = useCallback(
+    (value: OrgUnitSelectorValue) => {
+      if (singleSelection) {
+        const updatedValue = { ...value, orgUnits: flatten([last(value.orgUnits) ?? []]) };
+        setSelectedOrgUnits(updatedValue);
+        return;
+      }
+      setSelectedOrgUnits(value);
+    },
+    [singleSelection]
+  );
 
   const onUpdateClick = useCallback(() => {
     onUpdate(selectedOrgUnits);
-  }, []);
+  }, [selectedOrgUnits, onUpdate]);
 
   return (
     <Modal hide={hide} small={small} large={large} onClose={onClose} position={position}>
@@ -41,7 +44,7 @@ export default function OrgUnitSelectorModal({
       <ModalActions>
         <ButtonStrip>
           <Button onClick={onClose}>{i18n.t("Cancel")}</Button>
-          <Button primary onClick={onUpdateClick}>
+          <Button dataTest={"modal-update-button"} primary onClick={onUpdateClick}>
             {updateButtonLabel ?? i18n.t("Update")}
           </Button>
         </ButtonStrip>
