@@ -23,7 +23,7 @@ export default function CalendarSpecificPeriodSelector({
   const [year, setYear] = useState<number>(new Date().getFullYear());
 
   useEffect(() => {
-    periodInstance.setPreferences({ allowFuturePeriods: true });
+    periodInstance.setPreferences({ openFuturePeriods: 4, allowFuturePeriods: true });
     periodInstance.setCalendar(calendar);
     if (calendar === CalendarTypes.ETHIOPIAN) {
       setYear(new Date().getFullYear() - 7);
@@ -67,12 +67,24 @@ export default function CalendarSpecificPeriodSelector({
     if (selectedPeriodCategory) {
       if (selectedRelativePeriodType) {
         if (selectedPeriodCategory.key === PeriodCategories.RELATIVE.key) {
-          return new Period().setCalendar(calendar).setYear(year).setType(selectedRelativePeriodType).get().list();
+          return new Period()
+            .setPreferences({ openFuturePeriods: 4, allowFuturePeriods: true })
+            .setCalendar(calendar)
+            .setYear(year)
+            .setType(selectedRelativePeriodType)
+            .get()
+            .list();
         }
       }
       if (selectedFixedPeriodType) {
         if (selectedPeriodCategory.key === PeriodCategories.FIXED.key) {
-          return new Period().setCalendar(calendar).setYear(year).setType(selectedFixedPeriodType).get().list();
+          return new Period()
+            .setPreferences({ openFuturePeriods: 4, allowFuturePeriods: true })
+            .setCalendar(calendar)
+            .setYear(year)
+            .setType(selectedFixedPeriodType)
+            .get()
+            .list();
         }
       }
     }
