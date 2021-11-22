@@ -19,7 +19,7 @@
     "sb": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "cy:open": "yarn cypress open-ct",
-    "predeploy:storybook": "yarn build-storybook",
+    "predeploy": "yarn build-storybook",
     "deploy-storybook": "gh-pages -d storybook-static"
   },
   "devDependencies": {
