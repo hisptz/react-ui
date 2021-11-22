@@ -68,24 +68,24 @@ export default function ConfigurationStepper({
             </Step>
           ))}
         </Stepper>
-      </div>
-      <div className="row">
-        <div className="column center" style={{ flex: 1 }}>
-          <div className="column p-16" style={{ height: "100%", justifyContent: "space-between" }}>
-            <div style={{ height: "100%", width: "100%" }}>{<Component onNextStep={onNextStep} onPreviousStep={onPreviousStep} />}</div>
-            <ButtonStrip start>
-              <Button disabled={!hasPreviousStep} onClick={onPreviousStep}>
-                {`Previous: ${stepsManagement[currentIndex - 1]?.label ?? ""}`}
-              </Button>
-              <Button
-                primary
-                disabled={false}
-                onClick={hasNextStep ? onNextStep : onLastAction}
-                className="settings-next-button"
-                dataTest="scorecard-admin-next-button">
-                {!hasNextStep ? onLastActionButtonName : `Next: ${stepsManagement[currentIndex + 1]?.label}`}
-              </Button>
-            </ButtonStrip>
+        <div className="row">
+          <div className="column center" style={{ flex: 1 }}>
+            <div className="column p-16" style={{ height: "100%", justifyContent: "space-between", gap: 24 }}>
+              <div style={{ height: "100%", width: "100%" }}>{<Component onNextStep={onNextStep} onPreviousStep={onPreviousStep} />}</div>
+              <ButtonStrip start>
+                <Button disabled={!hasPreviousStep} onClick={onPreviousStep}>
+                  {`Previous: ${stepsManagement[currentIndex - 1]?.label ?? ""}`}
+                </Button>
+                <Button
+                  primary
+                  disabled={false}
+                  onClick={hasNextStep ? onNextStep : onLastAction}
+                  className="settings-next-button"
+                  dataTest="scorecard-admin-next-button">
+                  {!hasNextStep ? onLastActionButtonName : `Next: ${stepsManagement[currentIndex + 1]?.label}`}
+                </Button>
+              </ButtonStrip>
+            </div>
           </div>
         </div>
       </div>
