@@ -4,7 +4,6 @@
   "version": "1.0.6",
   "description": "A collection of reusable complex DHIS2 react ui components.",
   "license": "BSD-3-Clause",
-  "private": true,
   "scripts": {
     "build:types": "tsc --emitDeclarationOnly --declaration --outDir ./build/types",
     "build:package": "d2-app-scripts build",
