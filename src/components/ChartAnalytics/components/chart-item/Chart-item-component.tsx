@@ -1,4 +1,3 @@
-/* eslint-disable max-params */
 import HighCharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import React, { useEffect, useState } from "react";
@@ -12,12 +11,6 @@ export default function ChartItemComponent({ analysisData, chartHeight, chartCon
   const [chartTypes] = useState(CHART_TYPES);
   const [currentChartType, setCurrentChartType] = useState(chartConfiguration.currentChartType);
   const [chartOptions, setChartOptions] = useState();
-  const [chartUpdate, setChartUpdate] = useState({
-    id: "",
-    type: "",
-  });
-
-  console.log(chartUpdate);
 
   const [drawChartConfiguration, setDrawChartConfiguration] = useState(chartConfigurationSelector(chartConfiguration.layout, currentChartType));
 
@@ -46,11 +39,6 @@ export default function ChartItemComponent({ analysisData, chartHeight, chartCon
     drawChart(analysisData["_data"], {
       ...drawChartConfiguration,
       type: chartType,
-    });
-
-    setChartUpdate({
-      id: "render-id-unique",
-      type: chartType.toUpperCase,
     });
   }
 

@@ -1,37 +1,19 @@
-/* eslint-disable no-unused-vars */
 import { Button, ButtonStrip } from "@dhis2/ui";
-import { Step, StepLabel, Stepper } from "@material-ui/core";
-import { makeStyles } from '@mui/styles';
+import { makeStyles, Step, StepLabel, Stepper } from "@material-ui/core";
 import { findIndex } from "lodash";
-import React, { Suspense, useMemo, useState, useLayoutEffect } from "react";
-import { ConfigurationStepperProps, StepsList } from "./types/props";
-import FullPageLoader from "core/shared-components/FullPageLoader";
+import React, { Suspense, useMemo, useState } from "react";
+import FullPageLoader from "../shared/components/FullPageLoader";
+import { ConfigurationStepperProps } from "./types/props";
 import "./styles/index.css";
 
 export default function ConfigurationStepper({
   stepsManagement,
   onLastAction,
   activeStepperBackGroundColor,
-  onCancelLastAction,
   onLastActionButtonName,
 }: ConfigurationStepperProps) {
-  const [routeState, setRouteState] = useState({
-    previous: "/",
-  });
-  // const history = useHistory();
-
-  const onNavigate = () => {
-    setRouteState({
-      ...routeState,
-      previous: "/edit/stepperid",
-    });
-    // history.replace(routeState?.previous);
-  };
-
-  const [saving, setSaving] = useState(false);
   const [activeStep, setActiveStep] = useState(stepsManagement[0]);
   const Component = activeStep.component;
-
 
   const onNextStep = () => {
     if (!hasNextStep) {
@@ -56,23 +38,20 @@ export default function ConfigurationStepper({
 
   const currentIndex = useMemo(() => findIndex(stepsManagement, ["label", activeStep.label]), [activeStep]);
 
+  const useStyles = makeStyles({
+    root: {
+      margin: "0 8px",
+      padding: "8px",
+      fontweight: "bold",
+      height: "32px",
+      color: "#FFFFFF",
+      borderRadius: 3,
+      borderwidth: "2px",
+      boxShadow: "0 3px 5px 2px transparent",
+    },
+  });
 
-const useStyles = makeStyles({
-  root: {
-    margin:'0 8px',
-    padding: '8px',
-    fontweight: 'bold',
-    height: '32px',
-    color: '#FFFFFF',
-    borderRadius: 3,
-    borderwidth: '2px',
-    boxShadow: '0 3px 5px 2px transparent',
-  },
-});
-
-
-
-const classes = useStyles();
+  const classes = useStyles();
   return (
     <Suspense fallback={<FullPageLoader />}>
       <div className="column">
@@ -100,11 +79,11 @@ const classes = useStyles();
               </Button>
               <Button
                 primary
-                disabled={saving}
+                disabled={false}
                 onClick={hasNextStep ? onNextStep : onLastAction}
                 className="settings-next-button"
                 dataTest="scorecard-admin-next-button">
-                {!hasNextStep ? (saving ? `${"Execute action "}...` : onLastActionButtonName) : `Next: ${stepsManagement[currentIndex + 1]?.label}`}
+                {!hasNextStep ? onLastActionButtonName : `Next: ${stepsManagement[currentIndex + 1]?.label}`}
               </Button>
             </ButtonStrip>
           </div>
@@ -113,6 +92,3 @@ const classes = useStyles();
     </Suspense>
   );
 }
-
-
-
