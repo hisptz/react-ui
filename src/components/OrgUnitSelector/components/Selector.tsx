@@ -1,6 +1,5 @@
 import i18n from "@dhis2/d2-i18n";
-import { Box, CenteredContent, CheckboxField, CircularLoader, colors, MultiSelectField, MultiSelectOption, OrganisationUnitTree } from "@dhis2/ui";
-import ErrorIcon from "@material-ui/icons/Error";
+import { Box, CenteredContent, CheckboxField, CircularLoader, colors, MultiSelectField, MultiSelectOption, OrganisationUnitTree, IconError24 } from "@dhis2/ui";
 import { cloneDeep, find, isEmpty, remove } from "lodash";
 import React, { Fragment, useMemo } from "react";
 import { useOrgUnitLevelsAndGroups, useOrgUnitsRoot } from "../hooks";
@@ -94,7 +93,7 @@ export default function OrgUnitSelector({ value, onUpdate, showLevels, showUserO
   if (error) {
     return (
       <div className="column center align-items-center" style={{ height: 400, width: 500 }}>
-        <ErrorIcon style={{ color: colors.grey700 }} />
+        <IconError24 style={{ color: colors.grey700 }} />
         <p style={{ color: colors.grey700 }}>{error.message ?? "Something went wrong"}</p>
       </div>
     );

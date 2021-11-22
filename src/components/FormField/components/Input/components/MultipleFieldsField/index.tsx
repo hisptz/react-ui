@@ -1,7 +1,5 @@
 import i18n from "@dhis2/d2-i18n";
-import { Button, Field } from "@dhis2/ui";
-import AddIcon from "@material-ui/icons/Add";
-import DeleteIcon from "@material-ui/icons/Delete";
+import { Button, Field, IconDelete24, IconAdd24 } from "@dhis2/ui";
 import { remove, set } from "lodash";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
@@ -79,7 +77,7 @@ export default function MultipleFieldsField({ name, value, onChange, multipleFie
                   </div>
                   <div className="column w-25">
                     {!value?.[index]?.isDefault && (
-                      <Button disabled={index === 0 && fields.length === 1} icon={<DeleteIcon />} onClick={() => onDeleteField(field, index)}>
+                      <Button disabled={index === 0 && fields.length === 1} icon={<IconDelete24 />} onClick={() => onDeleteField(field, index)}>
                         {i18n.t("Delete")}
                       </Button>
                     )}
@@ -100,7 +98,7 @@ export default function MultipleFieldsField({ name, value, onChange, multipleFie
                   </div>
                   {multipleField && (
                     <div className="column">
-                      <Button disabled={index === 0 && fields.length === 1} icon={<DeleteIcon />} onClick={() => onDeleteField(field, index)}>
+                      <Button disabled={index === 0 && fields.length === 1} icon={<IconDelete24 />} onClick={() => onDeleteField(field, index)}>
                         {i18n.t("Delete")}
                       </Button>
                     </div>
@@ -110,7 +108,7 @@ export default function MultipleFieldsField({ name, value, onChange, multipleFie
             })}
         {multipleField && (
           <div className="w-50">
-            <Button icon={<AddIcon />} onClick={onAddField}>
+            <Button icon={<IconAdd24 />} onClick={onAddField}>
               {i18n.t("Add Item")}
             </Button>
           </div>

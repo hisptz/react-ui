@@ -1,5 +1,4 @@
-import { Tag } from "@dhis2/ui";
-import PeriodIcon from "@material-ui/icons/AccessTime";
+import { IconClock16, Tag } from "@dhis2/ui";
 import React from "react";
 import { Period } from "../interfaces/period";
 
@@ -19,9 +18,8 @@ export default function PeriodTransferOption({ value, label, selected, highlight
       {...props}
       style={{ margin: 4, zIndex: "auto" }}
       onClick={(event) => onClick({ value, label }, event)}
-      onDoubleClick={(event) => onDoubleClick({ value, label }, event)}
-    >
-      <Tag bold={highlighted} positive={highlighted || selected} dataTest={`${id}-option`} key={`${id}-option`} icon={<PeriodIcon style={{ fontSize: 12 }} />}>
+      onDoubleClick={(event) => onDoubleClick({ value, label }, event)}>
+      <Tag bold={highlighted} positive={highlighted || selected} dataTest={`${id}-option`} key={`${id}-option`} icon={<IconClock16 />}>
         {label}
       </Tag>
     </div>
