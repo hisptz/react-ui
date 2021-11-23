@@ -225,6 +225,10 @@
     flex-wrap: wrap;
 }
 
+.text-center {
+    text-align: center;
+}
+
 
 .field-container{
     padding: 8px 0;
@@ -257,4 +261,4 @@
 
 
 
-/*# sourceMappingURL=main.fc7cdc3b.chunk.css.map*/
+/*# sourceMappingURL=main.04daec21.chunk.css.map*/
