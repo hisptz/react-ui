@@ -1,5 +1,5 @@
 import i18n from "@dhis2/d2-i18n";
-import { Box, CenteredContent, CheckboxField, CircularLoader, colors, MultiSelectField, MultiSelectOption, OrganisationUnitTree, IconError24 } from "@dhis2/ui";
+import { Box, CenteredContent, CheckboxField, CircularLoader, colors, IconError24, MultiSelectField, MultiSelectOption, OrganisationUnitTree } from "@dhis2/ui";
 import { cloneDeep, find, isEmpty, remove } from "lodash";
 import React, { Fragment, useMemo } from "react";
 import { useOrgUnitLevelsAndGroups, useOrgUnitsRoot } from "../hooks";
@@ -102,7 +102,7 @@ export default function OrgUnitSelector({ value, onUpdate, showLevels, showUserO
   return (
     <Box minHeight="400px" maxWidth={"700px"} minWidth={"500px"}>
       {levelsAndGroupsLoading || loading ? (
-        <div className="column align-items-center center w-100 h-100">
+        <div style={{ minHeight: 400 }} className="column align-items-center center w-100 h-100">
           <CircularLoader small />
         </div>
       ) : (
