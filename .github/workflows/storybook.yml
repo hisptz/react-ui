@@ -15,7 +15,6 @@ jobs:
           yarn
           yarn predeploy
         continue-on-error: true
-
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:

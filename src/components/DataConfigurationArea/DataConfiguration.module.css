@@ -1,0 +1,8 @@
+.accordion-title-edit {
+    display: none !important;
+}
+
+.accordion-title-container:hover > div > div > .accordion-title-edit {
+    display: block !important;
+}
+
