@@ -39,7 +39,7 @@ export default function GroupTitle({ title, onDelete, id, onEdit, editable, dele
                 <Input fullWidth initialFocus value={editTitle} onChange={({ value }: { value: string }) => setEditTitle(value)} />
               ) : (
                 <p
-                  style={{ fontWeight: "bold", margin: 4 }}
+                  style={{ margin: 4 }}
                   onDoubleClick={(event) => {
                     event.stopPropagation();
                     if (editable) {
