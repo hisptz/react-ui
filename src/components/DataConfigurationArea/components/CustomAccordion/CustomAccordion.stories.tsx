@@ -51,7 +51,7 @@ Deletable.args = {
 };
 
 export default {
-  title: "Components/DataConfigurationArea/CustomAccordion",
+  title: "Components/DataConfigurationArea/DataConfigurationAreaGroup",
   component: CustomAccordion,
   decorators: [
     (AccordionStory: any) => (
