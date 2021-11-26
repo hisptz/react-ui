@@ -48,6 +48,6 @@ Selected.args = {
 };
 
 export default {
-  title: "Components/DataConfigurationArea/DataSource",
+  title: "Components/DataConfigurationArea/DataConfigurationAreaItem",
   component: DataSource,
 };

@@ -28,7 +28,7 @@ export default function CustomAccordion({ id, title, children, editableTitle, on
         <GroupTitle id={id} title={title} editable={editableTitle} onEdit={onTitleChange} deletable={deletable} onDelete={onDelete} />
       </AccordionSummary>
       <AccordionDetails>
-        <div className="column h-100 w-100 p-16">{children}</div>
+        <div className="column h-100 w-100 p-8">{children}</div>
       </AccordionDetails>
     </Accordion>
   );

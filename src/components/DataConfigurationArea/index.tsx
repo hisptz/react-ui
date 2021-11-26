@@ -1,4 +1,3 @@
-import { colors } from "@dhis2/ui";
 import React from "react";
 import CustomAccordion from "./components/CustomAccordion";
 import DataSource from "./components/DataSource";
@@ -25,6 +24,7 @@ export interface DataConfigurationAreaProps {
   onGroupDelete?: (groupId: string) => void;
   deletableItems?: boolean;
   onItemDelete?: (groupId: string, itemId: string) => void;
+  groupFooter?: React.ReactNode;
 }
 
 export default function DataConfigurationArea({
@@ -36,15 +36,10 @@ export default function DataConfigurationArea({
   onGroupDelete,
   onItemDelete,
   deletableItems,
+  groupFooter,
 }: DataConfigurationAreaProps) {
   return (
-    <div
-      style={{
-        border: `1px solid ${colors.grey500}`,
-        borderRadius: 2,
-        padding: 0,
-      }}
-      className={"column"}>
+    <div className={"column"}>
       {groups.map(({ id: groupId, name, items }) => (
         <CustomAccordion
           onDelete={onGroupDelete}
@@ -68,6 +63,7 @@ export default function DataConfigurationArea({
                 selected={false}
               />
             ))}
+            <div>{groupFooter}</div>
           </div>
         </CustomAccordion>
       ))}

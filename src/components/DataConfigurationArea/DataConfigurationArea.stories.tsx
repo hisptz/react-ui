@@ -1,4 +1,4 @@
-import { IconDimensionIndicator16, IconDimensionProgramIndicator16 } from "@dhis2/ui";
+import { Button, IconAdd24, IconDimensionIndicator16, IconDimensionProgramIndicator16 } from "@dhis2/ui";
 import { Story } from "@storybook/react";
 import React from "react";
 import DataConfigurationArea, { DataConfigurationAreaGroupProps, DataConfigurationAreaProps } from "./index";
@@ -76,6 +76,21 @@ WithAllOptions.args = {
   deletableItems: true,
   editableTitle: true,
   onItemClick: (id: string) => console.log(id),
+};
+
+export const WithGroupFooter = Template.bind({});
+
+WithGroupFooter.args = {
+  groups,
+  deletableGroups: true,
+  deletableItems: true,
+  editableTitle: true,
+  onItemClick: (id: string) => console.log(id),
+  groupFooter: (
+    <div>
+      <Button icon={<IconAdd24 />}>Add Item</Button>
+    </div>
+  ),
 };
 
 export default {
