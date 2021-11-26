@@ -117,6 +117,15 @@
 #stepper{
     color:yellow
 }
+.DataConfiguration_accordion-title-edit__3VFBj {
+    display: none !important;
+}
+
+.DataConfiguration_accordion-title-container__2I3G_:hover > div > div > .DataConfiguration_accordion-title-edit__3VFBj {
+    display: block !important;
+}
+
+
 /*Scrollbars*/
 
 *::-webkit-scrollbar {
@@ -261,4 +270,4 @@
 
 
 
-/*# sourceMappingURL=main.04daec21.chunk.css.map*/
+/*# sourceMappingURL=main.478a58b0.chunk.css.map*/
