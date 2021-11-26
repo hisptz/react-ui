@@ -1,7 +1,7 @@
 import { IconDimensionOrgUnit16 } from "@dhis2/ui";
 import { Story } from "@storybook/react";
 import React from "react";
-import DataSource, { DataSourceProps } from "./components/DataSource";
+import DataSource, { DataSourceProps } from "./index";
 
 const Template: Story<DataSourceProps> = (args) => <DataSource {...args} />;
 
@@ -48,6 +48,6 @@ Selected.args = {
 };
 
 export default {
-  title: "Components/DataConfiguration/DataSource",
+  title: "Components/DataConfigurationArea/DataSource",
   component: DataSource,
 };

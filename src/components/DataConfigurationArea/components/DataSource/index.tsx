@@ -10,17 +10,18 @@ export interface DataSourceProps {
   onDelete?: (id: string) => void;
   icon?: React.ReactNode;
   draggable?: boolean;
+  onClick?: (id: string) => void;
 }
 
-export default function DataSource({ id, onDelete, label, subLabel, selected, icon }: DataSourceProps) {
+export default function DataSource({ id, onDelete, label, subLabel, selected, icon, onClick }: DataSourceProps) {
   return (
     <div
       id={`${id}-data-source`}
+      onClick={() => onClick && onClick(id)}
       style={{
         border: `1px solid ${colors.grey500}`,
         background: selected ? "#B2DFDB" : undefined,
         padding: 8,
-        minWidth: 300,
         width: "100%",
         borderRadius: 2,
       }}>
