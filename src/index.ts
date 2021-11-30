@@ -1,6 +1,7 @@
 import ChartAnalytics from "./components/ChartAnalytics/index";
 import ConfigurationStepper from "./components/ConfigurationStepper/index";
 import DataConfigurationArea, { DataConfigurationAreaGroup, DataConfigurationAreaItem } from "./components/DataConfigurationArea";
+import DataSourceSelector from "./components/DataSourceSelector";
 import FormField, { Input as CustomInput } from "./components/FormField";
 import { OrgUnitSelectorModal, PeriodSelectorModal } from "./components/Modals";
 import OrgUnitSelector from "./components/OrgUnitSelector/index";
@@ -18,4 +19,5 @@ export {
   DataConfigurationArea,
   DataConfigurationAreaItem,
   DataConfigurationAreaGroup,
+  DataSourceSelector,
 };
