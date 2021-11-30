@@ -1,4 +1,4 @@
-import { IconDimensionOrgUnit16 } from "@dhis2/ui";
+import { IconDimensionIndicator16, IconDimensionOrgUnit16 } from "@dhis2/ui";
 import { Story } from "@storybook/react";
 import React from "react";
 import DataSource, { DataSourceProps } from "./index";
@@ -42,6 +42,19 @@ Selected.args = {
   label: "Data Source 1",
   subLabel: "This is a data source",
   selected: true,
+  onDelete: (id) => {
+    console.log(id);
+  },
+};
+
+export const Draggable = Template.bind({});
+
+Draggable.args = {
+  id: "1",
+  label: "Data Source 1",
+  subLabel: "This is a data source",
+  draggable: true,
+  icon: <IconDimensionIndicator16 />,
   onDelete: (id) => {
     console.log(id);
   },
