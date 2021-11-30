@@ -86,11 +86,14 @@ WithGroupFooter.args = {
   deletableItems: true,
   editableTitle: true,
   onItemClick: (id: string) => console.log(id),
-  groupFooter: (
-    <div>
-      <Button icon={<IconAdd24 />}>Add Item</Button>
-    </div>
-  ),
+  groupFooter: (group) => {
+    return (
+      <div>
+        <p>Footer for {`${group.name}`}</p>
+        <Button icon={<IconAdd24 />}>Add Item</Button>
+      </div>
+    );
+  },
 };
 
 export const DraggableItems = Template.bind({});
@@ -102,11 +105,6 @@ DraggableItems.args = {
   editableTitle: true,
   draggableItems: true,
   onItemClick: (id: string) => console.log(id),
-  groupFooter: (
-    <div>
-      <Button icon={<IconAdd24 />}>Add Item</Button>
-    </div>
-  ),
 };
 
 export default {

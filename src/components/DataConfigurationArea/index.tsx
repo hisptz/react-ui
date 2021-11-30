@@ -1,3 +1,4 @@
+import { find } from "lodash";
 import React from "react";
 import CustomAccordion from "./components/CustomAccordion";
 import DataSource from "./components/DataSource";
@@ -24,9 +25,10 @@ export interface DataConfigurationAreaProps {
   onGroupDelete?: (groupId: string) => void;
   deletableItems?: boolean;
   onItemDelete?: (groupId: string, itemId: string) => void;
-  groupFooter?: React.ReactNode;
+  groupFooter?: (group: DataConfigurationAreaGroupProps) => React.ReactNode;
   draggableItems?: boolean;
   onItemDragEnd?: (groupId: string, result: { source: { index: number }; destination: { index: number } }) => void;
+  selectedItems?: Array<{ groupId: string; itemId: string }>;
 }
 
 export default function DataConfigurationArea({
@@ -41,9 +43,10 @@ export default function DataConfigurationArea({
   groupFooter,
   draggableItems,
   onItemDragEnd,
+  selectedItems,
 }: DataConfigurationAreaProps) {
   return (
-    <div className={"column"}>
+    <div className="column">
       {groups.map(({ id: groupId, name, items }) => (
         <CustomAccordion
           draggableChildren={draggableItems}
@@ -72,10 +75,10 @@ export default function DataConfigurationArea({
                 key={`${item.id}-item`}
                 id={item.id}
                 label={item.name}
-                selected={false}
+                selected={Boolean(find(selectedItems, (selectedItem) => selectedItem.groupId === groupId && selectedItem.itemId === item.id))}
               />
             ))}
-            <div>{groupFooter}</div>
+            <div>{groupFooter ? groupFooter({ id: groupId, name, items }) : null}</div>
           </div>
         </CustomAccordion>
       ))}
