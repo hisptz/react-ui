@@ -1,5 +1,6 @@
 import { IconChevronDown24 } from "@dhis2/ui";
 import React from "react";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import GroupTitle from "./components/GroupTitle";
 import { Accordion, AccordionDetails, AccordionSummary } from "./components/MUIAccordion";
 
@@ -11,11 +12,24 @@ export interface CustomAccordionProps {
   editableTitle?: boolean;
   deletable?: boolean;
   onDelete?: (id: string) => void;
+  draggableChildren?: boolean;
+  onDragEnd?: (result: any) => void;
   onTitleChange?: (id: string, title: string) => void;
   onExpand?: (id: string, expanded: boolean) => void;
 }
 
-export default function CustomAccordion({ id, title, children, editableTitle, onTitleChange, deletable, onDelete, onExpand }: CustomAccordionProps) {
+export default function CustomAccordion({
+  id,
+  title,
+  children,
+  editableTitle,
+  onTitleChange,
+  deletable,
+  onDelete,
+  onExpand,
+  onDragEnd,
+  draggableChildren,
+}: CustomAccordionProps) {
   return (
     <Accordion
       style={{ width: "100%" }}
@@ -28,7 +42,22 @@ export default function CustomAccordion({ id, title, children, editableTitle, on
         <GroupTitle id={id} title={title} editable={editableTitle} onEdit={onTitleChange} deletable={deletable} onDelete={onDelete} />
       </AccordionSummary>
       <AccordionDetails>
-        <div className="column h-100 w-100 p-8">{children}</div>
+        {draggableChildren && onDragEnd ? (
+          <DragDropContext onDragEnd={onDragEnd}>
+            <div className="column h-100 w-100 p-8">
+              <Droppable droppableId={id}>
+                {(provided) => (
+                  <div ref={provided.innerRef} {...provided.droppableProps}>
+                    {children}
+                    {provided.placeholder}
+                  </div>
+                )}
+              </Droppable>
+            </div>
+          </DragDropContext>
+        ) : (
+          <div className="column h-100 w-100 p-8">{children}</div>
+        )}
       </AccordionDetails>
     </Accordion>
   );

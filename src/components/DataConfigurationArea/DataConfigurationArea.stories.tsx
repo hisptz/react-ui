@@ -93,6 +93,22 @@ WithGroupFooter.args = {
   ),
 };
 
+export const DraggableItems = Template.bind({});
+
+DraggableItems.args = {
+  groups,
+  deletableGroups: true,
+  deletableItems: true,
+  editableTitle: true,
+  draggableItems: true,
+  onItemClick: (id: string) => console.log(id),
+  groupFooter: (
+    <div>
+      <Button icon={<IconAdd24 />}>Add Item</Button>
+    </div>
+  ),
+};
+
 export default {
   title: "Components/DataConfigurationArea/DataConfigurationArea",
   component: DataConfigurationArea,

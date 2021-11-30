@@ -25,6 +25,8 @@ export interface DataConfigurationAreaProps {
   deletableItems?: boolean;
   onItemDelete?: (groupId: string, itemId: string) => void;
   groupFooter?: React.ReactNode;
+  draggableItems?: boolean;
+  onItemDragEnd?: (groupId: string, result: { source: { index: number }; destination: { index: number } }) => void;
 }
 
 export default function DataConfigurationArea({
@@ -37,11 +39,19 @@ export default function DataConfigurationArea({
   onItemDelete,
   deletableItems,
   groupFooter,
+  draggableItems,
+  onItemDragEnd,
 }: DataConfigurationAreaProps) {
   return (
     <div className={"column"}>
       {groups.map(({ id: groupId, name, items }) => (
         <CustomAccordion
+          draggableChildren={draggableItems}
+          onDragEnd={(result) => {
+            if (onItemDragEnd) {
+              onItemDragEnd(groupId, result);
+            }
+          }}
           onDelete={onGroupDelete}
           deletable={deletableGroups}
           onTitleChange={onGroupTitleEdit}
@@ -49,9 +59,11 @@ export default function DataConfigurationArea({
           key={`${groupId}-accordion`}
           id={groupId}
           title={name}>
-          <div className="column " style={{ gap: 16 }}>
-            {items?.map((item) => (
+          <div className="column" style={{ gap: 16 }}>
+            {items?.map((item, index) => (
               <DataSource
+                index={index}
+                draggable={draggableItems}
                 subLabel={item.subLabel}
                 icon={item.icon}
                 deletable={deletableItems}

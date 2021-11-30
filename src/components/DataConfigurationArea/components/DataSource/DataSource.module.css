@@ -1,0 +1,8 @@
+.drag-handle {
+    cursor: move;
+    display: none;
+}
+
+.drag-handle:hover {
+    display: block;
+}
