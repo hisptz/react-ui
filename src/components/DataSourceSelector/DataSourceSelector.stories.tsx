@@ -8,7 +8,7 @@ const Template: Story<DataSourceSelectorProps> = (args) => <DataSourceSelector {
 
 export const IndicatorSelector = Template.bind({});
 IndicatorSelector.args = {
-  onSubmit: (data) => {
+  onSelect: (data) => {
     console.log(data);
   },
   dataSources: [],
@@ -16,7 +16,7 @@ IndicatorSelector.args = {
 };
 export const WithMaxSelection = Template.bind({});
 WithMaxSelection.args = {
-  onSubmit: (data) => {
+  onSelect: (data) => {
     console.log(data);
   },
   maxSelections: 1,
@@ -24,7 +24,7 @@ WithMaxSelection.args = {
 
 export const WithAllAvailableDataSources = Template.bind({});
 WithAllAvailableDataSources.args = {
-  onSubmit: (data) => {
+  onSelect: (data) => {
     console.log(data);
   },
   maxSelections: 1,

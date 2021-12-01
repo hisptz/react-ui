@@ -14,7 +14,7 @@ export type DataSourceType = {
 
 export type DataSourceSelectorProps = {
   dataSources?: dataSource[];
-  onSubmit: (data: any) => void;
+  onSelect: (data: any) => void;
   disabled?: Array<string>;
   maxSelections?: number | string;
   selected?: DataSource[];

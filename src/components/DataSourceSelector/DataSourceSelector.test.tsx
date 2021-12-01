@@ -14,7 +14,7 @@ describe("Data Source Selector tests", () => {
   it("should render", function () {
     mount(
       <DHIS2Provider>
-        <DataSourceSelector onSubmit={() => {}} />
+        <DataSourceSelector onSelect={() => {}} />
       </DHIS2Provider>
     );
   });
