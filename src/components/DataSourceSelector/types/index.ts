@@ -17,6 +17,7 @@ export type DataSourceSelectorProps = {
   onSubmit: (data: any) => void;
   disabled?: Array<string>;
   maxSelections?: number | string;
+  selected?: DataSource[];
 };
 
 export type Pager = {

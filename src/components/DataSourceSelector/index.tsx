@@ -9,11 +9,11 @@ import NativeDataSource from "./models/nativeDataSource";
 import { DataSourceSelectorProps } from "./types";
 import { getDataSourcesList } from "./utils";
 import "../../styles/styles.css";
-export default function DataSourceSelector({ onSubmit, disabled, dataSources, maxSelections }: DataSourceSelectorProps) {
+export default function DataSourceSelector({ onSubmit, disabled, dataSources, maxSelections, selected }: DataSourceSelectorProps) {
   const dataSourcesList = useMemo(() => getDataSourcesList(dataSources), [dataSources]);
   const [selectedDataSourceType, setSelectedDataSourceType] = useState<DataSourceModel>(head(dataSourcesList) ?? new NativeDataSource(DATA_SOURCES[0]));
   const [selectedGroup, setSelectedGroup] = useState();
-  const [selectedDataSources, setSelectedDataSources] = useState<Array<any>>([]);
+  const [selectedDataSources, setSelectedDataSources] = useState<Array<any>>(selected ?? []);
   const onGroupChange = (group: React.SetStateAction<undefined>) => {
     setSelectedGroup(group);
   };
