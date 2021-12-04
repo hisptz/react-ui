@@ -14,13 +14,13 @@ export interface DataSourceProps {
   icon?: React.ReactNode;
   draggable?: boolean;
   index?: number;
-  onClick?: (id: string) => void;
+  onClick?: (id: string, e?: React.MouseEvent<HTMLDivElement>) => void;
 }
 
 const DataSourceElement = ({ id, onDelete, label, subLabel, selected, icon, onClick, deletable, draggable }: DataSourceProps) => (
   <div
     id={`${id}-data-source`}
-    onClick={() => onClick && onClick(id)}
+    onClick={(e) => onClick && onClick(id, e)}
     style={{
       border: `1px solid ${colors.grey500}`,
       background: selected ? "#B2DFDB" : undefined,
@@ -44,7 +44,12 @@ const DataSourceElement = ({ id, onDelete, label, subLabel, selected, icon, onCl
           {subLabel ? <p style={{ color: colors.grey800, margin: 2, fontSize: "0.8rem" }}>{subLabel}</p> : null}
         </div>
       </div>
-      {deletable && (onDelete ? <Button icon={<IconDelete16 />}>{i18n.t("Delete")}</Button> : null)}
+      {deletable &&
+        (onDelete ? (
+          <Button onClick={() => onDelete(id)} icon={<IconDelete16 />}>
+            {i18n.t("Delete")}
+          </Button>
+        ) : null)}
     </div>
   </div>
 );
