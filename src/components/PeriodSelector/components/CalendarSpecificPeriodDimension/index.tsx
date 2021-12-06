@@ -17,6 +17,7 @@ export default function CalendarSpecificPeriodSelector({
   selectedPeriods,
   excludeFixedPeriods,
   excludeRelativePeriods,
+  singleSelection,
 }: CalendarSpecificPeriodSelectorProps) {
   const periodInstance = new Period().setCalendar(CalendarTypes.ETHIOPIAN);
 
@@ -92,9 +93,10 @@ export default function CalendarSpecificPeriodSelector({
   }, [selectedPeriodCategory, selectedRelativePeriodType, selectedFixedPeriodType, year]);
 
   return (
-    <div className="column center align-items-center w-100 m-8">
+    <div className="column center align-items-center w-100">
       <CssReset />
       <Transfer
+        maxSelections={singleSelection ? 1 : undefined}
         selected={selectedPeriods}
         selectedWidth={"400px"}
         optionsWidth={"400px"}

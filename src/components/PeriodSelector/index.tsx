@@ -10,9 +10,11 @@ export default function PeriodSelector({
   onSelect,
   excludeFixedPeriods,
   excludeRelativePeriods,
+  singleSelection,
 }: PeriodSelectorProps) {
   return (
     <CalendarSpecificPeriodSelector
+      singleSelection={singleSelection}
       excludedPeriodTypes={excludedPeriodTypes ?? []}
       calendar={calendar ?? CalendarTypes.GREGORIAN}
       onSelect={onSelect}

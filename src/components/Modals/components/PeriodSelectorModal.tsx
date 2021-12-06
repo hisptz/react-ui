@@ -14,6 +14,7 @@ export default function PeriodSelectorModal({
   onUpdate,
   selectedPeriods,
   updateButtonLabel,
+  singleSelection,
   ...props
 }: ModalProps & PeriodSelectorProps) {
   const [periodState, setPeriodState] = useState<Array<any> | undefined>(selectedPeriods);
@@ -30,7 +31,7 @@ export default function PeriodSelectorModal({
     <Modal hide={hide} small={small} large={large} onClose={onClose} position={position}>
       <ModalTitle>{i18n.t("Select Period(s)")}</ModalTitle>
       <ModalContent>
-        <PeriodSelector {...props} selectedPeriods={periodState} onSelect={onSelect} />
+        <PeriodSelector singleSelection={singleSelection} {...props} selectedPeriods={periodState} onSelect={onSelect} />
       </ModalContent>
       <ModalActions>
         <ButtonStrip>
