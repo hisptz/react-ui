@@ -58,6 +58,16 @@ ExcludedPeriodTypes.args = {
   calendar: CalendarTypes.GREGORIAN,
 };
 
+export const SingleSelection = Template.bind({});
+SingleSelection.args = {
+  onSelect: ({ items }) => {
+    console.log(items);
+  },
+  selectedPeriods: [],
+  excludedPeriodTypes: ["RelativeWeek", "RelativeMonth", "Monthly", "Weekly"],
+  calendar: CalendarTypes.GREGORIAN,
+};
+
 export const SelectedPeriods = Template.bind({});
 SelectedPeriods.args = {
   onSelect: ({ items }) => {
