@@ -46,7 +46,12 @@ const DataSourceElement = ({ id, onDelete, label, subLabel, selected, icon, onCl
       </div>
       {deletable &&
         (onDelete ? (
-          <Button onClick={() => onDelete(id)} icon={<IconDelete16 />}>
+          <Button
+            onClick={(value: any, e: { stopPropagation: () => void }) => {
+              e.stopPropagation();
+              onDelete(id);
+            }}
+            icon={<IconDelete16 />}>
             {i18n.t("Delete")}
           </Button>
         ) : null)}
