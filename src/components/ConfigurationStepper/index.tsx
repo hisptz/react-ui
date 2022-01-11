@@ -16,7 +16,7 @@ export default function ConfigurationStepper({
   const [activeStep, setActiveStep] = useState(stepsManagement[0]);
   const Component = activeStep.component;
 
-  const onNextStep = () => {
+  const onNextStep = async () => {
     if (!hasNextStep) {
       onLastAction();
       return;
@@ -24,7 +24,7 @@ export default function ConfigurationStepper({
     const currentStepIndex = findIndex(stepsManagement, ["label", activeStep.label]);
 
     if (onStepChangeHandler !== undefined) {
-      if (onStepChangeHandler(currentStepIndex, currentStepIndex + 1)) {
+      if (await onStepChangeHandler(currentStepIndex, currentStepIndex + 1)) {
         if (currentStepIndex !== stepsManagement.length - 1 && currentStepIndex <= 0) {
           setActiveStep(stepsManagement[currentStepIndex + 1]);
           return;
@@ -38,11 +38,11 @@ export default function ConfigurationStepper({
     }
   };
 
-  const onPreviousStep = () => {
+  const onPreviousStep = async () => {
     const currentStepIndex = findIndex(stepsManagement, ["label", activeStep.label]);
 
     if (onStepChangeHandler !== undefined) {
-      if (onStepChangeHandler(currentStepIndex, currentStepIndex - 1)) {
+      if (await onStepChangeHandler(currentStepIndex, currentStepIndex - 1)) {
         if (currentStepIndex !== stepsManagement.length - 1 && currentStepIndex >= 0) {
           setActiveStep(stepsManagement[currentStepIndex - 1]);
           return;
@@ -57,11 +57,11 @@ export default function ConfigurationStepper({
     }
   };
 
-  const onStepChange = (step: StepsList) => {
+  const onStepChange = async (step: StepsList) => {
     if (onStepChangeHandler !== undefined) {
       const currentStepIndex = findIndex(stepsManagement, ["label", activeStep.label]);
       const newStepIndex = findIndex(stepsManagement, ["label", step.label]);
-      if (onStepChangeHandler(currentStepIndex, newStepIndex)) {
+      if (await onStepChangeHandler(currentStepIndex, newStepIndex)) {
         setActiveStep(step);
       } else {
         return;
