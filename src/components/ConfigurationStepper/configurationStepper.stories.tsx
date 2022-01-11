@@ -67,6 +67,7 @@ MultiStepper.args = {
   onLastAction: () => {},
   onLastActionButtonName: "Save",
   activeStepperBackGroundColor: "#00695c",
+  onStepChange: () => true,
 };
 
 export const SimpleStepper = Template.bind({});
@@ -100,6 +101,7 @@ SimpleStepper.args = {
   onLastAction: () => {},
   onLastActionButtonName: "Save",
   activeStepperBackGroundColor: "#00695c",
+  onStepChange: undefined,
 };
 
 export default {
