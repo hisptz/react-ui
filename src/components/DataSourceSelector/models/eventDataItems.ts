@@ -18,7 +18,7 @@ export default class EventDataItems extends NativeDataSource {
         resource: "programs",
         id: ({ id }: { id: string }) => id,
         params: {
-          fields: ["id", "programTrackedEntityAttributes[trackedEntityAttribute[id,displayName,valueType]]"],
+          fields: ["id", "programTrackedEntityAttributes[trackedEntityAttribute[id,displayName,valueType,shortName]]"],
         },
       },
       dataElements: {
@@ -27,7 +27,7 @@ export default class EventDataItems extends NativeDataSource {
           program: id,
           page,
           filter: [`valueType:eq:NUMBER`, ...filter],
-          fields: ["dataElement[id,displayName]", "displayName", "valueType"],
+          fields: ["dataElement[id,displayName]", "displayName", "valueType", "shortName"],
         }),
       },
     };
