@@ -2,18 +2,20 @@ import i18n from "@dhis2/d2-i18n";
 import { Button, ButtonStrip } from "@dhis2/ui";
 import { makeStyles, Step, StepLabel, Stepper } from "@material-ui/core";
 import { findIndex } from "lodash";
-import React, { Suspense, useMemo, useState } from "react";
+import React, { Suspense, useMemo } from "react";
 import FullPageLoader from "../shared/components/FullPageLoader";
 import { ConfigurationStepperProps, StepsList } from "./types/props";
 import "./styles/index.css";
+
 export default function ConfigurationStepper({
-  stepsManagement,
+  steps,
   onLastAction,
   activeStepperBackGroundColor,
   onLastActionButtonName,
   onStepChange: onStepChangeHandler,
+  setActiveStep,
+  activeStep,
 }: ConfigurationStepperProps) {
-  const [activeStep, setActiveStep] = useState(stepsManagement[0]);
   const Component = activeStep.component;
 
   const onNextStep = async () => {
@@ -21,30 +23,30 @@ export default function ConfigurationStepper({
       onLastAction();
       return;
     }
-    const currentStepIndex = findIndex(stepsManagement, ["label", activeStep.label]);
+    const currentStepIndex = findIndex(steps, ["label", activeStep.label]);
 
     if (onStepChangeHandler !== undefined) {
       if (await onStepChangeHandler(currentStepIndex, currentStepIndex + 1)) {
-        if (currentStepIndex !== stepsManagement.length - 1 && currentStepIndex <= 0) {
-          setActiveStep(stepsManagement[currentStepIndex + 1]);
+        if (currentStepIndex !== steps.length - 1 && currentStepIndex <= 0) {
+          setActiveStep(steps[currentStepIndex + 1]);
           return;
         }
       } else {
         return;
       }
     }
-    if (currentStepIndex !== stepsManagement.length - 1 && currentStepIndex >= 0) {
-      setActiveStep(stepsManagement[currentStepIndex + 1]);
+    if (currentStepIndex !== steps.length - 1 && currentStepIndex >= 0) {
+      setActiveStep(steps[currentStepIndex + 1]);
     }
   };
 
   const onPreviousStep = async () => {
-    const currentStepIndex = findIndex(stepsManagement, ["label", activeStep.label]);
+    const currentStepIndex = findIndex(steps, ["label", activeStep.label]);
 
     if (onStepChangeHandler !== undefined) {
       if (await onStepChangeHandler(currentStepIndex, currentStepIndex - 1)) {
-        if (currentStepIndex !== stepsManagement.length - 1 && currentStepIndex >= 0) {
-          setActiveStep(stepsManagement[currentStepIndex - 1]);
+        if (currentStepIndex !== steps.length - 1 && currentStepIndex >= 0) {
+          setActiveStep(steps[currentStepIndex - 1]);
           return;
         }
       } else {
@@ -53,14 +55,14 @@ export default function ConfigurationStepper({
     }
 
     if (currentStepIndex !== 0) {
-      setActiveStep(stepsManagement[currentStepIndex - 1]);
+      setActiveStep(steps[currentStepIndex - 1]);
     }
   };
 
   const onStepChange = async (step: StepsList) => {
     if (onStepChangeHandler !== undefined) {
-      const currentStepIndex = findIndex(stepsManagement, ["label", activeStep.label]);
-      const newStepIndex = findIndex(stepsManagement, ["label", step.label]);
+      const currentStepIndex = findIndex(steps, ["label", activeStep.label]);
+      const newStepIndex = findIndex(steps, ["label", step.label]);
       if (await onStepChangeHandler(currentStepIndex, newStepIndex)) {
         setActiveStep(step);
       } else {
@@ -70,10 +72,10 @@ export default function ConfigurationStepper({
     setActiveStep(step);
   };
 
-  const hasNextStep = useMemo(() => findIndex(stepsManagement, ["label", activeStep.label]) !== stepsManagement.length - 1, [activeStep]);
-  const hasPreviousStep = useMemo(() => findIndex(stepsManagement, ["label", activeStep.label]) > 0, [activeStep]);
+  const hasNextStep = useMemo(() => findIndex(steps, ["label", activeStep.label]) !== steps.length - 1, [activeStep]);
+  const hasPreviousStep = useMemo(() => findIndex(steps, ["label", activeStep.label]) > 0, [activeStep]);
 
-  const currentIndex = useMemo(() => findIndex(stepsManagement, ["label", activeStep.label]), [activeStep]);
+  const currentIndex = useMemo(() => findIndex(steps, ["label", activeStep.label]), [activeStep]);
 
   const useStyles = makeStyles({
     root: {
@@ -91,9 +93,9 @@ export default function ConfigurationStepper({
   const classes = useStyles();
   return (
     <Suspense fallback={<FullPageLoader />}>
-      <div className="column">
+      <div className="column w-100 h-100">
         <Stepper>
-          {stepsManagement?.map((step) => (
+          {steps?.map((step) => (
             <Step
               id="stepper"
               className={classes.root}
@@ -105,13 +107,13 @@ export default function ConfigurationStepper({
             </Step>
           ))}
         </Stepper>
-        <div className="row">
-          <div className="column center" style={{ flex: 1 }}>
+        <div className="row" style={{ flex: 1 }}>
+          <div className="column center" style={{ flex: 1, width: "100%" }}>
             <div className="column p-16" style={{ height: "100%", justifyContent: "space-between", gap: 24 }}>
-              <div style={{ height: "100%", width: "100%" }}>{<Component onNextStep={onNextStep} onPreviousStep={onPreviousStep} />}</div>
+              <div style={{ height: "100%", width: "100%", flex: 1 }}>{<Component onNextStep={onNextStep} onPreviousStep={onPreviousStep} />}</div>
               <ButtonStrip start>
                 <Button disabled={!hasPreviousStep} onClick={onPreviousStep}>
-                  {`${i18n.t("Previous")}: ${stepsManagement[currentIndex - 1]?.label ?? ""}`}
+                  {`${i18n.t("Previous")}: ${steps[currentIndex - 1]?.label ?? ""}`}
                 </Button>
                 <Button
                   primary
@@ -119,7 +121,7 @@ export default function ConfigurationStepper({
                   onClick={hasNextStep ? onNextStep : onLastAction}
                   className="settings-next-button"
                   dataTest="scorecard-admin-next-button">
-                  {!hasNextStep ? onLastActionButtonName : `${i18n.t("Next")}: ${stepsManagement[currentIndex + 1]?.label}`}
+                  {!hasNextStep ? onLastActionButtonName : `${i18n.t("Next")}: ${steps[currentIndex + 1]?.label}`}
                 </Button>
               </ButtonStrip>
             </div>
