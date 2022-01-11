@@ -95,7 +95,15 @@ export const decorators = [
   (Story) => (
     <DHIS2Provider>
       <StoryPreview>
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "100%" }}>
+        <div
+          style={{
+            flexDirection: "column",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "100%",
+            height: "100%",
+          }}>
           <Story />
         </div>
       </StoryPreview>

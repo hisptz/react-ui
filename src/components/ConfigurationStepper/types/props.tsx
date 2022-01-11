@@ -5,7 +5,9 @@ export type StepsList = {
 };
 
 export type ConfigurationStepperProps = {
-  stepsManagement: StepsList[];
+  activeStep: StepsList;
+  setActiveStep: (step: StepsList) => void;
+  steps: StepsList[];
   onLastAction: (value?: any) => void;
   activeStepperBackGroundColor: string;
   onCancelLastAction: (value?: any) => void;
