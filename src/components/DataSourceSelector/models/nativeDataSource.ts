@@ -22,7 +22,7 @@ export default class NativeDataSource extends DataSource {
       groups: {
         resource: this?.groupResource,
         params: {
-          fields: ["displayName", "id", `${this?.resource}[displayName,id]`],
+          fields: ["displayName", "id", `${this?.resource}[displayName,id,shortName,description,name]`],
         },
       },
     };
@@ -33,7 +33,7 @@ export default class NativeDataSource extends DataSource {
         params: ({ page, filter }: { page: number; filter: Array<string> }) => ({
           page,
           totalPages: true,
-          fields: ["displayName", "id"],
+          fields: ["displayName", "id", "shortName", "description", "name"],
           filter,
           order: "displayName:asc",
         }),
