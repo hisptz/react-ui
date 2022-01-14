@@ -75,6 +75,7 @@ WithAllOptions.args = {
   deletableGroups: true,
   deletableItems: true,
   editableTitle: true,
+  titleRightAdornment: ({ id }) => <div>{id}</div>,
   onItemClick: (id: string) => console.log(id),
 };
 

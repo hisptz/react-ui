@@ -29,6 +29,7 @@ export interface DataConfigurationAreaProps {
   draggableItems?: boolean;
   onItemDragEnd?: (groupId: string, result: { source: { index: number }; destination: { index: number } }) => void;
   selectedItems?: Array<{ groupId: string; itemId: string }>;
+  titleRightAdornment?: (props: { id: string }) => React.ReactNode;
 }
 
 export default function DataConfigurationArea({
@@ -44,6 +45,7 @@ export default function DataConfigurationArea({
   draggableItems,
   onItemDragEnd,
   selectedItems,
+  titleRightAdornment,
 }: DataConfigurationAreaProps) {
   return (
     <div className="column">
@@ -61,7 +63,8 @@ export default function DataConfigurationArea({
           editableTitle={editableTitle}
           key={`${groupId}-accordion`}
           id={groupId}
-          title={name}>
+          title={name}
+          titleRightAdornment={titleRightAdornment}>
           <div className="column" style={{ gap: 16 }}>
             {items?.map((item, index) => (
               <DataSource

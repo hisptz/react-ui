@@ -50,6 +50,23 @@ Deletable.args = {
   ),
 };
 
+export const RightAdornment = Template.bind({});
+
+RightAdornment.args = {
+  id: "1",
+  title: "Accordion",
+  editableTitle: true,
+  deletable: true,
+  titleRightAdornment: ({ id }: { id: string }) => <div>{id}</div>,
+  children: (
+    <div className={"column "} style={{ gap: 16 }}>
+      <DataSource id={"1"} label={"DataSource 1"} selected={false} />
+      <DataSource id={"2"} label={"DataSource 2"} selected={false} />
+      <DataSource id={"3"} label={"DataSource 3"} selected={false} />
+    </div>
+  ),
+};
+
 export default {
   title: "Components/DataConfigurationArea/DataConfigurationAreaGroup",
   component: CustomAccordion,
