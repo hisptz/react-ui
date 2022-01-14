@@ -11,9 +11,10 @@ export interface GroupTitleProps {
   editable?: boolean;
   deletable?: boolean;
   onEdit?: (id: string, value: string) => void;
+  rightAdornment?: (props: { id: string }) => React.ReactNode;
 }
 
-export default function GroupTitle({ title, onDelete, id, onEdit, editable, deletable }: GroupTitleProps) {
+export default function GroupTitle({ title, onDelete, id, onEdit, editable, deletable, rightAdornment }: GroupTitleProps) {
   const [editOpen, setEditOpen] = useState<boolean>(false);
   const [editTitle, setEditTitle] = useState<string>(title);
 
@@ -27,6 +28,8 @@ export default function GroupTitle({ title, onDelete, id, onEdit, editable, dele
       }
     }
   };
+
+  const RightAdornment: any | null = rightAdornment || null;
 
   return (
     <>
@@ -65,6 +68,7 @@ export default function GroupTitle({ title, onDelete, id, onEdit, editable, dele
             ) : null}
           </div>
         </div>
+        {!editOpen && RightAdornment ? <div className="row align-items-center">{<RightAdornment id={id} />}</div> : null}
         <div className="row align-items-center">
           {editOpen ? (
             <ButtonStrip end>
