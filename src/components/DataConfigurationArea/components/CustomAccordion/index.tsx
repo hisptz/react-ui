@@ -16,6 +16,7 @@ export interface CustomAccordionProps {
   onDragEnd?: (result: any) => void;
   onTitleChange?: (id: string, title: string) => void;
   onExpand?: (id: string, expanded: boolean) => void;
+  titleRightAdornment?: React.ReactNode;
 }
 
 export default function CustomAccordion({
@@ -29,6 +30,7 @@ export default function CustomAccordion({
   onExpand,
   onDragEnd,
   draggableChildren,
+  titleRightAdornment,
 }: CustomAccordionProps) {
   return (
     <Accordion
@@ -39,7 +41,15 @@ export default function CustomAccordion({
         }
       }}>
       <AccordionSummary expandIcon={<IconChevronDown24 />}>
-        <GroupTitle id={id} title={title} editable={editableTitle} onEdit={onTitleChange} deletable={deletable} onDelete={onDelete} />
+        <GroupTitle
+          rightAdornment={titleRightAdornment}
+          id={id}
+          title={title}
+          editable={editableTitle}
+          onEdit={onTitleChange}
+          deletable={deletable}
+          onDelete={onDelete}
+        />
       </AccordionSummary>
       <AccordionDetails>
         {draggableChildren && onDragEnd ? (
