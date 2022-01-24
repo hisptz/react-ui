@@ -88,6 +88,8 @@ MultipleFields.args = {
       name: "legend-definition",
     },
   },
+  deletable: false,
+  addable: false,
   initialFieldCount: 4,
 };
 
