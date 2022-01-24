@@ -32,6 +32,8 @@ export type InputProps = {
   multipleFields?: Array<FormFieldModel>;
   legendDefinition?: LegendDefinition;
   initialFieldCount?: number;
+  deletable?: boolean;
+  addable?: boolean;
 };
 
 export type LegendDefinition = {
