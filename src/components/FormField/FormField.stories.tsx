@@ -1,11 +1,20 @@
 import { Story } from "@storybook/react";
-import React from "react";
+import React, { useState } from "react";
 import FormFieldModel from "./components/Input/models/field";
 import { InputProps } from "./components/Input/types";
 import { VALUE_TYPES } from "./constants";
 import { Input } from "./index";
 
-const Template: Story<InputProps> = (args) => <Input {...args} />;
+const Template: Story<InputProps> = (args, context) => (
+  <Input
+    {...args}
+    input={{
+      ...args.input,
+      value: context.value,
+      onChange: context.onChange,
+    }}
+  />
+);
 
 export const NativeInputs = Template.bind({});
 NativeInputs.args = {
@@ -127,20 +136,29 @@ export default {
   title: "Components/Custom Inputs",
   component: Input,
   decorators: [
-    (InputStory: any) => (
-      <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
-        <div
-          style={{
-            width: 600,
-            height: "100%",
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "center",
-          }}>
-          <InputStory />
+    (InputStory: any) => {
+      const [value, setValue] = useState();
+      return (
+        <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
+          <div
+            style={{
+              width: 600,
+              height: "100%",
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
+            }}>
+            <InputStory value={value} onChange={setValue} />
+          </div>
         </div>
-      </div>
-    ),
+      );
+    },
   ],
+  parameters: {
+    actions: {
+      handles: ["onChange"],
+    },
+  },
+  argTypes: { onChange: { action: "onChange" } },
 };
