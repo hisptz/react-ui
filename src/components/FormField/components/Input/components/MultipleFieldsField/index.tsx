@@ -1,5 +1,5 @@
 import i18n from "@dhis2/d2-i18n";
-import { Button, Field, IconDelete24, IconAdd24 } from "@dhis2/ui";
+import { Button, Field, IconAdd24, IconDelete24 } from "@dhis2/ui";
 import { remove, set } from "lodash";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
@@ -7,13 +7,26 @@ import { FormFieldProps } from "../../../../types";
 import Input from "../../index";
 import FormFieldModel from "../../models/field";
 import { FinalFormFieldInput } from "../../types";
+
 type MultipleFieldsFieldProps = FinalFormFieldInput & {
   multipleField: FormFieldProps;
   initialFieldCount?: number;
   multipleFields?: Array<any>;
+  deletable?: boolean;
+  addable?: boolean;
 };
 
-export default function MultipleFieldsField({ name, value, onChange, multipleField, initialFieldCount, multipleFields, ...props }: MultipleFieldsFieldProps) {
+export default function MultipleFieldsField({
+  name,
+  value,
+  onChange,
+  multipleField,
+  initialFieldCount,
+  multipleFields,
+  deletable,
+  addable,
+  ...props
+}: MultipleFieldsFieldProps) {
   const [fields, setFields] = useState<Array<FormFieldModel>>([]);
   useEffect(() => {
     function setInitialFields() {
@@ -76,11 +89,11 @@ export default function MultipleFieldsField({ name, value, onChange, multipleFie
                     <Input valueType={field.valueType} input={input} />
                   </div>
                   <div className="column w-25">
-                    {!value?.[index]?.isDefault && (
+                    {!value?.[index]?.isDefault && deletable ? (
                       <Button disabled={index === 0 && fields.length === 1} icon={<IconDelete24 />} onClick={() => onDeleteField(field, index)}>
                         {i18n.t("Delete")}
                       </Button>
-                    )}
+                    ) : null}
                   </div>
                 </div>
               );
@@ -96,23 +109,23 @@ export default function MultipleFieldsField({ name, value, onChange, multipleFie
                   <div className="column w-100">
                     <Input valueType={field.valueType} input={input} {...field} />
                   </div>
-                  {multipleField && (
+                  {multipleField && deletable ? (
                     <div className="column">
                       <Button disabled={index === 0 && fields.length === 1} icon={<IconDelete24 />} onClick={() => onDeleteField(field, index)}>
                         {i18n.t("Delete")}
                       </Button>
                     </div>
-                  )}
+                  ) : null}
                 </div>
               );
             })}
-        {multipleField && (
+        {multipleField && addable ? (
           <div className="w-50">
             <Button icon={<IconAdd24 />} onClick={onAddField}>
               {i18n.t("Add Item")}
             </Button>
           </div>
-        )}
+        ) : null}
       </div>
     </Field>
   );
