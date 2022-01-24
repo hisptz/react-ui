@@ -1,67 +1,85 @@
-import { Button } from "@dhis2/ui";
 import { Story } from "@storybook/react";
-import React, { ReactNode } from "react";
-import { ConfirmDialogConfig, ConfirmDialogProvider, useConfirmDialog } from "./index";
+import React from "react";
+import { ConfirmDialogProps } from "./components/ConfirmDialog";
+import { ConfirmDialog } from "./index";
 
-const ExampleChild = ({ config }: { config?: ConfirmDialogConfig }) => {
-  const { confirm } = useConfirmDialog();
+const Template: Story<ConfirmDialogProps> = (args) => <ConfirmDialog {...args} />;
 
-  return (
-    <Button
-      onClick={() => {
-        confirm(
-          config ?? {
-            title: "Are you sure?",
-            message: "Your confirm message will appear here",
-            onConfirm: () => {
-              alert("Confirmed 🤗");
-            },
-            onCancel: () => {
-              alert("Cancelled 😔");
-            },
-          }
-        );
-      }}>
-      Click me!
-    </Button>
-  );
+export const ConfirmDialogExample = Template.bind({});
+ConfirmDialogExample.args = {
+  title: "Confirm Title",
+  message: "Confirm Content",
+  onConfirm: () => {
+    alert("Confirm 🤗");
+  },
+  onCancel: () => {
+    alert("Cancel 😔");
+  },
 };
-
-const Template: Story<{ children: ReactNode }> = (args) => <ConfirmDialogProvider>{args.children}</ConfirmDialogProvider>;
-
-export const ConfirmDialogInProvider = Template.bind({});
-ConfirmDialogInProvider.args = {
-  children: (
-    <div>
-      <ExampleChild />
-    </div>
-  ),
-};
-
-export const ConfirmDialogInProviderWithOptions = Template.bind({});
-ConfirmDialogInProviderWithOptions.args = {
-  children: (
-    <div>
-      <ExampleChild
-        config={{
-          title: "Are you sure?",
-          message: "Your confirm message will appear here",
-          onConfirm: () => {
-            alert("Confirmed 🤗");
-          },
-          onCancel: () => {
-            alert("Cancelled 😔");
-          },
-          cancelButtonText: "Custom cancel",
-          confirmButtonText: "Custom confirm",
-          confirmButtonColor: "primary",
-        }}
-      />
-    </div>
-  ),
+export const ConfirmDialogExampleWithAllOptions = Template.bind({});
+ConfirmDialogExampleWithAllOptions.args = {
+  title: "Confirm Title",
+  message: "Confirm Content",
+  position: "middle",
+  size: "small",
+  hide: false,
+  cancelButtonText: "Cancel",
+  confirmButtonText: "Confirm",
+  confirmButtonColor: "primary",
+  onConfirm: () => {
+    alert("Confirm 🤗");
+  },
+  onCancel: () => {
+    alert("Cancel 😔");
+  },
 };
 
 export default {
-  title: "Components/Confirm Dialog/Confirm Dialog Provider",
-  component: ConfirmDialogInProvider,
+  title: "Components/Confirm Dialog/Confirm Dialog",
+  component: ConfirmDialogExample,
+  argTypes: {
+    title: {
+      control: {
+        type: "text",
+      },
+    },
+    message: {
+      control: {
+        type: "text",
+      },
+    },
+    position: {
+      control: {
+        type: "select",
+        options: ["top", "middle", "bottom"],
+      },
+    },
+    size: {
+      control: {
+        type: "select",
+        options: ["small", "large"],
+      },
+    },
+    hide: {
+      control: {
+        type: "boolean",
+      },
+    },
+    cancelButtonText: {
+      control: {
+        type: "text",
+      },
+    },
+    confirmButtonText: {
+      control: {
+        type: "text",
+      },
+    },
+    confirmButtonColor: {
+      control: {
+        type: "select",
+        options: ["primary", "secondary", "destructive"],
+      },
+    },
+  },
 };
