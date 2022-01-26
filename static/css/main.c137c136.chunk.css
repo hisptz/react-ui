@@ -192,6 +192,14 @@
     width: 75%;
 }
 
+.w-60 {
+    width: 60%;
+}
+
+.w-40 {
+    width: 40%;
+}
+
 /*Height*/
 
 .h-100 {
@@ -230,6 +238,11 @@
 .row {
     display: flex;
     flex-direction: row;
+}
+
+.gap-8 {
+    grid-gap: 8px;
+    gap: 8px;
 }
 
 
@@ -279,4 +292,4 @@
 
 
 
-/*# sourceMappingURL=main.97b48400.chunk.css.map*/
+/*# sourceMappingURL=main.c137c136.chunk.css.map*/
