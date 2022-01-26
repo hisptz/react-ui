@@ -1,6 +1,6 @@
 import i18n from "@dhis2/d2-i18n";
 import { CssReset, InputField, SingleSelectField, SingleSelectOption, Tab, TabBar, Transfer } from "@dhis2/ui";
-import { Period } from "@iapps/period-utilities";
+import { Period, PeriodInterface } from "@iapps/period-utilities";
 import { compact, filter, find, head, isEmpty } from "lodash";
 import React, { useEffect, useMemo, useState } from "react";
 import PeriodTransferOption from "./components/TransferOption";
@@ -63,7 +63,7 @@ export default function CalendarSpecificPeriodSelector({
     }
   }, [excludeFixedPeriods, excludeRelativePeriods]);
 
-  const periods = useMemo(() => {
+  const periods: PeriodInterface[] = useMemo(() => {
     if (selectedPeriodCategory) {
       if (selectedRelativePeriodType) {
         if (selectedPeriodCategory.key === PeriodCategories.RELATIVE.key) {
@@ -129,7 +129,7 @@ export default function CalendarSpecificPeriodSelector({
                 </SingleSelectField>
               </div>
             ) : (
-              <div className="row space-between align-items-center w-100 pt-8 pb-8">
+              <div className="row space-between align-items-center w-100 pt-8 pb-8 gap-8">
                 <div className="w-60">
                   <SingleSelectField
                     dense
@@ -166,7 +166,15 @@ export default function CalendarSpecificPeriodSelector({
         onChange={({ selected }: { selected: Array<string> }) => {
           if (onSelect) {
             onSelect({
-              items: compact(selected.map((id) => periods.find((period) => period?.id === id))),
+              items: compact(
+                selected.map((id) => {
+                  try {
+                    return new Period().setPreferences({ openFuturePeriods: 4, allowFuturePeriods: true }).setCalendar(calendar).getById(id);
+                  } catch (e) {
+                    return undefined;
+                  }
+                })
+              ),
             });
           }
         }}
