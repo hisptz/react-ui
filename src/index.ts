@@ -3,7 +3,7 @@ import ConfigurationStepper from "./components/ConfigurationStepper/index";
 import { ConfirmDialog, ConfirmDialogConfig, ConfirmDialogProvider, useConfirmDialog } from "./components/ConfirmDialog";
 import DataConfigurationArea, { DataConfigurationAreaGroup, DataConfigurationAreaItem } from "./components/DataConfigurationArea";
 import DataSourceSelector from "./components/DataSourceSelector";
-import FormField, { Input as CustomInput } from "./components/FormField";
+import FormField, { Input as CustomInput, RHFInput as RHFCustomInput } from "./components/FormField";
 import { OrgUnitSelectorModal, PeriodSelectorModal } from "./components/Modals";
 import OrgUnitSelector from "./components/OrgUnitSelector/index";
 import PeriodSelector from "./components/PeriodSelector";
@@ -24,6 +24,7 @@ export {
   ConfirmDialogProvider,
   ConfirmDialog,
   useConfirmDialog,
+  RHFCustomInput,
 };
 
 export type { ConfirmDialogConfig };

@@ -1,5 +1,6 @@
 import { ReactFinalForm } from "@dhis2/ui";
 import React from "react";
+import RHFInput from "./components/HookFormInput";
 import Input from "./components/Input";
 import { FormFieldProps } from "./types";
 
@@ -10,3 +11,4 @@ export default function FormField(field: FormFieldProps) {
 }
 
 export { Input };
+export { RHFInput };
