@@ -7,7 +7,7 @@ import RichTextEditor from "../components/RichTextEditor";
 import { VALUE_TYPES } from "../constants";
 import { VALUE_TYPE } from "../types";
 
-export function getField(valueType: VALUE_TYPE) {
+export function getField(valueType: VALUE_TYPE | string) {
   switch (valueType) {
     case VALUE_TYPES.DATE.name:
     case VALUE_TYPES.TEXT.name:

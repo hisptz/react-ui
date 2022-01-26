@@ -52,7 +52,7 @@ export type OptionSet = {
 
 export type InputProps = {
   input: FinalFormFieldInput;
-  valueType: VALUE_TYPE;
+  valueType: VALUE_TYPE | string;
   optionSet?: OptionSet;
   label?: string;
   validations?: any;
