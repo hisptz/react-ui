@@ -244,6 +244,10 @@
     grid-gap: 8px;
     gap: 8px;
 }
+.gap-16 {
+    grid-gap: 16px;
+    gap: 16px;
+}
 
 
 .container-bordered {
@@ -292,4 +296,4 @@
 
 
 
-/*# sourceMappingURL=main.c137c136.chunk.css.map*/
+/*# sourceMappingURL=main.414cff8e.chunk.css.map*/
