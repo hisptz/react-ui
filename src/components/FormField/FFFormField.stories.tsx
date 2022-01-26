@@ -1,8 +1,8 @@
 import { Story } from "@storybook/react";
 import React, { useState } from "react";
-import FormFieldModel from "./components/Input/models/field";
-import { InputProps } from "./components/Input/types";
 import { VALUE_TYPES } from "./constants";
+import FormFieldModel from "./models/field";
+import { InputProps } from "./types";
 import { Input } from "./index";
 
 const Template: Story<InputProps> = (args, context) => (
@@ -135,7 +135,7 @@ MultipleFieldsWithSpecifiedListOfFields.args = {
 };
 
 export default {
-  title: "Components/Custom Inputs",
+  title: "Components/Custom Inputs/FFInput",
   component: Input,
   decorators: [
     (InputStory: any) => {

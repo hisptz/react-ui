@@ -55,6 +55,14 @@
     width: 75%;
 }
 
+.w-60 {
+    width: 60%;
+}
+
+.w-40 {
+    width: 40%;
+}
+
 /*Height*/
 
 .h-100 {
@@ -93,6 +101,10 @@
 .row {
     display: flex;
     flex-direction: row;
+}
+
+.gap-8 {
+    gap: 8px;
 }
 
 

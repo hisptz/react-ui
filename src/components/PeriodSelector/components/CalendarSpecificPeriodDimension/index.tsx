@@ -1,12 +1,11 @@
 import i18n from "@dhis2/d2-i18n";
 import { CssReset, InputField, SingleSelectField, SingleSelectOption, Tab, TabBar, Transfer } from "@dhis2/ui";
-import { Period } from "@iapps/period-utilities";
-import { filter, find, head, isEmpty } from "lodash";
+import { Period, PeriodInterface } from "@iapps/period-utilities";
+import { compact, filter, find, head, isEmpty } from "lodash";
 import React, { useEffect, useMemo, useState } from "react";
 import PeriodTransferOption from "./components/TransferOption";
 import { CalendarTypes } from "./constants/calendar";
 import { PeriodCategories } from "./constants/period";
-import { Period as PeriodInterface } from "./interfaces/period";
 import { CalendarSpecificPeriodSelectorProps } from "./interfaces/props";
 import "../../../../styles/styles.css";
 
@@ -64,7 +63,7 @@ export default function CalendarSpecificPeriodSelector({
     }
   }, [excludeFixedPeriods, excludeRelativePeriods]);
 
-  const periods = useMemo(() => {
+  const periods: PeriodInterface[] = useMemo(() => {
     if (selectedPeriodCategory) {
       if (selectedRelativePeriodType) {
         if (selectedPeriodCategory.key === PeriodCategories.RELATIVE.key) {
@@ -97,7 +96,7 @@ export default function CalendarSpecificPeriodSelector({
       <CssReset />
       <Transfer
         maxSelections={singleSelection ? 1 : undefined}
-        selected={selectedPeriods}
+        selected={selectedPeriods?.map(({ id }) => id)}
         selectedWidth={"400px"}
         optionsWidth={"400px"}
         height={"500px"}
@@ -130,7 +129,7 @@ export default function CalendarSpecificPeriodSelector({
                 </SingleSelectField>
               </div>
             ) : (
-              <div className="row space-between align-items-center w-100 pt-8 pb-8">
+              <div className="row space-between align-items-center w-100 pt-8 pb-8 gap-8">
                 <div className="w-60">
                   <SingleSelectField
                     dense
@@ -160,14 +159,22 @@ export default function CalendarSpecificPeriodSelector({
         }
         options={[...periods, ...(selectedPeriods ?? [])]?.map((period) => ({
           label: period?.name,
-          value: period,
+          value: period?.id,
           key: period?.id,
         }))}
         renderOption={(options: any) => <PeriodTransferOption {...options} />}
-        onChange={({ selected }: { selected: Array<PeriodInterface> }) => {
+        onChange={({ selected }: { selected: Array<string> }) => {
           if (onSelect) {
             onSelect({
-              items: selected,
+              items: compact(
+                selected.map((id) => {
+                  try {
+                    return new Period().setPreferences({ openFuturePeriods: 4, allowFuturePeriods: true }).setCalendar(calendar).getById(id);
+                  } catch (e) {
+                    return undefined;
+                  }
+                })
+              ),
             });
           }
         }}

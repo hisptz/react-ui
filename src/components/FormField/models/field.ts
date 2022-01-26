@@ -1,5 +1,5 @@
 import { defaultsDeep } from "lodash";
-import { FormFieldProps } from "../../../types";
+import { FormFieldProps } from "../types";
 
 export default class FormFieldModel {
   id: string | undefined;

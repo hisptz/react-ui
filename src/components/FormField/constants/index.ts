@@ -1,4 +1,6 @@
-export const VALUE_TYPES: { [key: string]: { name: string; formName: string } } = {
+import { VALUE_TYPE } from "../types";
+
+export const VALUE_TYPES: { [key: string]: { name: VALUE_TYPE; formName: string } } = {
   INTEGER: {
     name: "INTEGER",
     formName: "number",

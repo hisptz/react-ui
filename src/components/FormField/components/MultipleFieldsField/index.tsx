@@ -1,12 +1,10 @@
 import i18n from "@dhis2/d2-i18n";
 import { Button, Field, IconAdd24, IconDelete24 } from "@dhis2/ui";
-import { remove, set } from "lodash";
-import PropTypes from "prop-types";
+import { cloneDeep, remove, set } from "lodash";
 import React, { useEffect, useState } from "react";
-import { FormFieldProps } from "../../../../types";
-import Input from "../../index";
 import FormFieldModel from "../../models/field";
-import { FinalFormFieldInput } from "../../types";
+import { FinalFormFieldInput, FormFieldProps } from "../../types";
+import Input from "../Input";
 
 type MultipleFieldsFieldProps = FinalFormFieldInput & {
   multipleField: FormFieldProps;
@@ -28,6 +26,7 @@ export default function MultipleFieldsField({
   ...props
 }: MultipleFieldsFieldProps) {
   const [fields, setFields] = useState<Array<FormFieldModel>>([]);
+
   useEffect(() => {
     function setInitialFields() {
       if (multipleField) {
@@ -64,7 +63,7 @@ export default function MultipleFieldsField({
   };
 
   const onFieldValueChange = (index: number, newValue: any) => {
-    const tempValue = value ? [...value] : [];
+    const tempValue = value ? cloneDeep(value) : [];
     try {
       tempValue[index] = newValue;
     } catch (e) {
@@ -130,12 +129,3 @@ export default function MultipleFieldsField({
     </Field>
   );
 }
-
-MultipleFieldsField.propTypes = {
-  name: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-  initialFieldCount: PropTypes.number,
-  multipleField: PropTypes.object,
-  multipleFields: PropTypes.arrayOf(PropTypes.instanceOf(FormFieldModel)),
-  value: PropTypes.any,
-};
