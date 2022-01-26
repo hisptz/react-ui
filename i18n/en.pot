@@ -5,11 +5,29 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-11-16T05:53:13.632Z\n"
-"PO-Revision-Date: 2021-11-16T05:53:13.632Z\n"
+"POT-Creation-Date: 2022-01-26T14:28:30.525Z\n"
+"PO-Revision-Date: 2022-01-26T14:28:30.525Z\n"
 
 msgid "Loading ....."
 msgstr "Loading ....."
+
+msgid "Previous"
+msgstr "Previous"
+
+msgid "Next"
+msgstr "Next"
+
+msgid "Confirm Action"
+msgstr "Confirm Action"
+
+msgid "Cancel"
+msgstr "Cancel"
+
+msgid "Confirm"
+msgstr "Confirm"
+
+msgid "Save"
+msgstr "Save"
 
 msgid "Delete"
 msgstr "Delete"
@@ -19,9 +37,6 @@ msgstr "Add Item"
 
 msgid "Select Organisation Unit(s)"
 msgstr "Select Organisation Unit(s)"
-
-msgid "Cancel"
-msgstr "Cancel"
 
 msgid "Update"
 msgstr "Update"

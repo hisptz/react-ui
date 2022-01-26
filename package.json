@@ -1,7 +1,7 @@
 {
   "name": "@hisptz/react-ui",
   "homepage": "https://hisptz.github.io/react-ui",
-  "version": "1.0.26",
+  "version": "1.0.27",
   "description": "A collection of reusable complex DHIS2 react ui components.",
   "license": "BSD-3-Clause",
   "scripts": {
@@ -34,6 +34,7 @@
     "@dhis2/ui": "^7.14.2",
     "@hookform/devtools": "^4.0.2",
     "@storybook/addon-actions": "^6.4.14",
+    "@storybook/addon-controls": "^6.4.14",
     "@storybook/addon-essentials": "^6.4.14",
     "@storybook/addon-links": "^6.4.14",
     "@storybook/node-logger": "^6.4.14",
@@ -60,7 +61,6 @@
   "dependencies": {
     "@iapps/period-utilities": "^1.0.0-beta.5",
     "@material-ui/core": "^4.12.3",
-    "@storybook/addon-controls": "^6.4.14",
     "highcharts": "^9.3.0",
     "highcharts-react-official": "^3.1.0",
     "jodit-react": "^1.1.10",
