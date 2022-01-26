@@ -1,12 +1,11 @@
 import i18n from "@dhis2/d2-i18n";
 import { CssReset, InputField, SingleSelectField, SingleSelectOption, Tab, TabBar, Transfer } from "@dhis2/ui";
 import { Period } from "@iapps/period-utilities";
-import { filter, find, head, isEmpty } from "lodash";
+import { compact, filter, find, head, isEmpty } from "lodash";
 import React, { useEffect, useMemo, useState } from "react";
 import PeriodTransferOption from "./components/TransferOption";
 import { CalendarTypes } from "./constants/calendar";
 import { PeriodCategories } from "./constants/period";
-import { Period as PeriodInterface } from "./interfaces/period";
 import { CalendarSpecificPeriodSelectorProps } from "./interfaces/props";
 import "../../../../styles/styles.css";
 
@@ -97,7 +96,7 @@ export default function CalendarSpecificPeriodSelector({
       <CssReset />
       <Transfer
         maxSelections={singleSelection ? 1 : undefined}
-        selected={selectedPeriods}
+        selected={selectedPeriods?.map(({ id }) => id)}
         selectedWidth={"400px"}
         optionsWidth={"400px"}
         height={"500px"}
@@ -160,14 +159,14 @@ export default function CalendarSpecificPeriodSelector({
         }
         options={[...periods, ...(selectedPeriods ?? [])]?.map((period) => ({
           label: period?.name,
-          value: period,
+          value: period?.id,
           key: period?.id,
         }))}
         renderOption={(options: any) => <PeriodTransferOption {...options} />}
-        onChange={({ selected }: { selected: Array<PeriodInterface> }) => {
+        onChange={({ selected }: { selected: Array<string> }) => {
           if (onSelect) {
             onSelect({
-              items: selected,
+              items: compact(selected.map((id) => periods.find((period) => period?.id === id))),
             });
           }
         }}

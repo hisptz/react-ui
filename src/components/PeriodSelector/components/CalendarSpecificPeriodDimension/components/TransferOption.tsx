@@ -16,6 +16,7 @@ export default function PeriodTransferOption({ value, label, selected, highlight
   return (
     <div
       {...props}
+      key={`${id}-${label}-option`}
       style={{ margin: 4, zIndex: "auto" }}
       onClick={(event) => onClick({ value, label }, event)}
       onDoubleClick={(event) => onDoubleClick({ value, label }, event)}>

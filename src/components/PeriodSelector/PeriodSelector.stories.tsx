@@ -1,10 +1,10 @@
 import { Story } from "@storybook/react";
-import React from "react";
+import React, { useState } from "react";
 import { CalendarTypes } from "./components/CalendarSpecificPeriodDimension/constants/calendar";
 import { PeriodSelectorProps } from "./types/props";
 import PeriodSelector from "./index";
 
-const Template: Story<PeriodSelectorProps> = (args) => <PeriodSelector {...args} />;
+const Template: Story<PeriodSelectorProps> = (args, context) => <PeriodSelector {...args} {...context} />;
 
 export const Default = Template.bind({});
 Default.args = {
@@ -101,4 +101,14 @@ export default {
       options: [CalendarTypes.GREGORIAN, CalendarTypes.ETHIOPIAN],
     },
   },
+  decorators: [
+    (Story: any) => {
+      const [selected, setSelected] = useState<any>([]);
+      return (
+        <div style={{ width: "100%", height: "100%" }}>
+          <Story selectedPeriods={selected} onSelect={({ items }: any) => setSelected(items)} />
+        </div>
+      );
+    },
+  ],
 };
