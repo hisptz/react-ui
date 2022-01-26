@@ -28,7 +28,7 @@ export default function LegendMinMax({ name, value, onChange, legendDefinition }
           />
           <label className="pl-8">{legendName}</label>
         </div>
-        <div className="row space-between">
+        <div className="row space-between gap-16">
           <InputField
             value={value?.startValue}
             type="number"
