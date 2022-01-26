@@ -3,7 +3,7 @@ import { Field } from "@dhis2/ui";
 import JoditEditor from "jodit-react";
 import PropTypes from "prop-types";
 import React, { useRef } from "react";
-import { FinalFormFieldInput } from "../../types";
+import { FinalFormFieldInput } from "../HookFormInput/types";
 
 export default function RichTextEditor({ name, label, value, onChange, ...props }: FinalFormFieldInput) {
   const editorRef = useRef(null);
