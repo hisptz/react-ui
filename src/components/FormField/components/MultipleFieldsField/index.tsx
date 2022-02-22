@@ -83,7 +83,7 @@ export default function MultipleFieldsField({
               };
 
               return (
-                <div key={`${field?.id}-${index}`} className="row align-items-center w-100">
+                <div key={`${field?.id}-${index}`} className="row align-items-center w-100 gap-8">
                   <div className="column w-75">
                     <Input valueType={field.valueType} input={input} />
                   </div>
