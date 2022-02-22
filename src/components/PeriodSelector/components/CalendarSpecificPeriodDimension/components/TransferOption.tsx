@@ -20,7 +20,16 @@ export default function PeriodTransferOption({ value, label, selected, highlight
       style={{ margin: 4, zIndex: "auto" }}
       onClick={(event) => onClick({ value, label }, event)}
       onDoubleClick={(event) => onDoubleClick({ value, label }, event)}>
-      <Tag bold={highlighted} positive={highlighted || selected} dataTest={`${id}-option`} key={`${id}-option`} icon={<IconClock16 />}>
+      <Tag
+        bold={highlighted}
+        positive={highlighted || selected}
+        dataTest={`${id}-option`}
+        key={`${id}-option`}
+        icon={
+          <div className="size-8">
+            <IconClock16 />
+          </div>
+        }>
         {label}
       </Tag>
     </div>
