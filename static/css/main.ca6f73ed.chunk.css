@@ -135,6 +135,12 @@
     display: block;
 }
 
+
+.size-8 > svg {
+    height: 8px;
+    width: 8px;
+}
+
 /*Scrollbars*/
 
 *::-webkit-scrollbar {
@@ -296,4 +302,4 @@
 
 
 
-/*# sourceMappingURL=main.414cff8e.chunk.css.map*/
+/*# sourceMappingURL=main.ca6f73ed.chunk.css.map*/
