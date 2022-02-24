@@ -1,6 +1,13 @@
 import i18n from "@dhis2/d2-i18n";
-import { Button, Modal, ModalActions, ModalContent, ModalTitle, ButtonStrip } from "@dhis2/ui";
+import { Button, ButtonStrip, Modal, ModalActions, ModalContent, ModalTitle } from "@dhis2/ui";
 import React, { ReactNode } from "react";
+
+export interface CustomAction {
+  label: string;
+  onClick: () => void;
+  properties?: string[];
+  color: "primary" | "secondary" | "destructive";
+}
 
 export interface ConfirmDialogProps {
   title: string;
@@ -13,6 +20,7 @@ export interface ConfirmDialogProps {
   confirmButtonText?: string;
   hide: boolean;
   confirmButtonColor?: "primary" | "secondary" | "destructive";
+  customActions?: CustomAction[];
 }
 
 export default function ConfirmDialog({
@@ -26,6 +34,7 @@ export default function ConfirmDialog({
   confirmButtonColor,
   title,
   position,
+  customActions,
 }: ConfirmDialogProps) {
   return (
     <Modal position={position ?? "middle"} hide={hide} small={size === "small" || size === undefined} large={size === "large"}>
@@ -34,6 +43,17 @@ export default function ConfirmDialog({
       <ModalActions>
         <ButtonStrip>
           <Button onClick={onCancel}>{cancelButtonText ?? i18n.t("Cancel")}</Button>
+          {customActions &&
+            customActions.map(({ label, color,  }, index) => (
+              <Button
+                key={`${label}-${index}`}
+                primary={color === "primary"}
+                secondary={color === "secondary"}
+                destructive={color === "destructive" || color === undefined}
+                onClick={onConfirm}>
+                {confirmButtonText ?? i18n.t("Confirm")}
+              </Button>
+            ))}
           <Button
             primary={confirmButtonColor === "primary"}
             secondary={confirmButtonColor === "secondary"}
