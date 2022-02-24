@@ -16,6 +16,7 @@ ConfirmDialogExample.args = {
     alert("Cancel 😔");
   },
 };
+
 export const ConfirmDialogExampleWithAllOptions = Template.bind({});
 ConfirmDialogExampleWithAllOptions.args = {
   title: "Confirm Title",
@@ -32,6 +33,15 @@ ConfirmDialogExampleWithAllOptions.args = {
   onCancel: () => {
     alert("Cancel 😔");
   },
+  customActions: [
+    {
+      label: "Custom Action",
+      color: "secondary",
+      onClick: () => {
+        alert("Custom Action 🙃");
+      },
+    },
+  ],
 };
 
 export default {

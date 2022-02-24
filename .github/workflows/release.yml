@@ -12,7 +12,7 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 16
-      - run: yarn
+      - run: yarn --production
       - run: yarn build
         continue-on-error: true
       - run: zip -r ${{env.GITHUB_REF}}.zip build
