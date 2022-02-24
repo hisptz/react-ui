@@ -44,14 +44,15 @@ export default function ConfirmDialog({
         <ButtonStrip>
           <Button onClick={onCancel}>{cancelButtonText ?? i18n.t("Cancel")}</Button>
           {customActions &&
-            customActions.map(({ label, color,  }, index) => (
+            customActions.map(({ label, color, onClick, properties }, index) => (
               <Button
                 key={`${label}-${index}`}
                 primary={color === "primary"}
-                secondary={color === "secondary"}
-                destructive={color === "destructive" || color === undefined}
-                onClick={onConfirm}>
-                {confirmButtonText ?? i18n.t("Confirm")}
+                secondary={color === "secondary" || color === undefined}
+                destructive={color === "destructive"}
+                onClick={onClick}
+                {...properties}>
+                {label}
               </Button>
             ))}
           <Button
