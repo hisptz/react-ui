@@ -15,7 +15,7 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 16
-      - run: yarn --production
+      - run: yarn
       - run: yarn build
         continue-on-error: true
       - uses: JS-DevTools/npm-publish@v1
