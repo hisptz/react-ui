@@ -1,6 +1,6 @@
 import React, { ReactNode, useCallback, useState } from "react";
 import { ConfirmDialogContext } from "../states/dialog";
-import ConfirmDialog from "./ConfirmDialog";
+import ConfirmDialog, { CustomAction } from "./ConfirmDialog";
 
 export interface ConfirmDialogConfig {
   title: string;
@@ -12,6 +12,7 @@ export interface ConfirmDialogConfig {
   cancelButtonText?: string;
   confirmButtonText?: string;
   confirmButtonColor?: "primary" | "secondary" | "destructive";
+  customActions: CustomAction[];
 }
 
 export default function ConfirmDialogProvider({ children }: { children: ReactNode }) {
