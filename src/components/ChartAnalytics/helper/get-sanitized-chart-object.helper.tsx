@@ -2,7 +2,8 @@ import { each, filter, find, flatten, intersection, map, some } from "lodash";
 import { ChartConfiguration } from "../types/props";
 import { getChartExportingOptions } from "./get-chart-exporting-options.helper";
 
-export function getSanitizedChartObject(chartObject:any, chartConfiguration:ChartConfiguration) {
+export function getSanitizedChartObject(chartObject: any, chartConfiguration: ChartConfiguration) {
+  const windowsObject: any = window;
   const dataSelectionGroups = flatten(
     filter(
       map(chartConfiguration.dataSelections || [], (dataSelection) => {
@@ -22,17 +23,13 @@ export function getSanitizedChartObject(chartObject:any, chartConfiguration:Char
   const dataIndexesArrayToRemove = map(chartObject.series, (seriesObject) => {
     return filter(
       map(seriesObject.data, (dataItem, dataIndex) =>
-        dataItem.y === "" ||
-        (dataSelectionGroupMembers.length > 0 &&
-          dataSelectionGroupMembers.indexOf(dataItem.id) === -1)
-          ? dataIndex
-          : -1
+        dataItem.y === "" || (dataSelectionGroupMembers.length > 0 && dataSelectionGroupMembers.indexOf(dataItem.id) === -1) ? dataIndex : -1
       ),
       (dataIndex) => dataIndex !== -1
     );
   });
 
-  let newDataIndexes:any[] = [];
+  let newDataIndexes: any[] = [];
   each(dataIndexesArrayToRemove, (dataIndexes) => {
     newDataIndexes = newDataIndexes.length === 0 ? dataIndexes : newDataIndexes;
     newDataIndexes = intersection(newDataIndexes, dataIndexes);
@@ -45,24 +42,16 @@ export function getSanitizedChartObject(chartObject:any, chartConfiguration:Char
         map(seriesObject.data, (dataItem) => {
           const splitedDataItemId = dataItem.id.split("_");
 
-          const associatedGroup = find(dataSelectionGroups, [
-            "id",
-            splitedDataItemId[1],
-          ]);
+          const associatedGroup = find(dataSelectionGroups, ["id", splitedDataItemId[1]]);
 
           // TODO: Need to find a way to generically handle color assignment from click event
-          const clickedChart = (window["clickedCharts"] || {})[dataItem.id];
+          const clickedChart = (windowsObject["clickedCharts"] || {})[dataItem.id];
 
           if (clickedChart) {
             return { ...dataItem, color: "#f00" };
           }
 
-          return associatedGroup &&
-            some(
-              associatedGroup.members,
-              (member) => member.id === splitedDataItemId[0]
-            ) &&
-            associatedGroup.color
+          return associatedGroup && some(associatedGroup.members, (member) => member.id === splitedDataItemId[0]) && associatedGroup.color
             ? { ...dataItem, color: associatedGroup.color }
             : dataItem;
         }),
@@ -78,11 +67,7 @@ export function getSanitizedChartObject(chartObject:any, chartConfiguration:Char
     }
     const newCategory = {
       ...category,
-      categories: filter(
-        category.categories,
-        (innerCategory, innerCategoryIndex) =>
-          newDataIndexes.indexOf(innerCategoryIndex + categoryCount) === -1
-      ),
+      categories: filter(category.categories, (innerCategory, innerCategoryIndex) => newDataIndexes.indexOf(innerCategoryIndex + categoryCount) === -1),
     };
 
     categoryCount += category.categories ? category.categories.length : 0;
