@@ -26,4 +26,5 @@ jobs:
           CYPRESS_dhis2BaseUrl: ${{ secrets.dhis2BaseUrl}}
           CYPRESS_dhis2Username: ${{ secrets.dhis2Username }}
           CYPRESS_dhis2Password: ${{ secrets.dhis2Password }}
+          CYPRESS_dhis2ApiVersion: ${{ secrets.dhis2ApiVersion }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
