@@ -12,7 +12,7 @@ export interface ConfirmDialogConfig {
   cancelButtonText?: string;
   confirmButtonText?: string;
   confirmButtonColor?: "primary" | "secondary" | "destructive";
-  customActions: CustomAction[];
+  customActions?: CustomAction[];
 }
 
 export default function ConfirmDialogProvider({ children }: { children: ReactNode }) {
@@ -40,10 +40,19 @@ export default function ConfirmDialogProvider({ children }: { children: ReactNod
     }
   }, [config]);
 
+  const customActions = config?.customActions?.map((actions) => ({
+    ...actions,
+    onClick: () => {
+      setOpen(false);
+      setConfig(null);
+      actions.onClick();
+    },
+  }));
+
   return (
     <ConfirmDialogContext.Provider value={{ confirm }}>
       {children}
-      {config && <ConfirmDialog hide={!open} {...config} onConfirm={onConfirm} onCancel={onCancel} />}
+      {config && <ConfirmDialog hide={!open} {...config} customActions={customActions} onConfirm={onConfirm} onCancel={onCancel} />}
     </ConfirmDialogContext.Provider>
   );
 }

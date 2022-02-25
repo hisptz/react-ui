@@ -11,15 +11,14 @@ interface PeriodTransferOptionProps {
   onDoubleClick: (data: { value: Period; label: string }, event: any) => void;
 }
 
-export default function PeriodTransferOption({ value, label, selected, highlighted, onDoubleClick, onClick, ...props }: PeriodTransferOptionProps) {
-  const { id } = value ?? {};
+export default function PeriodTransferOption({ value: id, label, selected, highlighted, onDoubleClick, onClick, ...props }: PeriodTransferOptionProps) {
   return (
     <div
       {...props}
       key={`${id}-${label}-option`}
       style={{ margin: 4, zIndex: "auto" }}
-      onClick={(event) => onClick({ value, label }, event)}
-      onDoubleClick={(event) => onDoubleClick({ value, label }, event)}>
+      onClick={(event) => onClick({ value: id, label }, event)}
+      onDoubleClick={(event) => onDoubleClick({ value: id, label }, event)}>
       <Tag
         bold={highlighted}
         positive={highlighted || selected}

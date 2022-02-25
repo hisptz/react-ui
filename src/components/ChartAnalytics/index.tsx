@@ -1,4 +1,3 @@
-/* eslint-disable max-params */
 import i18n from "@dhis2/d2-i18n";
 import React, { Suspense } from "react";
 import ChartItemComponent from "./components/chart-item/Chart-item-component";

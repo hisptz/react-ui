@@ -1,0 +1,11 @@
+{
+    "count": 23,
+    "totalResponseSize": 2486,
+    "duplicates": 13,
+    "nonDeterministicResponses": 0,
+    "apiVersion": "37",
+    "fixtureFiles": [
+        "org_unit_modal_test.json",
+        "org_unit_selector.json"
+    ]
+}

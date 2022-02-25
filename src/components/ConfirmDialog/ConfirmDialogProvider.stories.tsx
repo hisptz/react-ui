@@ -52,6 +52,15 @@ ConfirmDialogInProviderWithOptions.args = {
           onCancel: () => {
             alert("Cancelled 😔");
           },
+          customActions: [
+            {
+              label: "Custom",
+              color: "secondary",
+              onClick: () => {
+                alert("Custom 😉");
+              },
+            },
+          ],
           cancelButtonText: "Custom cancel",
           confirmButtonText: "Custom confirm",
           confirmButtonColor: "primary",
