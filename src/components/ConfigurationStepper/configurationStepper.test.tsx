@@ -4,33 +4,35 @@ import ConfigurationStepper from ".";
 
 describe("Configuration Stepper Selector", () => {
   it("Should Render", () => {
+    const steps = [
+      {
+        label: "Determinant",
+        component: () => (
+          <div className="container">
+            <div className="column space-between">
+              <h3>Determinant </h3>
+            </div>
+          </div>
+        ),
+        helpSteps: [],
+      },
+
+      {
+        label: "Access",
+        component: () => (
+          <div className="container">
+            <div className="column space-between">
+              <h3>Access </h3>
+            </div>
+          </div>
+        ),
+        helpSteps: [],
+      },
+    ];
+
     mount(
       <ConfigurationStepper
-        steps={[
-          {
-            label: "Determinant",
-            component: () => (
-              <div className="container">
-                <div className="column space-between">
-                  <h3>Determinant </h3>
-                </div>
-              </div>
-            ),
-            helpSteps: [],
-          },
-
-          {
-            label: "Access",
-            component: () => (
-              <div className="container">
-                <div className="column space-between">
-                  <h3>Access </h3>
-                </div>
-              </div>
-            ),
-            helpSteps: [],
-          },
-        ]}
+        steps={steps}
         onLastAction={function (): void {
           throw new Error("Function not implemented.");
         }}
@@ -39,6 +41,8 @@ describe("Configuration Stepper Selector", () => {
           throw new Error("Function not implemented.");
         }}
         onLastActionButtonName={"Save"}
+        activeStep={steps[0]}
+        setActiveStep={() => {}}
       />
     );
     cy.get("#stepper").should("be.visible");
