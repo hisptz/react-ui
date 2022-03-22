@@ -33,20 +33,20 @@ export interface DataConfigurationAreaProps {
 }
 
 export default function DataConfigurationArea({
-  groups,
-  onItemClick,
-  editableTitle,
-  onGroupTitleEdit,
-  deletableGroups,
-  onGroupDelete,
-  onItemDelete,
-  deletableItems,
-  groupFooter,
-  draggableItems,
-  onItemDragEnd,
-  selectedItems,
-  titleRightAdornment,
-}: DataConfigurationAreaProps) {
+                                                groups,
+                                                onItemClick,
+                                                editableTitle,
+                                                onGroupTitleEdit,
+                                                deletableGroups,
+                                                onGroupDelete,
+                                                onItemDelete,
+                                                deletableItems,
+                                                groupFooter,
+                                                draggableItems,
+                                                onItemDragEnd,
+                                                selectedItems,
+                                                titleRightAdornment
+                                              }: DataConfigurationAreaProps) {
   return (
     <div className="column">
       {groups.map(({ id: groupId, name, items }, groupIndex) => (
@@ -64,6 +64,8 @@ export default function DataConfigurationArea({
           key={`${groupId}-accordion`}
           id={groupId}
           title={name}
+          footer={<div>{groupFooter ? groupFooter({ id: groupId, name, items }, groupIndex) : null}</div>
+          }
           titleRightAdornment={titleRightAdornment}>
           <div className="column" style={{ gap: 16 }}>
             {items?.map((item, index) => (
@@ -81,7 +83,6 @@ export default function DataConfigurationArea({
                 selected={Boolean(find(selectedItems, (selectedItem) => selectedItem.groupId === groupId && selectedItem.itemId === item.id))}
               />
             ))}
-            <div>{groupFooter ? groupFooter({ id: groupId, name, items }, groupIndex) : null}</div>
           </div>
         </CustomAccordion>
       ))}

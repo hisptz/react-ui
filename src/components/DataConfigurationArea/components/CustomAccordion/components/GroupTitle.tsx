@@ -11,7 +11,7 @@ export interface GroupTitleProps {
   editable?: boolean;
   deletable?: boolean;
   onEdit?: (id: string, value: string) => void;
-  rightAdornment?: (props: { id: string }) => React.ReactNode;
+  rightAdornment?: (props: { id: string }) => React.ReactNode | null;
 }
 
 export default function GroupTitle({ title, onDelete, id, onEdit, editable, deletable, rightAdornment }: GroupTitleProps) {

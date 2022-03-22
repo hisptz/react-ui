@@ -6,7 +6,7 @@ on:
       - develop
   push:
     branches:
-      - master
+      - develop
 
 jobs:
   test:
@@ -19,11 +19,12 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           install: true
-          command: yarn cypress run-ct --record --key ${{secrets.CYPRESS_RECORD_KEY}} --browser electron --networkMode=stub
+          command: yarn cypress run-ct --record --key ${{secrets.CYPRESS_RECORD_KEY}} --browser electron --env networkMode=stub
         env:
           CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           CYPRESS_dhis2BaseUrl: ${{ secrets.dhis2BaseUrl}}
           CYPRESS_dhis2Username: ${{ secrets.dhis2Username }}
           CYPRESS_dhis2Password: ${{ secrets.dhis2Password }}
+          CYPRESS_dhis2ApiVersion: ${{ secrets.dhis2ApiVersion }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
