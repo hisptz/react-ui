@@ -9,6 +9,7 @@ export interface CustomAccordionProps {
   title: string;
   subtitle?: string;
   children: React.ReactNode;
+  footer?: React.ReactNode;
   editableTitle?: boolean;
   deletable?: boolean;
   onDelete?: (id: string) => void;
@@ -16,22 +17,23 @@ export interface CustomAccordionProps {
   onDragEnd?: (result: any) => void;
   onTitleChange?: (id: string, title: string) => void;
   onExpand?: (id: string, expanded: boolean) => void;
-  titleRightAdornment?: React.ReactNode;
+  titleRightAdornment?: (props:{ id:string}) => React.ReactNode | null;
 }
 
 export default function CustomAccordion({
-  id,
-  title,
-  children,
-  editableTitle,
-  onTitleChange,
-  deletable,
-  onDelete,
-  onExpand,
-  onDragEnd,
-  draggableChildren,
-  titleRightAdornment,
-}: CustomAccordionProps) {
+                                          id,
+                                          title,
+                                          children,
+                                          editableTitle,
+                                          onTitleChange,
+                                          deletable,
+                                          onDelete,
+                                          onExpand,
+                                          onDragEnd,
+                                          draggableChildren,
+                                          footer,
+                                          titleRightAdornment
+                                        }: CustomAccordionProps) {
   return (
     <Accordion
       style={{ width: "100%" }}
@@ -52,22 +54,33 @@ export default function CustomAccordion({
         />
       </AccordionSummary>
       <AccordionDetails>
-        {draggableChildren && onDragEnd ? (
-          <DragDropContext onDragEnd={onDragEnd}>
-            <div className="column h-100 w-100 p-8">
-              <Droppable droppableId={id}>
-                {(provided) => (
-                  <div ref={provided.innerRef} {...provided.droppableProps}>
-                    {children}
-                    {provided.placeholder}
-                  </div>
-                )}
-              </Droppable>
-            </div>
-          </DragDropContext>
-        ) : (
-          <div className="column h-100 w-100 p-8">{children}</div>
-        )}
+        <div className="column h-100 w-100 gap-8 p-8">
+          {draggableChildren && onDragEnd ? (
+            <DragDropContext onDragEnd={onDragEnd}>
+              <div className="column h-100 w-100">
+                <Droppable droppableId={id}>
+                  {(provided) => (
+                    <>
+                      <div
+                        className="w-100"
+                        ref={provided.innerRef}
+                        {...provided.droppableProps}
+                      >
+                        {children}
+                        {provided.placeholder}
+                      </div>
+
+                    </>
+                  )}
+
+                </Droppable>
+              </div>
+            </DragDropContext>
+          ) : (
+            <div className="column h-100 w-100">{children}</div>
+          )}
+          {footer}
+        </div>
       </AccordionDetails>
     </Accordion>
   );
