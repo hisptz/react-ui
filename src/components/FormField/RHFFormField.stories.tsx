@@ -14,6 +14,7 @@ NativeInputs.args = {
   valueType: VALUE_TYPES.TEXT.name,
   label: "Text",
   name: "text",
+  mandatory: true,
 };
 
 export const LegendDefinitionInput = Template.bind({});
@@ -21,6 +22,7 @@ LegendDefinitionInput.args = {
   valueType: VALUE_TYPES.LEGEND_DEFINITION.name,
   label: "Legend Definition",
   name: "legendDefinition",
+  mandatory: true,
 };
 
 export const LegendMinMax = Template.bind({});
@@ -29,6 +31,7 @@ LegendMinMax.args = {
   label: "Legend Min Max",
   name: "legendMinMax",
   legendDefinition: { name: "Target Reached", id: "legend-defn-id", color: "#147e14" },
+  mandatory: true,
 };
 
 export const MultipleFields = Template.bind({});
