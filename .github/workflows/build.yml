@@ -1,11 +1,9 @@
-name: Publish to NPM
+name: Build
 
 on:
-  workflow_run:
-    workflows:
-      - "Release"
-    types:
-      - completed
+  push:
+    branches:
+      - develop
 
 jobs:
   publish:
@@ -17,6 +15,3 @@ jobs:
           node-version: 16
       - run: yarn
       - run: yarn build
-      - uses: JS-DevTools/npm-publish@v1
-        with:
-          token: ${{ secrets.NPM_TOKEN }}
