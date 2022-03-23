@@ -7,7 +7,7 @@ import { FinalFormFieldInput, FormFieldProps } from "../../types";
 import Input from "../Input";
 
 type MultipleFieldsFieldProps = FinalFormFieldInput & {
-  multipleField: FormFieldProps;
+  multipleField?: FormFieldProps;
   initialFieldCount?: number;
   multipleFields?: Array<any>;
   deletable?: boolean;
@@ -15,16 +15,16 @@ type MultipleFieldsFieldProps = FinalFormFieldInput & {
 };
 
 export default function MultipleFieldsField({
-  name,
-  value,
-  onChange,
-  multipleField,
-  initialFieldCount,
-  multipleFields,
-  deletable,
-  addable,
-  ...props
-}: MultipleFieldsFieldProps) {
+                                              name,
+                                              value,
+                                              onChange,
+                                              multipleField,
+                                              initialFieldCount,
+                                              multipleFields,
+                                              deletable,
+                                              addable,
+                                              ...props
+                                            }: MultipleFieldsFieldProps, ref: React.Ref<any>) {
   const [fields, setFields] = useState<Array<FormFieldModel>>([]);
 
   useEffect(() => {
@@ -47,10 +47,12 @@ export default function MultipleFieldsField({
   }, []);
 
   const onAddField = () => {
-    const newField = new FormFieldModel({ ...multipleField });
-    set(newField, ["id"], `${newField.id}-${fields.length}`);
-    set(newField, ["name"], `${newField.id}-${fields.length}`);
-    setFields([...fields, newField]);
+    if (multipleField) {
+      const newField = new FormFieldModel({ ...multipleField });
+      set(newField, ["id"], `${newField.id}-${fields.length}`);
+      set(newField, ["name"], `${newField.id}-${fields.length}`);
+      setFields([...fields, newField]);
+    }
   };
 
   const onDeleteField = (field: FormFieldModel, index: number) => {
@@ -72,52 +74,53 @@ export default function MultipleFieldsField({
     onChange({ value: tempValue, name });
   };
   return (
-    <Field {...props}>
-      <div className="column">
+    <Field  {...props}>
+      <div ref={ref} className="column">
         {multipleField
-          ? fields.map((field, index) => {
-              const input = {
-                name: field.name,
-                onChange: (value: any) => onFieldValueChange(index, value),
-                value: value?.[index],
-              };
-
-              return (
-                <div key={`${field?.id}-${index}`} className="row align-items-center w-100 gap-8">
-                  <div className="column w-75">
-                    <Input valueType={field.valueType} input={input} />
-                  </div>
-                  <div className="column w-25">
-                    {!value?.[index]?.isDefault && deletable ? (
-                      <Button disabled={index === 0 && fields.length === 1} icon={<IconDelete24 />} onClick={() => onDeleteField(field, index)}>
-                        {i18n.t("Delete")}
-                      </Button>
-                    ) : null}
-                  </div>
+          ? fields?.map((field, index) => {
+            const input = {
+              name: field.name,
+              onChange: (value: any) => onFieldValueChange(index, value),
+              value: value?.[index]
+            };
+            return (
+              <div key={`${field?.id}-${index}`} className="row align-items-center w-100 gap-8">
+                <div className="column w-75">
+                  <Input valueType={field.valueType} input={input} />
                 </div>
-              );
-            })
-          : multipleFields?.map((field, index) => {
-              const input = {
-                name: field.name,
-                onChange: (value: any) => onFieldValueChange(index, value),
-                value: value?.[index],
-              };
-              return (
-                <div key={`${field?.id}-${index}`} className="row align-items-center w-100">
-                  <div className="column w-100">
-                    <Input valueType={field.valueType} input={input} {...field} />
-                  </div>
-                  {multipleField && deletable ? (
-                    <div className="column">
-                      <Button disabled={index === 0 && fields.length === 1} icon={<IconDelete24 />} onClick={() => onDeleteField(field, index)}>
-                        {i18n.t("Delete")}
-                      </Button>
-                    </div>
+                <div className="column w-25">
+                  {!value?.[index]?.isDefault && deletable ? (
+                    <Button disabled={index === 0 && fields.length === 1} icon={<IconDelete24 />}
+                            onClick={() => onDeleteField(field, index)}>
+                      {i18n.t("Delete")}
+                    </Button>
                   ) : null}
                 </div>
-              );
-            })}
+              </div>
+            );
+          })
+          : multipleFields?.map((field, index) => {
+            const input = {
+              name: field.name,
+              onChange: (value: any) => onFieldValueChange(index, value),
+              value: value?.[index]
+            };
+            return (
+              <div key={`${field?.id}-${index}`} className="row align-items-center w-100">
+                <div className="column w-100">
+                  <Input valueType={field.valueType} input={input} {...field} />
+                </div>
+                {multipleField && deletable ? (
+                  <div className="column">
+                    <Button disabled={index === 0 && fields.length === 1} icon={<IconDelete24 />}
+                            onClick={() => onDeleteField(field, index)}>
+                      {i18n.t("Delete")}
+                    </Button>
+                  </div>
+                ) : null}
+              </div>
+            );
+          })}
         {multipleField && addable ? (
           <div className="w-50">
             <Button icon={<IconAdd24 />} onClick={onAddField}>
