@@ -3,7 +3,10 @@ name: Release
 on:
   push:
     branches:
-      - 'master'
+      - master
+    tags:
+      - v1.*
+
 jobs:
   build:
     runs-on: ubuntu-latest

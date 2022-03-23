@@ -7,17 +7,17 @@ import { OrgUnitSelectorProps, OrgUnitSelectorValue } from "../../OrgUnitSelecto
 import { ModalProps } from "../types";
 
 export default function OrgUnitSelectorModal({
-  small,
-  large,
-  position,
-  onClose,
-  hide,
-  onUpdate,
-  updateButtonLabel,
-  singleSelection,
-  value,
-  ...props
-}: ModalProps & OrgUnitSelectorProps) {
+                                               small,
+                                               large,
+                                               position,
+                                               onClose,
+                                               hide,
+                                               onUpdate,
+                                               updateButtonLabel,
+                                               singleSelection,
+                                               value,
+                                               ...props
+                                             }: ModalProps & OrgUnitSelectorProps) {
   const [selectedOrgUnits, setSelectedOrgUnits] = useState<OrgUnitSelectorValue | undefined>(value);
 
   const onSelect = useCallback(
@@ -38,7 +38,7 @@ export default function OrgUnitSelectorModal({
 
   return (
     <Modal hide={hide} small={small} large={large} onClose={onClose} position={position}>
-      <ModalTitle>{i18n.t("Select Organisation Unit(s)")}</ModalTitle>
+      <ModalTitle>{singleSelection ? i18n.t("Select Organisation Unit") : i18n.t("Select Organisation Unit(s)")}</ModalTitle>
       <ModalContent>
         <OrgUnitSelector {...props} value={selectedOrgUnits} onUpdate={onSelect} singleSelection={singleSelection} />
       </ModalContent>
