@@ -6,17 +6,17 @@ import { PeriodSelectorProps } from "../../PeriodSelector/types/props";
 import { ModalProps } from "../types";
 
 export default function PeriodSelectorModal({
-  small,
-  large,
-  position,
-  onClose,
-  hide,
-  onUpdate,
-  selectedPeriods,
-  updateButtonLabel,
-  singleSelection,
-  ...props
-}: ModalProps & PeriodSelectorProps) {
+                                              small,
+                                              large,
+                                              position,
+                                              onClose,
+                                              hide,
+                                              onUpdate,
+                                              selectedPeriods,
+                                              updateButtonLabel,
+                                              singleSelection,
+                                              ...props
+                                            }: ModalProps & PeriodSelectorProps) {
   const [periodState, setPeriodState] = useState<Array<any> | undefined>(selectedPeriods);
 
   const onSelect = useCallback(({ items: periods }) => {
@@ -29,9 +29,10 @@ export default function PeriodSelectorModal({
 
   return (
     <Modal hide={hide} small={small} large={large} onClose={onClose} position={position}>
-      <ModalTitle>{i18n.t("Select Period(s)")}</ModalTitle>
+      <ModalTitle>{singleSelection ? i18n.t("Select Period") : i18n.t("Select Period(s)")}</ModalTitle>
       <ModalContent>
-        <PeriodSelector singleSelection={singleSelection} {...props} selectedPeriods={periodState} onSelect={onSelect} />
+        <PeriodSelector singleSelection={singleSelection} {...props} selectedPeriods={periodState}
+                        onSelect={onSelect} />
       </ModalContent>
       <ModalActions>
         <ButtonStrip>
