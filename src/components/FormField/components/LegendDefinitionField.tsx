@@ -43,7 +43,7 @@ export default function LegendDefinitionField({
                                                 value,
                                                 onChange,
                                                 ...props
-                                              }: FinalFormFieldInput) {
+                                              }: FinalFormFieldInput, ref: React.Ref<any>) {
   const { color, name: legendName, id } = value ?? {};
   const [reference, setReference] = useState<EventTarget | undefined>(undefined);
 
@@ -70,8 +70,8 @@ export default function LegendDefinitionField({
   };
 
   return (
-    <Field {...props} name={name} label={label} value={value}>
-      <div id={name} className={"legend-definition-container"}>
+    <Field  {...props} name={name} label={label} value={value}>
+      <div ref={ref} id={name} className={"legend-definition-container"}>
         <div
           id={`color-selector-btn-${name}`}
           onClick={(e) => setReference(e.currentTarget)}
@@ -89,10 +89,3 @@ export default function LegendDefinitionField({
     </Field>
   );
 }
-
-LegendDefinitionField.propTypes = {
-  name: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-  label: PropTypes.string,
-  value: PropTypes.object
-};

@@ -8,12 +8,12 @@ import { getField } from "../../utils";
 
 export default function RHFInput({ valueType, name, validations, optionSet, mandatory, ...props }: FormFieldProps) {
   const type = useMemo(() => VALUE_TYPES[valueType].formName, [valueType]);
-  const options = map(optionSet?.options, ({ name, code }: Option) => ({
+  const options: Array<{label: string; value: string;}> = map(optionSet?.options ?? [], ({ name, code }: Option) => ({
     label: name,
-    value: code,
-  }));
+    value: code
+  })) ?? [];
 
-  const Input = useMemo(() => getField(valueType), [valueType]);
+  const Input = useMemo(() => getField(valueType, options), [valueType]);
 
   return (
     <div className={"field-container"}>
@@ -29,7 +29,7 @@ export default function RHFInput({ valueType, name, validations, optionSet, mand
               options={options}
               type={type}
               required={mandatory}
-              error={fieldState.error}
+              error={Boolean(fieldState.error)}
               validationText={fieldState.error?.message}
               onChange={({ value }: { value: any }) => field.onChange(value)}
             />
