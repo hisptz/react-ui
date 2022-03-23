@@ -11,7 +11,7 @@ export default function RichTextEditor({ name, label, value, onChange, ...props 
     defaultFontSizePoints: "pt"
   };
   return (
-    <Field name={name} label={label} value={value?.value} {...props}>
+    <Field {...props} name={name} label={label} value={value?.value} >
       <JoditEditor ref={editorRef} value={value} onBlur={(newValue: any) => onChange({ name, value: newValue })}
                    config={config} />
     </Field>

@@ -8,12 +8,12 @@ type LegendMinMaxProps = FinalFormFieldInput & {
   legendDefinition: LegendDefinition;
 };
 
-export default function LegendMinMax({ name, value, onChange, legendDefinition }: LegendMinMaxProps) {
+export default function LegendMinMax({ name, value, onChange, legendDefinition, ...props }: LegendMinMaxProps) {
   const { id, color, name: legendName } = legendDefinition ?? {};
   const legend = useMemo(() => new Legend({ legendDefinitionId: id }), [id]);
 
   return (
-    <Field name={name} value={value} label={undefined}>
+    <Field {...props} name={name} value={value} label={undefined}>
       <div className="row space-between w-100 align-items-end">
         <div className="row">
           <div

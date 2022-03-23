@@ -1,4 +1,3 @@
-/* eslint-disable import/no-unresolved */
 import { Field, Input, Popover } from "@dhis2/ui";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
@@ -35,10 +34,16 @@ ColorPickerPopper.propTypes = {
   reference: PropTypes.object,
   value: PropTypes.string,
   onChange: PropTypes.func,
-  onClose: PropTypes.func,
+  onClose: PropTypes.func
 };
 
-export default function LegendDefinitionField({ name, label, value, onChange }: FinalFormFieldInput) {
+export default function LegendDefinitionField({
+                                                name,
+                                                label,
+                                                value,
+                                                onChange,
+                                                ...props
+                                              }: FinalFormFieldInput) {
   const { color, name: legendName, id } = value ?? {};
   const [reference, setReference] = useState<EventTarget | undefined>(undefined);
 
@@ -48,8 +53,8 @@ export default function LegendDefinitionField({ name, label, value, onChange }: 
       value: {
         ...value,
         id: id ?? uid(),
-        color,
-      },
+        color
+      }
     });
   };
 
@@ -59,13 +64,13 @@ export default function LegendDefinitionField({ name, label, value, onChange }: 
       value: {
         ...value,
         id: id ?? uid(),
-        name: newName.value,
-      },
+        name: newName.value
+      }
     });
   };
 
   return (
-    <Field name={name} label={label} value={value}>
+    <Field {...props} name={name} label={label} value={value}>
       <div id={name} className={"legend-definition-container"}>
         <div
           id={`color-selector-btn-${name}`}
@@ -78,7 +83,9 @@ export default function LegendDefinitionField({ name, label, value, onChange }: 
           <Input dataTest={`legend-definition-text-${name}`} onChange={onNameChange} value={legendName} />
         </div>
       </div>
-      {reference && <ColorPickerPopper onClose={() => setReference(undefined)} reference={reference} value={value?.color} onChange={onColorChange} />}
+      {reference &&
+        <ColorPickerPopper onClose={() => setReference(undefined)} reference={reference} value={value?.color}
+                           onChange={onColorChange} />}
     </Field>
   );
 }
@@ -87,5 +94,5 @@ LegendDefinitionField.propTypes = {
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   label: PropTypes.string,
-  value: PropTypes.object,
+  value: PropTypes.object
 };
