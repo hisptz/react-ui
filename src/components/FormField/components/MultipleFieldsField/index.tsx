@@ -85,10 +85,10 @@ export default function MultipleFieldsField({
             };
             return (
               <div key={`${field?.id}-${index}`} className="row align-items-center w-100 gap-8">
-                <div className="column w-75">
+                <div className={`column ${deletable ? "w-75" : "w-100"}`}>
                   <Input valueType={field.valueType} input={input} />
                 </div>
-                <div className="column w-25">
+                <div className={`column ${deletable ? "w-25" : ""}`}>
                   {!value?.[index]?.isDefault && deletable ? (
                     <Button disabled={index === 0 && fields.length === 1} icon={<IconDelete24 />}
                             onClick={() => onDeleteField(field, index)}>
