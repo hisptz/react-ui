@@ -12,6 +12,7 @@ import DataConfigurationArea, {
 } from "./components/DataConfigurationArea";
 import DataSourceSelector from "./components/DataSourceSelector";
 import FormField, { Input as CustomInput, RHFInput as RHFCustomInput } from "./components/FormField";
+import { RHFLegendDefinitionFormFieldProps, RHFLegendDefinitionsField } from "./components/LegendDefinitions";
 import { OrgUnitSelectorModal, PeriodSelectorModal } from "./components/Modals";
 import OrgUnitSelector from "./components/OrgUnitSelector/index";
 import PeriodSelector from "./components/PeriodSelector";
@@ -32,10 +33,8 @@ export {
   ConfirmDialogProvider,
   ConfirmDialog,
   useConfirmDialog,
-  RHFCustomInput
+  RHFCustomInput,
+  RHFLegendDefinitionsField
 };
 
-
-export * from "./components/LegendDefinitions";
-
-export type { ConfirmDialogConfig };
+export type { ConfirmDialogConfig, RHFLegendDefinitionFormFieldProps };
