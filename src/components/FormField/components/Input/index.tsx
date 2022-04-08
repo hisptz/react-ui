@@ -17,7 +17,7 @@ export default function Input({ input, valueType, optionSet, ...props }: any) {
   const Input = useMemo(() => {
     return getField(valueType, options);
   }, [optionSet, valueType]);
-  const onChange = input.onChange;
+  const onChange = input?.onChange;
 
   return (
     <div className={"field-container"}>
