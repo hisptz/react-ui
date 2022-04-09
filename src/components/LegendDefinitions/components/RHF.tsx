@@ -13,11 +13,13 @@ export default function RHFLegendDefinitions({
                                                name,
                                                label,
                                                shouldVerify,
-                                               onResetLegends
+                                               onResetLegends,
+                                               control
                                              }: RHFLegendDefinitionFormFieldProps) {
 
 
   return <Controller
+    control={control}
     name={name}
     render={({ field, fieldState }) => {
       return (
