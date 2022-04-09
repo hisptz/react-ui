@@ -30,6 +30,7 @@ export type FormFieldProps = {
   optionSet?: OptionSet;
   deletable?: boolean;
   addable?: boolean;
+  control?: any;
 };
 
 export type OnChange = (payload: { value: any; name: string }) => void;
