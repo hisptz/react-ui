@@ -49,6 +49,7 @@ export default function CustomAccordion({
           onEdit={onTitleChange}
           deletable={deletable}
           onDelete={onDelete}
+          onExpand={onExpand}
         />
       </AccordionSummary>
       <AccordionDetails>
