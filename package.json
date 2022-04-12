@@ -22,7 +22,9 @@
     "cy:open": "yarn cypress open-ct --browser electron",
     "cy:open:stub": "yarn cypress open-ct --browser electron --env networkMode=stub",
     "predeploy": "yarn build-storybook",
-    "deploy-storybook": "gh-pages -d storybook-static"
+    "deploy-storybook": "gh-pages -d storybook-static",
+    "postinstall": "node postinstall.js",
+    "install": "node postinstall.js"
   },
   "devDependencies": {
     "@cypress/react": "^5.12.3",
@@ -66,6 +68,7 @@
     "highcharts": "^9.3.0",
     "highcharts-react-official": "^3.1.0",
     "jodit-react": "^1.1.10",
+    "print-message": "^3.0.1",
     "react-beautiful-dnd": "^13.1.0",
     "react-color": "^2.19.3",
     "react-hook-form": "^7.25.1"

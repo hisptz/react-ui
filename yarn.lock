@@ -13384,7 +13384,7 @@ klaw@^1.0.0:
   optionalDependencies:
     graceful-fs "^4.1.9"
 
-kleur@^3.0.3:
+kleur@3.0.3, kleur@^3.0.3:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/kleur/-/kleur-3.0.3.tgz#a79c9ecc86ee1ce3fa6206d1216c501f147fc07e"
   integrity sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==
@@ -16095,6 +16095,13 @@ pretty-hrtime@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/pretty-hrtime/-/pretty-hrtime-1.0.3.tgz#b7e3ea42435a4c9b2759d99e0f201eb195802ee1"
   integrity sha1-t+PqQkNaTJsnWdmeDyAesZWALuE=
+
+print-message@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/print-message/-/print-message-3.0.1.tgz#f2331a13df235e275725ddd34eb61988868a73cd"
+  integrity sha512-wsvsI08pLCPL+lHURVmlZ2KjXN/rLKNyeKN/r3FkXAX6ZByE8Fv8ZmvkQFqpdPdyfCPty3PzznrDda+E8DvN8Q==
+  dependencies:
+    kleur "3.0.3"
 
 prismjs@^1.21.0:
   version "1.26.0"
