@@ -32,11 +32,15 @@ export default function CustomAccordion({
   draggableChildren,
   titleRightAdornment,
 }: CustomAccordionProps) {
+  const [expand, setExpanded] = React.useState(true);
   return (
     <Accordion
       style={{ width: "100%" }}
+      expanded={expand}
       onChange={(event, expanded) => {
+        setExpanded(!expand)
         if (onExpand) {
+          // setExpanded(!expand)
           onExpand(id, expanded);
         }
       }}>

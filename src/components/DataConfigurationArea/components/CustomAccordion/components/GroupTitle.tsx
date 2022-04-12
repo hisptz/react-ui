@@ -18,7 +18,6 @@ export interface GroupTitleProps {
 export default function GroupTitle({ title, onDelete, id, onEdit, editable, deletable, rightAdornment,onExpand }: GroupTitleProps) {
   const [editOpen, setEditOpen] = useState<boolean>(false);
   const [editTitle, setEditTitle] = useState<string>(title);
-  console.log("onexpand ",onExpand)
 
   const onSaveClick = () => {
     setEditOpen(false);
