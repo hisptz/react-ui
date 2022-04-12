@@ -1,9 +1,18 @@
 import ChartAnalytics from "./components/ChartAnalytics/index";
 import ConfigurationStepper from "./components/ConfigurationStepper/index";
-import { ConfirmDialog, ConfirmDialogConfig, ConfirmDialogProvider, useConfirmDialog } from "./components/ConfirmDialog";
-import DataConfigurationArea, { DataConfigurationAreaGroup, DataConfigurationAreaItem } from "./components/DataConfigurationArea";
+import {
+  ConfirmDialog,
+  ConfirmDialogConfig,
+  ConfirmDialogProvider,
+  useConfirmDialog
+} from "./components/ConfirmDialog";
+import DataConfigurationArea, {
+  DataConfigurationAreaGroup,
+  DataConfigurationAreaItem
+} from "./components/DataConfigurationArea";
 import DataSourceSelector from "./components/DataSourceSelector";
 import FormField, { Input as CustomInput, RHFInput as RHFCustomInput } from "./components/FormField";
+import { RHFLegendDefinitionFormFieldProps, RHFLegendDefinitionsField } from "./components/LegendDefinitions";
 import { OrgUnitSelectorModal, PeriodSelectorModal } from "./components/Modals";
 import OrgUnitSelector from "./components/OrgUnitSelector/index";
 import PeriodSelector from "./components/PeriodSelector";
@@ -25,6 +34,7 @@ export {
   ConfirmDialog,
   useConfirmDialog,
   RHFCustomInput,
+  RHFLegendDefinitionsField
 };
 
-export type { ConfirmDialogConfig };
+export type { ConfirmDialogConfig, RHFLegendDefinitionFormFieldProps };

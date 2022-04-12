@@ -1,12 +1,11 @@
 name: Test
 
 on:
-  pull_request:
-    branches:
-      - develop
   push:
     branches:
       - develop
+    tags-ignore:
+      - v1.*
 
 jobs:
   test:

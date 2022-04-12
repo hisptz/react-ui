@@ -5,13 +5,13 @@ import { OnChange } from "../types";
 type CustomSingleSelectProps = {
   options: Array<{ label: string; value: any }>;
   onChange: OnChange;
-  value: any;
+  value?: any;
   name: string;
 };
 
-export default function CustomSingleSelect({ options, onChange, value, name, ...props }: CustomSingleSelectProps) {
+export default function CustomSingleSelect({ options, onChange, value, name, ...props }: CustomSingleSelectProps, ref: React.Ref<any>) {
   return (
-    <SingleSelectField selected={value} onChange={({ selected }: { selected: any }) => onChange({ name, value: selected })} {...props}>
+    <SingleSelectField ref={ref} selected={value} onChange={({ selected }: { selected: any }) => onChange({ name, value: selected })} {...props}>
       {options?.map(({ label, value }: { label: string; value: any }) => (
         <SingleSelectOption label={label} value={value} key={value} />
       ))}

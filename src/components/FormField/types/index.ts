@@ -15,7 +15,7 @@ export type VALUE_TYPE =
   | "MULTIPLE_FIELDS";
 
 export type FormFieldProps = {
-  valueType: VALUE_TYPE;
+  valueType: VALUE_TYPE | string;
   name: string;
   label?: string;
   validations?: any;
@@ -30,6 +30,7 @@ export type FormFieldProps = {
   optionSet?: OptionSet;
   deletable?: boolean;
   addable?: boolean;
+  control?: any;
 };
 
 export type OnChange = (payload: { value: any; name: string }) => void;
@@ -39,6 +40,11 @@ export type FinalFormFieldInput = {
   value?: any;
   name: string;
   label?: string;
+  type?: string;
+  required?: boolean;
+  error?: boolean;
+  validationText?: string;
+
 };
 
 export type Option = {

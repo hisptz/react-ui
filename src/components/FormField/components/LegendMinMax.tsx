@@ -1,20 +1,28 @@
 import { Field, InputField } from "@dhis2/ui";
-import PropTypes from "prop-types";
 import React, { useMemo } from "react";
 import Legend from "../models/legend";
 import { FinalFormFieldInput, LegendDefinition } from "../types";
 
 type LegendMinMaxProps = FinalFormFieldInput & {
-  legendDefinition: LegendDefinition;
+  legendDefinition?: LegendDefinition;
 };
 
-export default function LegendMinMax({ name, value, onChange, legendDefinition }: LegendMinMaxProps) {
+export default function LegendMinMax({
+                                       name,
+                                       value,
+                                       onChange,
+                                       legendDefinition,
+                                       ...props
+                                     }: LegendMinMaxProps, ref: React.Ref<any>) {
   const { id, color, name: legendName } = legendDefinition ?? {};
+  if (!id) {
+    return null;
+  }
   const legend = useMemo(() => new Legend({ legendDefinitionId: id }), [id]);
 
   return (
-    <Field name={name} value={value} label={undefined}>
-      <div className="row space-between w-100 align-items-end">
+    <Field  {...props} name={name} value={value} label={undefined}>
+      <div ref={ref} className="row space-between w-100 align-items-end">
         <div className="row">
           <div
             className="pr-16"
@@ -23,7 +31,7 @@ export default function LegendMinMax({ name, value, onChange, legendDefinition }
               border: `1px solid ${color}`,
               height: 24,
               width: 48,
-              marginRight: 4,
+              marginRight: 4
             }}
           />
           <label className="pl-8">{legendName}</label>
@@ -38,7 +46,7 @@ export default function LegendMinMax({ name, value, onChange, legendDefinition }
               const object = value ?? legend;
               onChange({
                 name,
-                value: Legend.set(object, "startValue", newValue),
+                value: Legend.set(object, "startValue", newValue)
               });
             }}
             className="pr-8"
@@ -52,7 +60,7 @@ export default function LegendMinMax({ name, value, onChange, legendDefinition }
               const object = value ?? legend;
               onChange({
                 name,
-                value: Legend.set(object, "endValue", newValue),
+                value: Legend.set(object, "endValue", newValue)
               });
             }}
             label="Max"
@@ -62,9 +70,3 @@ export default function LegendMinMax({ name, value, onChange, legendDefinition }
     </Field>
   );
 }
-LegendMinMax.propTypes = {
-  name: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-  legendDefinition: PropTypes.object,
-  value: PropTypes.any,
-};

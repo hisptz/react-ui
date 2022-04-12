@@ -6,7 +6,7 @@ export interface CustomAction {
   label: string;
   onClick: () => void;
   properties?: string[];
-  color: "primary" | "secondary" | "destructive";
+  color?: "primary" | "secondary" | "destructive";
 }
 
 export interface ConfirmDialogProps {
@@ -15,7 +15,7 @@ export interface ConfirmDialogProps {
   size?: "small" | "large";
   position?: "top" | "bottom" | "middle";
   onConfirm: () => void;
-  onCancel: () => void;
+  onCancel?: () => void;
   cancelButtonText?: string;
   confirmButtonText?: string;
   hide: boolean;
@@ -24,20 +24,21 @@ export interface ConfirmDialogProps {
 }
 
 export default function ConfirmDialog({
-  message,
-  size,
-  onConfirm,
-  onCancel,
-  cancelButtonText,
-  confirmButtonText,
-  hide,
-  confirmButtonColor,
-  title,
-  position,
-  customActions,
-}: ConfirmDialogProps) {
+                                        message,
+                                        size,
+                                        onConfirm,
+                                        onCancel,
+                                        cancelButtonText,
+                                        confirmButtonText,
+                                        hide,
+                                        confirmButtonColor,
+                                        title,
+                                        position,
+                                        customActions
+                                      }: ConfirmDialogProps) {
   return (
-    <Modal position={position ?? "middle"} hide={hide} small={size === "small" || size === undefined} large={size === "large"}>
+    <Modal position={position ?? "middle"} hide={hide} small={size === "small" || size === undefined}
+           large={size === "large"}>
       <ModalTitle>{title ?? i18n.t("Confirm Action")}</ModalTitle>
       <ModalContent>{message}</ModalContent>
       <ModalActions>
