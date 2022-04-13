@@ -11,11 +11,20 @@ export interface GroupTitleProps {
   editable?: boolean;
   deletable?: boolean;
   onEdit?: (id: string, value: string) => void;
-  onExpand?: (id: string, expanded: boolean) => void;
+  onExpand?: () => void;
   rightAdornment?: (props: { id: string }) => React.ReactNode;
 }
 
-export default function GroupTitle({ title, onDelete, id, onEdit, editable, deletable, rightAdornment,onExpand }: GroupTitleProps) {
+export default function GroupTitle({
+                                     title,
+                                     onDelete,
+                                     id,
+                                     onEdit,
+                                     editable,
+                                     deletable,
+                                     rightAdornment,
+                                     onExpand
+                                   }: GroupTitleProps) {
   const [editOpen, setEditOpen] = useState<boolean>(false);
   const [editTitle, setEditTitle] = useState<string>(title);
 
@@ -35,12 +44,14 @@ export default function GroupTitle({ title, onDelete, id, onEdit, editable, dele
   return (
     <>
       <CssReset />
-      <div style={{ width: "100%", display: "flex", justifyContent: "space-between", gap: 16 }} className={classes["accordion-title-container"]}>
+      <div style={{ width: "100%", display: "flex", justifyContent: "space-between", gap: 16 }}
+           className={classes["accordion-title-container"]}>
         <div className="row space-between align-items-center w-100">
           <div style={{ gap: 8, width: editOpen ? "100%" : "auto" }} className="row align-items-center">
             <div className="column w-100">
               {editOpen ? (
-                <Input fullWidth initialFocus value={editTitle} onChange={({ value }: { value: string }) => setEditTitle(value)} />
+                <Input fullWidth initialFocus value={editTitle}
+                       onChange={({ value }: { value: string }) => setEditTitle(value)} />
               ) : (
                 <p
                   style={{ margin: 4 }}
@@ -50,10 +61,10 @@ export default function GroupTitle({ title, onDelete, id, onEdit, editable, dele
                       setEditOpen(true);
                     }
                   }}
-                  onChange={(event, expanded) => {
-                    event.stopPropagation()
+                  onChange={(event: any) => {
+                    event.stopPropagation();
                     if (onExpand) {
-                      onExpand(id, expanded);
+                      onExpand();
                     }
                   }}
                   className="accordion-title group-name-area">
@@ -74,7 +85,8 @@ export default function GroupTitle({ title, onDelete, id, onEdit, editable, dele
             ) : null}
           </div>
         </div>
-        {!editOpen && RightAdornment ? <div className="row align-items-center">{<RightAdornment id={id} />}</div> : null}
+        {!editOpen && RightAdornment ?
+          <div className="row align-items-center">{<RightAdornment id={id} />}</div> : null}
         <div className="row align-items-center">
           {editOpen ? (
             <ButtonStrip end>

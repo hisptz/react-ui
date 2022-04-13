@@ -16,7 +16,7 @@ BasicAccordion.args = {
       <DataSource id={"2"} label={"DataSource 2"} selected={false} />
       <DataSource id={"3"} label={"DataSource 3"} selected={false} />
     </div>
-  ),
+  )
 };
 
 export const EditableTitle = Template.bind({});
@@ -31,7 +31,7 @@ EditableTitle.args = {
       <DataSource id={"2"} label={"DataSource 2"} selected={false} />
       <DataSource id={"3"} label={"DataSource 3"} selected={false} />
     </div>
-  ),
+  )
 };
 
 export const Deletable = Template.bind({});
@@ -47,7 +47,7 @@ Deletable.args = {
       <DataSource id={"2"} label={"DataSource 2"} selected={false} />
       <DataSource id={"3"} label={"DataSource 3"} selected={false} />
     </div>
-  ),
+  )
 };
 
 export const RightAdornment = Template.bind({});
@@ -64,7 +64,23 @@ RightAdornment.args = {
       <DataSource id={"2"} label={"DataSource 2"} selected={false} />
       <DataSource id={"3"} label={"DataSource 3"} selected={false} />
     </div>
-  ),
+  )
+};
+export const DefaultExpanded = Template.bind({});
+
+DefaultExpanded.args = {
+  id: "1",
+  title: "Accordion",
+  editableTitle: true,
+  deletable: true,
+  defaultExpanded: true,
+  children: (
+    <div className={"column "} style={{ gap: 16 }}>
+      <DataSource id={"1"} label={"DataSource 1"} selected={false} />
+      <DataSource id={"2"} label={"DataSource 2"} selected={false} />
+      <DataSource id={"3"} label={"DataSource 3"} selected={false} />
+    </div>
+  )
 };
 
 export default {
@@ -75,6 +91,6 @@ export default {
       <div style={{ width: "100%", height: "100%", padding: "24px" }}>
         <AccordionStory />
       </div>
-    ),
-  ],
+    )
+  ]
 };
