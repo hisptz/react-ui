@@ -30,6 +30,7 @@ export interface DataConfigurationAreaProps {
   onItemDragEnd?: (groupId: string, result: { source: { index: number }; destination: { index: number } }) => void;
   selectedItems?: Array<{ groupId: string; itemId: string }>;
   titleRightAdornment?: (props: { id: string }) => React.ReactNode;
+  defaultExpanded?: boolean;
 }
 
 export default function DataConfigurationArea({
@@ -45,12 +46,14 @@ export default function DataConfigurationArea({
                                                 draggableItems,
                                                 onItemDragEnd,
                                                 selectedItems,
-                                                titleRightAdornment
+                                                titleRightAdornment,
+                                                defaultExpanded
                                               }: DataConfigurationAreaProps) {
   return (
     <div className="column">
       {groups.map(({ id: groupId, name, items }, groupIndex) => (
         <CustomAccordion
+          defaultExpanded={defaultExpanded}
           draggableChildren={draggableItems}
           onDragEnd={(result) => {
             if (onItemDragEnd) {

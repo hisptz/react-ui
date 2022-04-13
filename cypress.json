@@ -4,8 +4,8 @@
   "projectId": "w8u5sk",
   "env": {
     "dhis2DataTestPrefix": "dhis2-reactui",
-    "networkMode": "live",
-    "dhis2ApiVersion": "36"
+    "networkMode": "stub",
+    "dhis2ApiVersion": "37"
   },
   "component": {
     "testFiles": "**/*.test.{js,ts,jsx,tsx}",
@@ -14,7 +14,7 @@
       "dhis2Username": "admin",
       "dhis2Password": "district",
       "dhis2BaseUrl": "http://localhost:8080",
-      "dhis2ApiVersion": "36"
+      "dhis2ApiVersion": "37"
     },
     "viewportHeight": 763,
     "viewportWidth": 1366

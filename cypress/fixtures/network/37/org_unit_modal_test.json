@@ -1,6 +1,6 @@
 [
     {
-        "path": "/api/37/organisationUnitLevels?fields=id,displayName,level",
+        "path": "/api/37/organisationUnits?fields=id%2CdisplayName%2Cname&userDataViewFallback=true&paging=false",
         "featureName": "Org Unit Modal test",
         "static": false,
         "count": 1,
@@ -8,7 +8,7 @@
         "method": "GET",
         "requestBody": "",
         "requestHeaders": {
-            "host": "localhost:8083",
+            "host": "localhost:8081",
             "proxy-connection": "keep-alive",
             "accept": "application/json",
             "origin": "http://localhost:8080",
@@ -16,10 +16,10 @@
             "sec-fetch-mode": "cors"
         },
         "statusCode": 200,
-        "responseBody": "{\"pager\":{\"page\":1,\"pageCount\":1,\"total\":4,\"pageSize\":50},\"organisationUnitLevels\":[{\"level\":3,\"id\":\"tTUf91fCytl\",\"displayName\":\"Chiefdom\"},{\"level\":2,\"id\":\"wjP19dkFeIk\",\"displayName\":\"District\"},{\"level\":4,\"id\":\"m9lBJogzE95\",\"displayName\":\"Facility\"},{\"level\":1,\"id\":\"H1KlN4QIauv\",\"displayName\":\"National\"}]}",
-        "responseSize": 309,
+        "responseBody": "{\"organisationUnits\":[{\"name\":\"Trainingland\",\"id\":\"GD7TowwI46c\",\"displayName\":\"Trainingland\"}]}",
+        "responseSize": 95,
         "responseHeaders": {
-            "server": "nginx/1.21.3",
+            "server": "nginx/1.21.6",
             "content-type": "application/json;charset=UTF-8",
             "transfer-encoding": "chunked",
             "connection": "keep-alive",
@@ -34,7 +34,7 @@
         }
     },
     {
-        "path": "/api/37/organisationUnits?fields=id%2CdisplayName%2Cname&userDataViewFallback=true&paging=false",
+        "path": "/api/37/organisationUnitLevels?fields=id,displayName,level",
         "featureName": "Org Unit Modal test",
         "static": false,
         "count": 1,
@@ -42,7 +42,7 @@
         "method": "GET",
         "requestBody": "",
         "requestHeaders": {
-            "host": "localhost:8083",
+            "host": "localhost:8081",
             "proxy-connection": "keep-alive",
             "accept": "application/json",
             "origin": "http://localhost:8080",
@@ -50,10 +50,10 @@
             "sec-fetch-mode": "cors"
         },
         "statusCode": 200,
-        "responseBody": "{\"organisationUnits\":[{\"name\":\"Sierra Leone\",\"id\":\"ImspTQPwCqd\",\"displayName\":\"Sierra Leone\"}]}",
-        "responseSize": 95,
+        "responseBody": "{\"pager\":{\"page\":1,\"pageCount\":1,\"total\":4,\"pageSize\":50},\"organisationUnitLevels\":[{\"level\":1,\"id\":\"ZqI1kKnH7ve\",\"displayName\":\"Country\"},{\"level\":3,\"id\":\"P0QFTFfTl2X\",\"displayName\":\"District\"},{\"level\":4,\"id\":\"VJJOhuBJSJe\",\"displayName\":\"Facility\"},{\"level\":2,\"id\":\"BNQIkbGlA00\",\"displayName\":\"Region\"}]}",
+        "responseSize": 306,
         "responseHeaders": {
-            "server": "nginx/1.21.3",
+            "server": "nginx/1.21.6",
             "content-type": "application/json;charset=UTF-8",
             "transfer-encoding": "chunked",
             "connection": "keep-alive",
@@ -76,7 +76,7 @@
         "method": "GET",
         "requestBody": "",
         "requestHeaders": {
-            "host": "localhost:8083",
+            "host": "localhost:8081",
             "proxy-connection": "keep-alive",
             "accept": "application/json",
             "origin": "http://localhost:8080",
@@ -84,10 +84,10 @@
             "sec-fetch-mode": "cors"
         },
         "statusCode": 200,
-        "responseBody": "{\"pager\":{\"page\":1,\"pageCount\":1,\"total\":18,\"pageSize\":50},\"organisationUnitGroups\":[{\"id\":\"CXw2yu5fodb\",\"displayName\":\"CHC\"},{\"id\":\"uYxK4wmcPqA\",\"displayName\":\"CHP\"},{\"id\":\"gzcv65VyaGq\",\"displayName\":\"Chiefdom\"},{\"id\":\"RXL3lPSK8oG\",\"displayName\":\"Clinic\"},{\"id\":\"RpbiCJpIYEj\",\"displayName\":\"Country\"},{\"id\":\"w1Atoz18PCL\",\"displayName\":\"District\"},{\"id\":\"nlX2VoouN63\",\"displayName\":\"Eastern Area\"},{\"id\":\"tDZVQ1WtwpA\",\"displayName\":\"Hospital\"},{\"id\":\"EYbopBOJWsW\",\"displayName\":\"MCHP\"},{\"id\":\"w0gFTTmsUcF\",\"displayName\":\"Mission\"},{\"id\":\"PVLOW4bCshG\",\"displayName\":\"NGO\"},{\"id\":\"J40PpdN4Wkk\",\"displayName\":\"Northern Area\"},{\"id\":\"MAs88nJc9nL\",\"displayName\":\"Private Clinic\"},{\"id\":\"oRVt7g429ZO\",\"displayName\":\"Public facilities\"},{\"id\":\"GGghZsfu7qV\",\"displayName\":\"Rural\"},{\"id\":\"jqBqIXoXpfy\",\"displayName\":\"Southern Area\"},{\"id\":\"f25dqv3Y7Z0\",\"displayName\":\"Urban\"},{\"id\":\"b0EsAxm8Nge\",\"displayName\":\"Western Area\"}]}",
-        "responseSize": 918,
+        "responseBody": "{\"pager\":{\"page\":1,\"pageCount\":1,\"total\":3,\"pageSize\":50},\"organisationUnitGroups\":[{\"id\":\"Z2iBR6hRXHS\",\"displayName\":\"Districts\"},{\"id\":\"sQXBR6nw3Vt\",\"displayName\":\"Facility\"},{\"id\":\"kCNqefF1kq8\",\"displayName\":\"Regions\"}]}",
+        "responseSize": 223,
         "responseHeaders": {
-            "server": "nginx/1.21.3",
+            "server": "nginx/1.21.6",
             "content-type": "application/json;charset=UTF-8",
             "transfer-encoding": "chunked",
             "connection": "keep-alive",
@@ -102,7 +102,7 @@
         }
     },
     {
-        "path": "/api/37/organisationUnits/ImspTQPwCqd?fields=displayName,path,id&paging=false",
+        "path": "/api/37/organisationUnits/GD7TowwI46c?fields=displayName,path,id&paging=false",
         "featureName": "Org Unit Modal test",
         "static": false,
         "count": 1,
@@ -110,7 +110,7 @@
         "method": "GET",
         "requestBody": "",
         "requestHeaders": {
-            "host": "localhost:8083",
+            "host": "localhost:8081",
             "proxy-connection": "keep-alive",
             "accept": "application/json",
             "origin": "http://localhost:8080",
@@ -118,10 +118,10 @@
             "sec-fetch-mode": "cors"
         },
         "statusCode": 200,
-        "responseBody": "{\"id\":\"ImspTQPwCqd\",\"path\":\"/ImspTQPwCqd\",\"displayName\":\"Sierra Leone\"}",
+        "responseBody": "{\"id\":\"GD7TowwI46c\",\"path\":\"/GD7TowwI46c\",\"displayName\":\"Trainingland\"}",
         "responseSize": 71,
         "responseHeaders": {
-            "server": "nginx/1.21.3",
+            "server": "nginx/1.21.6",
             "content-type": "application/json;charset=UTF-8",
             "transfer-encoding": "chunked",
             "connection": "keep-alive",
@@ -136,7 +136,7 @@
         }
     },
     {
-        "path": "/api/37/organisationUnits/ImspTQPwCqd?fields=id,path,children%5Bid%2Cpath%2CdisplayName%5D",
+        "path": "/api/37/organisationUnits/GD7TowwI46c?fields=id,path,children%5Bid%2Cpath%2CdisplayName%5D",
         "featureName": "Org Unit Modal test",
         "static": false,
         "count": 1,
@@ -144,7 +144,7 @@
         "method": "GET",
         "requestBody": "",
         "requestHeaders": {
-            "host": "localhost:8083",
+            "host": "localhost:8081",
             "proxy-connection": "keep-alive",
             "accept": "application/json",
             "origin": "http://localhost:8080",
@@ -152,10 +152,10 @@
             "sec-fetch-mode": "cors"
         },
         "statusCode": 200,
-        "responseBody": "{\"id\":\"ImspTQPwCqd\",\"path\":\"/ImspTQPwCqd\",\"children\":[{\"id\":\"at6UHUQatSo\",\"path\":\"/ImspTQPwCqd/at6UHUQatSo\",\"displayName\":\"Western Area\"},{\"id\":\"TEQlaapDQoK\",\"path\":\"/ImspTQPwCqd/TEQlaapDQoK\",\"displayName\":\"Port Loko\"},{\"id\":\"PMa2VCrupOd\",\"path\":\"/ImspTQPwCqd/PMa2VCrupOd\",\"displayName\":\"Kambia\"},{\"id\":\"qhqAxPSTUXp\",\"path\":\"/ImspTQPwCqd/qhqAxPSTUXp\",\"displayName\":\"Koinadugu\"},{\"id\":\"kJq2mPyFEHo\",\"path\":\"/ImspTQPwCqd/kJq2mPyFEHo\",\"displayName\":\"Kenema\"},{\"id\":\"jmIPBj66vD6\",\"path\":\"/ImspTQPwCqd/jmIPBj66vD6\",\"displayName\":\"Moyamba\"},{\"id\":\"Vth0fbpFcsO\",\"path\":\"/ImspTQPwCqd/Vth0fbpFcsO\",\"displayName\":\"Kono\"},{\"id\":\"jUb8gELQApl\",\"path\":\"/ImspTQPwCqd/jUb8gELQApl\",\"displayName\":\"Kailahun\"},{\"id\":\"fdc6uOvgoji\",\"path\":\"/ImspTQPwCqd/fdc6uOvgoji\",\"displayName\":\"Bombali\"},{\"id\":\"eIQbndfxQMb\",\"path\":\"/ImspTQPwCqd/eIQbndfxQMb\",\"displayName\":\"Tonkolili\"},{\"id\":\"O6uvpzGd5pu\",\"path\":\"/ImspTQPwCqd/O6uvpzGd5pu\",\"displayName\":\"Bo\"},{\"id\":\"lc3eMKXaEfw\",\"path\":\"/ImspTQPwCqd/lc3eMKXaEfw\",\"displayName\":\"Bonthe\"},{\"id\":\"bL4ooGhyHRQ\",\"path\":\"/ImspTQPwCqd/bL4ooGhyHRQ\",\"displayName\":\"Pujehun\"}]}",
-        "responseSize": 1083,
+        "responseBody": "{\"id\":\"GD7TowwI46c\",\"path\":\"/GD7TowwI46c\",\"children\":[{\"id\":\"gwAcS6gaz7D\",\"path\":\"/GD7TowwI46c/gwAcS6gaz7D\",\"displayName\":\"Food Region\"},{\"id\":\"zj9LoeErgkP\",\"path\":\"/GD7TowwI46c/zj9LoeErgkP\",\"displayName\":\"Animal Region\"}]}",
+        "responseSize": 223,
         "responseHeaders": {
-            "server": "nginx/1.21.3",
+            "server": "nginx/1.21.6",
             "content-type": "application/json;charset=UTF-8",
             "transfer-encoding": "chunked",
             "connection": "keep-alive",
