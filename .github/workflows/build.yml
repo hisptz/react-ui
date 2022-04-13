@@ -1,7 +1,13 @@
 name: Build
 
 on:
-  push:
+  check_run:
+    types:
+      - created
+  pull_request:
+    types:
+      - opened
+      - reopened
     branches:
       - develop
 
