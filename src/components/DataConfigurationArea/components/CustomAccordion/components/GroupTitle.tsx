@@ -11,10 +11,11 @@ export interface GroupTitleProps {
   editable?: boolean;
   deletable?: boolean;
   onEdit?: (id: string, value: string) => void;
-  rightAdornment?: (props: { id: string }) => React.ReactNode | null;
+  onExpand?: (id: string, expanded: boolean) => void;
+  rightAdornment?: (props: { id: string }) => React.ReactNode;
 }
 
-export default function GroupTitle({ title, onDelete, id, onEdit, editable, deletable, rightAdornment }: GroupTitleProps) {
+export default function GroupTitle({ title, onDelete, id, onEdit, editable, deletable, rightAdornment,onExpand }: GroupTitleProps) {
   const [editOpen, setEditOpen] = useState<boolean>(false);
   const [editTitle, setEditTitle] = useState<string>(title);
 
@@ -43,13 +44,18 @@ export default function GroupTitle({ title, onDelete, id, onEdit, editable, dele
               ) : (
                 <p
                   style={{ margin: 4 }}
-                  onDoubleClick={(event) => {
+                  onDoubleClick={(event: { stopPropagation: () => void; }) => {
                     event.stopPropagation();
                     if (editable) {
                       setEditOpen(true);
                     }
                   }}
-                  onClick={(event) => event.stopPropagation()}
+                  onChange={(event, expanded) => {
+                    event.stopPropagation()
+                    if (onExpand) {
+                      onExpand(id, expanded);
+                    }
+                  }}
                   className="accordion-title group-name-area">
                   {title}
                 </p>
@@ -57,7 +63,7 @@ export default function GroupTitle({ title, onDelete, id, onEdit, editable, dele
             </div>
             {editOpen ? null : editable ? (
               <IconButton
-                onClick={(event) => {
+                onClick={(event: { stopPropagation: () => void; }) => {
                   event.stopPropagation();
                   setEditOpen(true);
                 }}
