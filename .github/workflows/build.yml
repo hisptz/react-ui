@@ -1,10 +1,14 @@
 name: Build
 
 on:
+  check_run:
+    types:
+      - created
   pull_request:
     types:
       - opened
       - reopened
+      - edited
     branches:
       - develop
 
