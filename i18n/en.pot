@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-01-26T14:28:30.525Z\n"
-"PO-Revision-Date: 2022-01-26T14:28:30.525Z\n"
+"POT-Creation-Date: 2022-04-13T06:54:00.531Z\n"
+"PO-Revision-Date: 2022-04-13T06:54:00.531Z\n"
 
 msgid "Loading ....."
 msgstr "Loading ....."
@@ -35,11 +35,55 @@ msgstr "Delete"
 msgid "Add Item"
 msgstr "Add Item"
 
+msgid "New Legend Definition"
+msgstr "New Legend Definition"
+
+msgid "Color is required"
+msgstr "Color is required"
+
+msgid "Label is required"
+msgstr "Label is required"
+
+msgid "Add"
+msgstr "Add"
+
+msgid "Confirm legend reset"
+msgstr "Confirm legend reset"
+
+msgid ""
+"Adding a legend definition will reset all legends to their default values. "
+"Are you sure you want to continue?"
+msgstr ""
+"Adding a legend definition will reset all legends to their default values. "
+"Are you sure you want to continue?"
+
+msgid "Reset"
+msgstr "Reset"
+
+msgid "Leave as is"
+msgstr "Leave as is"
+
+msgid "Confirm legends reset"
+msgstr "Confirm legends reset"
+
+msgid ""
+"Deleting this definition will reset all configured legends. Are you sure "
+"you want to delete this legend definition?"
+msgstr ""
+"Deleting this definition will reset all configured legends. Are you sure "
+"you want to delete this legend definition?"
+
+msgid "Select Organisation Unit"
+msgstr "Select Organisation Unit"
+
 msgid "Select Organisation Unit(s)"
 msgstr "Select Organisation Unit(s)"
 
 msgid "Update"
 msgstr "Update"
+
+msgid "Select Period"
+msgstr "Select Period"
 
 msgid "Select Period(s)"
 msgstr "Select Period(s)"

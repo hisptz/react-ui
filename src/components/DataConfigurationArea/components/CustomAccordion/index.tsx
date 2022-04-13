@@ -1,5 +1,5 @@
 import { IconChevronDown24 } from "@dhis2/ui";
-import React from "react";
+import React, { useCallback } from "react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import GroupTitle from "./components/GroupTitle";
 import { Accordion, AccordionDetails, AccordionSummary } from "./components/MUIAccordion";
@@ -16,36 +16,42 @@ export interface CustomAccordionProps {
   draggableChildren?: boolean;
   onDragEnd?: (result: any) => void;
   onTitleChange?: (id: string, title: string) => void;
-  onExpand?: (id: string, expanded: boolean) => void;
-  titleRightAdornment?: (props:{ id:string}) => React.ReactNode | null;
+  titleRightAdornment?: (props: { id: string }) => React.ReactNode | null;
+  defaultExpanded?: boolean;
 }
 
 export default function CustomAccordion({
-  id,
+                                          id,
                                           title,
                                           children,
                                           editableTitle,
                                           onTitleChange,
                                           deletable,
                                           onDelete,
-                                          onExpand,
+
                                           onDragEnd,
                                           draggableChildren,
                                           footer,
-                                          titleRightAdornment
-                                        }: CustomAccordionProps)  {
-  const [expand, setExpanded] = React.useState(true);
-                                        
+                                          titleRightAdornment,
+                                          defaultExpanded
+                                        }: CustomAccordionProps) {
+  const [expand, setExpanded] = React.useState(defaultExpanded);
+
+  const onExpand = useCallback(
+    () => {
+      setExpanded(prevState => !prevState);
+    },
+    []
+  );
+
+
   return (
     <Accordion
       style={{ width: "100%" }}
+      defaultExpanded={defaultExpanded}
       expanded={expand}
-      onChange={(event, expanded) => {
-        setExpanded(!expand)
-        if (onExpand) {
-          // setExpanded(!expand)
-          onExpand(id, expanded);
-        }
+      onChange={() => {
+        setExpanded(prevState => !prevState);
       }}>
       <AccordionSummary expandIcon={<IconChevronDown24 />}>
         <GroupTitle
