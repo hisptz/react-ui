@@ -21,7 +21,7 @@ export interface CustomAccordionProps {
 }
 
 export default function CustomAccordion({
-                                          id,
+  id,
                                           title,
                                           children,
                                           editableTitle,
@@ -33,12 +33,17 @@ export default function CustomAccordion({
                                           draggableChildren,
                                           footer,
                                           titleRightAdornment
-                                        }: CustomAccordionProps) {
+                                        }: CustomAccordionProps)  {
+  const [expand, setExpanded] = React.useState(true);
+                                        
   return (
     <Accordion
       style={{ width: "100%" }}
+      expanded={expand}
       onChange={(event, expanded) => {
+        setExpanded(!expand)
         if (onExpand) {
+          // setExpanded(!expand)
           onExpand(id, expanded);
         }
       }}>
@@ -51,6 +56,7 @@ export default function CustomAccordion({
           onEdit={onTitleChange}
           deletable={deletable}
           onDelete={onDelete}
+          onExpand={onExpand}
         />
       </AccordionSummary>
       <AccordionDetails>
