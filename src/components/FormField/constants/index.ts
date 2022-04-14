@@ -5,6 +5,18 @@ export const VALUE_TYPES: { [key: string]: { name: VALUE_TYPE; formName: string 
     name: "INTEGER",
     formName: "number",
   },
+  AGE: {
+    name: "AGE",
+    formName: "date",
+  },
+  URL: {
+    name: "URL",
+    formName: "url",
+  },
+  FILE: {
+    name: "FILE",
+    formName: "file",
+  },
   TRUE_ONLY: {
     name: "TRUE_ONLY",
     formName: "checkbox",
