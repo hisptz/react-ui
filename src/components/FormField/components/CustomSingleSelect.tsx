@@ -7,7 +7,7 @@ type CustomSingleSelectProps = {
   onChange: OnChange;
   value?: any;
   name: string;
-  filterable: boolean;
+  filterable?: boolean;
 };
 
 export default function CustomSingleSelect({ options, onChange, value, name, ...props }: CustomSingleSelectProps, ref: React.Ref<any>) {

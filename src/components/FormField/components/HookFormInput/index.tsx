@@ -6,20 +6,13 @@ import { VALUE_TYPES } from "../../constants";
 import { FormFieldProps, Option } from "../../types";
 import { getField } from "../../utils";
 
-export default function RHFInput({
-                                   valueType,
-                                   name,
-                                   validations,
-                                   optionSet,
-                                   mandatory,
-                                   control,
-                                   ...props
-                                 }: FormFieldProps) {
+export default function RHFInput({ valueType, name, validations, optionSet, mandatory, control, ...props }: FormFieldProps) {
   const type = useMemo(() => VALUE_TYPES[valueType].formName, [valueType]);
-  const options: Array<{ label: string; value: string; }> = map(optionSet?.options ?? [], ({ name, code }: Option) => ({
-    label: name,
-    value: code
-  })) ?? [];
+  const options: Array<{ label: string; value: string }> =
+    map(optionSet?.options ?? [], ({ name, code }: Option) => ({
+      label: name,
+      value: code,
+    })) ?? [];
 
   const Input = useMemo(() => getField(valueType, options), [valueType]);
 
