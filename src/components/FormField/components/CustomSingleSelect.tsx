@@ -7,11 +7,12 @@ type CustomSingleSelectProps = {
   onChange: OnChange;
   value?: any;
   name: string;
+  filterable: boolean;
 };
 
 export default function CustomSingleSelect({ options, onChange, value, name, ...props }: CustomSingleSelectProps, ref: React.Ref<any>) {
   return (
-    <SingleSelectField ref={ref} selected={value} onChange={({ selected }: { selected: any }) => onChange({ name, value: selected })} {...props}>
+    <SingleSelectField {...props} ref={ref} selected={value} onChange={({ selected }: { selected: any }) => onChange({ name, value: selected })}>
       {options?.map(({ label, value }: { label: string; value: any }) => (
         <SingleSelectOption label={label} value={value} key={value} />
       ))}
