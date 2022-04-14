@@ -1,7 +1,7 @@
 import { DevTool } from "@hookform/devtools";
 import { Story } from "@storybook/react";
 import React from "react";
-import { FormProvider, useForm } from "react-hook-form";
+import { Controller, FormProvider, useForm } from "react-hook-form";
 import { CustomInput } from "../../index";
 import Input from "./components/Input";
 import { VALUE_TYPES } from "./constants";
@@ -16,8 +16,8 @@ NativeInputs.args = {
   name: "text",
   mandatory: true,
   input: {
-    name: "text",
-    onChange: (e) => console.log(e.value),
+    name: "",
+    onChange: () => {},
   },
 };
 
@@ -25,7 +25,8 @@ export default {
   title: "Components/Custom Inputs/CustomInput",
   component: Input,
   decorators: [
-    (InputStory: any) => {
+    (InputStory: any, { args }: any) => {
+      console.log(args);
       const form = useForm();
       return (
         <FormProvider {...form}>
@@ -39,7 +40,12 @@ export default {
                 justifyContent: "center",
                 alignItems: "center",
               }}>
-              <InputStory />
+              <Controller
+                name="text"
+                render={({ field, fieldState }) => {
+                  return <InputStory {...args} input={field} {...field} {...fieldState} />;
+                }}
+              />
             </div>
           </div>
           <DevTool />
@@ -52,5 +58,7 @@ export default {
       handles: ["onChange"],
     },
   },
-  argTypes: { onChange: { action: "onChange" } },
+  argTypes: {
+    valueType: { control: { type: "select", options: Object.keys(VALUE_TYPES) } },
+  },
 };

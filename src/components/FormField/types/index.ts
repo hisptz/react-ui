@@ -1,6 +1,11 @@
 import FormFieldModel from "../models/field";
 
 export type VALUE_TYPE =
+  | "AGE"
+  | "EMAIL"
+  | "URL"
+  | "FILE"
+  | "IMAGE"
   | "INTEGER"
   | "TRUE_ONLY"
   | "TEXT"

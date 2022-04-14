@@ -1,6 +1,7 @@
-import { InputField, TextAreaField } from "@dhis2/ui";
+import { TextAreaField } from "@dhis2/ui";
 import { isEmpty } from "lodash";
 import React from "react";
+import AgeField from "../components/AgeField";
 import CustomCheckboxField from "../components/CustomCheckboxField";
 import CustomSingleSelect from "../components/CustomSingleSelect";
 import LegendDefinitionField from "../components/LegendDefinitionField";
@@ -11,14 +12,14 @@ import RichTextEditor from "../components/RichTextEditor";
 import { VALUE_TYPES } from "../constants";
 import { VALUE_TYPE } from "../types";
 
-
 export function getField(valueType: VALUE_TYPE | string, options?: any) {
-
   if (!isEmpty(options)) {
     return React.forwardRef(CustomSingleSelect);
   }
 
   switch (valueType) {
+    case VALUE_TYPES.AGE.name:
+      return React.forwardRef(AgeField);
     case VALUE_TYPES.DATE.name:
     case VALUE_TYPES.TEXT.name:
     case VALUE_TYPES.NUMBER.name:
@@ -36,7 +37,10 @@ export function getField(valueType: VALUE_TYPE | string, options?: any) {
       return React.forwardRef(LegendMinMax);
     case VALUE_TYPES.MULTIPLE_FIELDS.name:
       return React.forwardRef(MultipleFieldsField);
+
+    case VALUE_TYPES.FILE.name:
+      return React.forwardRef(NativeInput);
     default:
-      return React.forwardRef(InputField);
+      return React.forwardRef(NativeInput);
   }
 }
