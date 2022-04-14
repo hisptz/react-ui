@@ -44,7 +44,6 @@ export type FinalFormFieldInput = {
   required?: boolean;
   error?: boolean;
   validationText?: string;
-
 };
 
 export type Option = {
@@ -57,6 +56,7 @@ export type OptionSet = {
 };
 
 export type InputProps = {
+  name?: string;
   input: FinalFormFieldInput;
   valueType: VALUE_TYPE | string;
   optionSet?: OptionSet;
@@ -66,7 +66,7 @@ export type InputProps = {
   max?: number | string;
   mandatory?: boolean;
   disabled?: boolean;
-  multipleField?: InputProps;
+  multipleField?: FormFieldProps | any;
   multipleFields?: Array<FormFieldModel>;
   legendDefinition?: LegendDefinition;
   initialFieldCount?: number;

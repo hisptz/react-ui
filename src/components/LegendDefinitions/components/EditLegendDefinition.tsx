@@ -5,29 +5,35 @@ import React, { useCallback } from "react";
 import { CustomInput } from "../../../index";
 import { VALUE_TYPES } from "../../FormField/constants";
 
-export function EditLegendDefinition({ legendDefinition, onEdit, onDelete }: {
+export function EditLegendDefinition({
+  legendDefinition,
+  onEdit,
+  onDelete,
+}: {
   legendDefinition: any;
   onEdit: (legendDefinition: any) => void;
   onDelete?: (legendDefinition: any) => void;
 }) {
-
-
   const onDeleteClick = useCallback(() => {
     if (onDelete) {
       onDelete(legendDefinition);
     }
   }, [legendDefinition, onDelete]);
 
-  const onEditClick = useCallback((data) => {
-    onEdit(data);
-  }, [onEdit]);
+  const onEditClick = useCallback(
+    (data) => {
+      onEdit(data);
+    },
+    [onEdit]
+  );
 
   return (
     <div className="row gap-16 align-items-center">
       <CustomInput
         input={{
+          name: "legendDefinition",
           value: legendDefinition,
-          onChange: onEditClick
+          onChange: onEditClick,
         }}
         validations={{
           validate: (value: any) => {
@@ -38,14 +44,16 @@ export function EditLegendDefinition({ legendDefinition, onEdit, onDelete }: {
               return i18n.t("Label is required");
             }
             return true;
-          }
+          },
         }}
         name="newLegendDefinition"
-        valueType={VALUE_TYPES.LEGEND_DEFINITION.name} />
-      {
-        onDelete &&
-        <Button icon={<IconDelete24 />} onClick={onDeleteClick}>{i18n.t("Delete")}</Button>
-      }
+        valueType={VALUE_TYPES.LEGEND_DEFINITION.name}
+      />
+      {onDelete && (
+        <Button icon={<IconDelete24 />} onClick={onDeleteClick}>
+          {i18n.t("Delete")}
+        </Button>
+      )}
     </div>
   );
 }
@@ -53,6 +61,5 @@ export function EditLegendDefinition({ legendDefinition, onEdit, onDelete }: {
 EditLegendDefinition.propTypes = {
   legendDefinition: PropTypes.object.isRequired,
   onEdit: PropTypes.func.isRequired,
-  onDelete: PropTypes.func
-
+  onDelete: PropTypes.func,
 };
