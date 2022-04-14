@@ -22,7 +22,7 @@ export default function Input({ input, valueType, optionSet, ...props }: InputPr
   return (
     <div className={"field-container"}>
       <CssReset />
-      <Input {...input} {...props} type={type} options={options} onChange={({ value }: { value: any }) => onChange(value)} />
+      <Input {...input} {...props} type={type} options={options} name={input.name} onChange={({ value }: { value: any }) => onChange(value)} />
     </div>
   );
 }

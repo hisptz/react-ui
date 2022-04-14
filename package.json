@@ -7,7 +7,7 @@
   "scripts": {
     "build:types": "tsc --emitDeclarationOnly --declaration --outDir ./build/types",
     "build:package": "d2-app-scripts build",
-    "build": "concurrently -n build,types \"yarn build:package\" \"yarn build:types\"",
+    "build": "concurrently -n build,types \"yarn build:package\" \"yarn build:types\" && cp postinstall.js build/",
     "start": "d2-app-scripts start",
     "test:capture": "cypress run-ct --browser electron --env networkMode=capture",
     "test": "cypress run-ct --browser electron --env networkMode=stub",
