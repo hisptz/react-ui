@@ -81,7 +81,8 @@
     "require": "./build/cjs/index.js"
   },
   "files": [
-    "build/**"
+    "build/**",
+    "postinstall.js"
   ],
   "peerDependencies": {
     "@dhis2/app-runtime": "^3.2.5",
