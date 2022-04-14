@@ -1,7 +1,7 @@
 {
   "name": "@hisptz/react-ui",
   "homepage": "https://hisptz.github.io/react-ui",
-  "version": "1.0.39",
+  "version": "1.0.40",
   "description": "A collection of reusable complex DHIS2 react ui components.",
   "license": "BSD-3-Clause",
   "scripts": {
@@ -46,6 +46,7 @@
     "@storybook/react": "^6.4.19",
     "@types/jest": "^27.0.2",
     "@types/lodash": "^4.14.176",
+    "@types/luxon": "^2.3.1",
     "@types/node": "^16.11.3",
     "@types/react-beautiful-dnd": "^13.1.2",
     "@types/react-color": "^3.0.6",
@@ -68,6 +69,7 @@
     "highcharts": "^9.3.0",
     "highcharts-react-official": "^3.1.0",
     "jodit-react": "^1.1.10",
+    "luxon": "^2.3.1",
     "print-message": "^3.0.1",
     "react-beautiful-dnd": "^13.1.0",
     "react-color": "^2.19.3",
@@ -81,7 +83,8 @@
     "require": "./build/cjs/index.js"
   },
   "files": [
-    "build/**"
+    "build/**",
+    "postinstall.js"
   ],
   "peerDependencies": {
     "@dhis2/app-runtime": "^3.2.5",

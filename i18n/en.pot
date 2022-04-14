@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-04-13T06:54:00.531Z\n"
-"PO-Revision-Date: 2022-04-13T06:54:00.531Z\n"
+"POT-Creation-Date: 2022-04-14T15:16:13.936Z\n"
+"PO-Revision-Date: 2022-04-14T15:16:13.936Z\n"
 
 msgid "Loading ....."
 msgstr "Loading ....."
@@ -31,6 +31,18 @@ msgstr "Save"
 
 msgid "Delete"
 msgstr "Delete"
+
+msgid "Date"
+msgstr "Date"
+
+msgid "Years"
+msgstr "Years"
+
+msgid "Months"
+msgstr "Months"
+
+msgid "Days"
+msgstr "Days"
 
 msgid "Add Item"
 msgstr "Add Item"

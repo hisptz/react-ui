@@ -102,5 +102,8 @@ export default {
       handles: ["onChange"],
     },
   },
-  argTypes: { onChange: { action: "onChange" } },
+  argTypes: {
+    onChange: { action: "onChange" },
+    valueType: { control: { type: "select", options: Object.keys(VALUE_TYPES) } },
+  },
 };
