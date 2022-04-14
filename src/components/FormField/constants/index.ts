@@ -5,6 +5,10 @@ export const VALUE_TYPES: { [key: string]: { name: VALUE_TYPE; formName: string 
     name: "INTEGER",
     formName: "number",
   },
+  EMAIL: {
+    name: "EMAIL",
+    formName: "email",
+  },
   AGE: {
     name: "AGE",
     formName: "date",

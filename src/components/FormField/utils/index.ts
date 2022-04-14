@@ -1,4 +1,4 @@
-import { InputField, TextAreaField } from "@dhis2/ui";
+import { TextAreaField } from "@dhis2/ui";
 import { isEmpty } from "lodash";
 import React from "react";
 import AgeField from "../components/AgeField";
@@ -37,7 +37,10 @@ export function getField(valueType: VALUE_TYPE | string, options?: any) {
       return React.forwardRef(LegendMinMax);
     case VALUE_TYPES.MULTIPLE_FIELDS.name:
       return React.forwardRef(MultipleFieldsField);
+
+    case VALUE_TYPES.FILE.name:
+      return React.forwardRef(NativeInput);
     default:
-      return React.forwardRef(InputField);
+      return React.forwardRef(NativeInput);
   }
 }
