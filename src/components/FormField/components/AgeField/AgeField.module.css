@@ -1,26 +1,45 @@
 .age-inputs-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 8px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
 }
 
 .date-input {
-    width: 100%;
+    width: 40%;
 }
 
 .age-input {
 }
 
 .age-field-container {
-    display: grid;
-    grid-template-columns: 60% 40% 10%;
-    grid-gap: 16px;
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
     align-items: flex-end;
 }
 
-@media only screen and (max-width: 768px) {
+.clear-button {
+    width: 50px;
+}
+
+@media only screen and (max-width: 1100px) {
     .age-field-container {
         display: flex;
         flex-direction: column;
+        align-items: center;
+    }
+
+    .date-input {
+        width: 100%;
+    }
+
+    .age-inputs-container {
+        width: 100% !important;
     }
 }
