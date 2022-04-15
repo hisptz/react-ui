@@ -33,7 +33,6 @@ export default {
           <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
             <div
               style={{
-                width: 600,
                 height: "100%",
                 display: "flex",
                 flexDirection: "row",

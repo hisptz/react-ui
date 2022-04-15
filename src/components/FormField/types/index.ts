@@ -57,7 +57,7 @@ export type Option = {
 };
 
 export type OptionSet = {
-  options: Option;
+  options: Option[];
 };
 
 export type InputProps = {

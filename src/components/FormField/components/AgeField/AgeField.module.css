@@ -1,0 +1,26 @@
+.age-inputs-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 8px;
+}
+
+.date-input {
+    width: 100%;
+}
+
+.age-input {
+}
+
+.age-field-container {
+    display: grid;
+    grid-template-columns: 60% 40% 10%;
+    grid-gap: 16px;
+    align-items: flex-end;
+}
+
+@media only screen and (max-width: 768px) {
+    .age-field-container {
+        display: flex;
+        flex-direction: column;
+    }
+}
