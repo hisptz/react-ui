@@ -23,21 +23,15 @@ export default function AgeField({ name, value, onChange, error, ...props }: Fin
   return (
     <Field error={Boolean(error)} {...props} name={name}>
       <div className={classes["age-field-container"]}>
-        <InputField
-          className={classes["date-input"]}
-          ref={ref}
-          value={value}
-          label={i18n.t("Date")}
-          name={name}
-          onChange={onDateChange}
-          type={VALUE_TYPES.DATE.formName}
-        />
-        <div className={classes["age-inputs-container"]}>
+        <div className={classes["date-input"]}>
+          <InputField ref={ref} value={value} label={i18n.t("Date")} name={name} onChange={onDateChange} type={VALUE_TYPES.DATE.formName} />
+        </div>
+        <div style={{ width: value ? "40%" : "50%" }} className={classes["age-inputs-container"]}>
           <InputField error={Boolean(error)} className={classes["age-input"]} value={`${years}`} disabled label={i18n.t("Years")} type="number" />
           <InputField className={classes["age-input"]} value={`${months}`} disabled label={i18n.t("Months")} type="number" />
           <InputField className={classes["age-input"]} value={`${days}`} disabled label={i18n.t("Days")} type="number" />
         </div>
-        {value && <Button icon={<IconCross24 />} onClick={onClear} />}
+        {value && <Button className={classes["clear-button"]} icon={<IconCross24 />} onClick={onClear} />}
       </div>
     </Field>
   );
