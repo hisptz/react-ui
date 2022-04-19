@@ -34,8 +34,7 @@ export function dragUpdate(event: any): { top: number; left: number; width: numb
   const updatedArray = [...childrenArray.slice(0, destinationIndex), movedItem, ...childrenArray.slice(destinationIndex + 1)];
 
   const top =
-    // @ts-ignore
-    parseFloat(window.getComputedStyle(draggedDOM.parentNode).paddingTop) +
+    parseFloat(window.getComputedStyle(<Element>draggedDOM.parentNode).paddingTop) +
     updatedArray.slice(0, destinationIndex).reduce((total, curr: any) => {
       const style = curr.currentStyle || window.getComputedStyle(curr);
       const marginBottom = parseFloat(style.marginBottom);

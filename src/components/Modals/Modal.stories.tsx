@@ -13,21 +13,23 @@ export const PeriodSelector = PeriodTemplate.bind({});
 PeriodSelector.args = {
   hide: false,
   onClose: () => {
+    console.log("onClose");
   },
   onUpdate: (value) => console.log(value),
-  singleSelection: true
+  singleSelection: true,
 };
 
 export const OrgUnitSelector = OrgUnitTemplate.bind({});
 OrgUnitSelector.args = {
   hide: false,
   onClose: () => {
+    return;
   },
   onUpdate: (value) => console.log(value),
-  singleSelection: true
+  singleSelection: true,
 };
 
 export default {
   title: "Components/Modals",
-  components: [PeriodSelectorModal]
+  components: [PeriodSelectorModal],
 };

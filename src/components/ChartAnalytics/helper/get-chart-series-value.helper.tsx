@@ -1,14 +1,20 @@
-/* eslint-disable max-params */
 import { forEach, map, some } from "lodash";
 
-export function getChartSeriesValue(
-  analyticsRows:any[],
-  yAxisItemIndex:any,
-  yAxisItemId:any,
-  xAxisItemIndex:any,
-  xAxisItemId:any,
-  dataIndex:any
-) {
+export function getChartSeriesValue({
+  analyticsRows,
+  yAxisItemId,
+  xAxisItemIndex,
+  xAxisItemId,
+  yAxisItemIndex,
+  dataIndex,
+}: {
+  analyticsRows: any[];
+  yAxisItemIndex: any;
+  yAxisItemId: any;
+  xAxisItemIndex: any;
+  xAxisItemId: any;
+  dataIndex: any;
+}) {
   let finalValue = 0;
 
   const seriesValues = map(analyticsRows, (row) => {
@@ -35,17 +41,9 @@ export function getChartSeriesValue(
       return "";
     }
     // TODO find best way to identify ratios
-    const isRatio = some(
-      seriesValues,
-      (seriesValue) => seriesValue.toString().split(".")[1]
-    );
+    const isRatio = some(seriesValues, (seriesValue) => seriesValue.toString().split(".")[1]);
 
-    const valueSum =
-      seriesValues.length > 0
-        ? seriesValues.reduce(
-            (sum, count) => parseFloat(sum) + parseFloat(count)
-          )
-        : 0;
+    const valueSum = seriesValues.length > 0 ? seriesValues.reduce((sum, count) => parseFloat(sum) + parseFloat(count)) : 0;
 
     if (isRatio) {
       finalValue = valueSum / seriesValues.length;

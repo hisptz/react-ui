@@ -28,7 +28,13 @@ export default function ChartItemComponent({ analysisData, chartHeight, chartCon
   }
 
   function chartConfigurationSelector(layout: any, currentChartType: any) {
-    return getChartConfiguration({}, "", layout, "", currentChartType, []);
+    return getChartConfiguration({
+      customChartType: currentChartType,
+      dataSelections: [],
+      visualizationLayout: layout,
+      interventionName: "",
+      renderId: "",
+    });
   }
 
   function updateChartType(chartType: any, event: any) {

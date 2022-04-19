@@ -1,7 +1,13 @@
 const { config } = require("@dhis2/cli-style");
 
 module.exports = {
-  extends: [config.eslintReact, "plugin:cypress/recommended"],
+  extends: [config.eslintReact,
+    "plugin:cypress/recommended",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react-hooks/recommended",
+  ],
   settings: {
     "import/resolver": {
       node: {
@@ -15,6 +21,6 @@ module.exports = {
   },
   rules: {
     "react/prop-types": "off",
-    "react/no-unused-prop-types": "off"
+    "react/no-unused-prop-types": "off",
   },
 };
