@@ -17,6 +17,26 @@ NativeInputs.args = {
   mandatory: true,
 };
 
+export const CustomSelect = Template.bind({});
+CustomSelect.args = {
+  valueType: VALUE_TYPES.TEXT.name,
+  label: "Select",
+  name: "text",
+  mandatory: true,
+  optionSet: {
+    options: [
+      {
+        name: "Option 1",
+        code: "option1",
+      },
+      {
+        name: "Option 2",
+        code: "option2",
+      },
+    ],
+  },
+};
+
 export const LegendDefinitionInput = Template.bind({});
 LegendDefinitionInput.args = {
   valueType: VALUE_TYPES.LEGEND_DEFINITION.name,
@@ -82,7 +102,8 @@ export default {
           <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
             <div
               style={{
-                width: 600,
+                width: "50%",
+                background: "blue",
                 height: "100%",
                 display: "flex",
                 flexDirection: "row",
@@ -102,5 +123,8 @@ export default {
       handles: ["onChange"],
     },
   },
-  argTypes: { onChange: { action: "onChange" } },
+  argTypes: {
+    onChange: { action: "onChange" },
+    valueType: { control: { type: "select", options: Object.keys(VALUE_TYPES) } },
+  },
 };

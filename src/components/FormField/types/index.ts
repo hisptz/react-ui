@@ -1,6 +1,11 @@
 import FormFieldModel from "../models/field";
 
 export type VALUE_TYPE =
+  | "AGE"
+  | "EMAIL"
+  | "URL"
+  | "FILE"
+  | "IMAGE"
   | "INTEGER"
   | "TRUE_ONLY"
   | "TEXT"
@@ -44,7 +49,6 @@ export type FinalFormFieldInput = {
   required?: boolean;
   error?: boolean;
   validationText?: string;
-
 };
 
 export type Option = {
@@ -53,10 +57,11 @@ export type Option = {
 };
 
 export type OptionSet = {
-  options: Option;
+  options: Option[];
 };
 
 export type InputProps = {
+  name?: string;
   input: FinalFormFieldInput;
   valueType: VALUE_TYPE | string;
   optionSet?: OptionSet;
@@ -66,7 +71,7 @@ export type InputProps = {
   max?: number | string;
   mandatory?: boolean;
   disabled?: boolean;
-  multipleField?: InputProps;
+  multipleField?: FormFieldProps | any;
   multipleFields?: Array<FormFieldModel>;
   legendDefinition?: LegendDefinition;
   initialFieldCount?: number;
