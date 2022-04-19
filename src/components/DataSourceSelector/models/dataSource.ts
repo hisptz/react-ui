@@ -19,7 +19,9 @@ export default class DataSource {
     this.getGroups = this.getGroups.bind(this);
   }
 
-  async getGroups(engine: any): Promise<void> {}
+  async getGroups(engine: any): Promise<void> {
+    console.log("This should be overridden");
+  }
 
   async getDataSources(
     engine: any,

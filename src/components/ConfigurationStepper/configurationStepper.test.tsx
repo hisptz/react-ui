@@ -42,7 +42,9 @@ describe("Configuration Stepper Selector", () => {
         }}
         onLastActionButtonName={"Save"}
         activeStep={steps[0]}
-        setActiveStep={() => {}}
+        setActiveStep={() => {
+          return;
+        }}
       />
     );
     cy.get("#stepper").should("be.visible");

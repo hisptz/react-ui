@@ -12,6 +12,7 @@ export function getPlotOptions(chartConfiguration: any) {
       point: {
         events: {
           click: function () {
+            console.log("Point clicked");
             //TODO: Fix this reference issues;
             // const clickedChart = (windowObject["clickedCharts"] || {})[this.id];
             // const currentColor:any = this.color;

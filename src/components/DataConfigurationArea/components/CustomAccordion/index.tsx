@@ -1,8 +1,11 @@
 import { IconChevronDown24 } from "@dhis2/ui";
-import React, { useCallback } from "react";
+import { isEmpty } from "lodash";
+import React, { useCallback, useState } from "react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import classes from "../../DataConfiguration.module.css";
 import GroupTitle from "./components/GroupTitle";
 import { Accordion, AccordionDetails, AccordionSummary } from "./components/MUIAccordion";
+import { dragStart, dragUpdate } from "./services/dnd";
 
 export interface CustomAccordionProps {
   id: string;
@@ -21,29 +24,36 @@ export interface CustomAccordionProps {
 }
 
 export default function CustomAccordion({
-                                          id,
-                                          title,
-                                          children,
-                                          editableTitle,
-                                          onTitleChange,
-                                          deletable,
-                                          onDelete,
+  id,
+  title,
+  children,
+  editableTitle,
+  onTitleChange,
+  deletable,
+  onDelete,
 
-                                          onDragEnd,
-                                          draggableChildren,
-                                          footer,
-                                          titleRightAdornment,
-                                          defaultExpanded
-                                        }: CustomAccordionProps) {
-  const [expand, setExpanded] = React.useState(defaultExpanded);
+  onDragEnd,
+  draggableChildren,
+  footer,
+  titleRightAdornment,
+  defaultExpanded,
+}: CustomAccordionProps) {
+  const [expand, setExpanded] = useState(defaultExpanded);
+  const [placeholderStyle, setPlaceholderStyle] = useState<any>({});
 
-  const onExpand = useCallback(
-    () => {
-      setExpanded(prevState => !prevState);
-    },
-    []
-  );
+  console.log(placeholderStyle);
 
+  const onExpand = useCallback(() => {
+    setExpanded((prevState) => !prevState);
+  }, []);
+
+  const onDragStart = (event: any) => {
+    setPlaceholderStyle(dragStart(event));
+  };
+
+  const onDragUpdate = (event: any) => {
+    setPlaceholderStyle(dragUpdate(event));
+  };
 
   return (
     <Accordion
@@ -51,7 +61,7 @@ export default function CustomAccordion({
       defaultExpanded={defaultExpanded}
       expanded={expand}
       onChange={() => {
-        setExpanded(prevState => !prevState);
+        setExpanded((prevState) => !prevState);
       }}>
       <AccordionSummary expandIcon={<IconChevronDown24 />}>
         <GroupTitle
@@ -66,27 +76,20 @@ export default function CustomAccordion({
         />
       </AccordionSummary>
       <AccordionDetails>
-        <div className="column h-100 w-100 gap-8 p-8">
+        <div className="column h-100 w-100">
           {draggableChildren && onDragEnd ? (
-            <DragDropContext onDragEnd={onDragEnd}>
-              <div className="column h-100 w-100">
-                <Droppable droppableId={id}>
-                  {(provided) => (
-                    <>
-                      <div
-                        className="w-100"
-                        ref={provided.innerRef}
-                        {...provided.droppableProps}
-                      >
-                        {children}
-                        {provided.placeholder}
-                      </div>
-
-                    </>
-                  )}
-
-                </Droppable>
-              </div>
+            <DragDropContext onDragUpdate={onDragUpdate} onDragStart={onDragStart} onDragEnd={onDragEnd}>
+              <Droppable droppableId={id}>
+                {(provided, snapshot) => (
+                  <>
+                    <div className="w-100" ref={provided.innerRef} {...provided.droppableProps} style={{ position: "relative" }}>
+                      {children}
+                      {provided.placeholder}
+                      {!isEmpty(placeholderStyle) && snapshot.isDraggingOver && <div className={classes["dnd-placeholder"]} style={{ ...placeholderStyle }} />}
+                    </div>
+                  </>
+                )}
+              </Droppable>
             </DragDropContext>
           ) : (
             <div className="column h-100 w-100">{children}</div>
