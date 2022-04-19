@@ -18,10 +18,15 @@ export function getListStyle(isDragging: boolean) {
 }
 
 export function dragUpdate(event: any): { top: number; left: number; width: number; height: number } | undefined {
+  if (!event.destination) {
+    return;
+  }
+
+  console.log(event);
   const draggedDOM = getDraggedDom(event.draggableId);
 
-  const destinationIndex = event.destination.index;
-  const sourceIndex = event.source.index;
+  const destinationIndex = event?.destination?.index;
+  const sourceIndex = event?.source?.index;
   if (!draggedDOM) {
     return;
   }
@@ -44,7 +49,7 @@ export function dragUpdate(event: any): { top: number; left: number; width: numb
   return {
     height: clientHeight,
     width: clientWidth,
-    top,
+    top: sourceIndex < destinationIndex ? top + 16 : top - 16,
     left: parseFloat(window.getComputedStyle(<Element>draggedDOM.parentNode).paddingLeft),
   };
 }
@@ -55,10 +60,11 @@ export function dragStart(event: any): { top: number; left: number; width: numbe
     return;
   }
   const { clientHeight, clientWidth } = draggedDOM;
+  const sourceIndex = event.source.index;
 
   const top =
     parseFloat(window.getComputedStyle(draggedDOM.parentNode as Element).paddingTop) +
-    [...(draggedDOM?.parentNode?.children ?? [])].slice(0, event.source.index).reduce((total, curr: any) => {
+    [...(draggedDOM?.parentNode?.children ?? [])].slice(0, sourceIndex).reduce((total, curr: any) => {
       const style = curr.currentStyle || window.getComputedStyle(curr);
       const marginBottom = parseFloat(style.marginBottom);
       return total + curr.clientHeight + marginBottom;

@@ -9,7 +9,9 @@ describe("Form Input Tests", () => {
       <Input
         input={{
           name: "name",
-          onChange: () => {},
+          onChange: () => {
+            return;
+          },
         }}
         valueType={VALUE_TYPES.TEXT.name}
       />
