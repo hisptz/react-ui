@@ -8,52 +8,46 @@ import { getSanitizedChartXAxisCategories } from "./get-sanitized-chart-x-axis-c
 import { getSortedChartSeries } from "./get-sorted-chart-series.helper";
 import { getXAxisItemsFromChartConfiguration } from "./get-x-axis-items-from-chart-configuration.helper";
 
-export function getOtherChartObject(
-  initialChartObject:any,
-  analyticsObject:any,
-  chartConfiguration:any
-) {
-  const yAxisSeriesItems:any[] = getChartAxisItems(analyticsObject, [
-    chartConfiguration.yAxisType,
-  ]);
+export function getOtherChartObject({
+  initialChartObject,
+  analyticsObject,
+  chartConfiguration,
+}: {
+  initialChartObject: any;
+  analyticsObject: any;
+  chartConfiguration: any;
+}) {
+  const yAxisSeriesItems: any[] = getChartAxisItems(analyticsObject, [chartConfiguration.yAxisType]);
 
   /**
    * Sort the corresponding series
    */
   const sortedSeries = getSortedChartSeries(
-    getChartSeries(
+    getChartSeries({
       analyticsObject,
-      getChartAxisItems(analyticsObject, chartConfiguration.xAxisType, true),
-      yAxisSeriesItems,
-      chartConfiguration
-    ),
+      xAxisItems: getChartAxisItems(analyticsObject, chartConfiguration.xAxisType),
+      yAxisItems: yAxisSeriesItems,
+      chartConfiguration,
+    }),
     chartConfiguration.cumulativeValues ? -1 : chartConfiguration.sortOrder
   );
 
   /**
    * Update series with axis options
    */
-  const seriesWithAxisOptions = getChartSeriesWithAxisOptions(
-    sortedSeries,
-    chartConfiguration.multiAxisTypes
-  );
+  const seriesWithAxisOptions = getChartSeriesWithAxisOptions(sortedSeries, chartConfiguration.multiAxisTypes);
 
   /**
    * Update colors by considering if series has data
    */
   const newColors = filter(
-    map(seriesWithAxisOptions, (seriesObject) =>
-      seriesObject.data[0] ? seriesObject.data[0].color : undefined
-    ),
+    map(seriesWithAxisOptions, (seriesObject) => (seriesObject.data[0] ? seriesObject.data[0].color : undefined)),
     (color) => color
   );
 
   const xAxisItems = getXAxisItemsFromChartConfiguration(chartConfiguration);
 
-  const xAxisCategories = getSanitizedChartXAxisCategories(
-    seriesWithAxisOptions,
-    xAxisItems
-  );
+  const xAxisCategories = getSanitizedChartXAxisCategories(seriesWithAxisOptions, xAxisItems);
 
   return {
     ...initialChartObject,
