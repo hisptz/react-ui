@@ -96,14 +96,17 @@ export default {
   component: Input,
   decorators: [
     (InputStory: any) => {
-      const form = useForm();
+      const form = useForm({
+        defaultValues: {
+          text: "",
+        },
+      });
       return (
         <FormProvider {...form}>
           <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
             <div
               style={{
                 width: "50%",
-                background: "blue",
                 height: "100%",
                 display: "flex",
                 flexDirection: "row",
