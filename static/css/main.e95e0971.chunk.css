@@ -125,6 +125,13 @@
     display: block !important;
 }
 
+.DataConfiguration_dnd-placeholder__1oFJh {
+    border: 1px dashed #A0ADBA;
+    position: absolute;
+    margin: 16px 0;
+    background: #F8F9FA;
+}
+
 
 .DataSource_drag-handle__mdi5a {
     cursor: move;
@@ -350,4 +357,4 @@
 
 
 
-/*# sourceMappingURL=main.5d530fcd.chunk.css.map*/
+/*# sourceMappingURL=main.e95e0971.chunk.css.map*/
