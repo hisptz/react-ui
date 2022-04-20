@@ -17,7 +17,9 @@ NativeInputs.args = {
   mandatory: true,
   input: {
     name: "",
-    onChange: () => {},
+    onChange: () => {
+      console.log("onChange");
+    },
   },
 };
 

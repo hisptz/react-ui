@@ -15,7 +15,12 @@ describe("Org Unit Selector", () => {
   it("should render", function () {
     mount(
       <DHIS2Provider>
-        <OrgUnitSelector value={{ orgUnits: [], levels: [] }} onUpdate={() => {}} />
+        <OrgUnitSelector
+          value={{ orgUnits: [], levels: [] }}
+          onUpdate={() => {
+            return;
+          }}
+        />
       </DHIS2Provider>
     );
   });
@@ -23,14 +28,25 @@ describe("Org Unit Selector", () => {
   it("should render with user options", function () {
     mount(
       <DHIS2Provider>
-        <OrgUnitSelector value={{ orgUnits: [], levels: [] }} onUpdate={() => {}} />
+        <OrgUnitSelector
+          value={{ orgUnits: [], levels: [] }}
+          onUpdate={() => {
+            return;
+          }}
+        />
       </DHIS2Provider>
     );
   });
   it("should render with levels", function () {
     mount(
       <DHIS2Provider>
-        <OrgUnitSelector value={{ orgUnits: [], levels: [] }} onUpdate={() => {}} showLevels />
+        <OrgUnitSelector
+          value={{ orgUnits: [], levels: [] }}
+          onUpdate={() => {
+            return;
+          }}
+          showLevels
+        />
       </DHIS2Provider>
     );
     cy.get("[data-test='levels-selector']").should("exist");
@@ -38,7 +54,13 @@ describe("Org Unit Selector", () => {
   it("should render with groups", function () {
     mount(
       <DHIS2Provider>
-        <OrgUnitSelector value={{ orgUnits: [], levels: [] }} onUpdate={() => {}} showGroups />
+        <OrgUnitSelector
+          value={{ orgUnits: [], levels: [] }}
+          onUpdate={() => {
+            return;
+          }}
+          showGroups
+        />
       </DHIS2Provider>
     );
     cy.get("[data-test='groups-selector']").should("exist");
@@ -57,7 +79,14 @@ describe("Org Unit Selector", () => {
     };
     mount(
       <DHIS2Provider>
-        <OrgUnitSelector value={values} showGroups showLevels onUpdate={() => {}} />
+        <OrgUnitSelector
+          value={values}
+          showGroups
+          showLevels
+          onUpdate={() => {
+            return;
+          }}
+        />
       </DHIS2Provider>
     );
   });
@@ -69,9 +98,16 @@ describe("Org Unit Selector", () => {
     // };
     mount(
       <DHIS2Provider>
-        <OrgUnitSelector value={{ orgUnits: [] }} showLevels onUpdate={() => {}} />
+        <OrgUnitSelector
+          value={{ orgUnits: [] }}
+          showLevels
+          onUpdate={() => {
+            return;
+          }}
+        />
       </DHIS2Provider>
     ).then(() => {
+      return;
       // cy.get("[data-test=dhis2-uicore-checkbox]", { timeout: 10000 })
       //   .click()
       //   .then(() => {

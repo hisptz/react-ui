@@ -14,10 +14,16 @@ describe("Data Source Selector tests", () => {
   it("should render", function () {
     mount(
       <DHIS2Provider>
-        <DataSourceSelector onSelect={() => {}} />
+        <DataSourceSelector
+          onSelect={() => {
+            return;
+          }}
+        />
       </DHIS2Provider>
     );
   });
 
-  it("should", function () {});
+  it("should", function () {
+    return;
+  });
 });

@@ -34,21 +34,21 @@ export interface DataConfigurationAreaProps {
 }
 
 export default function DataConfigurationArea({
-                                                groups,
-                                                onItemClick,
-                                                editableTitle,
-                                                onGroupTitleEdit,
-                                                deletableGroups,
-                                                onGroupDelete,
-                                                onItemDelete,
-                                                deletableItems,
-                                                groupFooter,
-                                                draggableItems,
-                                                onItemDragEnd,
-                                                selectedItems,
-                                                titleRightAdornment,
-                                                defaultExpanded
-                                              }: DataConfigurationAreaProps) {
+  groups,
+  onItemClick,
+  editableTitle,
+  onGroupTitleEdit,
+  deletableGroups,
+  onGroupDelete,
+  onItemDelete,
+  deletableItems,
+  groupFooter,
+  draggableItems,
+  onItemDragEnd,
+  selectedItems,
+  titleRightAdornment,
+  defaultExpanded,
+}: DataConfigurationAreaProps) {
   return (
     <div className="column">
       {groups.map(({ id: groupId, name, items }, groupIndex) => (
@@ -67,24 +67,24 @@ export default function DataConfigurationArea({
           key={`${groupId}-accordion`}
           id={groupId}
           title={name}
-          footer={<div>{groupFooter ? groupFooter({ id: groupId, name, items }, groupIndex) : null}</div>
-          }
+          footer={<div>{groupFooter ? groupFooter({ id: groupId, name, items }, groupIndex) : null}</div>}
           titleRightAdornment={titleRightAdornment}>
-          <div className="column" style={{ gap: 16 }}>
+          <div className="column">
             {items?.map((item, index) => (
-              <DataSource
-                index={index}
-                draggable={draggableItems}
-                subLabel={item.subLabel}
-                icon={item.icon}
-                deletable={deletableItems}
-                onDelete={(id: string) => onItemDelete && onItemDelete(groupId, id)}
-                onClick={(itemId) => onItemClick(groupId, itemId)}
-                key={`${item.id}-item`}
-                id={item.id}
-                label={item.name}
-                selected={Boolean(find(selectedItems, (selectedItem) => selectedItem.groupId === groupId && selectedItem.itemId === item.id))}
-              />
+              <div style={{ padding: "8px 0" }} key={`${item.id}-item`}>
+                <DataSource
+                  index={index}
+                  draggable={draggableItems}
+                  subLabel={item.subLabel}
+                  icon={item.icon}
+                  deletable={deletableItems}
+                  onDelete={(id: string) => onItemDelete && onItemDelete(groupId, id)}
+                  onClick={(itemId) => onItemClick(groupId, itemId)}
+                  id={item.id}
+                  label={item.name}
+                  selected={Boolean(find(selectedItems, (selectedItem) => selectedItem.groupId === groupId && selectedItem.itemId === item.id))}
+                />
+              </div>
             ))}
           </div>
         </CustomAccordion>

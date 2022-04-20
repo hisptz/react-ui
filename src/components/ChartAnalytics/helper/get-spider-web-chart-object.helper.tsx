@@ -8,25 +8,15 @@ import { getSanitizedChartXAxisCategories } from "./get-sanitized-chart-x-axis-c
 import { getSortedChartSeries } from "./get-sorted-chart-series.helper";
 import { getXAxisItemsFromChartConfiguration } from "./get-x-axis-items-from-chart-configuration.helper";
 
-export function getSpiderWebChartObject(
-  initialChartObject :any,
-  analyticsObject:any,
-  chartConfiguration:any
-) {
+export function getSpiderWebChartObject(initialChartObject: any, analyticsObject: any, chartConfiguration: any) {
   //getChartAxisItems
   const newChartObject = clone(initialChartObject);
-  const yAxisSeriesItems :any[]= getChartAxisItems(
-    analyticsObject,
-    chartConfiguration.yAxisType
-  );
+  const yAxisSeriesItems: any[] = getChartAxisItems(analyticsObject, chartConfiguration.yAxisType);
 
   /**
    * Get pane attribute
    */
-  newChartObject.pane = assign(
-    {},
-    getChartPaneOptions(chartConfiguration.type)
-  );
+  newChartObject.pane = assign({}, getChartPaneOptions(chartConfiguration.type));
 
   /**
    * Get y axis options
@@ -38,12 +28,12 @@ export function getSpiderWebChartObject(
    * getChartSeries
    */
   const sortedSeries = getSortedChartSeries(
-    getChartSeries(
+    getChartSeries({
       analyticsObject,
-      getChartAxisItems(analyticsObject, chartConfiguration.xAxisType, true),
-      yAxisSeriesItems,
-      chartConfiguration
-    ),
+      xAxisItems: getChartAxisItems(analyticsObject, chartConfiguration.xAxisType),
+      yAxisItems: yAxisSeriesItems,
+      chartConfiguration,
+    }),
     chartConfiguration.cumulativeValues ? -1 : chartConfiguration.sortOrder
   );
 

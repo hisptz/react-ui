@@ -67,7 +67,9 @@ const steps = [
 
 MultiStepper.args = {
   steps,
-  onLastAction: () => {},
+  onLastAction: () => {
+    console.log("Last action");
+  },
   onLastActionButtonName: "Save",
   activeStepperBackGroundColor: "#00695c",
   onStepChange: () => true,
@@ -105,7 +107,9 @@ const simpleSteps = [
 
 SimpleStepper.args = {
   steps: simpleSteps,
-  onLastAction: () => {},
+  onLastAction: () => {
+    console.log("Last action");
+  },
   onLastActionButtonName: "Save",
   activeStepperBackGroundColor: "#00695c",
   onStepChange: undefined,

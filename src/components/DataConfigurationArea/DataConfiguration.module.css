@@ -6,3 +6,10 @@
     display: block !important;
 }
 
+.dnd-placeholder {
+    border: 1px dashed #A0ADBA;
+    position: absolute;
+    margin: 16px 0;
+    background: #F8F9FA;
+}
+

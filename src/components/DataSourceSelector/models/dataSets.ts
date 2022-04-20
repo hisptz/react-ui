@@ -4,8 +4,8 @@ import { DataSourceResponse } from "../types";
 import DataSource from "./dataSource";
 
 export default class DataSets extends DataSource {
-  groupKey: string = "dataSets.id";
-  groupResource: string = "dataSets";
+  groupKey = "dataSets.id";
+  groupResource = "dataSets";
   categories: Array<{ label: string; id: string }> = [
     {
       label: "Reporting rate",
