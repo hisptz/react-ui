@@ -1,6 +1,6 @@
 import i18n from "@dhis2/d2-i18n";
 import { Box, CenteredContent, CheckboxField, CircularLoader, colors, IconError24, MultiSelectField, MultiSelectOption, OrganisationUnitTree } from "@dhis2/ui";
-import { cloneDeep, find, isEmpty, remove } from "lodash";
+import { cloneDeep, filter, find, intersectionBy, intersectionWith, isEmpty, remove } from "lodash";
 import React, { Fragment, useMemo } from "react";
 import { useOrgUnitLevelsAndGroups, useOrgUnitsRoot } from "../hooks";
 import { OrgUnitSelectorProps } from "../types";
@@ -99,6 +99,9 @@ export default function OrgUnitSelector({ value, onUpdate, showLevels, showUserO
     );
   }
 
+  const sanitizedSelectedLevels = intersectionWith(selectedLevels, levels, (levelId, level) => levelId === level.id);
+  const sanitizedSelectedGroups = intersectionWith(selectedGroups, levels, (groupId, group) => groupId === group.id);
+
   return (
     <Box minHeight="400px" maxWidth={"700px"} minWidth={"500px"}>
       {levelsAndGroupsLoading || loading ? (
@@ -157,7 +160,7 @@ export default function OrgUnitSelector({ value, onUpdate, showLevels, showUserO
                     error={levelsAndGroupsError}
                     validationText={levelsAndGroupsError?.message}
                     onChange={onLevelSelect}
-                    selected={levelsAndGroupsLoading ? [] : selectedLevels}
+                    selected={levelsAndGroupsLoading ? [] : sanitizedSelectedLevels}
                     clearText={i18n.t("Clear")}
                     label={i18n.t("Select Level(s)")}>
                     {levels?.map(({ displayName, id }: { displayName: string; id: string }) => (
@@ -175,7 +178,7 @@ export default function OrgUnitSelector({ value, onUpdate, showLevels, showUserO
                     error={levelsAndGroupsError}
                     validationText={levelsAndGroupsError?.message}
                     onChange={onGroupSelect}
-                    selected={levelsAndGroupsLoading ? [] : selectedGroups}
+                    selected={levelsAndGroupsLoading ? [] : sanitizedSelectedGroups}
                     dataTest={"select-facility-group"}
                     clearText={i18n.t("Clear")}
                     label={i18n.t("Select Group(s)")}>
