@@ -1,6 +1,6 @@
 {
   "baseUrl": "http://localhost:3000",
-  "video": true,
+  "video": false,
   "projectId": "w8u5sk",
   "env": {
     "dhis2DataTestPrefix": "dhis2-reactui",
