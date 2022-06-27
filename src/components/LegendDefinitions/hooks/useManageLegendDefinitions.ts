@@ -22,7 +22,7 @@ export function useManageLegendDefinitions(
   const defaultLegendDefinitions = getDefaultLegendDefinitions(legendDefinitions);
 
   const onAdd = useCallback(
-    (value) => {
+    (value: any) => {
       const newLegendDefinitions = [...cloneDeep(legendDefinitions), value];
 
       function add() {
@@ -59,7 +59,7 @@ export function useManageLegendDefinitions(
   );
 
   const onDelete = useCallback(
-    (data) => {
+    (data: { id: string }) => {
       const updatedDefinitions = cloneDeep(legendDefinitions);
       const index = findIndex(updatedDefinitions, ({ id: legendDefinitionId }) => legendDefinitionId === data.id);
       updatedDefinitions.splice(index, 1);

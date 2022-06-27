@@ -1,4 +1,4 @@
-import { Story } from "@storybook/react";
+import type { Story } from "@storybook/react";
 import React from "react";
 import { ConfirmDialogProps } from "./components/ConfirmDialog";
 import { ConfirmDialog } from "./index";

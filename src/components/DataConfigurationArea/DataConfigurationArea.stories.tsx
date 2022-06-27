@@ -1,5 +1,5 @@
 import { Button, IconAdd24, IconDimensionIndicator16, IconDimensionProgramIndicator16 } from "@dhis2/ui";
-import { Story } from "@storybook/react";
+import type { Story } from "@storybook/react";
 import React from "react";
 import DataConfigurationArea, { DataConfigurationAreaGroupProps, DataConfigurationAreaProps } from "./index";
 

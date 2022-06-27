@@ -1,4 +1,4 @@
-import { Story } from "@storybook/react";
+import type { Story } from "@storybook/react";
 import React, { useState } from "react";
 import { CalendarTypes } from "./components/CalendarSpecificPeriodDimension/constants/calendar";
 import { PeriodSelectorProps } from "./types/props";

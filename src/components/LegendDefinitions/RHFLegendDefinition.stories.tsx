@@ -1,19 +1,17 @@
-import { Story } from "@storybook/react";
+import type { Story } from "@storybook/react";
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { ConfirmDialogProvider } from "../ConfirmDialog";
 import RHFLegendDefinitions, { RHFLegendDefinitionFormFieldProps } from "./components/RHF";
 
-
 const Template: Story<RHFLegendDefinitionFormFieldProps> = (args) => <RHFLegendDefinitions {...args} />;
-
 
 export const RHFLegendDefinition = Template.bind({});
 
 RHFLegendDefinition.args = {
   shouldVerify: false,
   label: "Legend Definitions",
-  name: "legendDefinitions"
+  name: "legendDefinitions",
 };
 
 export const RHFLegendDefinitionWithVerification = Template.bind({});
@@ -24,9 +22,8 @@ RHFLegendDefinitionWithVerification.args = {
   name: "legendDefinitions",
   onResetLegends: () => {
     console.log("Reset legends");
-  }
+  },
 };
-
 
 export default {
   title: "Components/Legend Definitions/RHF",
@@ -42,7 +39,6 @@ export default {
           </FormProvider>
         </ConfirmDialogProvider>
       );
-
-    }
-  ]
+    },
+  ],
 };
