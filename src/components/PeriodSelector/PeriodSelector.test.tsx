@@ -113,7 +113,5 @@ describe("Period Selector Tests", () => {
       .then(() => {
         expect(selectedPeriod?.id).to.equal("2020");
       });
-
-    // @ts-ignore
   });
 });

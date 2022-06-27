@@ -1,6 +1,6 @@
 import i18n from "@dhis2/d2-i18n";
 import { CssReset, InputField, SingleSelectField, SingleSelectOption, Tab, TabBar, Transfer } from "@dhis2/ui";
-import { Period, PeriodInterface } from "@iapps/period-utilities";
+import { Period, PeriodInterface, PeriodType } from "@iapps/period-utilities";
 import { compact, filter, find, head, isEmpty } from "lodash";
 import React, { useEffect, useMemo, useState } from "react";
 import PeriodTransferOption from "./components/TransferOption";
@@ -31,10 +31,10 @@ export default function CalendarSpecificPeriodSelector({
       setYear(new Date().getFullYear());
     }
   }, [calendar]);
-
+  const periodType = new PeriodType();
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  const { _periodType } = periodInstance.get() ?? {};
-  const { _periodTypes } = _periodType ?? {};
+  const { _periodTypes } = periodType;
   const filteredPeriodTypes = filter(_periodTypes, ({ id }) => !excludedPeriodTypes.includes(id));
 
   const relativePeriodTypes = filter(filteredPeriodTypes, ({ id }) => id.toLowerCase().match(RegExp("relative".toLowerCase())));

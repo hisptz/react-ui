@@ -13,13 +13,11 @@ export default function useDataGroups(initialSelectedDataType: DataSource): { gr
       if (initialSelectedDataType) {
         setLoading(true);
         try {
-          const response = await initialSelectedDataType.getGroups(engine);
-          // @ts-ignore
+          const response: any = await initialSelectedDataType.getGroups(engine);
           if (response) {
             setData(response);
           }
-        } catch (e) {
-          // @ts-ignore
+        } catch (e: any) {
           setError(e);
         }
         setLoading(false);
