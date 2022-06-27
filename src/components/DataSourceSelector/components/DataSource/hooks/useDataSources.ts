@@ -41,9 +41,8 @@ export default function useDataSources(selectedDataSourceType: DataSource, selec
         }
         setTotalPages(response?.pager?.pageCount);
         setError(undefined);
-      } catch (e) {
+      } catch (e: any) {
         setLoading(false);
-        // @ts-ignore
         setError(e);
       }
       setLoading(false);
@@ -60,9 +59,8 @@ export default function useDataSources(selectedDataSourceType: DataSource, selec
         setData((prevData) => [...(prevData ?? []), ...(response?.data ?? [])]);
         setError(undefined);
         setLoading(false);
-      } catch (e) {
+      } catch (e: any) {
         setLoading(false);
-        // @ts-ignore
         setError(e);
       }
     }
@@ -80,9 +78,8 @@ export default function useDataSources(selectedDataSourceType: DataSource, selec
           setData(response?.data);
           setTotalPages(response?.pager?.pageCount);
           setError(undefined);
-        } catch (e) {
+        } catch (e: any) {
           setLoading(false);
-          // @ts-ignore
           setError(e);
         }
         setLoading(false);
