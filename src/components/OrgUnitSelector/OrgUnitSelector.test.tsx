@@ -1,7 +1,7 @@
 import { mount } from "@cypress/react";
 import { Provider } from "@dhis2/app-runtime";
+import type { OrgUnitSelection } from "@hisptz/dhis2-utils";
 import React from "react";
-import { OrgUnitSelectorValue } from "./types";
 import OrgUnitSelector from "./index";
 
 describe("Org Unit Selector", () => {
@@ -67,12 +67,13 @@ describe("Org Unit Selector", () => {
   });
 
   it("should accept previously defined values", function () {
-    const values: OrgUnitSelectorValue = {
+    const values: OrgUnitSelection = {
       orgUnits: [
         {
           id: "ImspTQPwCqd",
           displayName: "Sierra Leone",
           path: "/ImspTQPwCqd",
+          children: [],
         },
       ],
       levels: ["m9lBJogzE95"],

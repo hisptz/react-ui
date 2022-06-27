@@ -1,5 +1,6 @@
 import i18n from "@dhis2/d2-i18n";
 import { Button, ButtonStrip, Modal, ModalActions, ModalContent, ModalTitle } from "@dhis2/ui";
+import type { OrganisationUnit, OrgUnitSelection } from "@hisptz/dhis2-utils";
 import { flatten, last } from "lodash";
 import React, { useCallback, useState } from "react";
 import OrgUnitSelector from "../../OrgUnitSelector";
@@ -7,21 +8,21 @@ import { OrgUnitSelectorProps, OrgUnitSelectorValue } from "../../OrgUnitSelecto
 import { ModalProps } from "../types";
 
 export default function OrgUnitSelectorModal({
-                                               small,
-                                               large,
-                                               position,
-                                               onClose,
-                                               hide,
-                                               onUpdate,
-                                               updateButtonLabel,
-                                               singleSelection,
-                                               value,
-                                               ...props
-                                             }: ModalProps & OrgUnitSelectorProps) {
-  const [selectedOrgUnits, setSelectedOrgUnits] = useState<OrgUnitSelectorValue | undefined>(value);
+  small,
+  large,
+  position,
+  onClose,
+  hide,
+  onUpdate,
+  updateButtonLabel,
+  singleSelection,
+  value,
+  ...props
+}: ModalProps & OrgUnitSelectorProps) {
+  const [selectedOrgUnits, setSelectedOrgUnits] = useState<OrgUnitSelection | undefined>(value);
 
   const onSelect = useCallback(
-    (value: OrgUnitSelectorValue) => {
+    (value: OrgUnitSelection) => {
       if (singleSelection) {
         const updatedValue = { ...value, orgUnits: flatten([last(value.orgUnits) ?? []]) };
         setSelectedOrgUnits(updatedValue);

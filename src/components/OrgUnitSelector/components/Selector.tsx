@@ -1,92 +1,27 @@
 import i18n from "@dhis2/d2-i18n";
 import { Box, CenteredContent, CheckboxField, CircularLoader, colors, IconError24, MultiSelectField, MultiSelectOption, OrganisationUnitTree } from "@dhis2/ui";
+import type { OrganisationUnit } from "@hisptz/dhis2-utils";
 import { cloneDeep, filter, find, intersectionBy, intersectionWith, isEmpty, remove } from "lodash";
 import React, { Fragment, useMemo } from "react";
 import { useOrgUnitLevelsAndGroups, useOrgUnitsRoot } from "../hooks";
 import { OrgUnitSelectorProps } from "../types";
 import "../../../styles/styles.css";
 import "../styles/styles.css";
+import {
+  isOrgUnitSelected,
+  onDeselectOrgUnit,
+  onGroupSelect,
+  onLevelSelect,
+  onSelectOrgUnit,
+  onUserOrUnitChange,
+  onUserSubUnitsChange,
+  onUserSubX2Units,
+} from "../utils";
 
 export default function OrgUnitSelector({ value, onUpdate, showLevels, showUserOptions, showGroups, singleSelection }: OrgUnitSelectorProps) {
   const { roots, error, loading } = useOrgUnitsRoot();
   const { orgUnits: selectedOrgUnits = [], levels: selectedLevels, groups: selectedGroups, userOrgUnit, userSubUnit, userSubX2Unit } = value ?? {};
   const { groups, levels, error: levelsAndGroupsError, loading: levelsAndGroupsLoading } = useOrgUnitLevelsAndGroups();
-
-  function isOrgUnitSelected(orgUnit: { id: any | string }) {
-    return !isEmpty(find(selectedOrgUnits, ["id", orgUnit?.id]));
-  }
-
-  const onSelectOrgUnit = (orgUnit: any) => {
-    if (onUpdate) {
-      onUpdate({
-        ...value,
-        orgUnits: [...selectedOrgUnits, { id: orgUnit?.id, displayName: orgUnit?.displayName, path: orgUnit?.path }],
-      });
-    }
-  };
-
-  const onDeselectOrgUnit = (orgUnit: { id: any | string }) => {
-    const updateValue = cloneDeep(selectedOrgUnits);
-    remove(updateValue, ["id", orgUnit.id]);
-    if (onUpdate) {
-      onUpdate({
-        ...value,
-        orgUnits: updateValue,
-      });
-    }
-  };
-  const onLevelSelect = ({ selected }: { selected: Array<string> }) => {
-    if (onUpdate) {
-      onUpdate({
-        ...value,
-        levels: selected,
-      });
-    }
-  };
-
-  const onGroupSelect = ({ selected }: { selected: Array<string> }) => {
-    if (onUpdate) {
-      onUpdate({
-        ...value,
-        groups: selected,
-      });
-    }
-  };
-
-  const onUserOrUnitChange = ({ checked }: { checked: boolean }) => {
-    if (onUpdate) {
-      onUpdate({
-        ...value,
-        userOrgUnit: checked,
-        orgUnits: [],
-        levels: [],
-        groups: [],
-      });
-    }
-  };
-  const onUserSubUnitsChange = ({ checked }: { checked: boolean }) => {
-    if (onUpdate) {
-      onUpdate({
-        ...value,
-        userSubUnit: checked,
-        orgUnits: [],
-        levels: [],
-        groups: [],
-      });
-    }
-  };
-
-  const onUserSubX2Units = ({ checked }: { checked: boolean }) => {
-    if (onUpdate) {
-      onUpdate({
-        ...value,
-        userSubX2Unit: checked,
-        orgUnits: [],
-        levels: [],
-        groups: [],
-      });
-    }
-  };
 
   const disableSelections = useMemo(() => userOrgUnit || userSubX2Unit || userSubUnit, [userOrgUnit, userSubUnit, userSubX2Unit]);
 
@@ -113,9 +48,24 @@ export default function OrgUnitSelector({ value, onUpdate, showLevels, showUserO
           <div style={{ minHeight: 400, maxHeight: 500, overflow: "hidden" }} className="container-bordered">
             {showUserOptions && (
               <div data-test="user-options-selector" style={{ background: colors.grey200 }} className="row space-between p-16">
-                <CheckboxField dataTest={"user-org-unit"} checked={userOrgUnit} onChange={onUserOrUnitChange} label={i18n.t("User organisation unit")} />
-                <CheckboxField dataTest={"user-sub-org-unit"} checked={userSubUnit} onChange={onUserSubUnitsChange} label={i18n.t("User sub-units")} />
-                <CheckboxField dataTest={"user-sub-x2-org-unit"} checked={userSubX2Unit} onChange={onUserSubX2Units} label={i18n.t("User sub-x2-units")} />
+                <CheckboxField
+                  dataTest={"user-org-unit"}
+                  checked={userOrgUnit}
+                  onChange={onUserOrUnitChange({ onUpdate, value })}
+                  label={i18n.t("User organisation unit")}
+                />
+                <CheckboxField
+                  dataTest={"user-sub-org-unit"}
+                  checked={userSubUnit}
+                  onChange={onUserSubUnitsChange({ onUpdate, value })}
+                  label={i18n.t("User sub-units")}
+                />
+                <CheckboxField
+                  dataTest={"user-sub-x2-org-unit"}
+                  checked={userSubX2Unit}
+                  onChange={onUserSubX2Units({ onUpdate, value })}
+                  label={i18n.t("User sub-x2-units")}
+                />
               </div>
             )}
             {error && (
@@ -132,10 +82,10 @@ export default function OrgUnitSelector({ value, onUpdate, showLevels, showUserO
                     initiallyExpanded={selectedOrgUnits?.map(({ path }) => path)}
                     roots={roots?.map(({ id }: { id: string }) => id)}
                     onChange={(orgUnit: { id: string }) => {
-                      if (isOrgUnitSelected(orgUnit)) {
-                        onDeselectOrgUnit(orgUnit);
+                      if (isOrgUnitSelected(selectedOrgUnits, orgUnit as OrganisationUnit)) {
+                        onDeselectOrgUnit(orgUnit as OrganisationUnit, selectedOrgUnits, { onUpdate, value });
                       } else {
-                        onSelectOrgUnit(orgUnit);
+                        onSelectOrgUnit(orgUnit, selectedOrgUnits, { onUpdate, value });
                       }
                     }}
                     singleSelection={singleSelection}
@@ -159,7 +109,7 @@ export default function OrgUnitSelector({ value, onUpdate, showLevels, showUserO
                     loading={levelsAndGroupsLoading}
                     error={levelsAndGroupsError}
                     validationText={levelsAndGroupsError?.message}
-                    onChange={onLevelSelect}
+                    onChange={onLevelSelect({ onUpdate, value })}
                     selected={levelsAndGroupsLoading ? [] : sanitizedSelectedLevels}
                     clearText={i18n.t("Clear")}
                     label={i18n.t("Select Level(s)")}>
@@ -177,7 +127,7 @@ export default function OrgUnitSelector({ value, onUpdate, showLevels, showUserO
                     loading={levelsAndGroupsLoading}
                     error={levelsAndGroupsError}
                     validationText={levelsAndGroupsError?.message}
-                    onChange={onGroupSelect}
+                    onChange={onGroupSelect({ onUpdate, value })}
                     selected={levelsAndGroupsLoading ? [] : sanitizedSelectedGroups}
                     dataTest={"select-facility-group"}
                     clearText={i18n.t("Clear")}
