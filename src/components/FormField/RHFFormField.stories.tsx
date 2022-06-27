@@ -1,5 +1,5 @@
 import { DevTool } from "@hookform/devtools";
-import { Story } from "@storybook/react";
+import type { Story } from "@storybook/react";
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import RHFInput from "./components/HookFormInput";

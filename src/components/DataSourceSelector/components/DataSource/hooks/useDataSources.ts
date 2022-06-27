@@ -37,7 +37,7 @@ export default function useDataSources(selectedDataSourceType: DataSource, selec
         setData([]);
         const response = await fetchData(1, keyword);
         if (isArray(response?.data)) {
-          setData([...response?.data]);
+          setData([...(response?.data ?? [])]);
         }
         setTotalPages(response?.pager?.pageCount);
         setError(undefined);

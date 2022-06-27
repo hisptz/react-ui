@@ -1,10 +1,8 @@
-import { Story } from "@storybook/react";
+import type { Story } from "@storybook/react";
 import React from "react";
 import LegendDefinitionsField from "./components/LegendDefinitions";
 
-
 const Template: Story<any> = (args) => <LegendDefinitionsField {...args} />;
-
 
 export const LegendDefinition = Template.bind({});
 
@@ -15,11 +13,10 @@ LegendDefinition.args = {
   onChange: (values: any) => {
     console.log(values);
   },
-  value: []
+  value: [],
 };
-
 
 export default {
   title: "Components/Legend Definitions/Field",
-  component: LegendDefinition
+  component: LegendDefinition,
 };

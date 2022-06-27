@@ -1,7 +1,7 @@
 import { assign } from "lodash";
 import { ChartConfiguration } from "../types/props";
 
-export function getChartXAxisOptions(xAxisCategories:any[], chartConfiguration:ChartConfiguration) {
+export function getChartXAxisOptions(xAxisCategories: any[], chartConfiguration: ChartConfiguration) {
   let xAxisOptions = {};
 
   switch (chartConfiguration.type) {
@@ -19,9 +19,7 @@ export function getChartXAxisOptions(xAxisCategories:any[], chartConfiguration:C
       xAxisOptions = assign(
         {},
         {
-          categories: [
-            ...xAxisCategories?.map((xAxisCategory) => xAxisCategory.name),
-          ],
+          categories: [...(xAxisCategories?.map((xAxisCategory: any) => xAxisCategory?.name) ?? [])],
           labels: {
             rotation: 0,
             useHTML: true,

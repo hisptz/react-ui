@@ -21,7 +21,7 @@ export function EditLegendDefinition({
   }, [legendDefinition, onDelete]);
 
   const onEditClick = useCallback(
-    (data) => {
+    (data: any) => {
       onEdit(data);
     },
     [onEdit]

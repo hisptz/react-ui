@@ -47,16 +47,14 @@ describe("Period Selector Tests", () => {
   it("should throw an error if both fixed and relative periods are excluded", function () {
     expect(() =>
       mount(
-        mount(
-          <PeriodSelector
-            selectedPeriods={[]}
-            onSelect={() => {
-              return;
-            }}
-            excludeRelativePeriods
-            excludeFixedPeriods
-          />
-        )
+        <PeriodSelector
+          selectedPeriods={[]}
+          onSelect={() => {
+            return;
+          }}
+          excludeRelativePeriods
+          excludeFixedPeriods
+        />
       )
     ).to.throw;
   });
