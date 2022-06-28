@@ -48,6 +48,15 @@ WithGroups.args = {
   showGroups: true,
 };
 
+export const WithSearch = Template.bind({});
+WithSearch.args = {
+  value: { orgUnits: [] },
+  onUpdate: (value) => {
+    console.log(value);
+  },
+  searchable: true,
+};
+
 export const WithLevelsAndGroups = Template.bind({});
 WithLevelsAndGroups.args = {
   value: { orgUnits: [] },
@@ -67,6 +76,7 @@ WithAllOptions.args = {
   showUserOptions: true,
   showLevels: true,
   showGroups: true,
+  searchable: true,
 };
 
 export default {

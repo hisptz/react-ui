@@ -1,3 +1,5 @@
+import type { OrgUnitSelection } from "@hisptz/dhis2-utils";
+
 export type OrgUnit = {
   id: string;
   path?: string;
@@ -14,10 +16,11 @@ export type OrgUnitSelectorValue = {
 };
 
 export type OrgUnitSelectorProps = {
-  value?: OrgUnitSelectorValue;
-  onUpdate?: (value: OrgUnitSelectorValue) => void;
+  value?: OrgUnitSelection;
+  onUpdate?: (value: OrgUnitSelection) => void;
   showLevels?: boolean;
   showGroups?: boolean;
   showUserOptions?: boolean;
   singleSelection?: boolean;
+  searchable?: boolean;
 };
