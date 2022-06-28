@@ -1,9 +1,20 @@
 import i18n from "@dhis2/d2-i18n";
-import { Box, CenteredContent, CheckboxField, CircularLoader, colors, IconError24, MultiSelectField, MultiSelectOption, OrganisationUnitTree } from "@dhis2/ui";
+import {
+  Box,
+  CenteredContent,
+  CheckboxField,
+  CircularLoader,
+  colors,
+  IconError24,
+  MultiSelectField,
+  MultiSelectOption,
+  OrganisationUnitTree,
+  InputField,
+} from "@dhis2/ui";
 import type { OrganisationUnit } from "@hisptz/dhis2-utils";
-import { cloneDeep, filter, find, intersectionBy, intersectionWith, isEmpty, remove } from "lodash";
-import React, { Fragment, useMemo } from "react";
-import { useOrgUnitLevelsAndGroups, useOrgUnitsRoot } from "../hooks";
+import { intersectionWith } from "lodash";
+import React, { Fragment, useEffect, useMemo, useState } from "react";
+import { useFilterOrgUnits, useOrgUnitLevelsAndGroups, useOrgUnitsRoot } from "../hooks";
 import { OrgUnitSelectorProps } from "../types";
 import "../../../styles/styles.css";
 import "../styles/styles.css";
@@ -18,11 +29,11 @@ import {
   onUserSubX2Units,
 } from "../utils";
 
-export default function OrgUnitSelector({ value, onUpdate, showLevels, showUserOptions, showGroups, singleSelection }: OrgUnitSelectorProps) {
+export default function OrgUnitSelector({ value, onUpdate, showLevels, showUserOptions, showGroups, singleSelection, searchable }: OrgUnitSelectorProps) {
   const { roots, error, loading } = useOrgUnitsRoot();
   const { orgUnits: selectedOrgUnits = [], levels: selectedLevels, groups: selectedGroups, userOrgUnit, userSubUnit, userSubX2Unit } = value ?? {};
   const { groups, levels, error: levelsAndGroupsError, loading: levelsAndGroupsLoading } = useOrgUnitLevelsAndGroups();
-
+  const { filteredOrgUnits, filtering, searchValue, setSearchValue, handleExpand, expanded } = useFilterOrgUnits(selectedOrgUnits);
   const disableSelections = useMemo(() => userOrgUnit || userSubX2Unit || userSubUnit, [userOrgUnit, userSubUnit, userSubX2Unit]);
 
   if (error) {
@@ -73,13 +84,36 @@ export default function OrgUnitSelector({ value, onUpdate, showLevels, showUserO
                 <p>{error?.message || error.toString()}</p>
               </CenteredContent>
             )}
-            <div className="p-16" style={{ maxHeight: 500, overflow: "auto" }}>
+            <div className="p-16">
+              {searchable && (
+                <div className="pb-8">
+                  <InputField
+                    value={searchValue}
+                    onChange={({ value }: { value: string }) => setSearchValue(value)}
+                    dense
+                    placeholder={i18n.t("Search name, id")}
+                  />
+                </div>
+              )}
               {roots && (
-                <div style={disableSelections ? { opacity: 0.3, cursor: "not-allowed" } : {}}>
+                <div
+                  style={
+                    disableSelections
+                      ? {
+                          opacity: 0.3,
+                          cursor: "not-allowed",
+                          overflow: "auto",
+                        }
+                      : { overflow: "auto", maxHeight: 400 }
+                  }>
                   <OrganisationUnitTree
+                    forceReload
+                    filter={filteredOrgUnits}
                     disableSelection={disableSelections}
                     selected={selectedOrgUnits?.map(({ path }) => path)}
-                    initiallyExpanded={selectedOrgUnits?.map(({ path }) => path)}
+                    expanded={expanded}
+                    handleExpand={handleExpand}
+                    handleCollapse={handleExpand}
                     roots={roots?.map(({ id }: { id: string }) => id)}
                     onChange={(orgUnit: { id: string }) => {
                       if (isOrgUnitSelected(selectedOrgUnits, orgUnit as OrganisationUnit)) {
