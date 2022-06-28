@@ -2,6 +2,7 @@ import { Field, Input, Popover } from "@dhis2/ui";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { SketchPicker } from "react-color";
+import type { Color } from "react-color";
 import { uid } from "../../../core/utils";
 import { FinalFormFieldInput } from "../types";
 import "../styles/style.css";
@@ -18,8 +19,9 @@ function ColorPickerPopper({ reference, value, onClose, onChange }: ColorPickerP
     <Popover reference={reference} placement="auto" strategy="fixed" className="popper" onClickOutside={onClose}>
       <SketchPicker
         color={
-          // @ts-ignore
-          { hex: value }
+          {
+            hex: value,
+          } as unknown as Color
         }
         onChange={(color: { hex: any }) => {
           onChange(color.hex);
@@ -34,16 +36,10 @@ ColorPickerPopper.propTypes = {
   reference: PropTypes.object,
   value: PropTypes.string,
   onChange: PropTypes.func,
-  onClose: PropTypes.func
+  onClose: PropTypes.func,
 };
 
-export default function LegendDefinitionField({
-                                                name,
-                                                label,
-                                                value,
-                                                onChange,
-                                                ...props
-                                              }: FinalFormFieldInput, ref: React.Ref<any>) {
+export default function LegendDefinitionField({ name, label, value, onChange, ...props }: FinalFormFieldInput, ref: React.Ref<any>) {
   const { color, name: legendName, id } = value ?? {};
   const [reference, setReference] = useState<EventTarget | undefined>(undefined);
 
@@ -53,8 +49,8 @@ export default function LegendDefinitionField({
       value: {
         ...value,
         id: id ?? uid(),
-        color
-      }
+        color,
+      },
     });
   };
 
@@ -64,13 +60,13 @@ export default function LegendDefinitionField({
       value: {
         ...value,
         id: id ?? uid(),
-        name: newName.value
-      }
+        name: newName.value,
+      },
     });
   };
 
   return (
-    <Field  {...props} name={name} label={label} value={value}>
+    <Field {...props} name={name} label={label} value={value}>
       <div ref={ref} id={name} className={"legend-definition-container"}>
         <div
           id={`color-selector-btn-${name}`}
@@ -83,9 +79,7 @@ export default function LegendDefinitionField({
           <Input dataTest={`legend-definition-text-${name}`} onChange={onNameChange} value={legendName} />
         </div>
       </div>
-      {reference &&
-        <ColorPickerPopper onClose={() => setReference(undefined)} reference={reference} value={value?.color}
-                           onChange={onColorChange} />}
+      {reference && <ColorPickerPopper onClose={() => setReference(undefined)} reference={reference} value={value?.color} onChange={onColorChange} />}
     </Field>
   );
 }

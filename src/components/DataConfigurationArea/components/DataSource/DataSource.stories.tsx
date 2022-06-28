@@ -1,5 +1,5 @@
 import { IconDimensionIndicator16, IconDimensionOrgUnit16 } from "@dhis2/ui";
-import { Story } from "@storybook/react";
+import type { Story } from "@storybook/react";
 import React from "react";
 import DataSource, { DataSourceProps } from "./index";
 
