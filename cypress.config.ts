@@ -14,26 +14,31 @@ async function cucumberPreprocessor(on, config) {
 export default defineConfig({
   video: false,
   projectId: "w8u5sk",
-  env: {
-    dhis2DataTestPrefix: "dhis2-reactui",
-    networkMode: "live",
-    dhis2ApiVersion: "38",
-  },
   experimentalInteractiveRunEvents: true,
   component: {
-    supportFile: "cypress/support/component.ts",
+    env: {
+      dhis2DataTestPrefix: "dhis2-reactui",
+      networkMode: "live",
+    },
+    setupNodeEvents: async (on, config) => {
+      chromeAllowXSiteCookies(on);
+      await cucumberPreprocessor(on, config);
+      networkShim(on, config);
+    },
+    port: 3000,
+    devServer: {
+      framework: "react",
+      bundler: "webpack",
+    },
+    viewportHeight: 763,
+    viewportWidth: 1366,
+    specPattern: "src/**/*.test.{js,ts,jsx,tsx}",
+  },
+  e2e: {
     setupNodeEvents: async (on, config) => {
       networkShim(on, config);
       chromeAllowXSiteCookies(on);
       await cucumberPreprocessor(on, config);
     },
-    devServer: {
-      framework: "react",
-      bundler: "webpack",
-    },
-    defaultCommandTimeout: 60000,
-    viewportHeight: 763,
-    viewportWidth: 1366,
-    specPattern: "src/**/*.test.{js,ts,jsx,tsx}",
   },
 });
