@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-04-14T15:16:13.936Z\n"
-"PO-Revision-Date: 2022-04-14T15:16:13.936Z\n"
+"POT-Creation-Date: 2022-07-08T09:38:40.928Z\n"
+"PO-Revision-Date: 2022-07-08T09:38:40.928Z\n"
 
 msgid "Loading ....."
 msgstr "Loading ....."
@@ -109,6 +109,9 @@ msgstr "User sub-units"
 msgid "User sub-x2-units"
 msgstr "User sub-x2-units"
 
+msgid "Search name, id"
+msgstr "Search name, id"
+
 msgid "Clear"
 msgstr "Clear"
 
@@ -129,3 +132,15 @@ msgstr "Period Type"
 
 msgid "Year"
 msgstr "Year"
+
+msgid "Start Date"
+msgstr "Start Date"
+
+msgid "End Date"
+msgstr "End Date"
+
+msgid "Period"
+msgstr "Period"
+
+msgid "Date Range"
+msgstr "Date Range"

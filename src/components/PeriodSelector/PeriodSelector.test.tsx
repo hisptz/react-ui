@@ -2,6 +2,7 @@ import { mount } from "@cypress/react";
 import { PeriodInterface } from "@iapps/period-utilities";
 import React from "react";
 import { Period } from "./components/CalendarSpecificPeriodDimension/interfaces/period";
+import { DateRangeValue } from "./types/props";
 import PeriodSelector from "./index";
 
 describe("Period Selector Tests", () => {
@@ -98,8 +99,8 @@ describe("Period Selector Tests", () => {
   });
 
   it("should return a selected period", function () {
-    let selectedPeriod: Period | PeriodInterface;
-    const onSelect = ({ items }: { items: Array<Period> | Array<PeriodInterface> }) => {
+    let selectedPeriod: PeriodInterface;
+    const onSelect = ({ items }: any) => {
       selectedPeriod = items[0];
     };
     mount(<PeriodSelector selectedPeriods={[]} onSelect={onSelect} />);

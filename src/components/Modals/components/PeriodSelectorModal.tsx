@@ -16,7 +16,7 @@ export default function PeriodSelectorModal({
   updateButtonLabel,
   singleSelection,
   ...props
-}: ModalProps & PeriodSelectorProps) {
+}: ModalProps & Omit<PeriodSelectorProps, "onSelect">) {
   const [periodState, setPeriodState] = useState<Array<any> | undefined>(selectedPeriods);
 
   const onSelect = useCallback(({ items: periods }: any) => {
