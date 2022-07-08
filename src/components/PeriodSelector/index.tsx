@@ -16,8 +16,9 @@ export default function PeriodSelector({
   excludeRelativePeriods,
   singleSelection,
   enableDateRange,
+  defaultInputType,
 }: PeriodSelectorProps) {
-  const [inputType, setInputType] = useState("period");
+  const [inputType, setInputType] = useState<string>(defaultInputType ?? "period");
 
   const onInputTypeChange = useCallback(
     ({ value }: { value: string }) => {

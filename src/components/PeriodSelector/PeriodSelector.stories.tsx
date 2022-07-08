@@ -98,6 +98,7 @@ DateRange.args = {
   selectedPeriods: [],
   excludedPeriodTypes: [],
   calendar: CalendarTypes.GREGORIAN,
+  defaultInputType: "dateRange",
 };
 
 export default {
