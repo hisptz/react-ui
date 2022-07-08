@@ -50,6 +50,10 @@ export type FinalFormFieldInput = {
   type?: string;
   required?: boolean;
   error?: boolean;
+  min?: number | string;
+  max?: number | string;
+  disabled?: boolean;
+  pattern?: string;
   validationText?: string;
 };
 
