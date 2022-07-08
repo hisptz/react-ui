@@ -22,7 +22,7 @@ export default function AgeField({ name, value, onChange, error, max, ...props }
   }, [onChange]);
 
   return (
-    <Field error={Boolean(error)} {...props} name={name}>
+    <Field error={Boolean(error)} name={name}>
       <div className={classes["age-field-container"]}>
         <div className={classes["date-input"]}>
           <InputField
@@ -38,9 +38,9 @@ export default function AgeField({ name, value, onChange, error, max, ...props }
           />
         </div>
         <div style={{ width: value ? "40%" : "50%" }} className={classes["age-inputs-container"]}>
-          <InputField className={classes["age-input"]} value={`${years}`} disabled label={i18n.t("Years")} type="number" />
-          <InputField className={classes["age-input"]} value={`${months}`} disabled label={i18n.t("Months")} type="number" />
-          <InputField className={classes["age-input"]} value={`${days}`} disabled label={i18n.t("Days")} type="number" />
+          <InputField className={classes["age-input"]} value={`${Math.floor(years as number)}`} disabled label={i18n.t("Years")} type="number" />
+          <InputField className={classes["age-input"]} value={`${Math.floor(months as number)}`} disabled label={i18n.t("Months")} type="number" />
+          <InputField className={classes["age-input"]} value={`${Math.floor(days as number)}`} disabled label={i18n.t("Days")} type="number" />
         </div>
         {value && <Button className={classes["clear-button"]} icon={<IconCross24 />} onClick={onClear} />}
       </div>
