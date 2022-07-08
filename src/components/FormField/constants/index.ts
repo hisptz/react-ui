@@ -29,6 +29,10 @@ export const VALUE_TYPES: { [key: string]: { name: VALUE_TYPE; formName: string 
     name: "TRUE_ONLY",
     formName: "checkbox",
   },
+  BOOLEAN: {
+    name: "BOOLEAN",
+    formName: "checkbox",
+  },
   TEXT: {
     name: "TEXT",
     formName: "text",
