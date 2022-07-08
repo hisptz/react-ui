@@ -24,6 +24,7 @@ export function getField(valueType: VALUE_TYPE | string, options?: any) {
     case VALUE_TYPES.TEXT.name:
     case VALUE_TYPES.NUMBER.name:
     case VALUE_TYPES.INTEGER.name:
+    case VALUE_TYPES.PHONE_NUMBER.name:
       return React.forwardRef(NativeInput);
     case VALUE_TYPES.LONG_TEXT.name:
       return React.forwardRef(TextAreaField);

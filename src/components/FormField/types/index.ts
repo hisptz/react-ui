@@ -17,7 +17,8 @@ export type VALUE_TYPE =
   | "LEGEND_MIN_MAX"
   | "NORMAL_LEGEND_MIN_MAX"
   | "LEVEL_LEGEND_MIN_MAX"
-  | "MULTIPLE_FIELDS";
+  | "MULTIPLE_FIELDS"
+  | "PHONE_NUMBER";
 
 export type FormFieldProps = {
   valueType: VALUE_TYPE | string;
