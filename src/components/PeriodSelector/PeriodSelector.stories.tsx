@@ -1,5 +1,5 @@
 import type { Story } from "@storybook/react";
-import React, { useState } from "react";
+import React from "react";
 import { CalendarTypes } from "./components/CalendarSpecificPeriodDimension/constants/calendar";
 import { PeriodSelectorProps } from "./types/props";
 import PeriodSelector from "./index";
@@ -68,21 +68,32 @@ SingleSelection.args = {
   calendar: CalendarTypes.GREGORIAN,
 };
 
+export const SelectedDateRangePeriod = Template.bind({});
+SelectedDateRangePeriod.args = {
+  onSelect: ({ items }) => {
+    console.log(items);
+  },
+  enableDateRange: true,
+  selectedPeriods: [
+    {
+      startDate: "2022-01-01",
+      endDate: "2022-12-31",
+      type: "RANGE",
+    },
+  ],
+  excludedPeriodTypes: [],
+  calendar: CalendarTypes.GREGORIAN,
+};
 export const SelectedPeriods = Template.bind({});
 SelectedPeriods.args = {
   onSelect: ({ items }) => {
     console.log(items);
   },
+  enableDateRange: true,
   selectedPeriods: [
     {
-      id: "2020",
-      name: "2020",
-      type: "Fixed",
-    },
-    {
-      id: "202001",
-      name: "January 2020",
-      type: "Fixed",
+      id: "2022",
+      name: "2022",
     },
   ],
   excludedPeriodTypes: [],
@@ -115,10 +126,9 @@ export default {
   },
   decorators: [
     (Story: any) => {
-      const [selected, setSelected] = useState<any>([]);
       return (
         <div style={{ width: "100%", height: "100%" }}>
-          <Story selectedPeriods={selected} onSelect={({ items }: any) => setSelected(items)} />
+          <Story />
         </div>
       );
     },

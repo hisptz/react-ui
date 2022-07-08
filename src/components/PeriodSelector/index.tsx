@@ -1,7 +1,8 @@
 import i18n from "@dhis2/d2-i18n";
 import { SegmentedControl } from "@dhis2/ui";
 import { PeriodInterface } from "@iapps/period-utilities";
-import React, { useCallback, useState } from "react";
+import { head, isEmpty } from "lodash";
+import React, { useCallback, useMemo, useState } from "react";
 import CalendarSpecificPeriodSelector from "./components/CalendarSpecificPeriodDimension";
 import { CalendarTypes } from "./components/CalendarSpecificPeriodDimension/constants/calendar";
 import DateRange from "./components/DateRange";
@@ -18,7 +19,19 @@ export default function PeriodSelector({
   enableDateRange,
   defaultInputType,
 }: PeriodSelectorProps) {
-  const [inputType, setInputType] = useState<string>(defaultInputType ?? "period");
+  const initialInputType = useMemo(() => {
+    if (!isEmpty(selectedPeriods)) {
+      const period: any = head(selectedPeriods ?? []);
+      if (period?.type === "RANGE") {
+        return "dateRange";
+      } else {
+        return "period";
+      }
+    } else {
+      return defaultInputType ?? "period";
+    }
+  }, []);
+  const [inputType, setInputType] = useState<string>(initialInputType);
 
   const onInputTypeChange = useCallback(
     ({ value }: { value: string }) => {
