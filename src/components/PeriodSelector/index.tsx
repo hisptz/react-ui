@@ -1,7 +1,7 @@
 import i18n from "@dhis2/d2-i18n";
 import { SegmentedControl } from "@dhis2/ui";
 import { PeriodInterface } from "@iapps/period-utilities";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import CalendarSpecificPeriodSelector from "./components/CalendarSpecificPeriodDimension";
 import DateRange from "./components/CalendarSpecificPeriodDimension/components/DateRange";
 import { CalendarTypes } from "./components/CalendarSpecificPeriodDimension/constants/calendar";
@@ -19,12 +19,20 @@ export default function PeriodSelector({
 }: PeriodSelectorProps) {
   const [inputType, setInputType] = useState("period");
 
+  const onInputTypeChange = useCallback(
+    ({ value }: { value: string }) => {
+      onSelect({ items: [] });
+      setInputType(value);
+    },
+    [onSelect]
+  );
+
   return (
     <div className="column gap-16">
       {enableDateRange && (
         <SegmentedControl
           selected={inputType}
-          onChange={({ value }: { value: string }) => setInputType(value)}
+          onChange={onInputTypeChange}
           options={[
             {
               label: i18n.t("Period"),

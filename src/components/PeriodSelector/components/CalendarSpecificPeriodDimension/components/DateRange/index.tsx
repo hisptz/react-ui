@@ -22,7 +22,7 @@ export default function DateRange({
           items: [{ ...(range ?? { startDate: "", endDate: "" }), [key]: dateValue }],
         });
       },
-    []
+    [range]
   );
 
   return (

@@ -1,5 +1,4 @@
 import { PeriodInterface } from "@iapps/period-utilities";
-import { PeriodInstance } from "@iapps/period-utilities/utilities/period-instance.utility";
 import { Period } from "./period";
 
 export interface CalendarSpecificPeriodSelectorProps {
