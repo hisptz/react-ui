@@ -89,6 +89,17 @@ SelectedPeriods.args = {
   calendar: CalendarTypes.GREGORIAN,
 };
 
+export const DateRange = Template.bind({});
+DateRange.args = {
+  onSelect: ({ items }) => {
+    console.log(items);
+  },
+  enableDateRange: true,
+  selectedPeriods: [],
+  excludedPeriodTypes: [],
+  calendar: CalendarTypes.GREGORIAN,
+};
+
 export default {
   title: "Components/Period Selector",
   component: PeriodSelector,
