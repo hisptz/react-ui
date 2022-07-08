@@ -122,7 +122,7 @@ export const sanitizeFilters = (filters: Array<string>): Array<string> => {
     if (count === 1) {
       return paths;
     }
-    for (let i = 1; i < count; i++) {
+    for (let i = 0; i <= count; i++) {
       newFilter.push(`/${take(splitFilter, i).join("/")}`);
     }
 

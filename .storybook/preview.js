@@ -22,7 +22,9 @@ const appConfig = {
   apiVersion: parseInt(process.env.STORYBOOK_DHIS2_API_VERSION ?? "") ?? 36,
 };
 
-const loginUrl = `${process.env.STORYBOOK_DHIS2_BASE_URL}/dhis-web-commons-security/login.action`;
+const LOGIN_ENDPOINT = "dhis-web-commons-security/login.action";
+
+const loginUrl = `${process.env.STORYBOOK_DHIS2_BASE_URL}/${LOGIN_ENDPOINT}`;
 const meUrl = `${process.env.STORYBOOK_DHIS2_BASE_URL}/api/${process.env.STORYBOOK_DHIS2_API_VERSION}/me?fields=id,name`;
 const checkAuthentication = async () => {
   try {
@@ -51,6 +53,7 @@ function useLogin() {
         if (!(await checkAuthentication())) {
           await fetch(loginUrl, {
             method: "POST",
+            followRedirect: false,
             redirect: "follow",
             credentials: "include",
             mode: "no-cors",
@@ -58,7 +61,7 @@ function useLogin() {
               Accept: "*",
               "Content-Type": "application/x-www-form-urlencoded",
               "Access-Control-Allow-Credentials": true,
-              "Access-Control-Allow-Origin": process.env.STORYBOOK_DHIS2_BASE_URL,
+              "Access-Control-Allow-Origin": "*",
             },
             body: data,
           });
