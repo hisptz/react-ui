@@ -17,6 +17,7 @@ PeriodSelector.args = {
   },
   onUpdate: (value) => console.log(value),
   singleSelection: true,
+  enableDateRange: true,
 };
 
 export const OrgUnitSelector = OrgUnitTemplate.bind({});

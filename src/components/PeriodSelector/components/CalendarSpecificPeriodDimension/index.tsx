@@ -92,14 +92,14 @@ export default function CalendarSpecificPeriodSelector({
   }, [selectedPeriodCategory, selectedRelativePeriodType, selectedFixedPeriodType, year]);
 
   return (
-    <div className="column center align-items-center w-100">
+    <div style={{ maxHeight: 500, overflow: "auto" }} className="column center align-items-center w-100">
       <CssReset />
       <Transfer
         maxSelections={singleSelection ? 1 : undefined}
         selected={selectedPeriods?.map(({ id }) => id)}
         selectedWidth={"400px"}
         optionsWidth={"400px"}
-        height={"500px"}
+        height={"400px"}
         leftHeader={
           <div className="column pb-8">
             <TabBar fixed>
@@ -169,7 +169,13 @@ export default function CalendarSpecificPeriodSelector({
               items: compact(
                 selected.map((id) => {
                   try {
-                    return new Period().setPreferences({ openFuturePeriods: 4, allowFuturePeriods: true }).setCalendar(calendar).getById(id);
+                    return new Period()
+                      .setPreferences({
+                        openFuturePeriods: 4,
+                        allowFuturePeriods: true,
+                      })
+                      .setCalendar(calendar)
+                      .getById(id);
                   } catch (e) {
                     return undefined;
                   }

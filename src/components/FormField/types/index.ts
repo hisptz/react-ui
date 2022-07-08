@@ -17,7 +17,9 @@ export type VALUE_TYPE =
   | "LEGEND_MIN_MAX"
   | "NORMAL_LEGEND_MIN_MAX"
   | "LEVEL_LEGEND_MIN_MAX"
-  | "MULTIPLE_FIELDS";
+  | "MULTIPLE_FIELDS"
+  | "PHONE_NUMBER"
+  | "BOOLEAN";
 
 export type FormFieldProps = {
   valueType: VALUE_TYPE | string;
@@ -48,6 +50,10 @@ export type FinalFormFieldInput = {
   type?: string;
   required?: boolean;
   error?: boolean;
+  min?: number | string;
+  max?: number | string;
+  disabled?: boolean;
+  pattern?: string;
   validationText?: string;
 };
 
