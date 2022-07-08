@@ -2,8 +2,8 @@ import i18n from "@dhis2/d2-i18n";
 import { CssReset, InputField } from "@dhis2/ui";
 import { PeriodInterface } from "@iapps/period-utilities";
 import { head } from "lodash";
-import React, { useCallback } from "react";
-import { DateRangeValue } from "../../../../types/props";
+import React, { useCallback, useMemo } from "react";
+import { DateRangeValue } from "../../types/props";
 
 export default function DateRange({
   value,
@@ -12,17 +12,17 @@ export default function DateRange({
   value?: DateRangeValue[] | PeriodInterface[];
   onChange: ({ items }: { items: DateRangeValue[] | PeriodInterface[] }) => void;
 }) {
-  const range = head(value as DateRangeValue[]);
-  const { startDate, endDate } = range ?? { startDate: "", endDate: "" };
+  const data = useMemo(() => head(value as DateRangeValue[]) ?? { startDate: "", endDate: "", type: "RANGE" }, [value]);
+  const { startDate, endDate } = data;
 
   const onDateChange = useCallback(
     (key: string) =>
       ({ value: dateValue }: { value: string }) => {
         onChange({
-          items: [{ ...(range ?? { startDate: "", endDate: "" }), [key]: dateValue }],
+          items: [{ ...data, [key]: dateValue } as DateRangeValue],
         });
       },
-    [range]
+    [data]
   );
 
   return (

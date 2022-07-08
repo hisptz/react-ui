@@ -3,8 +3,8 @@ import { SegmentedControl } from "@dhis2/ui";
 import { PeriodInterface } from "@iapps/period-utilities";
 import React, { useCallback, useState } from "react";
 import CalendarSpecificPeriodSelector from "./components/CalendarSpecificPeriodDimension";
-import DateRange from "./components/CalendarSpecificPeriodDimension/components/DateRange";
 import { CalendarTypes } from "./components/CalendarSpecificPeriodDimension/constants/calendar";
+import DateRange from "./components/DateRange";
 import { DateRangeValue, PeriodSelectorProps } from "./types/props";
 
 export default function PeriodSelector({

@@ -3,7 +3,7 @@ import { Period } from "../components/CalendarSpecificPeriodDimension/interfaces
 
 export type CalendarTypes = "ethiopian" | "gregorian";
 
-export type DateRangeValue = { startDate: string; endDate: string };
+export type DateRangeValue = { startDate: string; endDate: string; type: "RANGE" };
 
 export type PeriodSelectorProps = {
   singleSelection?: boolean;
