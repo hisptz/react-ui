@@ -2,7 +2,7 @@ import { addCucumberPreprocessorPlugin } from "@badeball/cypress-cucumber-prepro
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import webpack from "@cypress/webpack-preprocessor";
-import { networkShim, chromeAllowXSiteCookies } from "@dhis2/cypress-plugins";
+import { chromeAllowXSiteCookies, networkShim } from "@dhis2/cypress-plugins";
 import { defineConfig } from "cypress";
 
 async function cucumberPreprocessor(on, config) {
@@ -15,7 +15,7 @@ export default defineConfig({
   video: false,
   projectId: "w8u5sk",
   env: {
-    dhis2DataTestPrefix: "dhis2-reactui",
+    dhis2DataTestPrefix: "dhis2-react-ui",
     networkMode: "live",
     dhis2ApiVersion: "38",
   },
