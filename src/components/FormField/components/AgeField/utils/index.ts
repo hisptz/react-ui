@@ -8,14 +8,8 @@ export function getValues(date: string) {
       days: "",
     };
   }
-  const jsDate = DateTime.fromJSDate(new Date(date));
-  const duration = Duration.fromMillis(DateTime.now().diff(jsDate).as("milliseconds")).shiftTo("years", "months", "days");
-
-  return {
-    years: Math.round(duration.get("years")),
-    months: Math.round(duration.get("months")),
-    days: Math.round(duration.get("days")),
-  };
+  const jsDate = DateTime.fromJSDate(new Date(date)).startOf("day");
+  return Duration.fromMillis(DateTime.now().startOf("day").diff(jsDate).as("milliseconds")).shiftTo("years", "months", "days").toObject();
 }
 
 export function formatDate(date: string) {

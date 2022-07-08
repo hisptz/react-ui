@@ -5,6 +5,10 @@ export const VALUE_TYPES: { [key: string]: { name: VALUE_TYPE; formName: string 
     name: "INTEGER",
     formName: "number",
   },
+  PHONE_NUMBER: {
+    name: "PHONE_NUMBER",
+    formName: "tel",
+  },
   EMAIL: {
     name: "EMAIL",
     formName: "email",
@@ -23,6 +27,10 @@ export const VALUE_TYPES: { [key: string]: { name: VALUE_TYPE; formName: string 
   },
   TRUE_ONLY: {
     name: "TRUE_ONLY",
+    formName: "checkbox",
+  },
+  BOOLEAN: {
+    name: "BOOLEAN",
     formName: "checkbox",
   },
   TEXT: {
