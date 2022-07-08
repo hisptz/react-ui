@@ -1,5 +1,4 @@
 import { PeriodInterface } from "@iapps/period-utilities";
-import { Period } from "../components/CalendarSpecificPeriodDimension/interfaces/period";
 
 export type CalendarTypes = "ethiopian" | "gregorian";
 
@@ -9,7 +8,7 @@ export type PeriodSelectorProps = {
   singleSelection?: boolean;
   excludedPeriodTypes?: Array<string>;
   calendar?: CalendarTypes | string;
-  selectedPeriods?: Array<PeriodInterface> | Array<DateRangeValue>;
+  selectedPeriods?: Array<DateRangeValue | PeriodInterface>;
   onSelect: ({ items }: { items: Array<PeriodInterface | DateRangeValue> }) => void;
   excludeRelativePeriods?: boolean;
   excludeFixedPeriods?: boolean;
