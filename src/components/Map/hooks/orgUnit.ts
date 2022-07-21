@@ -1,6 +1,7 @@
 import { useDataQuery } from "@dhis2/app-runtime";
-import type { OrganisationUnit, OrgUnitSelection } from "@hisptz/dhis2-utils";
+import type { OrgUnitSelection } from "@hisptz/dhis2-utils";
 import { useCallback } from "react";
+import { getOrgUnitsSelection, sanitizeOrgUnits } from "../utils/map";
 
 const orgUnitResolverQuery = {
   analytics: {
@@ -12,34 +13,6 @@ const orgUnitResolverQuery = {
     }),
   },
 };
-
-export function getOrgUnitsSelection(orgUnitSelection: OrgUnitSelection) {
-  const orgUnits = [];
-  if (orgUnitSelection.userOrgUnit) {
-    orgUnits.push("USER_ORGUNIT");
-  }
-
-  if (orgUnitSelection.userSubUnit) {
-    orgUnits.push("USER_ORGUNIT_CHILDREN");
-  }
-
-  if (orgUnitSelection.userSubX2Unit) {
-    orgUnits.push("USER_ORGUNIT_GRANDCHILDREN");
-  }
-
-  return [...orgUnits, ...(orgUnitSelection?.orgUnits?.map((ou: OrganisationUnit) => `${ou.id}`) ?? [])];
-}
-
-export function sanitizeOrgUnits(metaData: any) {
-  if (metaData) {
-    return metaData?.dimensions?.ou?.map((ouId: string) => ({
-      id: ouId,
-      name: metaData?.items[ouId]?.name,
-      path: metaData?.ouHierarchy?.[ouId],
-    }));
-  }
-  return [];
-}
 
 export function useOrganisationUnitResolver(orgUnitSelection: OrgUnitSelection) {
   const orgUnitIds = getOrgUnitsSelection(orgUnitSelection);

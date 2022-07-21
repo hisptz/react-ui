@@ -15,7 +15,18 @@ export default function Map({ orgUnitSelection }: MapProps) {
           crossOrigin=""
         />
       </Helmet>
-      <MapArea layers={[]} />
+      <MapArea
+        layers={[
+          {
+            enabled: true,
+            type: "boundary",
+            layer: {
+              type: "overlay",
+              id: "boundary",
+            },
+          },
+        ]}
+      />
     </MapProvider>
   );
 }

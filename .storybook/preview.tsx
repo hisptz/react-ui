@@ -47,7 +47,7 @@ function useLogin() {
       setLoading(true);
       const data = [
         `${encodeURIComponent("j_username")}=${encodeURIComponent(process.env.STORYBOOK_DHIS2_USERNAME ?? "admin")}`,
-        `${encodeURIComponent("j_password")}=${encodeURIComponent(process.env.STORYBOOK_DHIS2_PASSWORD ?? "district")},
+        `${encodeURIComponent("j_password")}=${encodeURIComponent(process.env.STORYBOOK_DHIS2_PASSWORD ?? "district")}`,
       ].join("&");
       try {
         if (!(await checkAuthentication())) {
@@ -106,7 +106,7 @@ export const decorators = [
             alignItems: "center",
             justifyContent: "center",
             width: "100%",
-            height: "100%",
+            height: "60vh,
           }}>
           <Story />
         </div>

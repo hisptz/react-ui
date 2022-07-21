@@ -3,18 +3,18 @@ export type ThematicLayerType = "choropleth" | "bubble";
 
 export interface BoundaryLayer {
   id: string;
-  orgUnits: string[];
   type: BoundaryLayerType;
 }
 
 export interface PointLayer {
   id: string;
-  orgUnits: string[];
+  type: "point";
 }
 
 export interface ThematicLayerData {
   orgUnit: string;
   data: number;
+  type: ThematicLayerType;
 }
 
 export interface ThematicLayer {
@@ -26,5 +26,7 @@ export interface ThematicLayer {
 export type MapLayer = BoundaryLayer | PointLayer | ThematicLayer;
 
 export interface MapLayerProps {
-  layer: MapLayer;
+  enabled: boolean;
+  type: "boundary" | "thematic";
+  layer: MapLayer | any;
 }

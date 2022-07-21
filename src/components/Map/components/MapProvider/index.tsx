@@ -2,9 +2,9 @@ import { useDataQuery } from "@dhis2/app-runtime";
 import { CircularLoader } from "@dhis2/ui";
 import { compact, isEmpty } from "lodash";
 import React, { useEffect, useState } from "react";
-import { getOrgUnitsSelection, sanitizeOrgUnits } from "../../hooks/orgUnit";
 import { MapOrgUnit, MapProviderProps } from "../../interfaces";
 import { MapOrgUnitContext } from "../../state";
+import { getCoordinatesFromBounds, getOrgUnitsSelection, sanitizeOrgUnits } from "../../utils/map";
 
 const boundaryQuery = {
   boundaries: {
@@ -41,6 +41,7 @@ export function MapProvider({ children, orgUnitSelection }: MapProviderProps) {
           }
           return {
             ...orgUnit,
+            coordinates: getCoordinatesFromBounds(JSON.parse(coordinateObject?.co)),
             bounds: JSON.parse(coordinateObject?.co),
             level: coordinateObject?.le,
           };

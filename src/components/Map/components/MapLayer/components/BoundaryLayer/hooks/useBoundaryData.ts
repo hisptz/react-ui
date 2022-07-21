@@ -1,20 +1,7 @@
-const boundaryQuery = {
-  boundaries: {
-    resource: "geoFeatures",
-    params: ({ orgUnitIds }: any) => ({
-      ou: `ou:${orgUnitIds?.join(";")}`,
-    }),
-  },
-};
+import { useMapOrganisationUnit } from "../../../../MapProvider/hooks";
 
-// export function useBoundaryData(orgUnits: string[]): {
-//   center: LatLngExpression;
-//   bounds: LatLngTuple[];
-//   data: any[];
-// } {
-//
-//
-//   return {
-//     center:
-//   };
-// }
+export function useBoundaryData() {
+  const { orgUnits } = useMapOrganisationUnit();
+
+  return orgUnits;
+}
