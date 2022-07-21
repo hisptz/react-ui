@@ -21,14 +21,24 @@ export default {
             loader: "@badeball/cypress-cucumber-preprocessor/webpack",
           },
         ],
+        exclude: [/node_modules/],
       },
       {
         test: /\.css$/,
         use: ["style-loader", "css-loader"],
+        exclude: [/node_modules/],
       },
       {
         test: /\.(png|jpe?g|gif)$/i,
         use: "file-loader",
+        exclude: /node_modules/,
+      },
+      {
+        loader: "babel-loader",
+        test: /.(js|jsx)$/,
+        exclude: (filename) => {
+          return /node_modules/.test(filename) && !/react-leaflet/.test(filename);
+        },
       },
     ],
   },
