@@ -7,6 +7,9 @@ export interface MapProviderProps {
 
 export interface MapProps {
   orgUnitSelection: OrgUnitSelection;
+  boundaryLayer?: {
+    enabled: boolean;
+  };
 }
 
 export interface MapOrgUnit {

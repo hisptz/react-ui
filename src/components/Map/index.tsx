@@ -4,7 +4,7 @@ import MapArea from "./components/MapArea";
 import { MapProvider } from "./components/MapProvider";
 import { MapProps } from "./interfaces";
 
-export default function Map({ orgUnitSelection }: MapProps) {
+export default function Map({ orgUnitSelection, boundaryLayer }: MapProps) {
   return (
     <MapProvider orgUnitSelection={orgUnitSelection}>
       <Helmet>
@@ -18,7 +18,7 @@ export default function Map({ orgUnitSelection }: MapProps) {
       <MapArea
         layers={[
           {
-            enabled: true,
+            enabled: boundaryLayer?.enabled ?? false,
             type: "boundary",
             layer: {
               type: "overlay",
