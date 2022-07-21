@@ -1,4 +1,5 @@
 import ChartAnalytics from "./components/ChartAnalytics/index";
+import CircularProgressDashboard from "./components/CircularProgressDashboard/index";
 import ConfigurationStepper from "./components/ConfigurationStepper/index";
 import {
   ConfirmDialog,
@@ -34,7 +35,8 @@ export {
   ConfirmDialog,
   useConfirmDialog,
   RHFCustomInput,
-  RHFLegendDefinitionsField
+  RHFLegendDefinitionsField,
+  CircularProgressDashboard
 };
 
 export type { ConfirmDialogConfig, RHFLegendDefinitionFormFieldProps };

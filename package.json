@@ -87,6 +87,7 @@
     "luxon": "^2.4.0",
     "print-message": "^3.0.1",
     "react-beautiful-dnd": "^13.1.0",
+    "react-circular-progressbar": "^2.1.0",
     "react-color": "^2.19.3",
     "react-hook-form": "^7.33.0"
   },
