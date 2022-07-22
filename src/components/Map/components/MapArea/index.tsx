@@ -1,3 +1,4 @@
+import { isEmpty } from "lodash";
 import React from "react";
 import { LayersControl, MapContainer, TileLayer } from "react-leaflet";
 import { useMapBounds } from "../../hooks/map";
@@ -7,7 +8,7 @@ import { MapAreaProps } from "./interfaces";
 
 export default function MapArea({ layers, base, controls }: MapAreaProps) {
   const { center, bounds } = useMapBounds();
-
+  const enabledLayers = layers.filter((l) => l.enabled);
   return (
     <div id="map-container" style={{ height: "100%", width: "100%" }}>
       <MapContainer center={center} bounceAtZoomLimits bounds={bounds} style={{ height: "100%", width: "100%", minHeight: 500 }}>
@@ -21,11 +22,13 @@ export default function MapArea({ layers, base, controls }: MapAreaProps) {
         {controls?.map((control) => (
           <MapControl key={`${control.type}-control`} {...control} />
         ))}
-        <LayersControl position={"topleft"}>
-          {layers.map((layer) => (
-            <MapLayer key={layer.layer.id} {...layer} />
-          ))}
-        </LayersControl>
+        {!isEmpty(enabledLayers) && (
+          <LayersControl position={"topleft"}>
+            {layers.map((layer) => (
+              <MapLayer key={layer.layer.id} {...layer} />
+            ))}
+          </LayersControl>
+        )}
       </MapContainer>
     </div>
   );

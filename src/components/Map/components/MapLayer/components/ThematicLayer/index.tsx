@@ -1,3 +1,4 @@
+import { CenteredContent, CircularLoader } from "@dhis2/ui";
 import React from "react";
 import { LayerGroup, LayersControl } from "react-leaflet";
 import Control from "react-leaflet-custom-control";
@@ -9,6 +10,16 @@ import useThematicLayerData from "./hooks/config";
 export default function ThematicLayer({ layer }: { layer: ThematicLayerInterface }) {
   const { type, enabled, control, dataItem, name } = layer;
   const { loading, data } = useThematicLayerData(layer);
+
+  if (loading) {
+    return (
+      <LayersControl.Overlay name={name ?? dataItem.displayName} checked={enabled}>
+        <CenteredContent>
+          <CircularLoader small />
+        </CenteredContent>
+      </LayersControl.Overlay>
+    );
+  }
 
   return (
     <>
