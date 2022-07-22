@@ -13,6 +13,13 @@ const analyticsQuery = {
       dimension: [`ou:${ou.join(";")}`, `pe:${pe.join(";")}`, `dx:${dx.join(";")}`],
     }),
   },
+  legendSet: {
+    resource: "legendSets",
+    id: ({ legendSetId }: any) => legendSetId,
+    params: () => ({
+      fields: ["id", "name", "legends[id,name,startValue,endValue,color]"],
+    }),
+  },
 };
 
 export default function useThematicLayerData(layer: ThematicLayer): {
@@ -31,6 +38,7 @@ export default function useThematicLayerData(layer: ThematicLayer): {
       ou,
       pe,
       dx,
+      legendSetId: layer?.dataItem?.legendSe?.id,
     },
   });
   const formattedData = useMemo(() => {
@@ -45,7 +53,10 @@ export default function useThematicLayerData(layer: ThematicLayer): {
           return {
             orgUnit: ou,
             data: row ? parseFloat(row[valueIndex]) : undefined,
-            dataItem: layer.dataItem,
+            dataItem: {
+              ...layer.dataItem,
+              legendSet: Array.isArray(data?.legendSet?.legendSets) ? data.legendSet?.legendSets[0] : data.legendSet,
+            },
           };
         });
       }

@@ -1,4 +1,5 @@
 import { CenteredContent, CircularLoader } from "@dhis2/ui";
+import { head } from "lodash";
 import React from "react";
 import { LayerGroup, LayersControl } from "react-leaflet";
 import Control from "react-leaflet-custom-control";
@@ -26,7 +27,11 @@ export default function ThematicLayer({ layer }: { layer: ThematicLayerInterface
       <LayersControl.Overlay checked={enabled} name={name ?? dataItem.displayName}>
         <LayerGroup>{data?.map((datum) => (type === "choropleth" ? <Choropleth data={datum} key={`${datum.dataItem.id}-layer`} /> : null))}</LayerGroup>
       </LayersControl.Overlay>
-      {control && <Control position={control.position}>{type === "choropleth" && <ChoroplethLegend name={name} data={data} dataItem={dataItem} />}</Control>}
+      {control && (
+        <Control position={control.position}>
+          {type === "choropleth" && <ChoroplethLegend name={name} data={data} dataItem={head(data)?.dataItem ?? dataItem} />}
+        </Control>
+      )}
     </>
   );
 }
