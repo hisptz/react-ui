@@ -3,8 +3,8 @@ import { CircularLoader } from "@dhis2/ui";
 import { compact, isEmpty } from "lodash";
 import React, { useEffect, useState } from "react";
 import { MapOrgUnit, MapProviderProps } from "../../interfaces";
-import { MapOrgUnitContext } from "../../state";
-import { getCoordinatesFromBounds, getOrgUnitsSelection, sanitizeOrgUnits } from "../../utils/map";
+import { MapOrgUnitContext, MapPeriodContext } from "../../state";
+import { getCoordinatesFromBounds, getOrgUnitsSelection, sanitizeBounds, sanitizeOrgUnits } from "../../utils/map";
 
 const boundaryQuery = {
   boundaries: {
@@ -23,7 +23,7 @@ const boundaryQuery = {
   },
 };
 
-export function MapProvider({ children, orgUnitSelection }: MapProviderProps) {
+export function MapProvider({ children, orgUnitSelection, periodSelection }: MapProviderProps) {
   const [orgUnits, setOrgUnits] = useState<MapOrgUnit[]>([]);
   const { refetch, loading, error } = useDataQuery(boundaryQuery, { lazy: true });
 
@@ -42,7 +42,7 @@ export function MapProvider({ children, orgUnitSelection }: MapProviderProps) {
           return {
             ...orgUnit,
             coordinates: getCoordinatesFromBounds(JSON.parse(coordinateObject?.co)),
-            bounds: JSON.parse(coordinateObject?.co),
+            bounds: sanitizeBounds(JSON.parse(coordinateObject?.co)),
             level: coordinateObject?.le,
           };
         })
@@ -61,7 +61,11 @@ export function MapProvider({ children, orgUnitSelection }: MapProviderProps) {
     );
   }
   if (!isEmpty(orgUnits)) {
-    return <MapOrgUnitContext.Provider value={{ orgUnitSelection, orgUnits }}>{children}</MapOrgUnitContext.Provider>;
+    return (
+      <MapOrgUnitContext.Provider value={{ orgUnitSelection, orgUnits }}>
+        <MapPeriodContext.Provider value={periodSelection}>{children}</MapPeriodContext.Provider>
+      </MapOrgUnitContext.Provider>
+    );
   }
 
   return null;

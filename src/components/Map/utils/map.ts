@@ -30,10 +30,13 @@ export function resetHighlight(e: LeafletMouseEvent, defaultStyle: any) {
   // layer.bringToBack();
 }
 
-export function getColorFromLegendSet(legendSet: any, value: number): string {
+export function getColorFromLegendSet(legendSet: any, value?: number): string {
+  if (!value) {
+    return "";
+  }
   const legends = legendSet?.legends ?? defaultLegendSet.legends;
   const legend = find(legends ?? [], (legend: any) => legend?.startValue <= value && legend?.endValue >= value) ?? {};
-  return legend.color ? legend.color : colors.grey900;
+  return legend.color ? legend.color : colors.grey100;
 }
 
 export function getLegendCount(legend: any, data: any) {
@@ -82,4 +85,18 @@ export function getCoordinatesFromBounds(bound: any[]): any[] {
   getBounds(bound);
 
   return bounds;
+}
+
+export function sanitizeBounds(bounds: any[]) {
+  return typeof bounds?.[0] === "number"
+    ? convertCoordinates(bounds as any)
+    : flatten(bounds)?.map((points: any) => {
+        if (!points) {
+          return [];
+        }
+        if (typeof points[0] === "number") {
+          return convertCoordinates(points);
+        }
+        return points?.map(convertCoordinates);
+      });
 }

@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Helmet } from "react-helmet";
 import MapArea from "./components/MapArea";
+import { ThematicLayer } from "./components/MapLayer/interfaces";
 import { MapProvider } from "./components/MapProvider";
 import { MapProps } from "./interfaces";
 
-export default function Map({ orgUnitSelection, boundaryLayer }: MapProps) {
+export default function Map({ orgUnitSelection, boundaryLayer, thematicLayers, periodSelection }: MapProps) {
+  const enabledThematicLayers = useMemo(() => thematicLayers?.filter((layer: any) => layer.enabled) ?? [], [thematicLayers]);
+  console.log(enabledThematicLayers);
   return (
-    <MapProvider orgUnitSelection={orgUnitSelection}>
+    <MapProvider periodSelection={periodSelection} orgUnitSelection={orgUnitSelection}>
       <Helmet>
         <link
           rel="stylesheet"
@@ -25,6 +28,11 @@ export default function Map({ orgUnitSelection, boundaryLayer }: MapProps) {
               id: "boundary",
             },
           },
+          ...(enabledThematicLayers.map((layer: ThematicLayer) => ({
+            type: "thematic" as any,
+            enabled: layer.enabled,
+            layer,
+          })) ?? []),
         ]}
       />
     </MapProvider>

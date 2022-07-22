@@ -1,6 +1,10 @@
 import { useContext } from "react";
-import { MapOrgUnitContext } from "../../../state";
+import { MapOrgUnitContext, MapPeriodContext } from "../../../state";
 
 export function useMapOrganisationUnit() {
   return useContext(MapOrgUnitContext);
+}
+
+export function useMapPeriods() {
+  return useContext(MapPeriodContext);
 }

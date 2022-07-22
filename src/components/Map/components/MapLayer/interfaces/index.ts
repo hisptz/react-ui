@@ -1,3 +1,5 @@
+import type { LegendSet } from "@hisptz/dhis2-utils";
+
 export type BoundaryLayerType = "basemap" | "overlay";
 export type ThematicLayerType = "choropleth" | "bubble";
 
@@ -11,15 +13,19 @@ export interface PointLayer {
   type: "point";
 }
 
-export interface ThematicLayerData {
-  orgUnit: string;
-  data: number;
-  type: ThematicLayerType;
+export type DataItemType = "dataElement" | "indicator" | "programIndicator";
+
+export interface ThematicLayerDataItem {
+  id: string;
+  displayName: string;
+  type: DataItemType;
+  legendSet?: LegendSet;
 }
 
 export interface ThematicLayer {
+  enabled: boolean;
   id: string;
-  data: ThematicLayerData[];
+  dataItem: ThematicLayerDataItem;
   type: ThematicLayerType;
 }
 

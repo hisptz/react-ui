@@ -1,8 +1,10 @@
 import type { OrgUnitSelection } from "@hisptz/dhis2-utils";
+import { ThematicLayer } from "../components/MapLayer/interfaces";
 
 export interface MapProviderProps {
   children: React.ReactNode;
   orgUnitSelection: OrgUnitSelection;
+  periodSelection?: { periods: any[] };
 }
 
 export interface MapProps {
@@ -10,6 +12,8 @@ export interface MapProps {
   boundaryLayer?: {
     enabled: boolean;
   };
+  thematicLayers?: ThematicLayer[];
+  periodSelection?: { periods: any[] };
 }
 
 export interface MapOrgUnit {

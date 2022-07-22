@@ -9,3 +9,12 @@ export const MapOrgUnitContext = createContext<{
   orgUnitSelection: { orgUnits: [] },
   orgUnits: [],
 });
+
+export const MapPeriodContext = createContext<
+  | {
+      periods: any[];
+    }
+  | undefined
+>({
+  periods: [],
+});

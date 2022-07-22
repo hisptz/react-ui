@@ -1,3 +1,4 @@
+import { Period } from "@iapps/period-utilities";
 import type { Story } from "@storybook/react";
 import React from "react";
 import { MapProps } from "./interfaces";
@@ -15,6 +16,33 @@ BoundaryLayer.args = {
   orgUnitSelection: { orgUnits: [], userOrgUnit: true, userSubUnit: true, userSubX2Unit: true },
   boundaryLayer: {
     enabled: true,
+  },
+};
+
+export const ChoroplethThematicLayer = Template.bind({});
+ChoroplethThematicLayer.args = {
+  orgUnitSelection: { orgUnits: [], userOrgUnit: true, userSubUnit: true, userSubX2Unit: true },
+  boundaryLayer: {
+    enabled: true,
+  },
+  thematicLayers: [
+    {
+      type: "choropleth",
+      id: "choropleth",
+      enabled: true,
+      dataItem: {
+        id: "Uvn6LCg7dVU",
+        displayName: "ANC 1 Coverage",
+        type: "indicator",
+      },
+    },
+  ],
+  periodSelection: {
+    periods: [
+      {
+        ...new Period().setPreferences({ allowFuturePeriods: true }).getById("2022"),
+      },
+    ],
   },
 };
 
