@@ -1,23 +1,9 @@
-import {mount} from "@cypress/react";
-import {Provider} from "@dhis2/app-runtime";
-import type { CircularDashboardProps } from "./types/props";
-import CircularProgressDashboard from ".";
+import { mount } from "@cypress/react";
 import React from "react";
-
+import CircularProgressDashboard from ".";
 
 describe("CircularProgressDashboard", () => {
-    it("should render",()=>{
-        mount(<CircularProgressDashboard  
-            denominator={10}
-            fontSize={16}
-            fontWeight="bold"
-            numerator={10}
-            strokeColor="#1565C0"
-            textColor="#1565C0"
-            size="30%"
-        />);
-    }
-    );
-}
-);
-
+  it("should render", () => {
+    mount(<CircularProgressDashboard size="100px" />);
+  });
+});
