@@ -38,7 +38,7 @@ export default function useThematicLayerData(layer: ThematicLayer): {
       ou,
       pe,
       dx,
-      legendSetId: layer?.dataItem?.legendSe?.id,
+      legendSetId: layer?.dataItem?.legendSet?.id,
     },
   });
   const formattedData = useMemo(() => {
@@ -55,7 +55,7 @@ export default function useThematicLayerData(layer: ThematicLayer): {
             data: row ? parseFloat(row[valueIndex]) : undefined,
             dataItem: {
               ...layer.dataItem,
-              legendSet: Array.isArray(data?.legendSet?.legendSets) ? data.legendSet?.legendSets[0] : data.legendSet,
+              legendSet: Array.isArray((data?.legendSet as any)?.legendSets) ? (data.legendSet as any)?.legendSets[0] : data.legendSe,
             },
           };
         });
