@@ -35,6 +35,10 @@ ChoroplethThematicLayer.args = {
         displayName: "ANC 1 Coverage",
         type: "indicator",
       },
+      control: {
+        enabled: true,
+        position: "topright",
+      },
     },
   ],
   periodSelection: {

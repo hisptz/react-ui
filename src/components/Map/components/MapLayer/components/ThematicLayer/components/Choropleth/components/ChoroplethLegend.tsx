@@ -1,10 +1,10 @@
 import React, { forwardRef, useMemo } from "react";
-import { ThematicMapLayer } from "../../../../../../../../../../../../../shared/interfaces/interventionConfig";
 import "../../../styles/legends.css";
 import { Divider } from "@dhis2/ui";
-import { head, sortBy } from "lodash";
+import { sortBy } from "lodash";
 import { defaultLegendSet } from "../../../../../../../constants/legendSet";
 import { getLegendCount } from "../../../../../../../utils/map";
+import { ThematicLayerData, ThematicLayerDataItem } from "../../../../../interfaces";
 
 function LegendItem({ legend, value }: { legend: { startValue: number; endValue: number; color: string }; value: number }) {
   return (
@@ -17,16 +17,16 @@ function LegendItem({ legend, value }: { legend: { startValue: number; endValue:
 }
 
 function ChoroplethLegend(
-  { indicator, data, config }: { indicator: { id: string; legendSets: Array<any>; displayName: string }; data: any; config: ThematicMapLayer },
+  { dataItem, data, name }: { data: ThematicLayerData[]; dataItem: ThematicLayerDataItem; name?: string },
   ref: React.LegacyRef<HTMLDivElement> | undefined
 ) {
   const legends = useMemo(() => {
-    return sortBy(head(indicator.legendSets)?.legends ?? defaultLegendSet?.legends, "startValue").reverse();
-  }, [indicator]);
+    return sortBy((dataItem.legendSet ?? defaultLegendSet)?.legends, "startValue").reverse();
+  }, [dataItem.legendSet]);
 
   return (
     <div className="legend-card" ref={ref}>
-      <h4 className="legend-header">{indicator?.displayName}</h4>
+      <h4 className="legend-header">{name ?? dataItem?.displayName}</h4>
       <Divider margin={"0"} />
       <div style={{ width: 150 }} className="legend-list pt-8">
         {legends?.map((legend: any) => (

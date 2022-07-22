@@ -4,7 +4,7 @@ import { useMemo } from "react";
 import { MapOrgUnit } from "../../../../../interfaces";
 import { getOrgUnitsSelection } from "../../../../../utils/map";
 import { useMapOrganisationUnit, useMapPeriods } from "../../../../MapProvider/hooks";
-import { ThematicLayer, ThematicLayerDataItem } from "../../../interfaces";
+import { ThematicLayer, ThematicLayerData } from "../../../interfaces";
 
 const analyticsQuery = {
   analytics: {
@@ -16,7 +16,7 @@ const analyticsQuery = {
 };
 
 export default function useThematicLayerData(layer: ThematicLayer): {
-  data: { orgUnit: MapOrgUnit; data?: number; dataItem: ThematicLayerDataItem }[];
+  data: ThematicLayerData[];
   loading: boolean;
   error?: any;
 } {

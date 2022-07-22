@@ -7,7 +7,6 @@ import { MapProps } from "./interfaces";
 
 export default function Map({ orgUnitSelection, boundaryLayer, thematicLayers, periodSelection }: MapProps) {
   const enabledThematicLayers = useMemo(() => thematicLayers?.filter((layer: any) => layer.enabled) ?? [], [thematicLayers]);
-  console.log(enabledThematicLayers);
   return (
     <MapProvider periodSelection={periodSelection} orgUnitSelection={orgUnitSelection}>
       <Helmet>
