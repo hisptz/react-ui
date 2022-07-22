@@ -1,7 +1,7 @@
 {
   "name": "@hisptz/react-ui",
   "homepage": "https://hisptz.github.io/react-ui",
-  "version": "1.0.47",
+  "version": "1.0.48",
   "description": "A collection of reusable complex DHIS2 react ui components.",
   "license": "BSD-3-Clause",
   "scripts": {
@@ -23,7 +23,7 @@
     "build-storybook": "build-storybook",
     "cy:open": "yarn cypress open --component --browser chrome",
     "cy:open:stub": "yarn cypress open-ct --browser chrome --env networkMode=stub",
-    "predeploy-storybook": "yarn build-storybook",
+    "predeploy-storybook": "node --max_old_space_size=16384  ./node_modules/.bin/build-storybook",
     "deploy-storybook": "gh-pages -d storybook-static",
     "postinstall": "node postinstall.js",
     "install": "node postinstall.js",
