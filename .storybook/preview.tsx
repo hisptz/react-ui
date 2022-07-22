@@ -18,14 +18,14 @@ export const parameters = {
 };
 
 const appConfig = {
-  baseUrl: process.env.STORYBOOK_DHIS2_BASE_URL ?? "http://localhost:8080",
-  apiVersion: parseInt(process.env.STORYBOOK_DHIS2_API_VERSION ?? "") ?? 36,
+  baseUrl: process.env.STORYBOOK_DHIS2_BASE_URL ?? "http://localhost:8081",
+  apiVersion: parseInt(process.env.STORYBOOK_DHIS2_API_VERSION ?? "38") ?? 38,
 };
 
 const LOGIN_ENDPOINT = "dhis-web-commons-security/login.action";
 
-const loginUrl = `${process.env.STORYBOOK_DHIS2_BASE_URL}/${LOGIN_ENDPOINT}`;
-const meUrl = `${process.env.STORYBOOK_DHIS2_BASE_URL}/api/${process.env.STORYBOOK_DHIS2_API_VERSION}/me?fields=id,name`;
+const loginUrl = `${process.env.STORYBOOK_DHIS2_BASE_URL ?? "http://localhost:8081"}/${LOGIN_ENDPOINT}`;
+const meUrl = `${process.env.STORYBOOK_DHIS2_BASE_URL ?? "http://localhost:8081"}/api/${process.env.STORYBOOK_DHIS2_API_VERSION ?? "38"}/me?fields=id,name`;
 const checkAuthentication = async () => {
   try {
     const response = await fetch(meUrl, { redirect: "error" });
@@ -46,8 +46,8 @@ function useLogin() {
     async function login() {
       setLoading(true);
       const data = [
-        `${encodeURIComponent("j_username")}=${encodeURIComponent(process.env.STORYBOOK_DHIS2_USERNAME)}`,
-        `${encodeURIComponent("j_password")}=${encodeURIComponent(process.env.STORYBOOK_DHIS2_PASSWORD)}`,
+        `${encodeURIComponent("j_username")}=${encodeURIComponent(process.env.STORYBOOK_DHIS2_USERNAME ?? "admin")}`,
+        `${encodeURIComponent("j_password")}=${encodeURIComponent(process.env.STORYBOOK_DHIS2_PASSWORD ?? "district")}`,
       ].join("&");
       try {
         if (!(await checkAuthentication())) {
@@ -60,7 +60,7 @@ function useLogin() {
             headers: {
               Accept: "*",
               "Content-Type": "application/x-www-form-urlencoded",
-              "Access-Control-Allow-Credentials": true,
+              "Access-Control-Allow-Credentials": "true",
               "Access-Control-Allow-Origin": "*",
             },
             body: data,
@@ -106,7 +106,7 @@ export const decorators = [
             alignItems: "center",
             justifyContent: "center",
             width: "100%",
-            height: "100%",
+            height: "80vh",
           }}>
           <Story />
         </div>
