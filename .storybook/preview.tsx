@@ -17,15 +17,20 @@ export const parameters = {
   },
 };
 
+const baseURL = process.env.STORYBOOK_DHIS2_BASE_URL ?? "http://localhost:8081";
+const apiVersion = process.env.STORYBOOK_DHIS2_API_VERSION ?? "38";
+const username = "admin";
+const password = "district";
+
 const appConfig = {
-  baseUrl: process.env.STORYBOOK_DHIS2_BASE_URL ?? "http://localhost:8081",
-  apiVersion: parseInt(process.env.STORYBOOK_DHIS2_API_VERSION ?? "38") ?? 38,
+  baseUrl: baseURL,
+  apiVersion: parseInt(apiVersion) ?? 38,
 };
 
 const LOGIN_ENDPOINT = "dhis-web-commons-security/login.action";
 
-const loginUrl = `${process.env.STORYBOOK_DHIS2_BASE_URL ?? "http://localhost:8081"}/${LOGIN_ENDPOINT}`;
-const meUrl = `${process.env.STORYBOOK_DHIS2_BASE_URL ?? "http://localhost:8081"}/api/${process.env.STORYBOOK_DHIS2_API_VERSION ?? "38"}/me?fields=id,name`;
+const loginUrl = `${baseURL}/${LOGIN_ENDPOINT}`;
+const meUrl = `${baseURL ?? "http://localhost:8081"}/api/${apiVersion}/me?fields=id,name`;
 const checkAuthentication = async () => {
   try {
     const response = await fetch(meUrl, { redirect: "error" });
@@ -46,8 +51,8 @@ function useLogin() {
     async function login() {
       setLoading(true);
       const data = [
-        `${encodeURIComponent("j_username")}=${encodeURIComponent(process.env.STORYBOOK_DHIS2_USERNAME ?? "admin")}`,
-        `${encodeURIComponent("j_password")}=${encodeURIComponent(process.env.STORYBOOK_DHIS2_PASSWORD ?? "district")}`,
+        `${encodeURIComponent("j_username")}=${encodeURIComponent(username)}`,
+        `${encodeURIComponent("j_password")}=${encodeURIComponent(passwod)}`,
       ].join("&");
       try {
         if (!(await checkAuthentication())) {
