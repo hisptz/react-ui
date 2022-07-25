@@ -38,6 +38,7 @@ export type FormFieldProps = {
   deletable?: boolean;
   addable?: boolean;
   control?: any;
+  [key: string]: any;
 };
 
 export type OnChange = (payload: { value: any; name: string }) => void;
@@ -55,6 +56,7 @@ export type FinalFormFieldInput = {
   disabled?: boolean;
   pattern?: string;
   validationText?: string;
+  [key: string]: any;
 };
 
 export type Option = {
@@ -83,6 +85,7 @@ export type InputProps = {
   initialFieldCount?: number;
   deletable?: boolean;
   addable?: boolean;
+  [key: string]: any;
 };
 
 export type LegendDefinition = {
