@@ -52,7 +52,7 @@ function useLogin() {
       setLoading(true);
       const data = [
         `${encodeURIComponent("j_username")}=${encodeURIComponent(username)}`,
-        `${encodeURIComponent("j_password")}=${encodeURIComponent(passwod)}`,
+        `${encodeURIComponent("j_password")}=${encodeURIComponent(password)}`,
       ].join("&");
       try {
         if (!(await checkAuthentication())) {
