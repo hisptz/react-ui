@@ -46,8 +46,9 @@ function useLogin() {
     async function login() {
       setLoading(true);
       const data = [
-        `${encodeURIComponent("j_username")}=${encodeURIComponent(process.env.STORYBOOK_DHIS2_USERNAME ?? "admin")}`,
-        `${encodeURIComponent("j_password")}=${encodeURIComponent(process.env.STORYBOOK_DHIS2_PASSWORD ?? "district")}`,
+        `${encodeURIComponent("j_username")}=${encodeURIComponent(username)}`,
+        `${encodeURIComponent("j_password")}=${encodeURIComponent(password)}`,
+
       ].join("&");
       try {
         if (!(await checkAuthentication())) {
