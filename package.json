@@ -9,11 +9,8 @@
     "build:package": "d2-app-scripts build",
     "build": "concurrently -n build,types \"yarn build:package\" \"yarn build:types\" && cp postinstall.js build/",
     "start": "d2-app-scripts start",
-    "test:capture": "cypress run --component --browser chrome --env networkMode=capture",
-    "open:capture": "cypress open --component --browser chrome --env networkMode=capture",
-    "open:stub": "cypress open --component --browser chrome --env networkMode=stub",
     "test": "cypress run --component --browser chrome",
-    "cy:run": "cypress run --browser chrome",
+    "test:open": "yarn cypress open --component --browser chrome",
     "deploy": "d2-app-scripts deploy",
     "lint": "yarn d2-style check",
     "lint:staged": "yarn lint --staged",
@@ -21,13 +18,9 @@
     "format:staged": "yarn format --staged",
     "sb": "start-storybook -p 3000",
     "build-storybook": "build-storybook",
-    "cy:open": "yarn cypress open --component --browser chrome",
-    "cy:open:stub": "yarn cypress open-ct --browser chrome --env networkMode=stub",
     "predeploy-storybook": "node --max_old_space_size=16384  ./node_modules/.bin/build-storybook",
     "deploy-storybook": "gh-pages -d storybook-static",
-    "postinstall": "node postinstall.js",
-    "install": "node postinstall.js",
-    "storybook": "start-storybook -p 6006"
+    "postinstall": "node postinstall.js"
   },
   "devDependencies": {
     "@babel/plugin-proposal-nullish-coalescing-operator": "^7.18.6",
