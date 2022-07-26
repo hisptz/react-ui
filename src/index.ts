@@ -33,4 +33,4 @@ export {
   Map,
 };
 
-exporttype { ConfirmDialogConfig, RHFLegendDefinitionFormFieldProps };
+export type { ConfirmDialogConfig, RHFLegendDefinitionFormFieldProps };

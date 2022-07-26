@@ -1,0 +1,26 @@
+.single-value-list {
+    padding: 10px 2px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.font-large {
+    font-size: 1rem;
+}
+
+.font-x-large {
+    font-size: 1.5rem;
+}
+
+.font-xx-large {
+    font-size: 3rem;
+}
+
+.font-bold {
+    font-weight: bold;
+}
+
+.single-value-item {
+    margin: 0 1vw;
+}

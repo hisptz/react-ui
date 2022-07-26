@@ -33,13 +33,6 @@ export default {
         use: "file-loader",
         exclude: /node_modules/,
       },
-      {
-        loader: "babel-loader",
-        test: /.(js|jsx)$/,
-        exclude: (filename) => {
-          return /node_modules/.test(filename) && !/react-leaflet/.test(filename);
-        },
-      },
     ],
   },
 };

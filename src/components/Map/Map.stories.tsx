@@ -1,6 +1,7 @@
 import { Period } from "@iapps/period-utilities";
 import type { Story } from "@storybook/react";
 import React from "react";
+import MapDataProvider from "../../dataProviders/map";
 import { MapProps } from "./interfaces";
 import Map from "./index";
 
@@ -57,7 +58,9 @@ export default {
     (MapStory: any) => {
       return (
         <div style={{ width: "100%", height: "100%" }}>
-          <MapStory />
+          <MapDataProvider>
+            <MapStory />
+          </MapDataProvider>
         </div>
       );
     },
