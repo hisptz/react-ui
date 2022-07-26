@@ -38,8 +38,9 @@ export default defineConfig({
       bundler: "vite",
       viteConfig: {
         jsx: "vite-react",
-        ts: tru,
-      ,
+        ts: true,
+        tsConfig: "tsconfig.json",
+      },
     },
     defaultCommandTimeout: 60000,
     viewportHeight: 763,
