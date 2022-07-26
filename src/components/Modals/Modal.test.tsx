@@ -1,16 +1,11 @@
 import { mount } from "@cypress/react";
-import { Provider } from "@dhis2/app-runtime";
 import React from "react";
+import OrgUnitDataProvider from "../../dataProviders/orgUnit";
 import { OrgUnitSelectorValue } from "../OrgUnitSelector/types";
 import { Period } from "../PeriodSelector/components/CalendarSpecificPeriodDimension/interfaces/period";
 import { OrgUnitSelectorModal, PeriodSelectorModal } from "./index";
 
-const appConfig = {
-  baseUrl: Cypress.env("dhis2BaseUrl"),
-  apiVersion: Cypress.env("dhis2ApiVersion"),
-};
-
-const DHIS2Provider = ({ children }: { children: any }) => <Provider config={appConfig}>{children}</Provider>;
+const DHIS2Provider = ({ children }: { children: any }) => <OrgUnitDataProvider>{children}</OrgUnitDataProvider>;
 
 describe("Period Modals test", () => {
   it("should render", function () {

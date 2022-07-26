@@ -1,14 +1,20 @@
 import { addCucumberPreprocessorPlugin } from "@badeball/cypress-cucumber-preprocessor";
+import createEsbuildPlugin from "@badeball/cypress-cucumber-preprocessor/esbuild";
+import createBundler from "@bahmutov/cypress-esbuild-preprocessor";
+
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import webpack from "@cypress/webpack-preprocessor";
 import { chromeAllowXSiteCookies, networkShim } from "@dhis2/cypress-plugins";
 import { defineConfig } from "cypress";
 
 async function cucumberPreprocessor(on, config) {
   await addCucumberPreprocessorPlugin(on, config);
-  const webpackConfig = import("./webpack.config");
-  on("file:preprocessor", webpack(webpackConfig));
+  on(
+    "file:preprocessor",
+    createBundler({
+      plugin: createEsbuildPlugin(config),
+    })
+  );
 }
 
 export default defineConfig({
@@ -29,7 +35,12 @@ export default defineConfig({
     },
     devServer: {
       framework: "react",
-      bundler: "webpack",
+      bundler: "vite",
+      viteConfig: {
+        jsx: "vite-react",
+        ts: true,
+        tsConfig: "tsconfig.json",
+      },
     },
     defaultCommandTimeout: 60000,
     viewportHeight: 763,

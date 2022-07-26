@@ -1,5 +1,6 @@
 import type { Story } from "@storybook/react";
 import React from "react";
+import OrgUnitDataProvider from "../../dataProviders/orgUnit";
 import { OrgUnitSelectorProps } from "../OrgUnitSelector/types";
 import { PeriodSelectorProps } from "../PeriodSelector/types/props";
 import OrgUnitSelectorModal from "./components/OrgUnitSelectorModal";
@@ -32,5 +33,12 @@ OrgUnitSelector.args = {
 
 export default {
   title: "Components/Modals",
-  components: [PeriodSelectorModal],
+  components: [PeriodSelectorModal, OrgUnitSelectorModal],
+  decorators: [
+    (Story: any) => (
+      <OrgUnitDataProvider>
+        <Story />
+      </OrgUnitDataProvider>
+    ),
+  ],
 };

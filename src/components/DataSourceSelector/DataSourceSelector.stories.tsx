@@ -3,6 +3,7 @@ import React from "react";
 import { DataSourceSelectorProps } from "./types";
 import DataSourceSelector from "./index";
 import "../../styles/styles.css";
+import DataSourceProvider from "../../dataProviders/dataSourceProvider";
 
 const Template: Story<DataSourceSelectorProps> = (args) => <DataSourceSelector {...args} />;
 
@@ -38,7 +39,9 @@ export default {
     (DataSourceSelectorStory: any) => (
       <div className="row w-100 center">
         <div style={{ width: 600 }}>
-          <DataSourceSelectorStory />
+          <DataSourceProvider>
+            <DataSourceSelectorStory />
+          </DataSourceProvider>
         </div>
       </div>
     ),

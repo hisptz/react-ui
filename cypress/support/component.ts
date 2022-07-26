@@ -18,11 +18,9 @@ import "./commands";
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
-
-import { enableAutoLogin, enableNetworkShim } from "@dhis2/cypress-commands";
 import { mount } from "cypress/react";
-enableAutoLogin();
-enableNetworkShim();
+// enableAutoLogin();
+// enableNetworkShim();
 // Augment the Cypress namespace to include type definitions for
 // your custom command.
 // Alternatively, can be defined in cypress/support/component.d.ts
