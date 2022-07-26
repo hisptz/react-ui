@@ -1,16 +1,11 @@
 import { mount } from "@cypress/react";
-import { Provider } from "@dhis2/app-runtime";
 import type { OrgUnitSelection } from "@hisptz/dhis2-utils";
 import React from "react";
+import OrgUnitDataProvider from "../../dataProviders/orgUnit";
 import OrgUnitSelector from "./index";
 
 describe("Org Unit Selector", () => {
-  const appConfig = {
-    baseUrl: Cypress.env("dhis2BaseUrl"),
-    apiVersion: Cypress.env("dhis2ApiVersion"),
-  };
-
-  const DHIS2Provider = ({ children }: { children: any }) => <Provider config={appConfig}>{children}</Provider>;
+  const DHIS2Provider = ({ children }: { children: any }) => <OrgUnitDataProvider>{children}</OrgUnitDataProvider>;
 
   it("should render", function () {
     mount(
