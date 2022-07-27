@@ -10,6 +10,7 @@ import Map from "./components/Map";
 import { OrgUnitSelectorModal, PeriodSelectorModal } from "./components/Modals";
 import OrgUnitSelector from "./components/OrgUnitSelector/index";
 import PeriodSelector from "./components/PeriodSelector";
+import SingleValueContainer from "./components/SingleValueContainer";
 
 export {
   PeriodSelector,
@@ -31,6 +32,7 @@ export {
   RHFLegendDefinitionsField,
   CircularProgressDashboard,
   Map,
+  SingleValueContainer,
 };
 
 export type { ConfirmDialogConfig, RHFLegendDefinitionFormFieldProps };
