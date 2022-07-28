@@ -4,11 +4,11 @@ import ChartItemComponent from "./components/chart-item/Chart-item-component";
 import { ChartAnalyticsProps } from "./types/props";
 import "./styles/index.css";
 
-export default function ChartAnalytics({ analysisData, chartHeight = 1000, chartConfiguration }: ChartAnalyticsProps): React.ReactElement {
+export default function ChartAnalytics({ analytics, height = 1000, config }: ChartAnalyticsProps): React.ReactElement {
   return (
     <div className="chart-list">
       <Suspense fallback={<div>{i18n.t("Loading .....")}</div>}>
-        <ChartItemComponent analysisData={analysisData} chartHeight={chartHeight} chartConfiguration={chartConfiguration} />
+        <ChartItemComponent analytics={analytics} height={height} config={config} />
       </Suspense>
     </div>
   );

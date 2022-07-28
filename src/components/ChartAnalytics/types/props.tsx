@@ -1,51 +1,36 @@
+import type { Analytics } from "@hisptz/dhis2-utils";
+import HighCharts from "highcharts";
 
+export type ChartType = "column" | "pie";
 
-export type ChartConfigurationProps={
-    layout:{
-        column:Array<string>,
-        row:Array<string>,
-        filter:Array<string>
-    },
-    currentChartType?:string
+export type ChartConfigurationProps = {
+  layout: {
+    series: Array<string>;
+    category: Array<string>;
+    filter: Array<string>;
+  };
+  type?: ChartType;
+  height?: number;
+  colors?: Array<string>;
+  name?: string;
+  highChartOverrides?: Record<string, any>;
+};
 
-}
-
-export type ChartAnalyticsProps ={
-    analysisData:any,
-    chartHeight:number,
-    chartConfiguration:ChartConfigurationProps
-}
-
-
+export type ChartAnalyticsProps = {
+  analytics: Analytics;
+  height: number;
+  config: ChartConfigurationProps;
+};
 
 export type ChartConfiguration = {
-    renderId: string;
-    type: string;
-    title: string;
-    subtitle: string;
-    xAxisType: string[];
-    yAxisType: string;
-    zAxisType: string[];
-    showData: boolean;
-    hideTitle: boolean;
-    hideSubtitle: boolean;
-    hideEmptyRows: boolean;
-    hideLegend: boolean;
-    showLabels: boolean;
-    multiAxisTypes: any[];
-    cumulativeValues: boolean;
-    sortOrder: number;
-    percentStackedValues: boolean;
-    targetLineLabel: string;
-    targetLineValue: number;
-    baseLineValue: number;
-    baseLineLabel: string;
-    legendAlign: string;
-    reverseLegend: boolean;
-    rangeAxisMaxValue: number;
-    rangeAxisMinValue: number;
-    axes: any[];
-    dataSelections: any[];
-    categoryRotation?: number;
-  }
-  
+  chart: HighCharts.ChartOptions;
+  colors?: Array<string>;
+  series: HighCharts.Series[];
+  plotOptions?: HighCharts.PlotOptions;
+  title: HighCharts.TitleOptions;
+  pane?: HighCharts.PaneOptions;
+  xAxis: HighCharts.XAxisOptions;
+  yAxis?: HighCharts.YAxisOptions[];
+  exporting: HighCharts.ExportingOptions;
+  legend: HighCharts.LegendOptions;
+};

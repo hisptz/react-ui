@@ -6,7 +6,7 @@ describe("On Chart Analytics Tests", () => {
   it("Render Chart Analytic Correctly", () => {
     mount(
       <ChartAnalytics
-        analysisData={{
+        analytics={{
           _data: {
             headers: [
               {
@@ -63,20 +63,20 @@ describe("On Chart Analytics Tests", () => {
               ["ReUHfIn0pTQ", "ImspTQPwCqd", "2021Q2", "39.7"],
               ["ReUHfIn0pTQ", "ImspTQPwCqd", "202107", "33.4"],
               ["ReUHfIn0pTQ", "ImspTQPwCqd", "202108", "33.2"],
-              ["ReUHfIn0pTQ", "ImspTQPwCqd", "202109", "31.3"],
+              ["ReUHfIn0pTQ", "ImspTQPwCqd", "202109", "31.3",
             ],
             height: 4,
-            width: 4,
+            width: ,
           },
         }}
-        chartHeight={1000}
-        chartConfiguration={{
+        height={1000}
+        config={{
           layout: {
-            column: ["dx"],
-            row: ["pe"],
-            filter: ["ou"],
+            series: ["dx"],
+            category: ["pe"],
+            filter: ["ou",
           },
-          currentChartType: "column",
+          type: "column,
         }}
       />
     );
