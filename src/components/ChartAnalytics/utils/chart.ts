@@ -205,7 +205,7 @@ export function getHighchartsConfig(id: string, analytics: Analytics, config: Ch
     exporting: getExporting(config.name ?? "chart"),
     legend: { enabled: true },
     credits: { enabled: false },
-    ...(config.highChartOverrides ?? {},
+    ...(config.highChartOverrides ?? {}),
   };
 }
 
