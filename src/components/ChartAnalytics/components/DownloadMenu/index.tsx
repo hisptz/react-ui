@@ -3,7 +3,7 @@ import { FlyoutMenu, IconMore24, Menu, MenuDivider, MenuItem, Popover } from "@d
 import { IconButton } from "@material-ui/core";
 import HighchartsReact from "highcharts-react-official";
 import React, { useRef, useState } from "react";
-import { onCSVDownload, onImageDownload, onPDFDownload, onViewAsTable } from "../../services/export";
+import { onCSVDownload, onFullScreenView, onImageDownload, onPDFDownload, onViewAsTable } from "../../services/export";
 
 function ChartMenu({ menuRef, onClick, onClose }: { menuRef: HTMLButtonElement; onClick: (action: string) => void; onClose: () => void }) {
   const onMenuClick = (action: string) => () => {
@@ -23,6 +23,7 @@ function ChartMenu({ menuRef, onClick, onClose }: { menuRef: HTMLButtonElement; 
           <MenuItem dataTest={"download-pdf"} label={i18n.t("Download PDF")} onClick={onMenuClick("pdf")} />
           <MenuDivider />
           <MenuItem label={i18n.t("View data table")} onClick={onMenuClick("table")} />
+          <MenuItem label={i18n.t("View full screen")} onClick={onMenuClick("full-screen")} />
         </Menu>
       </FlyoutMenu>
     </Popover>
@@ -63,6 +64,10 @@ function ChartDownloadMenu({ chartRef }: { chartRef: HighchartsReact.RefObject |
           break;
         case "table":
           onViewAsTable(chart, true);
+          break;
+        case "full-screen":
+          onFullScreenView(chart);
+          break;
       }
     }
   };

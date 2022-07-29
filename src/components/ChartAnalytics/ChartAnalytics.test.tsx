@@ -1,11 +1,10 @@
 import { mount } from "@cypress/react";
 import HighCharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
-import HighChartsExportCSV from "highcharts/modules/export-data";
-import HighChartsExport from "highcharts/modules/exporting";
 import React, { useState } from "react";
 import ChartDownloadMenu from "./components/DownloadMenu";
 import columnData from "./data/column-data.json";
+import { setupHighchartsModules } from "./services/export";
 import ChartAnalytics from ".";
 
 const props: any = {
@@ -40,8 +39,7 @@ function ExportTestComponent() {
 }
 
 describe("Chart Component Tests", () => {
-  HighChartsExport(HighCharts);
-  HighChartsExportCSV(HighCharts);
+  setupHighchartsModules(HighCharts);
 
   it("Mounts without errors", () => {
     mount(<TestComponent />);
@@ -49,6 +47,5 @@ describe("Chart Component Tests", () => {
 
   it("Can be exported as PDF", () => {
     mount(<ExportTestComponent />);
-    cy.get("[data-test='download-pdf']").click();
   });
 });

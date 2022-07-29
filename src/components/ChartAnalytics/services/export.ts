@@ -2,10 +2,16 @@ import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import HighChartsExportCSV from "highcharts/modules/export-data";
 import HighChartsExport from "highcharts/modules/exporting";
+import HighChartsFullScreen from "highcharts/modules/full-screen";
 
 export function setupHighchartsModules(highcharts: typeof Highcharts) {
   HighChartsExport(highcharts);
   HighChartsExportCSV(highcharts);
+  HighChartsFullScreen(highcharts);
+}
+
+export function onFullScreenView(chartRef: HighchartsReact.RefObject, options?: Highcharts.Options) {
+  chartRef?.chart?.fullscreen.toggle();
 }
 
 export function onPDFDownload(chartRef: HighchartsReact.RefObject, options?: Highcharts.Options) {

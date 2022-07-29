@@ -2,19 +2,17 @@ import { CssReset } from "@dhis2/ui";
 import type { ComponentStory } from "@storybook/react";
 import HighCharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
-import HighChartsExportCSV from "highcharts/modules/export-data";
-import HighChartsExport from "highcharts/modules/exporting";
 import React, { useState } from "react";
 import ChartDownloadMenu from "./components/DownloadMenu";
 import columnData from "./data/column-data.json";
 import multiSeriesData from "./data/multi-series-data.json";
 import pieData from "./data/pie-data.json";
 import stackedChartData from "./data/stacked-chart-data.json";
+import { setupHighchartsModules } from "./services/export";
 import ChartAnalytics from ".";
 
 const Template: ComponentStory<any> = (args) => <ChartAnalytics {...args} />;
-HighChartsExport(HighCharts);
-HighChartsExportCSV(HighCharts);
+setupHighchartsModules(HighCharts);
 
 export const Column = Template.bind({});
 Column.args = {

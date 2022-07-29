@@ -4,6 +4,7 @@ import HighchartsReact from "highcharts-react-official";
 import React, { forwardRef, useRef } from "react";
 import { useChart } from "./hooks/useChart";
 import { ChartAnalyticsProps } from "./types/props";
+import "./styles/custom-highchart.css";
 
 function ChartAnalytics({ analytics, config }: ChartAnalyticsProps, ref: React.ForwardedRef<HighchartsReact.RefObject>) {
   const id = useRef(`${uid()}-chart-item`);
