@@ -5,11 +5,26 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-07-22T09:45:51.370Z\n"
-"PO-Revision-Date: 2022-07-22T09:45:51.370Z\n"
+"POT-Creation-Date: 2022-07-29T13:45:01.985Z\n"
+"PO-Revision-Date: 2022-07-29T13:45:01.985Z\n"
 
-msgid "Loading ....."
-msgstr "Loading ....."
+msgid "Download PNG"
+msgstr "Download PNG"
+
+msgid "Download JPEG"
+msgstr "Download JPEG"
+
+msgid "Download SVG"
+msgstr "Download SVG"
+
+msgid "Download PDF"
+msgstr "Download PDF"
+
+msgid "View as table"
+msgstr "View as table"
+
+msgid "View full screen"
+msgstr "View full screen"
 
 msgid "Previous"
 msgstr "Previous"
@@ -147,3 +162,6 @@ msgstr "Period"
 
 msgid "Date Range"
 msgstr "Date Range"
+
+msgid "Loading ..."
+msgstr "Loading ..."
