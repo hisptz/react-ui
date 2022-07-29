@@ -47,7 +47,7 @@ export {
   onViewAsTable,
   onPDFDownload,
   onCSVDownload,
-  onImageDownloa,
+  onImageDownload,
 };
 
 export type { ConfirmDialogConfig, RHFLegendDefinitionFormFieldProps };
