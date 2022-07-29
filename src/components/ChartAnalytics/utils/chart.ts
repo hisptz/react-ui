@@ -1,4 +1,4 @@
-import { Analytics, AnalyticsHeader, AnalyticsMetadata } from "@hisptz/dhis2-utils";
+import type { Analytics, AnalyticsHeader, AnalyticsMetadata } from "@hisptz/dhis2-utils";
 import HighCharts from "highcharts";
 import { compact, find, head, isEmpty, set } from "lodash";
 import { ChartConfiguration, ChartConfigurationProps, ChartType } from "../types/props";
@@ -26,23 +26,23 @@ function getChartConfig(id: string, config: ChartConfigurationProps): HighCharts
 
 function getPieSeries(analytics: Analytics, config: ChartConfigurationProps): any {
   const seriesDimension = head(config.layout.series);
-  const seriesIndex = analytics?.headers?.findIndex((h) => h.name === seriesDimension);
-  const valueIndex = analytics?.headers?.findIndex((h) => h.name === "value");
+  const seriesIndex = analytics?.headers?.findIndex((h) => h.name === seriesDimension) ?? -1;
+  const valueIndex = analytics?.headers?.findIndex((h) => h.name === "value") ?? -1;
 
   if (!seriesDimension) {
     throw new Error("Pie chart must have a series dimension");
   }
-  const seriesValues = analytics.metaData?.dimensions?.[seriesDimension];
+  const seriesValues = analytics.metaData?.dimensions?.[seriesDimension as "dx" | "ou" | "pe"];
 
   return {
     id: seriesDimension,
-    name: analytics.metaData?.items?.[seriesDimension]?.name,
+    name: analytics.metaData?.items?.[seriesDimension as any]?.name,
     data: seriesValues?.map((value: string) => {
-      const row = analytics.rows.find((row: any) => row[seriesIndex] === value);
+      const row = analytics?.rows?.find((row: any) => row[seriesIndex] === value);
 
       return {
-        name: analytics.metaData?.items?.[value]?.name,
-        y: row[valueIndex] ? parseFloat(row[valueIndex]) : 0,
+        name: analytics.metaData?.items?.[value as any]?.name,
+        y: row?.[valueIndex] ? parseFloat(row?.[valueIndex] ?? "") : 0,
       };
     }),
   };
@@ -57,11 +57,11 @@ function getColumnSeries(analytics: Analytics, header: AnalyticsHeader, config: 
   const { items, dimensions } = analytics?.metaData ?? {};
   const categoriesDimension = config.layout.category;
 
-  const seriesDimensionValues: string[] = dimensions?.[header.name];
+  const seriesDimensionValues: string[] = dimensions?.[header.name as "dx" | "ou" | "pe"] ?? [];
 
   return head(
     categoriesDimension?.map((categoryDimension: string) => {
-      const categories: string[] = dimensions?.[categoryDimension] as any;
+      const categories: string[] = dimensions?.[categoryDimension as "dx" | "ou" | "pe"] as any;
       const categoryDimensionIndex = analytics?.headers?.findIndex((h) => h.name === categoryDimension);
       return seriesDimensionValues?.map((seriesDimensionValue: string, index) => {
         const data = categories?.map((category: string) => {
@@ -69,7 +69,7 @@ function getColumnSeries(analytics: Analytics, header: AnalyticsHeader, config: 
           return row?.[valueIndex ?? -1] ? parseFloat(row?.[valueIndex ?? -1]) : 0;
         });
         return {
-          name: items?.[seriesDimensionValue as string]?.name,
+          name: items?.[seriesDimensionValue as any]?.name,
           data,
           type: "column",
           color: colors[index % colors.length],
@@ -98,11 +98,11 @@ function getSeriesConfig(analytics: Analytics, config: ChartConfigurationProps):
 }
 
 function getCategories({ name }: AnalyticsHeader, { items, dimensions }: AnalyticsMetadata): string[] {
-  const categories: string[] = dimensions?.[name] as any;
+  const categories: string[] = dimensions?.[name as "dx" | "ou" | "pe"] as any;
 
   return categories?.map((category: string) => {
-    return items[category]?.name;
-  });
+    return items[category as any]?.name ?? "";
+  }) as unknown as string[];
 }
 
 function getAllCategories(analytics: Analytics, config: ChartConfigurationProps): string[] {
