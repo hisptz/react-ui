@@ -7,7 +7,7 @@ export default function SingleValueItem({ label, value, color, percentage }: Sin
   return (
     <div className={`${styles["single-value-item"]} text-center`}>
       <div className={styles["font-large"]}>{label}</div>
-      <div className={`${styles["font-bold"]} ${styles["font-xx-large"]}`}>{value}</div>
+      <div className={`${styles["font-bold"]} ${styles["font-xx-large"]} ${styles["padding-top"]}`}>{value}</div>
       {percentage ? <SingleValuePercentage color={color} percentage={percentage} /> : <span></span>}
     </div>
   );

@@ -3,6 +3,19 @@
     width: 100%;
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.padding-top {
+    padding-top: 12px;
+}
+
+.percent-value {
+    border-radius: 1rem;
+}
+
+.percent-value div {
+    height: .5rem !important;
 }
 
 .font-large {
