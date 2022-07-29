@@ -6,7 +6,15 @@ import { onCSVDownload, onFullScreenView, onImageDownload, onPDFDownload, onView
 import { ChartMenu } from "./components/Menu";
 import { ChartExportMenuItem } from "./interfaces/menu";
 
-function ChartDownloadMenu({ chartRef, exclude }: { chartRef: HighchartsReact.RefObject | null; exclude?: ChartExportMenuItem[] }) {
+function ChartDownloadMenu({
+  chartRef,
+  exclude,
+  icon,
+}: {
+  chartRef: HighchartsReact.RefObject | null;
+  exclude?: ChartExportMenuItem[];
+  icon?: React.ReactNode;
+}) {
   const menuButtonRef = useRef<HTMLButtonElement | null>(null);
   const [menuRef, setMenuRef] = useState<HTMLButtonElement | null>(null);
   const toggleMenu = () => {
@@ -20,7 +28,6 @@ function ChartDownloadMenu({ chartRef, exclude }: { chartRef: HighchartsReact.Re
   const chart = chartRef;
 
   const onMenuClick = (action: string) => {
-    console.log(chart);
     if (chart) {
       switch (action) {
         case "png":
@@ -51,7 +58,7 @@ function ChartDownloadMenu({ chartRef, exclude }: { chartRef: HighchartsReact.Re
   return (
     <>
       <IconButton onClick={toggleMenu} ref={menuButtonRef}>
-        <IconMore24 />
+        {icon ?? <IconMore24 />}
       </IconButton>
       {menuRef && <ChartMenu exclude={exclude} onClick={onMenuClick} onClose={toggleMenu} menuRef={menuRef} />}
     </>
