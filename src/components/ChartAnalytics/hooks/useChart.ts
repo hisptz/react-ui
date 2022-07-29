@@ -141,11 +141,15 @@ function getXAxis(analytics: Analytics, config: ChartConfigurationProps): any {
   };
 }
 
-function getExporting(name: string) {
+function getExporting(name: string): HighCharts.ExportingOptions {
   return {
-    scaling: 1,
     filename: `${name}`,
     sourceWidth: 1200,
+    buttons: {
+      contextButton: {
+        enabled: false,
+      },
+    },
   };
 }
 

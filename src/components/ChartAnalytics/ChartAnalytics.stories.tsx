@@ -2,6 +2,7 @@ import { CssReset } from "@dhis2/ui";
 import type { ComponentStory } from "@storybook/react";
 import HighCharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
+import HighChartsExportCSV from "highcharts/modules/export-data";
 import HighChartsExport from "highcharts/modules/exporting";
 import React, { useState } from "react";
 import ChartDownloadMenu from "./components/DownloadMenu";
@@ -13,6 +14,7 @@ import ChartAnalytics from ".";
 
 const Template: ComponentStory<any> = (args) => <ChartAnalytics {...args} />;
 HighChartsExport(HighCharts);
+HighChartsExportCSV(HighCharts);
 
 export const Column = Template.bind({});
 Column.args = {
