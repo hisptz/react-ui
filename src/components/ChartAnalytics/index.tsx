@@ -1,15 +1,23 @@
-import i18n from "@dhis2/d2-i18n";
-import React, { Suspense } from "react";
-import ChartItemComponent from "./components/chart-item/Chart-item-component";
+import { uid } from "@hisptz/dhis2-utils";
+import HighCharts from "highcharts";
+import HighchartsReact from "highcharts-react-official";
+import React, { forwardRef, useRef } from "react";
+import ChartDownloadMenu from "./components/DownloadMenu";
+import { useChart } from "./hooks/useChart";
 import { ChartAnalyticsProps } from "./types/props";
-import "./styles/index.css";
+import "./styles/custom-highchart.css";
 
-export default function ChartAnalytics({ analysisData, chartHeight = 1000, chartConfiguration }: ChartAnalyticsProps): React.ReactElement {
-  return (
-    <div className="chart-list">
-      <Suspense fallback={<div>{i18n.t("Loading .....")}</div>}>
-        <ChartItemComponent analysisData={analysisData} chartHeight={chartHeight} chartConfiguration={chartConfiguration} />
-      </Suspense>
-    </div>
-  );
+export * from "./services/export";
+export { ChartDownloadMenu };
+
+function ChartAnalytics({ analytics, config }: ChartAnalyticsProps, ref: React.ForwardedRef<HighchartsReact.RefObject>) {
+  const id = useRef(`${uid()}-chart-item`);
+  const { chart } = useChart({ id: id.current, analytics, config });
+
+  if (!chart) {
+    return null;
+  }
+  return <HighchartsReact ref={ref} containerProps={{ id: id.current }} highcharts={HighCharts} options={{ ...chart }} />;
 }
+
+export default forwardRef(ChartAnalytics);
