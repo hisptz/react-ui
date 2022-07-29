@@ -1,89 +1,52 @@
 import { mount } from "@cypress/react";
-import React from "react";
+import HighCharts from "highcharts";
+import HighchartsReact from "highcharts-react-official";
+import HighChartsExport from "highcharts/modules/exporting";
+import React, { useState } from "react";
+import ChartDownloadMenu from "./components/DownloadMenu";
+import columnData from "./data/column-data.json";
 import ChartAnalytics from ".";
 
-describe("On Chart Analytics Tests", () => {
-  it("Render Chart Analytic Correctly", () => {
-    mount(
-      <ChartAnalytics
-        analytics={{
-          _data: {
-            headers: [
-              {
-                name: "dx",
-                column: "Data",
-                valueType: "TEXT",
-                type: "java.lang.String",
-                hidden: false,
-                meta: true,
-              },
-              {
-                name: "ou",
-                column: "Organisation unit",
-                valueType: "TEXT",
-                type: "java.lang.String",
-                hidden: false,
-                meta: true,
-              },
-              {
-                name: "pe",
-                column: "Period",
-                valueType: "TEXT",
-                type: "java.lang.String",
-                hidden: false,
-                meta: true,
-              },
-              {
-                name: "value",
-                column: "Value",
-                valueType: "NUMBER",
-                type: "java.lang.Double",
-                hidden: false,
-                meta: false,
-              },
-            ],
-            metaData: {
-              names: {
-                "202107": "July 2021",
-                "202108": "August 2021",
-                "202109": "September 2021",
-                "2021Q2": "Apr to Jun 2021",
-                ImspTQPwCqd: "Sierra Leone",
-                dx: "Data",
-                pe: "Period",
-                ou: "Organisation unit",
-                ReUHfIn0pTQ: "ANC 1-3 Dropout Rate",
-              },
-              dx: ["ReUHfIn0pTQ"],
-              pe: ["2021Q2", "202107", "202108", "202109"],
-              ou: ["ImspTQPwCqd"],
-              co: [],
-            },
-            rows: [
-              ["ReUHfIn0pTQ", "ImspTQPwCqd", "2021Q2", "39.7"],
-              ["ReUHfIn0pTQ", "ImspTQPwCqd", "202107", "33.4"],
-              ["ReUHfIn0pTQ", "ImspTQPwCqd", "202108", "33.2"],
-              ["ReUHfIn0pTQ", "ImspTQPwCqd", "202109", "31.3",
-            ],
-            height: 4,
-            width: ,
-          },
-        }}
-        height={1000}
-        config={{
-          layout: {
-            series: ["dx"],
-            category: ["pe"],
-            filter: ["ou",
-          },
-          type: "column,
-        }}
-      />
-    );
-    cy.get(".highcharts-background").should("be.visible");
-    cy.get(".active-chart-type > .chart-option-icon").click();
-    cy.get(".highcharts-xaxis > .highcharts-axis-line").should("be.visible");
-    cy.get("#dataImg").should("be.visible");
-    cy.get(".active-chart-type > .chart-option-icon", { timeout: 4000 }).should("have.attr", "src").should("have.length.above", 2);
+const props: any = {
+  analytics: columnData as any,
+  config: {
+    layout: {
+      series: ["dx"],
+      category: ["ou"],
+      filter: ["pe"],
+    },
+    type: "column",
+    height: 500,
+    colors: ["#2f7ed8", "#0d233a", "#8bbc21", "#910000", "#1aadce", "#492970", "#f28f43", "#77a1e5", "#c42525", "#a6c96a"],
+  },
+};
+
+function TestComponent() {
+  return <ChartAnalytics {...props} />;
+}
+
+function ExportTestComponent() {
+  const [chartRef, setChartRef] = useState<HighchartsReact.RefObject | null>(null);
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column" }}>
+      <div>
+        <ChartDownloadMenu chartRef={chartRef} />
+      </div>
+      <ChartAnalytics {...props} ref={setChartRef} />
+    </div>
+  );
+}
+
+describe("Chart Component Tests", () => {
+  HighChartsExport(HighCharts);
+
+  it("Mounts without errors", () => {
+    mount(<TestComponent />);
+  });
+
+  it("Can be exported as PDF", () => {
+    mount(<ExportTestComponent />);
+    cy.get("[data-test='download-pdf']").click();
   });
 });

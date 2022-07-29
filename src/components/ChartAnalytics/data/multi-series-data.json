@@ -1,0 +1,536 @@
+{
+  "headers": [
+    {
+      "name": "ou",
+      "column": "Organisation unit",
+      "valueType": "TEXT",
+      "type": "java.lang.String",
+      "hidden": false,
+      "meta": true
+    },
+    {
+      "name": "pe",
+      "column": "Period",
+      "valueType": "TEXT",
+      "type": "java.lang.String",
+      "hidden": false,
+      "meta": true
+    },
+    {
+      "name": "value",
+      "column": "Value",
+      "valueType": "NUMBER",
+      "type": "java.lang.Double",
+      "hidden": false,
+      "meta": false
+    }
+  ],
+  "metaData": {
+    "items": {
+      "202107": {
+        "uid": "202107",
+        "code": "202107",
+        "name": "July 2021",
+        "dimensionItemType": "PERIOD",
+        "valueType": "NUMBER",
+        "totalAggregationType": "SUM",
+        "startDate": "2021-07-01T00:00:00.000",
+        "endDate": "2021-07-31T00:00:00.000"
+      },
+      "202108": {
+        "uid": "202108",
+        "code": "202108",
+        "name": "August 2021",
+        "dimensionItemType": "PERIOD",
+        "valueType": "NUMBER",
+        "totalAggregationType": "SUM",
+        "startDate": "2021-08-01T00:00:00.000",
+        "endDate": "2021-08-31T00:00:00.000"
+      },
+      "202109": {
+        "uid": "202109",
+        "code": "202109",
+        "name": "September 2021",
+        "dimensionItemType": "PERIOD",
+        "valueType": "NUMBER",
+        "totalAggregationType": "SUM",
+        "startDate": "2021-09-01T00:00:00.000",
+        "endDate": "2021-09-30T00:00:00.000"
+      },
+      "202110": {
+        "uid": "202110",
+        "code": "202110",
+        "name": "October 2021",
+        "dimensionItemType": "PERIOD",
+        "valueType": "NUMBER",
+        "totalAggregationType": "SUM",
+        "startDate": "2021-10-01T00:00:00.000",
+        "endDate": "2021-10-31T00:00:00.000"
+      },
+      "202111": {
+        "uid": "202111",
+        "code": "202111",
+        "name": "November 2021",
+        "dimensionItemType": "PERIOD",
+        "valueType": "NUMBER",
+        "totalAggregationType": "SUM",
+        "startDate": "2021-11-01T00:00:00.000",
+        "endDate": "2021-11-30T00:00:00.000"
+      },
+      "202112": {
+        "uid": "202112",
+        "code": "202112",
+        "name": "December 2021",
+        "dimensionItemType": "PERIOD",
+        "valueType": "NUMBER",
+        "totalAggregationType": "SUM",
+        "startDate": "2021-12-01T00:00:00.000",
+        "endDate": "2021-12-31T00:00:00.000"
+      },
+      "202201": {
+        "uid": "202201",
+        "code": "202201",
+        "name": "January 2022",
+        "dimensionItemType": "PERIOD",
+        "valueType": "NUMBER",
+        "totalAggregationType": "SUM",
+        "startDate": "2022-01-01T00:00:00.000",
+        "endDate": "2022-01-31T00:00:00.000"
+      },
+      "202202": {
+        "uid": "202202",
+        "code": "202202",
+        "name": "February 2022",
+        "dimensionItemType": "PERIOD",
+        "valueType": "NUMBER",
+        "totalAggregationType": "SUM",
+        "startDate": "2022-02-01T00:00:00.000",
+        "endDate": "2022-02-28T00:00:00.000"
+      },
+      "202203": {
+        "uid": "202203",
+        "code": "202203",
+        "name": "March 2022",
+        "dimensionItemType": "PERIOD",
+        "valueType": "NUMBER",
+        "totalAggregationType": "SUM",
+        "startDate": "2022-03-01T00:00:00.000",
+        "endDate": "2022-03-31T00:00:00.000"
+      },
+      "202204": {
+        "uid": "202204",
+        "code": "202204",
+        "name": "April 2022",
+        "dimensionItemType": "PERIOD",
+        "valueType": "NUMBER",
+        "totalAggregationType": "SUM",
+        "startDate": "2022-04-01T00:00:00.000",
+        "endDate": "2022-04-30T00:00:00.000"
+      },
+      "202205": {
+        "uid": "202205",
+        "code": "202205",
+        "name": "May 2022",
+        "dimensionItemType": "PERIOD",
+        "valueType": "NUMBER",
+        "totalAggregationType": "SUM",
+        "startDate": "2022-05-01T00:00:00.000",
+        "endDate": "2022-05-31T00:00:00.000"
+      },
+      "202206": {
+        "uid": "202206",
+        "code": "202206",
+        "name": "June 2022",
+        "dimensionItemType": "PERIOD",
+        "valueType": "NUMBER",
+        "totalAggregationType": "SUM",
+        "startDate": "2022-06-01T00:00:00.000",
+        "endDate": "2022-06-30T00:00:00.000"
+      },
+      "sB79w2hiLp8": {
+        "uid": "sB79w2hiLp8",
+        "name": "ANC 3 Coverage",
+        "description": "Total 3rd ANC visits (Fixed and outreach) by expected number of pregnant women.",
+        "legendSet": "fqs276KXCXi",
+        "dimensionItemType": "INDICATOR",
+        "valueType": "NUMBER",
+        "totalAggregationType": "AVERAGE",
+        "indicatorType": {
+          "name": "Per cent",
+          "displayName": "Per cent",
+          "factor": 100,
+          "number": false
+        }
+      },
+      "TEQlaapDQoK": {
+        "uid": "TEQlaapDQoK",
+        "code": "OU_254945",
+        "name": "Port Loko",
+        "dimensionItemType": "ORGANISATION_UNIT",
+        "valueType": "NUMBER",
+        "totalAggregationType": "SUM"
+      },
+      "Vth0fbpFcsO": {
+        "uid": "Vth0fbpFcsO",
+        "code": "OU_233310",
+        "name": "Kono",
+        "dimensionItemType": "ORGANISATION_UNIT",
+        "valueType": "NUMBER",
+        "totalAggregationType": "SUM"
+      },
+      "ou": {
+        "uid": "ou",
+        "name": "Organisation unit",
+        "dimensionType": "ORGANISATION_UNIT"
+      },
+      "bL4ooGhyHRQ": {
+        "uid": "bL4ooGhyHRQ",
+        "code": "OU_260377",
+        "name": "Pujehun",
+        "dimensionItemType": "ORGANISATION_UNIT",
+        "valueType": "NUMBER",
+        "totalAggregationType": "SUM"
+      },
+      "wjP19dkFeIk": {
+        "uid": "wjP19dkFeIk",
+        "name": "District"
+      },
+      "LAST_12_MONTHS": {
+        "name": "Last 12 months"
+      },
+      "dx": {
+        "uid": "dx",
+        "name": "Data",
+        "dimensionType": "DATA_X"
+      },
+      "pe": {
+        "uid": "pe",
+        "name": "Period",
+        "dimensionType": "PERIOD"
+      },
+      "qhqAxPSTUXp": {
+        "uid": "qhqAxPSTUXp",
+        "code": "OU_226213",
+        "name": "Koinadugu",
+        "dimensionItemType": "ORGANISATION_UNIT",
+        "valueType": "NUMBER",
+        "totalAggregationType": "SUM"
+      },
+      "jmIPBj66vD6": {
+        "uid": "jmIPBj66vD6",
+        "code": "OU_246990",
+        "name": "Moyamba",
+        "dimensionItemType": "ORGANISATION_UNIT",
+        "valueType": "NUMBER",
+        "totalAggregationType": "SUM"
+      }
+    },
+    "dimensions": {
+      "dx": [
+        "sB79w2hiLp8"
+      ],
+      "pe": [
+        "202107",
+        "202108",
+        "202109",
+        "202110",
+        "202111",
+        "202112",
+        "202201",
+        "202202",
+        "202203",
+        "202204",
+        "202205",
+        "202206"
+      ],
+      "ou": [
+        "qhqAxPSTUXp",
+        "Vth0fbpFcsO",
+        "jmIPBj66vD6",
+        "TEQlaapDQoK",
+        "bL4ooGhyHRQ"
+      ],
+      "co": []
+    }
+  },
+  "rows": [
+    [
+      "qhqAxPSTUXp",
+      "202107",
+      "40.2"
+    ],
+    [
+      "qhqAxPSTUXp",
+      "202108",
+      "49.3"
+    ],
+    [
+      "qhqAxPSTUXp",
+      "202109",
+      "66.0"
+    ],
+    [
+      "qhqAxPSTUXp",
+      "202111",
+      "62.8"
+    ],
+    [
+      "qhqAxPSTUXp",
+      "202201",
+      "39.6"
+    ],
+    [
+      "qhqAxPSTUXp",
+      "202202",
+      "42.8"
+    ],
+    [
+      "qhqAxPSTUXp",
+      "202203",
+      "41.5"
+    ],
+    [
+      "qhqAxPSTUXp",
+      "202204",
+      "45.0"
+    ],
+    [
+      "qhqAxPSTUXp",
+      "202205",
+      "45.1"
+    ],
+    [
+      "qhqAxPSTUXp",
+      "202206",
+      "44.6"
+    ],
+    [
+      "Vth0fbpFcsO",
+      "202107",
+      "46.6"
+    ],
+    [
+      "Vth0fbpFcsO",
+      "202108",
+      "35.3"
+    ],
+    [
+      "Vth0fbpFcsO",
+      "202109",
+      "50.0"
+    ],
+    [
+      "Vth0fbpFcsO",
+      "202112",
+      "47.3"
+    ],
+    [
+      "Vth0fbpFcsO",
+      "202201",
+      "19.0"
+    ],
+    [
+      "Vth0fbpFcsO",
+      "202202",
+      "61.9"
+    ],
+    [
+      "Vth0fbpFcsO",
+      "202203",
+      "56.6"
+    ],
+    [
+      "Vth0fbpFcsO",
+      "202204",
+      "49.5"
+    ],
+    [
+      "Vth0fbpFcsO",
+      "202205",
+      "39.8"
+    ],
+    [
+      "Vth0fbpFcsO",
+      "202206",
+      "48.4"
+    ],
+    [
+      "jmIPBj66vD6",
+      "202107",
+      "97.6"
+    ],
+    [
+      "jmIPBj66vD6",
+      "202108",
+      "90.2"
+    ],
+    [
+      "jmIPBj66vD6",
+      "202109",
+      "100.8"
+    ],
+    [
+      "jmIPBj66vD6",
+      "202110",
+      "87.3"
+    ],
+    [
+      "jmIPBj66vD6",
+      "202111",
+      "92.4"
+    ],
+    [
+      "jmIPBj66vD6",
+      "202112",
+      "72.2"
+    ],
+    [
+      "jmIPBj66vD6",
+      "202201",
+      "92.8"
+    ],
+    [
+      "jmIPBj66vD6",
+      "202202",
+      "100.8"
+    ],
+    [
+      "jmIPBj66vD6",
+      "202203",
+      "94.1"
+    ],
+    [
+      "jmIPBj66vD6",
+      "202204",
+      "104.8"
+    ],
+    [
+      "jmIPBj66vD6",
+      "202205",
+      "102.0"
+    ],
+    [
+      "jmIPBj66vD6",
+      "202206",
+      "97.6"
+    ],
+    [
+      "TEQlaapDQoK",
+      "202107",
+      "54.3"
+    ],
+    [
+      "TEQlaapDQoK",
+      "202108",
+      "57.3"
+    ],
+    [
+      "TEQlaapDQoK",
+      "202109",
+      "59.7"
+    ],
+    [
+      "TEQlaapDQoK",
+      "202110",
+      "52.6"
+    ],
+    [
+      "TEQlaapDQoK",
+      "202111",
+      "57.8"
+    ],
+    [
+      "TEQlaapDQoK",
+      "202201",
+      "41.3"
+    ],
+    [
+      "TEQlaapDQoK",
+      "202202",
+      "46.4"
+    ],
+    [
+      "TEQlaapDQoK",
+      "202203",
+      "39.9"
+    ],
+    [
+      "TEQlaapDQoK",
+      "202204",
+      "51.4"
+    ],
+    [
+      "TEQlaapDQoK",
+      "202205",
+      "62.9"
+    ],
+    [
+      "TEQlaapDQoK",
+      "202206",
+      "62.4"
+    ],
+    [
+      "bL4ooGhyHRQ",
+      "202107",
+      "76.3"
+    ],
+    [
+      "bL4ooGhyHRQ",
+      "202108",
+      "81.0"
+    ],
+    [
+      "bL4ooGhyHRQ",
+      "202109",
+      "89.0"
+    ],
+    [
+      "bL4ooGhyHRQ",
+      "202110",
+      "0.6"
+    ],
+    [
+      "bL4ooGhyHRQ",
+      "202111",
+      "1.2"
+    ],
+    [
+      "bL4ooGhyHRQ",
+      "202112",
+      "0.4"
+    ],
+    [
+      "bL4ooGhyHRQ",
+      "202201",
+      "71.9"
+    ],
+    [
+      "bL4ooGhyHRQ",
+      "202202",
+      "74.7"
+    ],
+    [
+      "bL4ooGhyHRQ",
+      "202203",
+      "59.8"
+    ],
+    [
+      "bL4ooGhyHRQ",
+      "202204",
+      "81.9"
+    ],
+    [
+      "bL4ooGhyHRQ",
+      "202205",
+      "73.8"
+    ],
+    [
+      "bL4ooGhyHRQ",
+      "202206",
+      "89.0"
+    ]
+  ],
+  "height": 55,
+  "width": 3,
+  "headerWidth": 3
+}

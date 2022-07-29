@@ -1,7 +1,7 @@
 import type { Analytics } from "@hisptz/dhis2-utils";
 import HighCharts from "highcharts";
 
-export type ChartType = "column" | "pie";
+export type ChartType = "column" | "pie" | "stacked-column" | "line";
 
 export type ChartConfigurationProps = {
   layout: {
@@ -13,12 +13,12 @@ export type ChartConfigurationProps = {
   height?: number;
   colors?: Array<string>;
   name?: string;
+  allowChartTypeChange?: boolean;
   highChartOverrides?: Record<string, any>;
 };
 
 export type ChartAnalyticsProps = {
   analytics: Analytics;
-  height: number;
   config: ChartConfigurationProps;
 };
 
