@@ -181,7 +181,7 @@ function getPlotOptions(config: ChartConfigurationProps): HighCharts.PlotOptions
   }
 }
 
-export function getHighchartConfig(id: string, analytics: Analytics, config: ChartConfigurationProps): ChartConfiguration {
+export function getHighchartsConfig(id: string, analytics: Analytics, config: ChartConfigurationProps): ChartConfiguration {
   return {
     yAxis: [
       {
@@ -204,7 +204,8 @@ export function getHighchartConfig(id: string, analytics: Analytics, config: Cha
     xAxis: getXAxis(analytics, config),
     exporting: getExporting(config.name ?? "chart"),
     legend: { enabled: true },
-    ...(config.highChartOverrides ?? {}),
+    credits: { enabled: false },
+    ...(config.highChartOverrides ?? {},
   };
 }
 

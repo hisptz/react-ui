@@ -33,4 +33,5 @@ export type ChartConfiguration = {
   yAxis?: HighCharts.YAxisOptions[];
   exporting: HighCharts.ExportingOptions;
   legend: HighCharts.LegendOptions;
+  credits: HighCharts.CreditsOptions;
 };
