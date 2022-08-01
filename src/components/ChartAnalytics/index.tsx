@@ -14,7 +14,6 @@ function ChartAnalytics({ analytics, config }: ChartAnalyticsProps, ref: React.F
   const id = useRef(`${uid()}-chart-item`);
   const { chart } = useChart({ id: id.current, analytics, config });
 
-  console.log(chart);
   if (!chart) {
     return null;
   }
