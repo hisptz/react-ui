@@ -1,54 +1,11 @@
 import type { Analytics, AnalyticsHeader, AnalyticsMetadata } from "@hisptz/dhis2-utils";
-import HighCharts from "highcharts";
 import { compact, find, head, isEmpty, set } from "lodash";
-import { ChartConfiguration, ChartConfigurationProps, ChartType } from "../types/props";
+import { DHIS2Chart } from "../models";
+import { DHIS2ColumnChart, DHIS2StackedColumnChart } from "../models/column";
+import { DHIS2PieChart } from "../models/pie";
+import { ChartConfigurationProps, ChartType } from "../types/props";
 
-function getHighchchartType(config: ChartConfigurationProps): string {
-  switch (config.type) {
-    case "pie":
-      return "pie";
-    case "stacked-column":
-      return "column";
-    default:
-      return "column";
-  }
-}
-
-function getChartConfig(id: string, config: ChartConfigurationProps): HighCharts.ChartOptions {
-  return {
-    renderTo: id,
-    zoomType: "xy",
-    type: getHighchchartType(config),
-    height: config.height,
-    styledMode: false,
-  };
-}
-
-function getPieSeries(analytics: Analytics, config: ChartConfigurationProps): any {
-  const seriesDimension = head(config.layout.series);
-  const seriesIndex = analytics?.headers?.findIndex((h) => h.name === seriesDimension) ?? -1;
-  const valueIndex = analytics?.headers?.findIndex((h) => h.name === "value") ?? -1;
-
-  if (!seriesDimension) {
-    throw new Error("Pie chart must have a series dimension");
-  }
-  const seriesValues = analytics.metaData?.dimensions?.[seriesDimension as "dx" | "ou" | "pe"];
-
-  return {
-    id: seriesDimension,
-    name: analytics.metaData?.items?.[seriesDimension as any]?.name,
-    data: seriesValues?.map((value: string) => {
-      const row = analytics?.rows?.find((row: any) => row[seriesIndex] === value);
-
-      return {
-        name: analytics.metaData?.items?.[value as any]?.name,
-        y: row?.[valueIndex] ? parseFloat(row?.[valueIndex] ?? "") : 0,
-      };
-    }),
-  };
-}
-
-function getColumnSeries(analytics: Analytics, header: AnalyticsHeader, config: ChartConfigurationProps): any {
+export function getColumnSeries(analytics: Analytics, header: AnalyticsHeader, config: ChartConfigurationProps): any {
   const headerIndex = analytics?.headers?.findIndex((h) => header.name === h.name);
   const valueIndex = analytics?.headers?.findIndex((h) => h.name === "value");
 
@@ -79,24 +36,6 @@ function getColumnSeries(analytics: Analytics, header: AnalyticsHeader, config: 
   );
 }
 
-function getSeriesConfig(analytics: Analytics, config: ChartConfigurationProps): Array<any> {
-  const series: string[] = config.layout.series;
-  switch (config.type) {
-    case "pie":
-      return getPieSeries(analytics, config);
-    default:
-      return series.map((seriesName: string) => {
-        const header = analytics?.headers?.find((header: any) => header.name === seriesName);
-        if (!header) {
-          return undefined;
-        }
-        if (analytics?.metaData) {
-          return getColumnSeries(analytics, header, config);
-        }
-      })[0];
-  }
-}
-
 function getCategories({ name }: AnalyticsHeader, { items, dimensions }: AnalyticsMetadata): string[] {
   const categories: string[] = dimensions?.[name as "dx" | "ou" | "pe"] as any;
 
@@ -105,10 +44,7 @@ function getCategories({ name }: AnalyticsHeader, { items, dimensions }: Analyti
   }) as unknown as string[];
 }
 
-function getAllCategories(analytics: Analytics, config: ChartConfigurationProps): string[] {
-  if (config.type === "pie") {
-    return [];
-  }
+export function getAllCategories(analytics: Analytics, config: ChartConfigurationProps): string[] {
   const categories = config.layout.category;
 
   return compact(
@@ -122,91 +58,6 @@ function getAllCategories(analytics: Analytics, config: ChartConfigurationProps)
       }
     })
   )[0];
-}
-
-function getXAxis(analytics: Analytics, config: ChartConfigurationProps): any {
-  if (config.type === "pie") {
-    return undefined;
-  }
-
-  return {
-    type: "category",
-    categories: getAllCategories(analytics, config),
-    crosshair: true,
-    labels: {
-      enabled: true,
-    },
-    title: { text: "" },
-  };
-}
-
-function getExporting(name: string): HighCharts.ExportingOptions {
-  return {
-    filename: `${name}`,
-    sourceWidth: 1200,
-    buttons: {
-      contextButton: {
-        enabled: false,
-      },
-    },
-  };
-}
-
-function getPlotOptions(config: ChartConfigurationProps): HighCharts.PlotOptions | undefined {
-  switch (config.type) {
-    case "pie":
-      return {
-        pie: {
-          allowPointSelect: true,
-          cursor: "pointer",
-          dataLabels: {
-            enabled: true,
-            format: "<b>{point.name}</b>: {point.percentage:.1f} %",
-          },
-        },
-      };
-
-    case "stacked-column":
-      return {
-        column: {
-          stacking: "normal",
-          dataLabels: {
-            enabled: true,
-          },
-        },
-      };
-
-    default:
-      return {};
-  }
-}
-
-export function getHighchartsConfig(id: string, analytics: Analytics, config: ChartConfigurationProps): ChartConfiguration {
-  return {
-    yAxis: [
-      {
-        title: {
-          text: "",
-          style: { color: "#000000", fontWeight: "normal", fontSize: "14px" },
-        },
-        labels: { enabled: true, style: { color: "#000000", fontWeight: "normal", fontSize: "14px" } },
-        plotLines: [
-          { color: "#000000", dashStyle: "Solid", width: 2, zIndex: 1000, label: { text: "" } },
-          { color: "#bbbbbb", dashStyle: "Solid", zIndex: 1000, width: 2, label: { text: "" } },
-        ],
-      },
-    ],
-    chart: getChartConfig(id, config),
-    colors: config.colors ?? ["#2f7ed8", "#0d233a", "#8bbc21", "#910000", "#1aadce", "#492970", "#f28f43", "#77a1e5", "#c42525", "#a6c96a"],
-    series: getSeriesConfig(analytics, config),
-    plotOptions: getPlotOptions(config),
-    title: { text: "" },
-    xAxis: getXAxis(analytics, config),
-    exporting: getExporting(config.name ?? "chart"),
-    legend: { enabled: true },
-    credits: { enabled: false },
-    ...(config.highChartOverrides ?? {}),
-  };
 }
 
 export function updateLayout(config: ChartConfigurationProps, { type }: { type: ChartType }) {
@@ -232,4 +83,17 @@ export function updateLayout(config: ChartConfigurationProps, { type }: { type: 
   }
 
   return updatedLayout;
+}
+
+export function getChartTypeInstance(id: string, analytics: Analytics, config: ChartConfigurationProps): DHIS2Chart {
+  switch (config.type) {
+    case "column":
+      return new DHIS2ColumnChart(id, analytics, config);
+    case "stacked-column":
+      return new DHIS2StackedColumnChart(id, analytics, config);
+    case "pie":
+      return new DHIS2PieChart(id, analytics, config);
+    default:
+      throw new Error(`Unsupported chart type: ${config.type}`);
+  }
 }
