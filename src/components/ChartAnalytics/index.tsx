@@ -13,6 +13,8 @@ export { ChartDownloadMenu };
 function ChartAnalytics({ analytics, config }: ChartAnalyticsProps, ref: React.ForwardedRef<HighchartsReact.RefObject>) {
   const id = useRef(`${uid()}-chart-item`);
   const { chart } = useChart({ id: id.current, analytics, config });
+
+  console.log(chart);
   if (!chart) {
     return null;
   }

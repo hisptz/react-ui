@@ -35,8 +35,8 @@ export class DHIS2MultiSeriesChart extends DHIS2Chart {
       throw new Error("MultiSeries config is required for chart type multi-series");
     }
 
-    const series = compact(
-      seriesConfig?.series?.map(({ id, as }) => {
+    return compact(
+      seriesConfig?.series?.map(({ id, as, cumulative, yAxis }) => {
         const dataItem = analytics.metaData?.items[id as any];
         const categoryItems = analytics.metaData?.dimensions[categoryDimension as "dx" | "ou" | "pe"];
 
@@ -45,16 +45,26 @@ export class DHIS2MultiSeriesChart extends DHIS2Chart {
           return row?.[valueIndex] ? parseFloat(row?.[valueIndex]) : 0;
         });
 
+        let cumulativeData: number[] = [];
+
+        if (cumulative) {
+          cumulativeData =
+            data?.reduce((acc, curr, index) => {
+              if (index === 0) {
+                return [...acc, curr];
+              }
+              return [...acc, acc[index - 1] + curr];
+            }, [] as number[]) ?? [];
+        }
+
         return {
           name: dataItem?.name,
-          data,
+          data: cumulative ? cumulativeData : data,
           type: as,
+          yAxis: yAxis ?? 0,
         };
       })
     ) as SeriesOptionsType[];
-
-    console.log(series);
-    return series;
   }
 
   getXAxis(): XAxisOptions | undefined {
@@ -70,29 +80,36 @@ export class DHIS2MultiSeriesChart extends DHIS2Chart {
   }
 
   getYAxis(): YAxisOptions[] {
-    if (!this.config.multiSeries?.target) {
-      return super.getYAxis();
+    let yAxes: YAxisOptions[] = [];
+
+    if (this.config.multiSeries?.yAxes) {
+      yAxes = this.config.multiSeries?.yAxes;
+    } else {
+      yAxes = super.getYAxis();
     }
 
-    const { value, styles, label } = this.config.multiSeries.target ?? {};
+    if (!this.config.multiSeries?.target) {
+      return yAxes;
+    }
 
-    const yAxis = super.getYAxis();
+    const { value, styles, label } = this.config.multiSeries?.target ?? {};
 
     return [
       {
-        ...yAxis[0],
+        ...yAxes[0],
         plotLines: [
-          ...(yAxis[0].plotLines ?? []),
+          ...(yAxes[0].plotLines ?? []),
           {
             color: styles?.color ?? "#00FF00",
             dashStyle: styles?.dashStyle ?? "Solid",
             value,
             width: styles?.width ?? 2,
             zIndex: styles?.zIndex ?? 1000,
-            label: label,
-          },
-        ],
+            label: labe,
+          ,
+        ,
       },
+      ...yAxes.slice(1,
     ];
   }
 }
