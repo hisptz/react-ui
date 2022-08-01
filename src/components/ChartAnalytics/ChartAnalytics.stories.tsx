@@ -52,11 +52,11 @@ StackedColumn.args = {
     layout: {
       series: ["ou"],
       category: ["pe"],
-      filter: ["d],
+      filter: ["dx"],
     },
     type: "stacked-column",
     height: 1000,
-    colors: ["#2f7ed8", "#0d233a", "#8bbc21", "#910000", "#1aadce", "#492970", "#f28f43", "#77a1e5", "#c42525", "#a6c96],
+    colors: ["#2f7ed8", "#0d233a", "#8bbc21", "#910000", "#1aadce", "#492970", "#f28f43", "#77a1e5", "#c42525", "#a6c96"],
   },
 };
 
@@ -67,11 +67,11 @@ Line.args = {
     layout: {
       series: ["dx"],
       category: ["ou"],
-      filter: ["pe"]
+      filter: ["pe],
     },
     type: "line",
     height: 1000,
-    colors: ["#2f7ed8", "#0d233a", "#8bbc21", "#910000", "#1aadce", "#492970", "#f28f43", "#77a1e5", "#c42525", "#a6c96a"]
+    colors: ["#2f7ed8", "#0d233a", "#8bbc21", "#910000", "#1aadce", "#492970", "#f28f43", "#77a1e5", "#c42525", "#a6c96a],
   },
 };
 
@@ -97,7 +97,7 @@ PieChart.args = {
     layout: {
       series: ["dx"],
       category: [],
-      filter: ["dx", "p"]
+      filter: ["dx", "pe"]
     },
     type: "pie",
     height: 500,

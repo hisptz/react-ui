@@ -105,11 +105,11 @@ export class DHIS2MultiSeriesChart extends DHIS2Chart {
             value,
             width: styles?.width ?? 2,
             zIndex: styles?.zIndex ?? 1000,
-            label: labe,
-          ,
-        ,
+            label: label,
+          },
+        ],
       },
-      ...yAxes.slice(1,
+      ...yAxes.slice(1),
     ];
   }
 }
