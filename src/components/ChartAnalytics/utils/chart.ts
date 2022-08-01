@@ -1,10 +1,15 @@
 import type { Analytics, AnalyticsHeader, AnalyticsMetadata } from "@hisptz/dhis2-utils";
-import { compact, find, head, isEmpty, set } from "lodash";
+import { compact, find, findIndex, head, isEmpty, set } from "lodash";
 import { DHIS2Chart } from "../models";
 import { DHIS2ColumnChart, DHIS2StackedColumnChart } from "../models/column";
 import { DHIS2LineChart } from "../models/line";
+import { DHIS2MultiSeriesChart } from "../models/multi-series";
 import { DHIS2PieChart } from "../models/pie";
 import { ChartConfig, ChartType } from "../types/props";
+
+export function getDimensionHeaderIndex(headers: AnalyticsHeader[], name: string): number {
+  return findIndex(headers, { name });
+}
 
 export function getPointSeries(analytics: Analytics, config: ChartConfig, highchartsType: string) {
   const series: string[] = config.layout.series;
@@ -110,6 +115,8 @@ export function getChartInstance(id: string, analytics: Analytics, config: Chart
       return new DHIS2PieChart(id, analytics, config);
     case "line":
       return new DHIS2LineChart(id, analytics, config);
+    case "multi-series":
+      return new DHIS2MultiSeriesChart(id, analytics, config);
     default:
       throw new Error(`Unsupported chart type: ${config.type}`);
   }

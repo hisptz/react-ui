@@ -1,6 +1,27 @@
 import type { Analytics } from "@hisptz/dhis2-utils";
+import { DashStyleValue, YAxisPlotLinesLabelOptions } from "highcharts";
 
 export type ChartType = "column" | "pie" | "stacked-column" | "line" | "multi-series";
+
+export interface MultiSeriesConfig {
+  series?: Array<{
+    id: string;
+    as: "column" | "line";
+  }>;
+  target?: TargetConfig;
+}
+
+export interface TargetConfig {
+  id: string;
+  value: number;
+  label?: YAxisPlotLinesLabelOptions;
+  styles: {
+    color?: string;
+    width?: number;
+    dashStyle?: DashStyleValue;
+    zIndex?: number;
+  };
+}
 
 export type ChartConfig = {
   layout: {
@@ -14,18 +35,7 @@ export type ChartConfig = {
   name?: string;
   allowChartTypeChange?: boolean;
   highChartOverrides?: Record<string, any>;
-  multiSeries?: {
-    series?: Array<{
-      id: string;
-      as: "column" | "line";
-    }>;
-    target?: {
-      id: string;
-      value: number;
-      label: string;
-      styles: Record<string, any>;
-    };
-  };
+  multiSeries?: MultiSeriesConfig;
 };
 
 export type ChartAnalyticsProps = {

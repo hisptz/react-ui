@@ -1,5 +1,5 @@
 import { CssReset } from "@dhis2/ui";
-import type { ComponentStory } from "@storybook/react";
+import { Story } from "@storybook/react";
 import HighCharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import React, { useState } from "react";
@@ -9,9 +9,10 @@ import multiSeriesData from "./data/multi-series-data.json";
 import pieData from "./data/pie-data.json";
 import stackedChartData from "./data/stacked-chart-data.json";
 import { setupHighchartsModules } from "./services/export";
+import { ChartAnalyticsProps } from "./types/props";
 import ChartAnalytics from ".";
 
-const Template: ComponentStory<any> = (args) => <ChartAnalytics {...args} />;
+const Template: Story<ChartAnalyticsProps> = (args) => <ChartAnalytics {...args} />;
 setupHighchartsModules(HighCharts);
 
 export const Column = Template.bind({});
@@ -28,46 +29,17 @@ Column.args = {
     colors: ["#2f7ed8", "#0d233a", "#8bbc21", "#910000", "#1aadce", "#492970", "#f28f43", "#77a1e5", "#c42525", "#a6c96a"],
   },
 };
-export const Line = Template.bind({});
-Line.args = {
-  analytics: columnData as any,
-  config: {
-    layout: {
-      series: ["dx"],
-      category: ["ou"],
-      filter: ["pe"],
-    },
-    type: "line",
-    height: 500,
-    colors: ["#2f7ed8", "#0d233a", "#8bbc21", "#910000", "#1aadce", "#492970", "#f28f43", "#77a1e5", "#c42525", "#a6c96a"],
-  },
-};
 
-export const MultipleSeries = Template.bind({});
-MultipleSeries.args = {
+export const MultipleColumns = Template.bind({});
+MultipleColumns.args = {
   analytics: multiSeriesData as any,
   config: {
     layout: {
       series: ["ou"],
       category: ["pe"],
-      filter: ["d"],
+      filter: ["dx"],
     },
     type: "column",
-    height: 500,
-    colors: ["#2f7ed8", "#0d233a", "#8bbc21", "#910000", "#1aadce", "#492970", "#f28f43", "#77a1e5", "#c42525", "#a6c96"],
-  },
-};
-
-export const PieChart = Template.bind({});
-PieChart.args = {
-  analytics: pieData as any,
-  config: {
-    layout: {
-      series: ["dx"],
-      category: [],
-      filter: ["dx", "p"],
-    },
-    type: "pie",
     height: 500,
     colors: ["#2f7ed8", "#0d233a", "#8bbc21", "#910000", "#1aadce", "#492970", "#f28f43", "#77a1e5", "#c42525", "#a6c96"],
   },
@@ -85,6 +57,91 @@ StackedColumn.args = {
     type: "stacked-column",
     height: 500,
     colors: ["#2f7ed8", "#0d233a", "#8bbc21", "#910000", "#1aadce", "#492970", "#f28f43", "#77a1e5", "#c42525", "#a6c96"],
+  },
+};
+
+export const Line = Template.bind({});
+Line.args = {
+  analytics: columnData as any,
+  config: {
+    layout: {
+      series: ["dx"],
+      category: ["ou"],
+      filter: ["pe"],
+    },
+    type: "line",
+    height: 500,
+    colors: ["#2f7ed8", "#0d233a", "#8bbc21", "#910000", "#1aadce", "#492970", "#f28f43", "#77a1e5", "#c42525", "#a6c96a"],
+  },
+};
+
+export const MultipleLines = Template.bind({});
+MultipleLines.args = {
+  analytics: multiSeriesData as any,
+  config: {
+    layout: {
+      series: ["ou"],
+      category: ["pe"],
+      filter: ["dx"],
+    },
+    type: "line",
+    height: 500,
+    colors: ["#2f7ed8", "#0d233a", "#8bbc21", "#910000", "#1aadce", "#492970", "#f28f43", "#77a1e5", "#c42525", "#a6c96"],
+  },
+};
+
+export const PieChart = Template.bind({});
+PieChart.args = {
+  analytics: pieData as any,
+  config: {
+    layout: {
+      series: ["dx"],
+      category: [],
+      filte: ["dx", "p"],
+    },
+    type: "pie",
+    height: 500,
+    colors: ["#2f7ed8", "#0d233a", "#8bbc21", "#910000", "#1aadce", "#492970", "#f28f43", "#77a1e5", "#c4255", "#a6c96"],
+  },
+};
+
+export const MultiSeries = Template.bind({});
+MultiSeries.args = {
+  analytics: multiSeriesData as any,
+  config: {
+    layout: {
+      series: ["ou"],
+      category: ["pe"],
+      ilter: ["dx"],
+    },
+    type: "multi-series",
+    height: 500,
+    colors: ["#2f7ed8", "#0d233a", "#8bbc21", "#910000", "#1aadce", "#492970", "#f28f43", "#77a1e5", "#c42525", "#a6c96"],
+    multiSeries: {
+      series: [
+        {
+          id: "qhqAxPSTUXp",
+         as: "column",
+        },
+        {
+          id: "Vth0fbpFcsO",
+         as: "lie",
+        },
+      ],
+      target: {
+        id: "",
+        styles: {
+         color: "blue",
+        },
+        value: 45,
+        label: {
+          text: "Target",
+          textAlign: "center",
+          verticalAlign: "middle",
+         x 3,
+       },
+    },
+    },
   },
 };
 

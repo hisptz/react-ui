@@ -47,7 +47,7 @@ export abstract class DHIS2Chart {
 
   abstract getXAxis(): HighCharts.XAxisOptions | undefined;
 
-  getYAxis(): HighCharts.YAxisOptions[] | undefined {
+  getYAxis(): HighCharts.YAxisOptions[] {
     return [
       {
         title: {
