@@ -1,13 +1,13 @@
 import type { Analytics } from "@hisptz/dhis2-utils";
 import HighCharts from "highcharts";
-import { ChartConfigurationProps } from "../types/props";
+import { ChartConfig } from "../types/props";
 
 export abstract class DHIS2Chart {
   id: string;
   analytics: Analytics;
-  config: ChartConfigurationProps;
+  config: ChartConfig;
 
-  constructor(id: string, analytics: Analytics, config: ChartConfigurationProps) {
+  constructor(id: string, analytics: Analytics, config: ChartConfig) {
     this.id = id;
     this.analytics = analytics;
     this.config = config;

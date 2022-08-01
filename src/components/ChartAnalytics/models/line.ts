@@ -2,27 +2,19 @@ import { PlotOptions, SeriesOptionsType, XAxisOptions } from "highcharts";
 import { getAllCategories, getPointSeries } from "../utils/chart";
 import { DHIS2Chart } from "./index";
 
-export class DHIS2ColumnChart extends DHIS2Chart {
-  getCategories(): any[] | undefined {
-    return undefined;
-  }
-
+export class DHIS2LineChart extends DHIS2Chart {
   getHighchartsType(): string {
-    return "column";
+    return "line";
   }
 
   getPlotOptions(): PlotOptions {
     return {
-      column: {
-        dataLabels: {
-          enabled: true,
-        },
-      },
+      line: {},
     };
   }
 
   getSeries(): SeriesOptionsType[] {
-    return getPointSeries(this.analytics, this.config, "column");
+    return getPointSeries(this.analytics, this.config, "line");
   }
 
   getXAxis(): XAxisOptions | undefined {
@@ -34,17 +26,6 @@ export class DHIS2ColumnChart extends DHIS2Chart {
         enabled: true,
       },
       title: { text: "" },
-    };
-  }
-}
-
-export class DHIS2StackedColumnChart extends DHIS2ColumnChart {
-  getPlotOptions(): PlotOptions {
-    return {
-      column: {
-        stacking: "normal",
-        ...super.getPlotOptions().column,
-      },
     };
   }
 }

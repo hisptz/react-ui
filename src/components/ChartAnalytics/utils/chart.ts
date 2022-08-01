@@ -2,10 +2,25 @@ import type { Analytics, AnalyticsHeader, AnalyticsMetadata } from "@hisptz/dhis
 import { compact, find, head, isEmpty, set } from "lodash";
 import { DHIS2Chart } from "../models";
 import { DHIS2ColumnChart, DHIS2StackedColumnChart } from "../models/column";
+import { DHIS2LineChart } from "../models/line";
 import { DHIS2PieChart } from "../models/pie";
-import { ChartConfigurationProps, ChartType } from "../types/props";
+import { ChartConfig, ChartType } from "../types/props";
 
-export function getColumnSeries(analytics: Analytics, header: AnalyticsHeader, config: ChartConfigurationProps): any {
+export function getPointSeries(analytics: Analytics, config: ChartConfig, highchartsType: string) {
+  const series: string[] = config.layout.series;
+
+  return series.map((seriesName: string) => {
+    const header = analytics?.headers?.find((header: any) => header.name === seriesName);
+    if (!header) {
+      return undefined;
+    }
+    if (analytics?.metaData) {
+      return getColumnSeries(analytics, header, config, highchartsType);
+    }
+  })[0];
+}
+
+export function getColumnSeries(analytics: Analytics, header: AnalyticsHeader, config: ChartConfig, highchartsType: string): any {
   const headerIndex = analytics?.headers?.findIndex((h) => header.name === h.name);
   const valueIndex = analytics?.headers?.findIndex((h) => h.name === "value");
 
@@ -28,7 +43,7 @@ export function getColumnSeries(analytics: Analytics, header: AnalyticsHeader, c
         return {
           name: items?.[seriesDimensionValue as any]?.name,
           data,
-          type: "column",
+          type: highchartsType,
           color: colors[index % colors.length],
         };
       });
@@ -44,7 +59,7 @@ function getCategories({ name }: AnalyticsHeader, { items, dimensions }: Analyti
   }) as unknown as string[];
 }
 
-export function getAllCategories(analytics: Analytics, config: ChartConfigurationProps): string[] {
+export function getAllCategories(analytics: Analytics, config: ChartConfig): string[] {
   const categories = config.layout.category;
 
   return compact(
@@ -60,7 +75,7 @@ export function getAllCategories(analytics: Analytics, config: ChartConfiguratio
   )[0];
 }
 
-export function updateLayout(config: ChartConfigurationProps, { type }: { type: ChartType }) {
+export function updateLayout(config: ChartConfig, { type }: { type: ChartType }) {
   if (type === config.type) {
     return config.layout;
   }
@@ -85,7 +100,7 @@ export function updateLayout(config: ChartConfigurationProps, { type }: { type: 
   return updatedLayout;
 }
 
-export function getChartTypeInstance(id: string, analytics: Analytics, config: ChartConfigurationProps): DHIS2Chart {
+export function getChartInstance(id: string, analytics: Analytics, config: ChartConfig): DHIS2Chart {
   switch (config.type) {
     case "column":
       return new DHIS2ColumnChart(id, analytics, config);
@@ -93,6 +108,8 @@ export function getChartTypeInstance(id: string, analytics: Analytics, config: C
       return new DHIS2StackedColumnChart(id, analytics, config);
     case "pie":
       return new DHIS2PieChart(id, analytics, config);
+    case "line":
+      return new DHIS2LineChart(id, analytics, config);
     default:
       throw new Error(`Unsupported chart type: ${config.type}`);
   }
