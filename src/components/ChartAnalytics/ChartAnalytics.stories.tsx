@@ -67,11 +67,11 @@ Line.args = {
     layout: {
       series: ["dx"],
       category: ["ou"],
-      filter: ["pe],
+      filter: ["pe"],
     },
     type: "line",
     height: 1000,
-    colors: ["#2f7ed8", "#0d233a", "#8bbc21", "#910000", "#1aadce", "#492970", "#f28f43", "#77a1e5", "#c42525", "#a6c96a],
+    colors: ["#2f7ed8", "#0d233a", "#8bbc21", "#910000", "#1aadce", "#492970", "#f28f43", "#77a1e5", "#c42525", "#a6c96a"],
   },
 };
 
@@ -97,7 +97,7 @@ PieChart.args = {
     layout: {
       series: ["dx"],
       category: [],
-      filter: ["dx", "pe"]
+      filter: ["dx", "pe"],
     },
     type: "pie",
     height: 500,
@@ -112,7 +112,7 @@ MultiSeries.args = {
     layout: {
       series: ["ou"],
       category: ["pe"],
-      filter: ["dx"]
+      filter: ["dx"],
     },
     type: "multi-series",
     height: 500,
@@ -122,48 +122,48 @@ MultiSeries.args = {
         {
           id: "qhqAxPSTUXp",
           as: "column",
-          yAxis: 0
+          yAxis: 0,
         },
         {
           id: "Vth0fbpFcsO",
           as: "line",
           cumulative: true,
-          yAxis: 1
-        }
+          yAxis: 1,
+        },
       ],
       yAxes: [
         {
           id: "yAxis1",
           title: {
-            text: "Koinandugu"
+            text: "Koinandugu",
           },
           labels: {
-            format: "{value}"
-          }
+            format: "{value}",
+          },
         },
         {
           id: "yAxis2",
           title: {
-            text: "Kono"
+            text: "Kono",
           },
           labels: {
-            format: "{value}"
+            format: "{value}",
           },
-          opposite: true
-        }
+          opposite: true,
+        },
       ],
       target: {
         id: "",
         styles: {
-          color: "blue"
+          color: "blue",
         },
         value: 45,
         label: {
           text: "Target",
           textAlign: "center",
-          verticalAlign: "middle"
-        }
-      }
+          verticalAlign: "middle",
+        },
+      },
     },
   },
 };
