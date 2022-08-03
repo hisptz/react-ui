@@ -4,7 +4,7 @@ import { compact, isEmpty } from "lodash";
 import React, { useEffect, useState } from "react";
 import { MapOrgUnit, MapProviderProps } from "../../interfaces";
 import { MapOrgUnitContext, MapPeriodContext } from "../../state";
-import { getCoordinatesFromBounds, getOrgUnitsSelection, sanitizeBounds, sanitizeOrgUnits } from "../../utils/map";
+import { getOrgUnitsSelection, sanitizeOrgUnits, toGeoJson } from "../../utils/map";
 
 const boundaryQuery = {
   boundaries: {
@@ -25,7 +25,7 @@ const boundaryQuery = {
 
 export function MapProvider({ children, orgUnitSelection, periodSelection }: MapProviderProps) {
   const [orgUnits, setOrgUnits] = useState<MapOrgUnit[]>([]);
-  const { refetch, loading, error } = useDataQuery(boundaryQuery, { lazy: true });
+  const { refetch, loading } = useDataQuery(boundaryQuery, { lazy: true });
 
   useEffect(() => {
     async function getOrgUnits() {
@@ -33,23 +33,24 @@ export function MapProvider({ children, orgUnitSelection, periodSelection }: Map
       const data = await refetch({ orgUnitIds: rawOrgUnitIds });
       const { analytics, boundaries } = (data as any) ?? {};
       const rawOrgUnits = sanitizeOrgUnits(analytics?.metaData);
+      const geoJSONObjects = toGeoJson(boundaries.filter((bound: any) => bound.co));
       const orgUnits: MapOrgUnit[] = compact(
         rawOrgUnits.map((orgUnit: any) => {
-          const coordinateObject: any = boundaries?.find((coordinate: any) => coordinate.id === orgUnit.id);
-          if (!coordinateObject) {
+          const geoJSONObject: any = geoJSONObjects?.find((geoJSON: any) => geoJSON.properties.id === orgUnit.id);
+
+          if (!geoJSONObject) {
             return;
           }
           return {
             ...orgUnit,
-            coordinates: getCoordinatesFromBounds(JSON.parse(coordinateObject?.co)),
-            bounds: sanitizeBounds(JSON.parse(coordinateObject?.co)),
-            level: coordinateObject?.le,
+            geoJSON: geoJSONObject,
+            bounds: [],
+            level: geoJSONObject.properties.level,
           };
         })
       );
       setOrgUnits(orgUnits);
     }
-
     getOrgUnits();
   }, [orgUnitSelection, refetch]);
 
