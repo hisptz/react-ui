@@ -17,7 +17,7 @@ function ChartAnalytics({ analytics, config }: ChartAnalyticsProps, ref: React.F
   if (!chart) {
     return null;
   }
-  return <HighchartsReact ref={ref} containerProps={{ id: id.current }} highcharts={HighCharts} options={{ ...chart }} />;
+  return <HighchartsReact immutable ref={ref} containerProps={{ id: id.current }} highcharts={HighCharts} options={{ ...chart }} />;
 }
 
 export default forwardRef(ChartAnalytics);
