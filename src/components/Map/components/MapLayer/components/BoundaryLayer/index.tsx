@@ -1,7 +1,7 @@
 import i18n from "@dhis2/d2-i18n";
 import { colors } from "@dhis2/ui";
 import React from "react";
-import { LayerGroup, LayersControl, Polygon, Popup, Tooltip } from "react-leaflet";
+import { GeoJSON, LayerGroup, LayersControl, Popup, Tooltip } from "react-leaflet";
 import { MapOrgUnit } from "../../../../interfaces";
 import { highlightFeature, resetHighlight } from "../../../../utils/map";
 import { BoundaryLayer as BoundaryLayerInterface } from "../../interfaces";
@@ -36,17 +36,16 @@ export default function BoundaryLayer(props: BoundaryLayerProps) {
     <LayersControl.Overlay checked={enabled} name={i18n.t("Boundaries")}>
       <LayerGroup>
         {orgUnits?.map((area: MapOrgUnit) => {
-          const bounds = area.bounds;
           return (
-            <Polygon
+            <GeoJSON
+              data={area.geoJSON}
               interactive
               eventHandlers={{
                 mouseover: (e) => highlightFeature(e, highlightStyle),
                 mouseout: (e) => resetHighlight(e, defaultStyle),
               }}
               key={`${area.id}-polygon`}
-              pathOptions={defaultStyle}
-              positions={bounds}>
+              pathOptions={defaultStyle}>
               <Tooltip>{area.name}</Tooltip>
               <Popup minWidth={80}>
                 <h3>{area.name}</h3>
@@ -55,7 +54,7 @@ export default function BoundaryLayer(props: BoundaryLayerProps) {
                   {area.level}
                 </div>
               </Popup>
-            </Polygon>
+            </GeoJSON>
           );
         })}
       </LayerGroup>

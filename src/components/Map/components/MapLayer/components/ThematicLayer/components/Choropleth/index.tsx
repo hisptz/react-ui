@@ -1,6 +1,6 @@
 import { colors } from "@dhis2/ui";
 import React from "react";
-import { Polygon, Popup, Tooltip } from "react-leaflet";
+import { GeoJSON, Popup, Tooltip } from "react-leaflet";
 import { defaultLegendSet } from "../../../../../../constants/legendSet";
 import { MapOrgUnit } from "../../../../../../interfaces";
 import { getColorFromLegendSet, highlightFeature, resetHighlight } from "../../../../../../utils/map";
@@ -17,7 +17,8 @@ export default function Choropleth({ data }: { data: { orgUnit: MapOrgUnit; data
   const { dataItem, orgUnit } = data;
   return (
     <>
-      <Polygon
+      <GeoJSON
+        data={orgUnit.geoJSON}
         eventHandlers={{
           mouseover: (e) => highlightFeature(e, highlightStyle),
           mouseout: (e) => resetHighlight(e, defaultStyle),
@@ -28,8 +29,7 @@ export default function Choropleth({ data }: { data: { orgUnit: MapOrgUnit; data
           color: colors.grey900,
           weight: 1,
         }}
-        key={`${data.dataItem.id}-layer`}
-        positions={orgUnit.bounds}>
+        key={`${data.dataItem.id}-layer`}>
         <Tooltip>
           {data?.orgUnit?.name} ({data?.data})
         </Tooltip>
@@ -44,7 +44,7 @@ export default function Choropleth({ data }: { data: { orgUnit: MapOrgUnit; data
             {data?.data}
           </div>
         </Popup>
-      </Polygon>
+      </GeoJSON>
     </>
   );
 }

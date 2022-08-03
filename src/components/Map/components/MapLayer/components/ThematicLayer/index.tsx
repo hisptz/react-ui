@@ -25,7 +25,9 @@ export default function ThematicLayer({ layer }: { layer: ThematicLayerInterface
   return (
     <>
       <LayersControl.Overlay checked={enabled} name={name ?? dataItem.displayName}>
-        <LayerGroup>{data?.map((datum) => (type === "choropleth" ? <Choropleth data={datum} key={`${datum.dataItem.id}-layer`} /> : null))}</LayerGroup>
+        <LayerGroup>
+          {data?.map((datum) => (type === "choropleth" ? <Choropleth data={datum} key={`${datum?.dataItem?.id}-${datum?.orgUnit?.id}-layer`} /> : null))}
+        </LayerGroup>
       </LayersControl.Overlay>
       {control && (
         <Control position={control.position}>
