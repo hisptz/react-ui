@@ -1,0 +1,124 @@
+{
+  "headers": [
+    {
+      "name": "dx",
+      "column": "Data",
+      "valueType": "TEXT",
+      "type": "java.lang.String",
+      "hidden": false,
+      "meta": true
+    },
+    {
+      "name": "pe",
+      "column": "Period",
+      "valueType": "TEXT",
+      "type": "java.lang.String",
+      "hidden": false,
+      "meta": true
+    },
+    {
+      "name": "value",
+      "column": "Value",
+      "valueType": "NUMBER",
+      "type": "java.lang.Double",
+      "hidden": false,
+      "meta": false
+    }
+  ],
+  "metaData": {
+    "items": {
+      "202108": {
+        "name": "August 2021"
+      },
+      "202109": {
+        "name": "September 2021"
+      },
+      "202110": {
+        "name": "October 2021"
+      },
+      "202111": {
+        "name": "November 2021"
+      },
+      "202112": {
+        "name": "December 2021"
+      },
+      "202201": {
+        "name": "January 2022"
+      },
+      "202202": {
+        "name": "February 2022"
+      },
+      "202203": {
+        "name": "March 2022"
+      },
+      "202204": {
+        "name": "April 2022"
+      },
+      "202205": {
+        "name": "May 2022"
+      },
+      "202206": {
+        "name": "June 2022"
+      },
+      "202207": {
+        "name": "July 2022"
+      },
+      "ou": {
+        "name": "Organisation unit"
+      },
+      "LAST_12_MONTHS": {
+        "name": "Last 12 months"
+      },
+      "QQkOAJFukyY": {
+        "name": "COV-C: Jumla ya Waliochanjwa (Fully vaccinated)"
+      },
+      "dx": {
+        "name": "Data"
+      },
+      "pe": {
+        "name": "Period"
+      },
+      "HllvX50cXC0": {
+        "name": "default"
+      },
+      "acZHYslyJLt": {
+        "name": "Dar Es Salaam Region"
+      }
+    },
+    "dimensions": {
+      "dx": [
+        "QQkOAJFukyY"
+      ],
+      "pe": [
+        "202108",
+        "202109",
+        "202110",
+        "202111",
+        "202112",
+        "202201",
+        "202202",
+        "202203",
+        "202204",
+        "202205",
+        "202206",
+        "202207"
+      ],
+      "ou": [
+        "acZHYslyJLt"
+      ],
+      "co": [
+        "HllvX50cXC0"
+      ]
+    }
+  },
+  "width": 3,
+  "height": 1,
+  "rows": [
+    [
+      "QQkOAJFukyY",
+      "202203",
+      "1820.0"
+    ]
+  ],
+  "headerWidth": 3
+}

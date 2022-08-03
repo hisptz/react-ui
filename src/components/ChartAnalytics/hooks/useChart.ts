@@ -9,7 +9,7 @@ export function useChart({ id, analytics, config }: { id: string; analytics: Ana
   chart?: HighCharts.Options;
   changeChartType: (type: ChartType) => void;
 } {
-  const [chart, setChart] = useState<HighCharts.Options | undefined>();
+  const [chart, setChart] = useState<HighCharts.Options | undefined>(getChartInstance(id, analytics, config).getOptions());
 
   const changeChartType = useCallback(
     (type: ChartType) => {
@@ -20,12 +20,6 @@ export function useChart({ id, analytics, config }: { id: string; analytics: Ana
     },
     [config, id, analytics]
   );
-
-  const [, doRender] = useState(true);
-  useEffect(() => {
-    //Forces re-rendering of chart change for pie chart
-    doRender((prevState) => !prevState);
-  }, [chart]);
 
   useEffect(() => {
     if (analytics && config) {
