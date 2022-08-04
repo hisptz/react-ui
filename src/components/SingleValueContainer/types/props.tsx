@@ -9,6 +9,7 @@ export type SingleValue = {
   label: string;
   value: number;
   percentage?: number;
+  decimalPlaces?: number;
   color?: string;
   animationDuration?: number;
   animationDelay?: number;

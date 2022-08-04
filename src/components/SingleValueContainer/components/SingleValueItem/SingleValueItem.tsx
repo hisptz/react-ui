@@ -11,8 +11,6 @@ interface SingleValueProps extends SingleValue {
   globalAnimationDuration?: number;
 }
 
-const numberFormatter = (value: number) => Intl.NumberFormat("en-US", { notation: "compact" }).format(value);
-
 export default function SingleValueItem({
   label,
   value,
@@ -21,8 +19,11 @@ export default function SingleValueItem({
   animationDuration,
   animationDelay,
   globalAnimationDelay,
+  decimalPlaces,
   globalAnimationDuration,
 }: SingleValueProps): React.ReactElement {
+  const numberFormatter = (value: number) => Intl.NumberFormat("en-US", { notation: "compact", decimalPlaces: decimalPlaces ?? 1 }).format(value);
+
   const sanitizedValue = useSpring({
     val: value,
     from: { val: 0 },

@@ -116,6 +116,25 @@ AnimatedSingleValue.args = {
   ],
 };
 
+export const SingleValuesWithDecimalPlaces = Template.bind({});
+SingleValuesWithDecimalPlaces.args = {
+  title: "ENROLLMENTS",
+  animationDuration: 1500,
+  animationDelay: 500,
+  singleValueItems: [
+    {
+      label: "Number of Enrolled Clients",
+      value: 268423,
+      decimalPlaces: 3,
+    },
+    {
+      label: "Number of Served Clients",
+      value: 268423,
+      decimalPlaces: 1,
+    },
+  ],
+};
+
 export default {
   title: "Components/Single Value Container",
   component: SingleValueContainer,
