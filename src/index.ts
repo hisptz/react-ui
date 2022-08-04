@@ -1,4 +1,12 @@
-import ChartAnalytics from "./components/ChartAnalytics/index";
+import ChartAnalytics, {
+  ChartDownloadMenu,
+  onCSVDownload,
+  onFullScreenView,
+  onImageDownload,
+  onPDFDownload,
+  onViewAsTable,
+  setupHighchartsModules,
+} from "./components/ChartAnalytics/index";
 import CircularProgressDashboard from "./components/CircularProgressDashboard/index";
 import ConfigurationStepper from "./components/ConfigurationStepper/index";
 import { ConfirmDialog, ConfirmDialogConfig, ConfirmDialogProvider, useConfirmDialog } from "./components/ConfirmDialog";
@@ -33,6 +41,13 @@ export {
   CircularProgressDashboard,
   Map,
   SingleValueContainer,
+  ChartDownloadMenu,
+  setupHighchartsModules,
+  onFullScreenView,
+  onViewAsTable,
+  onPDFDownload,
+  onCSVDownload,
+  onImageDownload,
 };
 
 export type { ConfirmDialogConfig, RHFLegendDefinitionFormFieldProps };

@@ -1,27 +1,24 @@
-import { getBounds, getCenter } from "geolib";
-import { LatLngTuple } from "leaflet";
-import { flattenDeep } from "lodash";
+import { geoJSON } from "leaflet";
 import { useMemo } from "react";
 import { useMapOrganisationUnit } from "../components/MapProvider/hooks";
-import { convertCoordinates } from "../utils/map";
 
 export function useMapBounds() {
   const { orgUnits } = useMapOrganisationUnit();
 
-  const boundPoints = useMemo(() => flattenDeep(orgUnits?.map((area: any) => area.coordinates?.map(convertCoordinates))) ?? [], [orgUnits]);
+  const geoJSONObject = useMemo(
+    () =>
+      geoJSON({
+        type: "FeatureCollection",
+        features: orgUnits?.map((orgUnit) => orgUnit.geoJSON),
+      } as any),
+    [orgUnits]
+  );
 
   const center = useMemo(() => {
-    const center = getCenter(boundPoints) ?? {};
-    if (center) {
-      return { lat: center.latitude, lng: center.longitude };
-    }
+    return geoJSONObject.getBounds().getCenter();
   }, [orgUnits]);
-  const bounds: Array<LatLngTuple> = useMemo(() => {
-    const { minLat, maxLat, minLng, maxLng } = getBounds(boundPoints);
-    return [
-      [minLat, minLng],
-      [maxLat, maxLng],
-    ];
+  const bounds: any = useMemo(() => {
+    return geoJSONObject.getBounds();
   }, [orgUnits]);
 
   return {

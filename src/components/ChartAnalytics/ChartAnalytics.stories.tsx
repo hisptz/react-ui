@@ -1,189 +1,234 @@
+import { CssReset } from "@dhis2/ui";
 import type { Story } from "@storybook/react";
-import React from "react";
+import HighCharts from "highcharts";
+import HighchartsReact from "highcharts-react-official";
+import React, { useState } from "react";
+import ChartDownloadMenu from "./components/DownloadMenu";
+import columnData from "./data/column-data.json";
+import complexMultiSeriesData from "./data/complex-multi-series-data.json";
+import multiSeriesData from "./data/multi-series-data.json";
+import pieData from "./data/pie-data.json";
+import stackedChartData from "./data/stacked-chart-data.json";
+import { setupHighchartsModules } from "./services/export";
 import { ChartAnalyticsProps } from "./types/props";
 import ChartAnalytics from ".";
 
 const Template: Story<ChartAnalyticsProps> = (args) => <ChartAnalytics {...args} />;
+setupHighchartsModules(HighCharts);
 
-export const Default = Template.bind({});
-Default.args = {
-  analysisData: {
-    _data: {
-      headers: [
-        {
-          name: "dx",
-          column: "Data",
-          valueType: "TEXT",
-          type: "java.lang.String",
-          hidden: false,
-          meta: true,
-        },
-        {
-          name: "ou",
-          column: "Organisation unit",
-          valueType: "TEXT",
-          type: "java.lang.String",
-          hidden: false,
-          meta: true,
-        },
-        {
-          name: "pe",
-          column: "Period",
-          valueType: "TEXT",
-          type: "java.lang.String",
-          hidden: false,
-          meta: true,
-        },
-        {
-          name: "value",
-          column: "Value",
-          valueType: "NUMBER",
-          type: "java.lang.Double",
-          hidden: false,
-          meta: false,
-        },
-      ],
-      metaData: {
-        names: {
-          "202107": "July 2021",
-          "202108": "August 2021",
-          "202109": "September 2021",
-          "2021Q2": "Apr to Jun 2021",
-          ImspTQPwCqd: "Sierra Leone",
-          dx: "Data",
-          pe: "Period",
-          ou: "Organisation unit",
-          ReUHfIn0pTQ: "ANC 1-3 Dropout Rate",
-        },
-        dx: ["ReUHfIn0pTQ"],
-        pe: ["2021Q2", "202107", "202108", "202109"],
-        ou: ["ImspTQPwCqd"],
-        co: [],
-      },
-      rows: [
-        ["ReUHfIn0pTQ", "ImspTQPwCqd", "2021Q2", "39.7"],
-        ["ReUHfIn0pTQ", "ImspTQPwCqd", "202107", "33.4"],
-        ["ReUHfIn0pTQ", "ImspTQPwCqd", "202108", "33.2"],
-        ["ReUHfIn0pTQ", "ImspTQPwCqd", "202109", "31.3"],
-      ],
-      height: 4,
-      width: 4,
-    },
-  },
-  chartConfiguration: {
+export const Column = Template.bind({});
+Column.args = {
+  analytics: columnData as any,
+  config: {
     layout: {
-      column: ["dx"],
-      row: ["pe"],
-      filter: ["ou"],
+      series: ["dx"],
+      category: ["ou"],
+      filter: ["pe"],
     },
-    currentChartType: "column",
+    type: "column",
+    height: 500,
+    colors: ["#2f7ed8", "#0d233a", "#8bbc21", "#910000", "#1aadce", "#492970", "#f28f43", "#77a1e5", "#c42525", "#a6c96a"],
   },
 };
 
-export const LinkedChart = Template.bind({});
-LinkedChart.args = {
-  analysisData: {
-    _data: {
-      headers: [
+export const MultipleColumns = Template.bind({});
+MultipleColumns.args = {
+  analytics: multiSeriesData as any,
+  config: {
+    layout: {
+      series: ["ou"],
+      category: ["pe"],
+      filter: ["dx"],
+    },
+    type: "column",
+    height: 1000,
+    colors: ["#2f7ed8", "#0d233a", "#8bbc21", "#910000", "#1aadce", "#492970", "#f28f43", "#77a1e5", "#c42525", "#a6c96a"],
+  },
+};
+
+export const StackedColumn = Template.bind({});
+StackedColumn.args = {
+  analytics: stackedChartData as any,
+  config: {
+    layout: {
+      series: ["ou"],
+      category: ["pe"],
+      filter: ["dx"],
+    },
+    type: "stacked-column",
+    height: 1000,
+    colors: ["#2f7ed8", "#0d233a", "#8bbc21", "#910000", "#1aadce", "#492970", "#f28f43", "#77a1e5", "#c42525", "#a6c96a"],
+  },
+};
+
+export const Line = Template.bind({});
+Line.args = {
+  analytics: columnData as any,
+  config: {
+    layout: {
+      series: ["dx"],
+      category: ["ou"],
+      filter: ["pe"],
+    },
+    type: "line",
+    height: 1000,
+    colors: ["#2f7ed8", "#0d233a", "#8bbc21", "#910000", "#1aadce", "#492970", "#f28f43", "#77a1e5", "#c42525", "#a6c96a"],
+  },
+};
+
+export const MultipleLines = Template.bind({});
+MultipleLines.args = {
+  analytics: multiSeriesData as any,
+  config: {
+    layout: {
+      series: ["ou"],
+      category: ["pe"],
+      filter: ["dx"],
+    },
+    type: "line",
+    height: 500,
+    colors: ["#2f7ed8", "#0d233a", "#8bbc21", "#910000", "#1aadce", "#492970", "#f28f43", "#77a1e5", "#c42525", "#a6c96a"],
+  },
+};
+
+export const PieChart = Template.bind({});
+PieChart.args = {
+  analytics: pieData as any,
+  config: {
+    layout: {
+      series: ["dx"],
+      category: [],
+      filter: ["dx", "pe"],
+    },
+    type: "pie",
+    height: 500,
+    colors: ["#2f7ed8", "#0d233a", "#8bbc21", "#910000", "#1aadce", "#492970", "#f28f43", "#77a1e5", "#c4255", "#a6c96a"],
+  },
+};
+
+export const MultiSeries = Template.bind({});
+MultiSeries.args = {
+  analytics: multiSeriesData as any,
+  config: {
+    layout: {
+      series: ["ou"],
+      category: ["pe"],
+      filter: ["dx"],
+    },
+    type: "multi-series",
+    height: 500,
+    colors: ["#2f7ed8", "#0d233a", "#8bbc21", "#910000", "#1aadce", "#492970", "#f28f43", "#77a1e5", "#c42525", "#a6c96a"],
+    multiSeries: {
+      series: [
         {
-          name: "dx",
-          column: "Data",
-          valueType: "TEXT",
-          type: "java.lang.String",
-          hidden: false,
-          meta: true,
+          id: "qhqAxPSTUXp",
+          as: "column",
+          yAxis: 0,
         },
         {
-          name: "ou",
-          column: "Organisation unit",
-          valueType: "TEXT",
-          type: "java.lang.String",
-          hidden: false,
-          meta: true,
-        },
-        {
-          name: "pe",
-          column: "Period",
-          valueType: "TEXT",
-          type: "java.lang.String",
-          hidden: false,
-          meta: true,
-        },
-        {
-          name: "value",
-          column: "Value",
-          valueType: "NUMBER",
-          type: "java.lang.Double",
-          hidden: false,
-          meta: false,
+          id: "Vth0fbpFcsO",
+          as: "line",
+          cumulative: true,
+          yAxis: 1,
         },
       ],
-      metaData: {
-        names: {
-          "202010": "October 2020",
-          "202011": "November 2020",
-          "202012": "December 2020",
-          "202101": "January 2021",
-          "202102": "February 2021",
-          "202103": "March 2021",
-          "202104": "April 2021",
-          "202105": "May 2021",
-          "202106": "June 2021",
-          "202107": "July 2021",
-          "202108": "August 2021",
-          "202109": "September 2021",
-          ou: "Organisation unit",
-          ImspTQPwCqd: "Sierra Leone",
-          "2021Q1": "Jan to Mar 2021",
-          dx: "Data",
-          pe: "Period",
-          Uvn6LCg7dVU: "ANC 1 Coverage",
-          ReUHfIn0pTQ: "ANC 1-3 Dropout Rate",
+      yAxes: [
+        {
+          id: "yAxis1",
+          title: {
+            text: "Koinandugu",
+          },
+          labels: {
+            format: "{value}",
+          },
         },
-        dx: ["Uvn6LCg7dVU", "ReUHfIn0pTQ"],
-        pe: ["2021Q1", "202010", "202011", "202012", "202101", "202102", "202103", "202104", "202105", "202106", "202107", "202108", "202109"],
-        ou: ["ImspTQPwCqd"],
-        co: [],
+        {
+          id: "yAxis2",
+          title: {
+            text: "Kono",
+          },
+          labels: {
+            format: "{value}",
+          },
+          opposite: true,
+        },
+      ],
+      target: {
+        id: "",
+        styles: {
+          color: "blue",
+        },
+        value: 45,
+        label: {
+          text: "Target",
+          textAlign: "center",
+          verticalAlign: "middle",
+        },
       },
-      rows: [
-        ["Uvn6LCg7dVU", "ImspTQPwCqd", "2021Q1", "95.5"],
-        ["Uvn6LCg7dVU", "ImspTQPwCqd", "202010", "86.3"],
-        ["Uvn6LCg7dVU", "ImspTQPwCqd", "202011", "97.9"],
-        ["Uvn6LCg7dVU", "ImspTQPwCqd", "202012", "79.2"],
-        ["Uvn6LCg7dVU", "ImspTQPwCqd", "202101", "96.6"],
-        ["Uvn6LCg7dVU", "ImspTQPwCqd", "202102", "100.8"],
-        ["Uvn6LCg7dVU", "ImspTQPwCqd", "202103", "89.7"],
-        ["Uvn6LCg7dVU", "ImspTQPwCqd", "202104", "109.1"],
-        ["Uvn6LCg7dVU", "ImspTQPwCqd", "202105", "142.2"],
-        ["Uvn6LCg7dVU", "ImspTQPwCqd", "202106", "118.8"],
-        ["Uvn6LCg7dVU", "ImspTQPwCqd", "202107", "109.2"],
-        ["Uvn6LCg7dVU", "ImspTQPwCqd", "202108", "106.2"],
-        ["Uvn6LCg7dVU", "ImspTQPwCqd", "202109", "111.7"],
-        ["ReUHfIn0pTQ", "ImspTQPwCqd", "2021Q1", "36.4"],
-        ["ReUHfIn0pTQ", "ImspTQPwCqd", "202010", "34.0"],
-        ["ReUHfIn0pTQ", "ImspTQPwCqd", "202011", "24.5"],
-        ["ReUHfIn0pTQ", "ImspTQPwCqd", "202012", "35.3"],
-        ["ReUHfIn0pTQ", "ImspTQPwCqd", "202101", "40.7"],
-        ["ReUHfIn0pTQ", "ImspTQPwCqd", "202102", "35.5"],
-        ["ReUHfIn0pTQ", "ImspTQPwCqd", "202103", "32.7"],
-        ["ReUHfIn0pTQ", "ImspTQPwCqd", "202104", "36.3"],
-        ["ReUHfIn0pTQ", "ImspTQPwCqd", "202105", "46.7"],
-        ["ReUHfIn0pTQ", "ImspTQPwCqd", "202106", "34.2"],
-        ["ReUHfIn0pTQ", "ImspTQPwCqd", "202107", "33.4"],
-        ["ReUHfIn0pTQ", "ImspTQPwCqd", "202108", "33.2"],
-        ["ReUHfIn0pTQ", "ImspTQPwCqd", "202109", "31.3"],
-      ],
-      height: 26,
-      width: 4,
     },
   },
-  chartConfiguration: {
+};
+
+export const ComplexMultiSeries = Template.bind({});
+ComplexMultiSeries.args = {
+  analytics: complexMultiSeriesData as any,
+  config: {
     layout: {
-      column: ["dx"],
-      row: ["pe"],
+      series: ["dx"],
+      category: ["pe"],
       filter: ["ou"],
     },
-    currentChartType: "line",
+    type: "multi-series",
+    height: 500,
+    colors: ["#2f7ed8", "#0d233a", "#8bbc21", "#910000", "#1aadce", "#492970", "#f28f43", "#77a1e5", "#c42525", "#a6c96a"],
+    multiSeries: {
+      series: [
+        {
+          id: "QQkOAJFukyY",
+          as: "column",
+          yAxis: 0,
+        },
+        {
+          id: "QQkOAJFukyY",
+          as: "line",
+          cumulative: true,
+          yAxis: 1,
+        },
+      ],
+      yAxes: [
+        {
+          id: "yAxis1",
+          title: {
+            text: "Koinandugu",
+          },
+          labels: {
+            format: "{value}",
+          },
+        },
+        {
+          id: "yAxis2",
+          title: {
+            text: "Kono",
+          },
+          labels: {
+            format: "{value}",
+          },
+          opposite: true,
+        },
+      ],
+      target: {
+        id: "",
+        styles: {
+          color: "blue",
+        },
+        value: 45,
+        label: {
+          text: "Target",
+          textAlign: "center",
+          verticalAlign: "middle",
+        },
+      },
+    },
   },
 };
 
@@ -192,12 +237,14 @@ export default {
   component: ChartAnalytics,
   decorators: [
     (ChartStory: any) => {
+      const [chartRef, setChartRef] = useState<HighchartsReact.RefObject | null>(null);
       return (
-        <div style={{ width: 900, height: "100%" }}>
-          <ChartStory />
+        <div style={{ width: 1000, height: "100%", display: "flex", gap: 8, flexDirection: "column" }}>
+          <CssReset />
+          <div style={{ width: "100%", display: "flex", justifyContent: "end" }}>{<ChartDownloadMenu chartRef={chartRef} />}</div>
+          <ChartStory ref={setChartRef} />
         </div>
       );
     },
   ],
 };
-

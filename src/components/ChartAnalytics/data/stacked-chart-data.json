@@ -1,0 +1,415 @@
+{
+  "headers": [
+    {
+      "name": "ou",
+      "column": "Organisation unit",
+      "valueType": "TEXT",
+      "type": "java.lang.String",
+      "hidden": false,
+      "meta": true
+    },
+    {
+      "name": "pe",
+      "column": "Period",
+      "valueType": "TEXT",
+      "type": "java.lang.String",
+      "hidden": false,
+      "meta": true
+    },
+    {
+      "name": "value",
+      "column": "Value",
+      "valueType": "NUMBER",
+      "type": "java.lang.Double",
+      "hidden": false,
+      "meta": false
+    }
+  ],
+  "metaData": {
+    "items": {
+      "202107": {
+        "name": "July 2021"
+      },
+      "202108": {
+        "name": "August 2021"
+      },
+      "202109": {
+        "name": "September 2021"
+      },
+      "202110": {
+        "name": "October 2021"
+      },
+      "202111": {
+        "name": "November 2021"
+      },
+      "202112": {
+        "name": "December 2021"
+      },
+      "202201": {
+        "name": "January 2022"
+      },
+      "202202": {
+        "name": "February 2022"
+      },
+      "202203": {
+        "name": "March 2022"
+      },
+      "202204": {
+        "name": "April 2022"
+      },
+      "202205": {
+        "name": "May 2022"
+      },
+      "202206": {
+        "name": "June 2022"
+      },
+      "jUb8gELQApl": {
+        "name": "Kailahun"
+      },
+      "PMa2VCrupOd": {
+        "name": "Kambia"
+      },
+      "ou": {
+        "name": "Organisation unit"
+      },
+      "O6uvpzGd5pu": {
+        "name": "Bo"
+      },
+      "eTDtyyaSA7f": {
+        "name": "FIC <1y"
+      },
+      "fdc6uOvgoji": {
+        "name": "Bombali"
+      },
+      "LAST_12_MONTHS": {
+        "name": "Last 12 months"
+      },
+      "dx": {
+        "name": "Data"
+      },
+      "pe": {
+        "name": "Period"
+      },
+      "lc3eMKXaEfw": {
+        "name": "Bonthe"
+      }
+    },
+    "dimensions": {
+      "dx": [
+        "eTDtyyaSA7f"
+      ],
+      "pe": [
+        "202107",
+        "202108",
+        "202109",
+        "202110",
+        "202111",
+        "202112",
+        "202201",
+        "202202",
+        "202203",
+        "202204",
+        "202205",
+        "202206"
+      ],
+      "ou": [
+        "jUb8gELQApl",
+        "PMa2VCrupOd",
+        "O6uvpzGd5pu",
+        "lc3eMKXaEfw",
+        "fdc6uOvgoji"
+      ],
+      "co": []
+    }
+  },
+  "rows": [
+    [
+      "jUb8gELQApl",
+      "202107",
+      "66.0"
+    ],
+    [
+      "jUb8gELQApl",
+      "202108",
+      "80.6"
+    ],
+    [
+      "jUb8gELQApl",
+      "202109",
+      "83.2"
+    ],
+    [
+      "jUb8gELQApl",
+      "202110",
+      "60.1"
+    ],
+    [
+      "jUb8gELQApl",
+      "202111",
+      "78.8"
+    ],
+    [
+      "jUb8gELQApl",
+      "202112",
+      "52.2"
+    ],
+    [
+      "jUb8gELQApl",
+      "202201",
+      "72.7"
+    ],
+    [
+      "jUb8gELQApl",
+      "202202",
+      "85.8"
+    ],
+    [
+      "jUb8gELQApl",
+      "202203",
+      "78.7"
+    ],
+    [
+      "jUb8gELQApl",
+      "202204",
+      "82.9"
+    ],
+    [
+      "jUb8gELQApl",
+      "202205",
+      "82.2"
+    ],
+    [
+      "jUb8gELQApl",
+      "202206",
+      "78.5"
+    ],
+    [
+      "PMa2VCrupOd",
+      "202107",
+      "57.5"
+    ],
+    [
+      "PMa2VCrupOd",
+      "202108",
+      "59.2"
+    ],
+    [
+      "PMa2VCrupOd",
+      "202109",
+      "73.4"
+    ],
+    [
+      "PMa2VCrupOd",
+      "202110",
+      "63.9"
+    ],
+    [
+      "PMa2VCrupOd",
+      "202111",
+      "72.2"
+    ],
+    [
+      "PMa2VCrupOd",
+      "202112",
+      "51.5"
+    ],
+    [
+      "PMa2VCrupOd",
+      "202201",
+      "59.7"
+    ],
+    [
+      "PMa2VCrupOd",
+      "202202",
+      "69.6"
+    ],
+    [
+      "PMa2VCrupOd",
+      "202203",
+      "59.0"
+    ],
+    [
+      "PMa2VCrupOd",
+      "202204",
+      "63.0"
+    ],
+    [
+      "PMa2VCrupOd",
+      "202205",
+      "53.5"
+    ],
+    [
+      "PMa2VCrupOd",
+      "202206",
+      "64.6"
+    ],
+    [
+      "O6uvpzGd5pu",
+      "202107",
+      "70.7"
+    ],
+    [
+      "O6uvpzGd5pu",
+      "202108",
+      "105.6"
+    ],
+    [
+      "O6uvpzGd5pu",
+      "202109",
+      "81.0"
+    ],
+    [
+      "O6uvpzGd5pu",
+      "202110",
+      "104.7"
+    ],
+    [
+      "O6uvpzGd5pu",
+      "202111",
+      "117.0"
+    ],
+    [
+      "O6uvpzGd5pu",
+      "202112",
+      "59.9"
+    ],
+    [
+      "O6uvpzGd5pu",
+      "202201",
+      "58.6"
+    ],
+    [
+      "O6uvpzGd5pu",
+      "202202",
+      "72.0"
+    ],
+    [
+      "O6uvpzGd5pu",
+      "202203",
+      "66.5"
+    ],
+    [
+      "O6uvpzGd5pu",
+      "202204",
+      "71.2"
+    ],
+    [
+      "O6uvpzGd5pu",
+      "202205",
+      "77.9"
+    ],
+    [
+      "O6uvpzGd5pu",
+      "202206",
+      "74.3"
+    ],
+    [
+      "lc3eMKXaEfw",
+      "202107",
+      "88.2"
+    ],
+    [
+      "lc3eMKXaEfw",
+      "202108",
+      "98.1"
+    ],
+    [
+      "lc3eMKXaEfw",
+      "202109",
+      "112.7"
+    ],
+    [
+      "lc3eMKXaEfw",
+      "202111",
+      "96.2"
+    ],
+    [
+      "lc3eMKXaEfw",
+      "202201",
+      "58.5"
+    ],
+    [
+      "lc3eMKXaEfw",
+      "202202",
+      "71.5"
+    ],
+    [
+      "lc3eMKXaEfw",
+      "202203",
+      "65.8"
+    ],
+    [
+      "lc3eMKXaEfw",
+      "202204",
+      "71.5"
+    ],
+    [
+      "lc3eMKXaEfw",
+      "202205",
+      "70.8"
+    ],
+    [
+      "lc3eMKXaEfw",
+      "202206",
+      "72.6"
+    ],
+    [
+      "fdc6uOvgoji",
+      "202107",
+      "75.7"
+    ],
+    [
+      "fdc6uOvgoji",
+      "202108",
+      "76.6"
+    ],
+    [
+      "fdc6uOvgoji",
+      "202109",
+      "83.2"
+    ],
+    [
+      "fdc6uOvgoji",
+      "202110",
+      "69.8"
+    ],
+    [
+      "fdc6uOvgoji",
+      "202112",
+      "119.6"
+    ],
+    [
+      "fdc6uOvgoji",
+      "202201",
+      "75.4"
+    ],
+    [
+      "fdc6uOvgoji",
+      "202202",
+      "80.3"
+    ],
+    [
+      "fdc6uOvgoji",
+      "202203",
+      "71.7"
+    ],
+    [
+      "fdc6uOvgoji",
+      "202204",
+      "77.9"
+    ],
+    [
+      "fdc6uOvgoji",
+      "202205",
+      "76.5"
+    ],
+    [
+      "fdc6uOvgoji",
+      "202206",
+      "76.1"
+    ]
+  ],
+  "height": 57,
+  "width": 3,
+  "headerWidth": 3
+}

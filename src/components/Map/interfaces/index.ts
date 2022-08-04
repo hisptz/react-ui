@@ -8,7 +8,8 @@ export interface MapProviderProps {
 }
 
 export interface MapProps {
-  orgUnitSelection: OrgUnitSelection;
+  orgUnitSelection: OrgUnitSelection; //Organisation unit selection
+  descendantLevel?: number; //Lowest level of organisation units to drill down to
   boundaryLayer?: {
     enabled: boolean;
   };
@@ -21,7 +22,7 @@ export interface MapOrgUnit {
   path: string;
   name: string;
   bounds: any[];
-  coordinates: number[][];
+  geoJSON: any;
   children?: MapOrgUnit[];
   level?: number;
 }

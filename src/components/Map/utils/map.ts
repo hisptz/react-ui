@@ -1,22 +1,8 @@
 import { colors } from "@dhis2/ui";
 import type { OrganisationUnit, OrgUnitSelection } from "@hisptz/dhis2-utils";
 import { LeafletMouseEvent } from "leaflet";
-import { filter, find, flatten, forEach, head } from "lodash";
+import { compact, filter, find, isString, sortBy } from "lodash";
 import { defaultLegendSet } from "../constants/legendSet";
-
-export function convertCoordinates([lng, lat]: [number, number]): { lat: number; lng: number } {
-  return {
-    lat: lat,
-    lng: lng,
-  };
-}
-
-export function getOrgUnitBoundaries(points: Array<any>, depth: number): Array<{ lat: number; lng: number }> {
-  if (typeof head(points) === "number" || typeof head(points) === "string") {
-    return [convertCoordinates(points as [number, number])];
-  }
-  return flatten(points.map(getOrgUnitBoundaries));
-}
 
 export function highlightFeature(e: LeafletMouseEvent, style: any) {
   const layer = e.target;
@@ -72,31 +58,62 @@ export function sanitizeOrgUnits(metaData: any) {
   return [];
 }
 
-export function getCoordinatesFromBounds(bound: any[]): any[] {
-  const bounds: number[][] = [];
+export function toGeoJson(organisationUnits: any) {
+  return sortBy(organisationUnits, "le").map((ou: any) => {
+    try {
+      const coord = JSON.parse(ou.co);
+      let gpid = "";
+      let gppg = "";
+      let type = "Point";
 
-  function getBounds(bound: any[]) {
-    if (typeof head(bound) === "number") {
-      bounds.push(bound as number[]);
+      if (ou.ty === 2) {
+        type = "Polygon";
+        if (ou.co.substring(0, 4) === "[[[[") {
+          type = "MultiPolygon";
+        }
+      }
+
+      // Grand parent
+      if (isString(ou.pg) && ou.pg.length) {
+        const ids = compact(ou.pg.split("/"));
+
+        // Grand parent id
+        if (ids.length >= 2) {
+          gpid = ids[ids.length - 2] as string;
+        }
+
+        // Grand parent parent graph
+        if (ids.length > 2) {
+          gppg = "/" + ids.slice(0, ids.length - 2).join("/");
+        }
+      }
+
+      return {
+        type: "Feature",
+        id: ou.id,
+        geometry: {
+          type,
+          coordinates: coord,
+        },
+        properties: {
+          type,
+          id: ou.id,
+          name: ou.na,
+          hasCoordinatesDown: ou.hcd,
+          hasCoordinatesUp: ou.hcu,
+          level: ou.le,
+          grandParentParentGraph: gppg,
+          grandParentId: gpid,
+          parentGraph: ou.pg,
+          parentId: ou.pi,
+          parentName: ou.pn,
+          dimensions: ou.dimensions,
+        },
+      };
+    } catch (e) {
+      console.log(ou);
+      console.log(e);
+      return {};
     }
-    forEach(bound, (internalBound) => getBounds(internalBound));
-  }
-
-  getBounds(bound);
-
-  return bounds;
-}
-
-export function sanitizeBounds(bounds: any[]) {
-  return typeof bounds?.[0] === "number"
-    ? convertCoordinates(bounds as any)
-    : flatten(bounds)?.map((points: any) => {
-        if (!points) {
-          return [];
-        }
-        if (typeof points[0] === "number") {
-          return convertCoordinates(points);
-        }
-        return points?.map(convertCoordinates);
-      });
+  });
 }

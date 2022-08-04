@@ -1,0 +1,210 @@
+{
+  "headers": [
+    {
+      "name": "dx",
+      "column": "Data",
+      "valueType": "TEXT",
+      "type": "java.lang.String",
+      "hidden": false,
+      "meta": true
+    },
+    {
+      "name": "ou",
+      "column": "Organisation unit",
+      "valueType": "TEXT",
+      "type": "java.lang.String",
+      "hidden": false,
+      "meta": true
+    },
+    {
+      "name": "value",
+      "column": "Value",
+      "valueType": "NUMBER",
+      "type": "java.lang.Double",
+      "hidden": false,
+      "meta": false
+    }
+  ],
+  "metaData": {
+    "items": {
+      "2022": {
+        "name": "2022"
+      },
+      "KctpIIucige": {
+        "name": "Selenga"
+      },
+      "YmmeuGbqOwR": {
+        "name": "Gbo"
+      },
+      "daJPPxtIrQn": {
+        "name": "Jaiama Bongor"
+      },
+      "tTUf91fCytl": {
+        "uid": "tTUf91fCytl",
+        "name": "Chiefdom"
+      },
+      "ou": {
+        "name": "Organisation unit"
+      },
+      "sxRd2XOzFbz": {
+        "name": "Tikonko"
+      },
+      "THIS_YEAR": {
+        "name": "This year"
+      },
+      "O6uvpzGd5pu": {
+        "uid": "O6uvpzGd5pu",
+        "code": "OU_264",
+        "name": "Bo"
+      },
+      "U6Kr7Gtpidn": {
+        "name": "Kakua"
+      },
+      "YuQRtpLP10I": {
+        "name": "Badjia"
+      },
+      "zFDYIgyGmXG": {
+        "name": "Bargbo"
+      },
+      "I4jWcnFmgEC": {
+        "name": "Niawa Lenga"
+      },
+      "dx": {
+        "name": "Data"
+      },
+      "BGGmAwx33dj": {
+        "name": "Bumpe Ngao"
+      },
+      "pe": {
+        "name": "Period"
+      },
+      "Uvn6LCg7dVU": {
+        "name": "ANC 1 Coverage"
+      },
+      "ARZ4y5i4reU": {
+        "name": "Wonde"
+      },
+      "JdhagCUEMbj": {
+        "name": "Komboya"
+      },
+      "vWbkYPRmKyS": {
+        "name": "Baoma"
+      },
+      "dGheVylzol6": {
+        "name": "Bargbe"
+      },
+      "kU8vhUkAGaT": {
+        "name": "Lugbu"
+      },
+      "npWGUj37qDe": {
+        "name": "Valunia"
+      }
+    },
+    "dimensions": {
+      "dx": [
+        "Uvn6LCg7dVU"
+      ],
+      "pe": [
+        "2022"
+      ],
+      "ou": [
+        "YuQRtpLP10I",
+        "vWbkYPRmKyS",
+        "dGheVylzol6",
+        "zFDYIgyGmXG",
+        "BGGmAwx33dj",
+        "YmmeuGbqOwR",
+        "daJPPxtIrQn",
+        "U6Kr7Gtpidn",
+        "JdhagCUEMbj",
+        "kU8vhUkAGaT",
+        "I4jWcnFmgEC",
+        "KctpIIucige",
+        "sxRd2XOzFbz",
+        "npWGUj37qDe",
+        "ARZ4y5i4reU"
+      ],
+      "co": []
+    }
+  },
+  "rows": [
+    [
+      "Uvn6LCg7dVU",
+      "YuQRtpLP10I",
+      "304.1"
+    ],
+    [
+      "Uvn6LCg7dVU",
+      "vWbkYPRmKyS",
+      "213.7"
+    ],
+    [
+      "Uvn6LCg7dVU",
+      "dGheVylzol6",
+      "126.5"
+    ],
+    [
+      "Uvn6LCg7dVU",
+      "zFDYIgyGmXG",
+      "206.4"
+    ],
+    [
+      "Uvn6LCg7dVU",
+      "BGGmAwx33dj",
+      "120.9"
+    ],
+    [
+      "Uvn6LCg7dVU",
+      "YmmeuGbqOwR",
+      "203.1"
+    ],
+    [
+      "Uvn6LCg7dVU",
+      "daJPPxtIrQn",
+      "89.3"
+    ],
+    [
+      "Uvn6LCg7dVU",
+      "U6Kr7Gtpidn",
+      "104.4"
+    ],
+    [
+      "Uvn6LCg7dVU",
+      "JdhagCUEMbj",
+      "187.1"
+    ],
+    [
+      "Uvn6LCg7dVU",
+      "kU8vhUkAGaT",
+      "96.1"
+    ],
+    [
+      "Uvn6LCg7dVU",
+      "I4jWcnFmgEC",
+      "147.9"
+    ],
+    [
+      "Uvn6LCg7dVU",
+      "KctpIIucige",
+      "91.1"
+    ],
+    [
+      "Uvn6LCg7dVU",
+      "sxRd2XOzFbz",
+      "203.2"
+    ],
+    [
+      "Uvn6LCg7dVU",
+      "npWGUj37qDe",
+      "95.7"
+    ],
+    [
+      "Uvn6LCg7dVU",
+      "ARZ4y5i4reU",
+      "84.3"
+    ]
+  ],
+  "height": 15,
+  "width": 3,
+  "headerWidth": 3
+}

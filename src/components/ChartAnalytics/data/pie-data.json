@@ -1,0 +1,115 @@
+{
+  "headers": [
+    {
+      "name": "dx",
+      "column": "Data",
+      "valueType": "TEXT",
+      "type": "java.lang.String",
+      "hidden": false,
+      "meta": true
+    },
+    {
+      "name": "value",
+      "column": "Value",
+      "valueType": "NUMBER",
+      "type": "java.lang.Double",
+      "hidden": false,
+      "meta": false
+    }
+  ],
+  "metaData": {
+    "items": {
+      "2022": {
+        "name": "2022"
+      },
+      "psbwp3CQEhs": {
+        "name": "Fixed, >1y"
+      },
+      "ou": {
+        "name": "Organisation unit"
+      },
+      "Prlt0C1RF0s": {
+        "name": "Fixed, <1y"
+      },
+      "hEFKSsPV5et": {
+        "name": "Outreach, >1y"
+      },
+      "THIS_YEAR": {
+        "name": "This year"
+      },
+      "V6L425pT3A0": {
+        "name": "Outreach, <1y"
+      },
+      "fClA2Erf6IO": {
+        "name": "Penta1 doses given"
+      },
+      "I78gJm4KBo7": {
+        "name": "Penta2 doses given"
+      },
+      "ImspTQPwCqd": {
+        "name": "Sierra Leone"
+      },
+      "YtbsuPPo010": {
+        "name": "Measles doses given"
+      },
+      "dx": {
+        "name": "Data"
+      },
+      "pe": {
+        "name": "Period"
+      },
+      "s46m5MS0hxu": {
+        "name": "BCG doses given"
+      },
+      "l6byfWFUGaP": {
+        "name": "Yellow Fever doses given"
+      }
+    },
+    "dimensions": {
+      "dx": [
+        "YtbsuPPo010",
+        "s46m5MS0hxu",
+        "l6byfWFUGaP",
+        "fClA2Erf6IO",
+        "I78gJm4KBo7"
+      ],
+      "pe": [
+        "2022"
+      ],
+      "ou": [
+        "ImspTQPwCqd"
+      ],
+      "co": [
+        "hEFKSsPV5et",
+        "V6L425pT3A0",
+        "psbwp3CQEhs",
+        "Prlt0C1RF0s"
+      ]
+    }
+  },
+  "rows": [
+    [
+      "l6byfWFUGaP",
+      "205836.0"
+    ],
+    [
+      "YtbsuPPo010",
+      "206937.0"
+    ],
+    [
+      "fClA2Erf6IO",
+      "228667.0"
+    ],
+    [
+      "s46m5MS0hxu",
+      "236918.0"
+    ],
+    [
+      "I78gJm4KBo7",
+      "205997.0"
+    ]
+  ],
+  "height": 5,
+  "width": 2,
+  "headerWidth": 2
+}

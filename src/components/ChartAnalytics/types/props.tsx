@@ -1,51 +1,47 @@
+import type { Analytics } from "@hisptz/dhis2-utils";
+import { DashStyleValue, YAxisOptions, YAxisPlotLinesLabelOptions } from "highcharts";
 
+export type ChartType = "column" | "pie" | "stacked-column" | "line" | "multi-series";
 
-export type ChartConfigurationProps={
-    layout:{
-        column:Array<string>,
-        row:Array<string>,
-        filter:Array<string>
-    },
-    currentChartType?:string
-
+export interface MultiSeriesConfig {
+  series?: Array<{
+    id: string;
+    as: "column" | "line";
+    cumulative?: boolean;
+    yAxis?: number;
+  }>;
+  yAxes?: Array<YAxisOptions>;
+  target?: TargetConfig;
 }
 
-export type ChartAnalyticsProps ={
-    analysisData:any,
-    chartHeight:number,
-    chartConfiguration:ChartConfigurationProps
+export interface TargetConfig {
+  id: string;
+  value: number;
+  label?: YAxisPlotLinesLabelOptions;
+  styles: {
+    color?: string;
+    width?: number;
+    dashStyle?: DashStyleValue;
+    zIndex?: number;
+  };
 }
 
+export type ChartConfig = {
+  layout: {
+    series: Array<string>;
+    category: Array<string>;
+    filter: Array<string>;
+  };
+  type?: ChartType;
+  height?: number;
+  colors?: Array<string>;
+  name?: string;
+  allowChartTypeChange?: boolean;
+  highChartOverrides?: Record<string, any>;
+  multiSeries?: MultiSeriesConfig;
+};
 
-
-export type ChartConfiguration = {
-    renderId: string;
-    type: string;
-    title: string;
-    subtitle: string;
-    xAxisType: string[];
-    yAxisType: string;
-    zAxisType: string[];
-    showData: boolean;
-    hideTitle: boolean;
-    hideSubtitle: boolean;
-    hideEmptyRows: boolean;
-    hideLegend: boolean;
-    showLabels: boolean;
-    multiAxisTypes: any[];
-    cumulativeValues: boolean;
-    sortOrder: number;
-    percentStackedValues: boolean;
-    targetLineLabel: string;
-    targetLineValue: number;
-    baseLineValue: number;
-    baseLineLabel: string;
-    legendAlign: string;
-    reverseLegend: boolean;
-    rangeAxisMaxValue: number;
-    rangeAxisMinValue: number;
-    axes: any[];
-    dataSelections: any[];
-    categoryRotation?: number;
-  }
-  
+export type ChartAnalyticsProps = {
+  analytics: Analytics;
+  config: ChartConfig;
+};
