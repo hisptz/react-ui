@@ -1,4 +1,5 @@
 import { Tooltip } from "@dhis2/ui";
+import { capitalize } from "lodash";
 import React from "react";
 import { useSpring, animated } from "react-spring";
 import styles from "../../styles/SingleValueContainer.module.css";
@@ -28,10 +29,12 @@ export default function SingleValueItem({
     config: { duration: animationDuration ?? globalAnimationDuration ?? 1000 },
     delay: animationDelay ?? globalAnimationDelay ?? 10,
   });
+
+  const tooltipContent = `${label}: ${value}`;
   return (
     <div className={`${styles["single-value-item"]} text-center`}>
       <div className={styles["font-large"]}>{label}</div>
-      <Tooltip content={value}>
+      <Tooltip content={capitalize(tooltipContent)}>
         <animated.div className={`${styles["font-bold"]} ${styles["font-xx-large"]} ${styles["padding-top"]}`}>
           {sanitizedValue.val.to((value) => numberFormatter(Math.floor(value)))}
         </animated.div>
