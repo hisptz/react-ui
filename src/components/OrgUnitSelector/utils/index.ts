@@ -130,3 +130,7 @@ export const sanitizeFilters = (filters: Array<OrganisationUnit>): Array<string>
   });
   return uniq(flattenDeep(compact(sanitizedFilters)));
 };
+
+export const sanitizeExpansionPaths = (orgUnitPaths: string[]): string[] => {
+  return orgUnitPaths.map((path: string) => path.split("/").slice(0, -1).join("/"));
+};

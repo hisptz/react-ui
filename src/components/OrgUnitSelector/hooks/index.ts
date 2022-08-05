@@ -3,7 +3,7 @@ import type { OrganisationUnit } from "@hisptz/dhis2-utils";
 import { compact, debounce, isEmpty } from "lodash";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { orgUnitLevelAndGroupsQuery, orgUnitRootsQuery, orgUnitSearchQuery } from "../services";
-import { sanitizeFilters } from "../utils";
+import { sanitizeExpansionPaths, sanitizeFilters } from "../utils";
 
 export function useOrgUnitsRoot(): { roots?: Array<any>; loading: boolean; error: any } {
   const { loading, error, data } = useDataQuery(orgUnitRootsQuery);
@@ -32,20 +32,27 @@ export function useFilterOrgUnits(selectedOrgUnits: Array<OrganisationUnit>) {
     lazy: true,
   });
 
-  const orgUnitsPaths = useMemo(() => sanitizeFilters((data?.orgUnits as any)?.organisationUnits ?? []), [data]);
+  const orgUnitsPaths = useMemo(() => {
+    if (searchValue) {
+      return sanitizeFilters((data?.orgUnits as any)?.organisationUnits ?? []);
+    }
+    return [];
+  }, [data, searchValue]);
 
   async function getSearch(keyword?: string) {
     if (keyword) {
-      await refetch({ keyword });
+      if (keyword.length > 2) {
+        await refetch({ keyword });
+      }
     }
   }
 
   useEffect(() => {
     if (!isEmpty(orgUnitsPaths)) {
-      const pathsToExpand = (orgUnitsPaths ?? []).map((path) => path.split("/").slice(0, -1).join("/"));
+      const pathsToExpand = sanitizeExpansionPaths(orgUnitsPaths);
       setExpanded((prevState) => [...prevState, ...pathsToExpand]);
     } else {
-      setExpanded(compact([...selectedOrgUnits?.map(({ path }) => path)]));
+      setExpanded(compact([...sanitizeExpansionPaths(compact(selectedOrgUnits?.map(({ path }) => path)) ?? [])]));
     }
   }, [orgUnitsPaths]);
 
