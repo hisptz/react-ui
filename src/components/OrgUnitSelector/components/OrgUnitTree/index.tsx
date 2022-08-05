@@ -24,8 +24,6 @@ export function OrgUnitTree({
 }) {
   const selectedOrgUnits = value?.orgUnits ?? [];
 
-  console.log(value?.orgUnits);
-
   const onSelect = (orgUnit: any) => {
     if (isOrgUnitSelected(selectedOrgUnits ?? [], orgUnit as OrganisationUnit)) {
       onDeselectOrgUnit(orgUnit as OrganisationUnit, selectedOrgUnits, { onUpdate, value });

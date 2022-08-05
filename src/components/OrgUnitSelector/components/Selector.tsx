@@ -9,7 +9,17 @@ import { LevelAndGroupSelector } from "./LevelAndGroupSelector";
 import { OrgUnitTree } from "./OrgUnitTree";
 import { OrgUnitUserOptions } from "./OrgUnitUserOptions";
 
-export default function OrgUnitSelector({ value, onUpdate, showLevels, showUserOptions, showGroups, singleSelection, searchable }: OrgUnitSelectorProps) {
+export default function OrgUnitSelector({
+  value,
+  onUpdate,
+  showLevels,
+  showUserOptions,
+  showGroups,
+  singleSelection,
+  searchable,
+  limitSelectionToLevels,
+  filterByGroups,
+}: OrgUnitSelectorProps) {
   const { roots, error, loading } = useOrgUnitsRoot();
   const { orgUnits: selectedOrgUnits = [], userOrgUnit, userSubUnit, userSubX2Unit } = value ?? {};
   const { filteredOrgUnits, searchValue, setSearchValue, handleExpand, expanded } = useFilterOrgUnits(selectedOrgUnits);

@@ -1,18 +1,28 @@
 import { CustomDataProvider } from "@dhis2/app-runtime";
-import { find } from "lodash";
+import { filter, find, flattenDeep, isEmpty, last } from "lodash";
 import React from "react";
 import orgUnits from "../data/orgUnit.json";
 
 export default function OrgUnitDataProvider({ children }: { children: React.ReactNode }) {
+  const allOrgUnits = flattenDeep(orgUnits.organisationUnitsWithChildren.map((orgUnit) => [orgUnit, ...orgUnit.children]));
   return (
     <CustomDataProvider
       data={{
         organisationUnits: async (type, query): Promise<any> => {
+          console.log(query);
           if (query.id) {
             return find(
               (query.params?.fields as string[]).includes("children::size") ? orgUnits.organisationUnitsChildrenCount : orgUnits.organisationUnitsWithChildren,
               { id: query.id }
             );
+          }
+          if (query.params?.filter) {
+            const keyword = last((query?.params?.filter as string)?.split(":")) ?? "";
+            return {
+              organisationUnits: filter(allOrgUnits, (orgUnit) => {
+                return !isEmpty(`${orgUnit.id} ${orgUnit.displayName}`.match(RegExp(keyword.toLowerCase())));
+              }),
+            };
           }
 
           if (query?.params?.userDataViewFallback) {

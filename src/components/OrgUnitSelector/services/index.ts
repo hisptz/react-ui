@@ -1,6 +1,6 @@
 import type { OrganisationUnit } from "@hisptz/dhis2-utils";
 
-const orgUnitRootsQuery = {
+export const orgUnitRootsQuery = {
   orgUnitRoots: {
     resource: "organisationUnits",
     params: {
@@ -33,7 +33,7 @@ export const orgUnitLevelAndGroupsQuery = {
   },
 };
 
-const orgUnitSearchQuery = {
+export const orgUnitSearchQuery = {
   orgUnits: {
     resource: "organisationUnits",
     params: ({ keyword }: any) => ({

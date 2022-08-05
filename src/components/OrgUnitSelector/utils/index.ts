@@ -1,5 +1,5 @@
 import type { OrganisationUnit, OrgUnitSelection } from "@hisptz/dhis2-utils";
-import { cloneDeep, find, isEmpty, remove, take, uniq, flattenDeep, filter } from "lodash";
+import { cloneDeep, compact, filter, find, flattenDeep, isEmpty, remove, take, uniq } from "lodash";
 import { searchOrgUnitUsingKeyword } from "../services";
 
 type OnUpdate = (updatedOrgUnitSelection: OrgUnitSelection) => void;
@@ -114,19 +114,19 @@ export const searchOrgUnits = async (dataEngine: any, searchValue: string) => {
   }
 };
 
-export const sanitizeFilters = (filters: Array<string>): Array<string> => {
-  const sanitizedFilters = filters.map((paths) => {
+export const sanitizeFilters = (filters: Array<OrganisationUnit>): Array<string> => {
+  const sanitizedFilters = filters.map(({ path }) => {
     const newFilter = [];
-    const splitFilter = filter(paths.split("/"), (path) => path !== "");
+    const splitFilter = filter(path?.split("/"), (path) => path !== "");
     const count = splitFilter.length;
     if (count === 1) {
-      return paths;
+      return path;
     }
     for (let i = 0; i <= count; i++) {
       newFilter.push(`/${take(splitFilter, i).join("/")}`);
     }
 
-    return newFilter;
+    return remove(newFilter, (filter) => filter !== "/");
   });
-  return uniq(flattenDeep(sanitizedFilters));
+  return uniq(flattenDeep(compact(sanitizedFilters)));
 };
