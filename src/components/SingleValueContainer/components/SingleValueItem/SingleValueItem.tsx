@@ -1,7 +1,7 @@
 import { Tooltip } from "@dhis2/ui";
 import { capitalize } from "lodash";
 import React from "react";
-import { useSpring, animated } from "react-spring";
+import { animated, useSpring } from "react-spring";
 import styles from "../../styles/SingleValueContainer.module.css";
 import { SingleValue } from "../../types/props";
 import SingleValuePercentage from "./SingleValuePercentage";
@@ -22,7 +22,7 @@ export default function SingleValueItem({
   decimalPlaces,
   globalAnimationDuration,
 }: SingleValueProps): React.ReactElement {
-  const numberFormatter = (value: number) => Intl.NumberFormat("en-US", { notation: "compact", decimalPlaces: decimalPlaces ?? 1 }).format(value);
+  const numberFormatter = (value: number) => Intl.NumberFormat("en-US", { notation: "compact", maximumFractionDigits: decimalPlaces ?? 1 }).format(value);
 
   const sanitizedValue = useSpring({
     val: value,

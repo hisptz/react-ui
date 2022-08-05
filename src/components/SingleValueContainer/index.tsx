@@ -27,3 +27,4 @@ export default function SingleValueContainer({ title, singleValueItems, animatio
     </div>
   );
 }
+export { SingleValueItem };
