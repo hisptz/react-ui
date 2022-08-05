@@ -1,8 +1,8 @@
-import { useDataEngine } from "@dhis2/app-runtime";
+import { useDataEngine, useDataQuery } from "@dhis2/app-runtime";
 import type { OrganisationUnit } from "@hisptz/dhis2-utils";
 import { compact, debounce } from "lodash";
 import { useEffect, useRef, useState } from "react";
-import { apiFetchOrganisationUnitGroups, apiFetchOrganisationUnitLevels, apiFetchOrganisationUnitRoots } from "../services";
+import { apiFetchOrganisationUnitRoots, orgUnitLevelAndGroupsQuery } from "../services";
 import { sanitizeFilters, searchOrgUnits } from "../utils";
 
 export function useOrgUnitsRoot(): { roots?: Array<any>; loading: boolean; error: any } {
@@ -29,30 +29,11 @@ export function useOrgUnitsRoot(): { roots?: Array<any>; loading: boolean; error
 }
 
 export function useOrgUnitLevelsAndGroups(): { levels: Array<any>; groups: Array<any>; loading: boolean; error: any } {
-  const engine = useDataEngine();
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<any | undefined>();
-  const [levels, setLevels] = useState([]);
-  const [groups, setGroups] = useState([]);
-
-  useEffect(() => {
-    async function getLevelsAndGroups() {
-      setLoading(true);
-      try {
-        setLevels(await apiFetchOrganisationUnitLevels(engine, setError));
-        setGroups(await apiFetchOrganisationUnitGroups(engine, setError));
-      } catch (e) {
-        setError(e);
-      }
-      setLoading(false);
-    }
-
-    getLevelsAndGroups();
-  }, []);
+  const { loading, error, data } = useDataQuery(orgUnitLevelAndGroupsQuery);
 
   return {
-    levels,
-    groups,
+    levels: (data?.orgUnitLevels as any)?.organisationUnitLevels,
+    groups: (data?.orgUnitGroups as any)?.organisationUnitGroups,
     error,
     loading,
   };

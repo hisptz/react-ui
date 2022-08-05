@@ -25,6 +25,8 @@ export default function OrgUnitDataProvider({ children }: { children: React.Reac
             };
           }
         },
+        organisationUnitLevels: orgUnits.organisationUnitLevels,
+        organisationUnitGroups: orgUnits.organisationUnitGroups,
       }}>
       {children}
     </CustomDataProvider>

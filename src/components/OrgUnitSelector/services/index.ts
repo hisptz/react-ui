@@ -10,7 +10,7 @@ const orgUnitRootsQuery = {
     },
   },
 };
-const orgUnitLevelsQuery = {
+export const orgUnitLevelsQuery = {
   orgUnitLevels: {
     resource: "organisationUnitLevels",
     params: {
@@ -18,11 +18,17 @@ const orgUnitLevelsQuery = {
     },
   },
 };
-const orgUnitGroupsQuery = {
+export const orgUnitLevelAndGroupsQuery = {
   orgUnitGroups: {
     resource: "organisationUnitGroups",
     params: {
       fields: ["id", "displayName"],
+    },
+  },
+  orgUnitLevels: {
+    resource: "organisationUnitLevels",
+    params: {
+      fields: ["id", "displayName", "level"],
     },
   },
 };
@@ -51,7 +57,7 @@ export const apiFetchOrganisationUnitLevels = async (dataEngine: any, onError?: 
   return orgUnitLevelsData.orgUnitLevels.organisationUnitLevels;
 };
 export const apiFetchOrganisationUnitGroups = async (dataEngine: any, onError?: (e: any) => void) => {
-  const orgUnitGroupsData = await dataEngine.query(orgUnitGroupsQuery, {
+  const orgUnitGroupsData = await dataEngine.query(orgUnitLevelAndGroupsQuery, {
     onError,
   });
   return orgUnitGroupsData.orgUnitGroups.organisationUnitGroups;
