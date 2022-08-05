@@ -5,7 +5,7 @@ import SingleValueItem from "./components/SingleValueItem/SingleValueItem";
 import styles from "./styles/SingleValueContainer.module.css";
 import { SingleValue, SingleValueContainerProps } from "./types/props";
 
-export default function SingleValueContainer({ title, singleValueItems }: SingleValueContainerProps): React.ReactElement {
+export default function SingleValueContainer({ title, singleValueItems, animationDuration, animationDelay }: SingleValueContainerProps): React.ReactElement {
   return (
     <div className="w-100 h-100">
       <CssReset />
@@ -14,7 +14,12 @@ export default function SingleValueContainer({ title, singleValueItems }: Single
           <span className={`${styles["font-x-large"]} ${styles["font-bold"]}`}>{title}</span>
           <div className={styles["single-value-list"]}>
             {singleValueItems.map((singleValueItem: SingleValue) => (
-              <SingleValueItem key={`${singleValueItem.label}-${singleValueItem.value}`} {...singleValueItem} />
+              <SingleValueItem
+                key={`${singleValueItem.label}-${singleValueItem.value}`}
+                {...singleValueItem}
+                globalAnimationDuration={animationDuration}
+                globalAnimationDelay={animationDelay}
+              />
             ))}
           </div>
         </div>
@@ -22,3 +27,4 @@ export default function SingleValueContainer({ title, singleValueItems }: Single
     </div>
   );
 }
+export { SingleValueItem };

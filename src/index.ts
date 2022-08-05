@@ -18,7 +18,7 @@ import Map from "./components/Map";
 import { OrgUnitSelectorModal, PeriodSelectorModal } from "./components/Modals";
 import OrgUnitSelector from "./components/OrgUnitSelector/index";
 import PeriodSelector from "./components/PeriodSelector";
-import SingleValueContainer from "./components/SingleValueContainer";
+import SingleValueContainer, { SingleValueItem } from "./components/SingleValueContainer";
 
 export {
   PeriodSelector,
@@ -41,6 +41,7 @@ export {
   CircularProgressDashboard,
   Map,
   SingleValueContainer,
+  SingleValueItem,
   ChartDownloadMenu,
   setupHighchartsModules,
   onFullScreenView,

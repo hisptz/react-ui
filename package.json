@@ -1,7 +1,7 @@
 {
   "name": "@hisptz/react-ui",
   "homepage": "https://hisptz.github.io/react-ui",
-  "version": "1.0.55",
+  "version": "1.0.56",
   "description": "A collection of reusable complex DHIS2 react ui components.",
   "license": "BSD-3-Clause",
   "scripts": {
@@ -90,7 +90,8 @@
     "react-helmet": "^6.1.0",
     "react-hook-form": "^7.33.0",
     "react-leaflet": "^4.0.1",
-    "react-leaflet-custom-control": "^1.3.1"
+    "react-leaflet-custom-control": "^1.3.1",
+    "react-spring": "^9.5.2"
   },
   "main": "./build/cjs/index.js",
   "module": "./build/es/index.js",
