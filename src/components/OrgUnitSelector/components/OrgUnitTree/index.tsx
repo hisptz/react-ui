@@ -5,6 +5,11 @@ import { isEmpty } from "lodash";
 import React from "react";
 import { isOrgUnitSelected, onDeselectOrgUnit, onSelectOrgUnit } from "../../utils";
 
+export function CustomOrgUnitNodeLabel({ node, limitSelectionToLevels }: { node: { displayName: string; level: number }; limitSelectionToLevels?: number[] }) {
+  const allowSelection = limitSelectionToLevels?.includes(node.level) ?? true;
+  return <div style={!allowSelection ? { opacity: 0.5 } : undefined}>{node.displayName}</div>;
+}
+
 export function OrgUnitTree({
   value,
   onUpdate,
@@ -71,6 +76,7 @@ export function OrgUnitTree({
           expanded={expanded}
           handleExpand={handleExpand}
           handleCollapse={handleExpand}
+          renderNodeLabel={(props: any) => <CustomOrgUnitNodeLabel {...props} limitSelectionToLevels={limitSelectionToLevels} />}
           roots={roots?.map((root) => root.id)}
           onChange={onSelect}
           singleSelection={singleSelection}

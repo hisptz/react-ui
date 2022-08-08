@@ -80,6 +80,15 @@ WithAllOptions.args = {
   searchable: true,
 };
 
+export const SelectionDisabledLevels = Template.bind({});
+SelectionDisabledLevels.args = {
+  value: { orgUnits: [] },
+  onUpdate: (value) => {
+    console.log(value);
+  },
+  limitSelectionToLevels: [3, 2],
+};
+
 export default {
   title: "Components/Organisation Unit Selector",
   component: OrgUnitSelector,
