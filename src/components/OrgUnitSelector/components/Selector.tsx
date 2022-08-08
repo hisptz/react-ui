@@ -62,6 +62,7 @@ export default function OrgUnitSelector({
               )}
               {roots && (
                 <OrgUnitTree
+                  keyword={searchValue}
                   value={value}
                   onUpdate={onUpdate}
                   expanded={expanded}

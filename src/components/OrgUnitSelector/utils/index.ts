@@ -1,6 +1,5 @@
 import type { OrganisationUnit, OrgUnitSelection } from "@hisptz/dhis2-utils";
 import { cloneDeep, compact, filter, find, flattenDeep, isEmpty, remove, take, uniq } from "lodash";
-import { searchOrgUnitUsingKeyword } from "../services";
 
 type OnUpdate = (updatedOrgUnitSelection: OrgUnitSelection) => void;
 
@@ -101,19 +100,6 @@ export const onUserSubX2Units =
       });
     }
   };
-
-export const searchOrgUnits = async (dataEngine: any, searchValue: string) => {
-  try {
-    if (searchValue) {
-      return await searchOrgUnitUsingKeyword(dataEngine, searchValue);
-    } else {
-      return [];
-    }
-  } catch (e) {
-    console.error(e);
-  }
-};
-
 export const sanitizeFilters = (filters: Array<OrganisationUnit>): Array<string> => {
   const sanitizedFilters = filters.map(({ path }) => {
     const newFilter = [];

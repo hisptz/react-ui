@@ -1,5 +1,7 @@
+import i18n from "@dhis2/d2-i18n";
 import { OrganisationUnitTree } from "@dhis2/ui";
 import type { OrganisationUnit, OrgUnitSelection } from "@hisptz/dhis2-utils";
+import { isEmpty } from "lodash";
 import React from "react";
 import { isOrgUnitSelected, onDeselectOrgUnit, onSelectOrgUnit } from "../../utils";
 
@@ -12,6 +14,7 @@ export function OrgUnitTree({
   handleExpand,
   roots,
   singleSelection,
+  keyword,
 }: {
   value: OrgUnitSelection | undefined;
   onUpdate: ((value: OrgUnitSelection) => void) | undefined;
@@ -21,6 +24,7 @@ export function OrgUnitTree({
   expanded: string[];
   handleExpand: (orgUnit: { path: string }) => void;
   roots: OrganisationUnit[];
+  keyword?: string;
 }) {
   const selectedOrgUnits = value?.orgUnits ?? [];
 
@@ -41,20 +45,29 @@ export function OrgUnitTree({
               cursor: "not-allowed",
               overflow: "auto",
             }
-          : { overflow: "auto", maxHeight: 400 }
+          : { overflow: "auto", maxHeight: 400, height: 400 }
       }>
-      <OrganisationUnitTree
-        forceReload
-        filter={filter}
-        disableSelection={disableSelections}
-        selected={selectedOrgUnits?.map((orgUnit) => orgUnit.path)}
-        expanded={expanded}
-        handleExpand={handleExpand}
-        handleCollapse={handleExpand}
-        roots={roots?.map((root) => root.id)}
-        onChange={onSelect}
-        singleSelection={singleSelection}
-      />
+      {(keyword?.length ?? 0) > 3 && isEmpty(filter) ? (
+        <div className="column center align-items-center w-100 h-100">
+          <p>
+            {i18n.t("Could not find organisation units matching keyword ")}
+            <b>{keyword}</b>
+          </p>
+        </div>
+      ) : (
+        <OrganisationUnitTree
+          forceReload
+          filter={filter}
+          disableSelection={disableSelections}
+          selected={selectedOrgUnits?.map((orgUnit) => orgUnit.path)}
+          expanded={expanded}
+          handleExpand={handleExpand}
+          handleCollapse={handleExpand}
+          roots={roots?.map((root) => root.id)}
+          onChange={onSelect}
+          singleSelection={singleSelection}
+        />
+      )}
     </div>
   );
 }
