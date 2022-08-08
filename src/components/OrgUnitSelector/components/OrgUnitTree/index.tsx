@@ -15,6 +15,7 @@ export function OrgUnitTree({
   roots,
   singleSelection,
   keyword,
+  limitSelectionToLevels,
 }: {
   value: OrgUnitSelection | undefined;
   onUpdate: ((value: OrgUnitSelection) => void) | undefined;
@@ -25,10 +26,17 @@ export function OrgUnitTree({
   handleExpand: (orgUnit: { path: string }) => void;
   roots: OrganisationUnit[];
   keyword?: string;
+  limitSelectionToLevels?: number[];
 }) {
   const selectedOrgUnits = value?.orgUnits ?? [];
 
   const onSelect = (orgUnit: any) => {
+    if (limitSelectionToLevels !== undefined) {
+      if (!limitSelectionToLevels.includes(orgUnit.level)) {
+        return;
+      }
+    }
+
     if (isOrgUnitSelected(selectedOrgUnits ?? [], orgUnit as OrganisationUnit)) {
       onDeselectOrgUnit(orgUnit as OrganisationUnit, selectedOrgUnits, { onUpdate, value });
     } else {
