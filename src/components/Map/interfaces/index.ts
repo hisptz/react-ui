@@ -1,4 +1,5 @@
 import type { OrgUnitSelection } from "@hisptz/dhis2-utils";
+import type { MapContainerProps } from "react-leaflet";
 import { ThematicLayer } from "../components/MapLayer/interfaces";
 
 export interface MapProviderProps {
@@ -9,12 +10,12 @@ export interface MapProviderProps {
 
 export interface MapProps {
   orgUnitSelection: OrgUnitSelection; //Organisation unit selection
-  descendantLevel?: number; //Lowest level of organisation units to drill down to
   boundaryLayer?: {
     enabled: boolean;
   };
   thematicLayers?: ThematicLayer[];
   periodSelection?: { periods: any[] };
+  mapOptions?: MapContainerProps;
 }
 
 export interface MapOrgUnit {

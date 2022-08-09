@@ -70,6 +70,48 @@ ChoroplethThematicLayer.args = {
   },
 };
 
+export const ChoroplethThematicLayerWithLevels = Template.bind({});
+ChoroplethThematicLayerWithLevels.args = {
+  orgUnitSelection: {
+    orgUnits: [
+      {
+        id: "ImspTQPwCqd",
+        displayName: "Sierra Leone",
+        name: "Sierra Leone",
+        path: "/ImspTQPwCqd",
+        children: [],
+      },
+    ],
+    levels: ["3"],
+  },
+  boundaryLayer: {
+    enabled: true,
+  },
+  thematicLayers: [
+    {
+      type: "choropleth",
+      id: "choropleth",
+      enabled: true,
+      dataItem: {
+        id: "Uvn6LCg7dVU",
+        displayName: "ANC 1 Coverage",
+        type: "indicator",
+      },
+      control: {
+        enabled: true,
+        position: "topright",
+      },
+    },
+  ],
+  periodSelection: {
+    periods: [
+      {
+        ...new Period().setPreferences({ allowFuturePeriods: true }).getById("2022"),
+      },
+    ],
+  },
+};
+
 export default {
   title: "Components/Map",
   component: Map,

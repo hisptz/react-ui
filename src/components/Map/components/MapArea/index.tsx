@@ -7,13 +7,13 @@ import MapLayer from "../MapLayer";
 import MapUpdater from "../MapUpdater";
 import { MapAreaProps } from "./interfaces";
 
-export default function MapArea({ layers, base, controls }: MapAreaProps) {
+export default function MapArea({ layers, base, controls, mapOptions }: MapAreaProps) {
   const { center, bounds } = useMapBounds();
   const enabledLayers = layers.filter((l) => l.enabled);
 
   return (
     <div id="map-container" style={{ height: "100%", width: "100%" }}>
-      <MapContainer center={center} bounceAtZoomLimits bounds={bounds} style={{ height: "100%", width: "100%", minHeight: 500 }}>
+      <MapContainer center={center} bounceAtZoomLimits bounds={bounds} style={{ height: "100%", width: "100%", minHeight: 500 }} {...mapOptions}>
         <MapUpdater bounds={bounds} />
         <TileLayer
           attribution={
