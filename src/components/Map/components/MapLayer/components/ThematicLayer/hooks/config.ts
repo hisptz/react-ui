@@ -63,7 +63,7 @@ export default function useThematicLayerData(layer: ThematicLayer): {
       return [];
     }
     return [];
-  }, [data, orgUnits]);
+  }, [data, orgUnits, periods, layer]);
 
   return {
     data: formattedData as any,

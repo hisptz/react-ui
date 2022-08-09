@@ -55,7 +55,7 @@ export function MapProvider({ children, orgUnitSelection, periodSelection }: Map
     getOrgUnits();
   }, [orgUnitSelection, refetch]);
 
-  if (!loading) {
+  if (loading) {
     return (
       <div style={{ height: "100%", width: "100%" }}>
         <CenteredContent>
