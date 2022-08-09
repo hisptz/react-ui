@@ -23,4 +23,6 @@ export type OrgUnitSelectorProps = {
   showUserOptions?: boolean;
   singleSelection?: boolean;
   searchable?: boolean;
+  limitSelectionToLevels?: number[];
+  filterByGroups?: string[];
 };

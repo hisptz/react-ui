@@ -2,6 +2,7 @@ import { mount } from "@cypress/react";
 import type { OrgUnitSelection } from "@hisptz/dhis2-utils";
 import React from "react";
 import OrgUnitDataProvider from "../../dataProviders/orgUnit";
+import { OrgUnitSelectorValue } from "./types";
 import OrgUnitSelector from "./index";
 
 describe("Org Unit Selector", () => {
@@ -88,33 +89,26 @@ describe("Org Unit Selector", () => {
   });
 
   it("should return the selected org unit", function () {
-    // let selectedOrgUnit: OrgUnitSelectorValue;
-    // const onSelect = (orgUnitSelection: OrgUnitSelectorValue) => {
-    //   selectedOrgUnit = orgUnitSelection;
-    // };
+    let selectedOrgUnit: OrgUnitSelectorValue;
+    const onSelect = (orgUnitSelection: OrgUnitSelectorValue) => {
+      selectedOrgUnit = orgUnitSelection;
+    };
     mount(
       <DHIS2Provider>
-        <OrgUnitSelector
-          value={{ orgUnits: [] }}
-          showLevels
-          onUpdate={() => {
-            return;
-          }}
-        />
+        <OrgUnitSelector value={{ orgUnits: [] }} showLevels onUpdate={onSelect} />
       </DHIS2Provider>
     ).then(() => {
-      return;
-      // cy.get("[data-test=dhis2-uicore-checkbox]", { timeout: 10000 })
-      //   .click()
-      //   .then(() => {
-      //     expect(selectedOrgUnit.orgUnits?.length).to.equal(1);
-      //   });
-      // cy.get("[data-test='levels-selector']").click();
-      // cy.get("[data-test='Facility-option']")
-      //   .click()
-      //   .then(() => {
-      //     expect(selectedOrgUnit.levels?.length).to.equal(1);
-      //   });
+      cy.get("[data-test=dhis2-uicore-checkbox]", { timeout: 10000 })
+        .click()
+        .then(() => {
+          expect(selectedOrgUnit.orgUnits?.length).to.equal(1);
+        });
+      cy.get("[data-test='levels-selector']").click();
+      cy.get("[data-test='Facility-option']")
+        .click()
+        .then(() => {
+          expect(selectedOrgUnit.levels?.length).to.equal(1);
+        });
     });
   });
 });

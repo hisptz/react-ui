@@ -30,7 +30,7 @@ function ChoroplethLegend(
       <Divider margin={"0"} />
       <div style={{ width: 150 }} className="legend-list pt-8">
         {legends?.map((legend: any) => (
-          <LegendItem key={`${legend?.id}`} legend={legend} value={getLegendCount(legend, data)} />
+          <LegendItem key={`${legend?.color}-legend-list`} legend={legend} value={getLegendCount(legend, data)} />
         ))}
       </div>
     </div>
