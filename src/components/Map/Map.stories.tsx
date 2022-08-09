@@ -20,6 +20,25 @@ BoundaryLayer.args = {
   },
 };
 
+export const BoundaryLayerWithLevels = Template.bind({});
+BoundaryLayerWithLevels.args = {
+  orgUnitSelection: {
+    orgUnits: [
+      {
+        id: "ImspTQPwCqd",
+        displayName: "Sierra Leone",
+        name: "Sierra Leone",
+        path: "/ImspTQPwCqd",
+        children: [],
+      },
+    ],
+    levels: ["2"],
+  },
+  boundaryLayer: {
+    enabled: true,
+  },
+};
+
 export const ChoroplethThematicLayer = Template.bind({});
 ChoroplethThematicLayer.args = {
   orgUnitSelection: { orgUnits: [], userOrgUnit: true, userSubUnit: true, userSubX2Unit: true },
