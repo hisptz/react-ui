@@ -30,6 +30,7 @@ export function MapProvider({ children, orgUnitSelection, periodSelection }: Map
   useEffect(() => {
     async function getOrgUnits() {
       const rawOrgUnitIds = getOrgUnitsSelection(orgUnitSelection);
+      console.log(rawOrgUnitIds);
       const data = await refetch({ orgUnitIds: rawOrgUnitIds });
       const { analytics, boundaries } = (data as any) ?? {};
       const rawOrgUnits = sanitizeOrgUnits(analytics?.metaData);

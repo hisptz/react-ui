@@ -44,7 +44,7 @@ export function getOrgUnitsSelection(orgUnitSelection: OrgUnitSelection) {
     orgUnits.push("USER_ORGUNIT_GRANDCHILDREN");
   }
   if (!isEmpty(orgUnitSelection.levels)) {
-    forEach(orgUnitSelection.levels, (level) => `LEVEL-${level}`);
+    forEach(orgUnitSelection.levels, (level) => orgUnits.push(`LEVEL-${level}`));
   }
 
   return [...orgUnits, ...(orgUnitSelection?.orgUnits?.map((ou: OrganisationUnit) => `${ou.id}`) ?? [])];
