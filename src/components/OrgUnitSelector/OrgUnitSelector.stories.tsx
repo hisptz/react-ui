@@ -1,5 +1,6 @@
 import type { Story } from "@storybook/react";
 import React from "react";
+import OrgUnitDataProvider from "../../dataProviders/orgUnit";
 import { OrgUnitSelectorProps } from "./types";
 import OrgUnitSelector from "./index";
 
@@ -102,9 +103,9 @@ export default {
   component: OrgUnitSelector,
   decorators: [
     (Story: any) => (
-      // <OrgUnitDataProvider>
-      <Story />
-      // </OrgUnitDataProvider>
+      <OrgUnitDataProvider>
+        <Story />
+      </OrgUnitDataProvider>
     ),
   ],
 };
