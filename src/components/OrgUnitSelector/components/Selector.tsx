@@ -22,7 +22,7 @@ export default function OrgUnitSelector({
 }: OrgUnitSelectorProps) {
   const { roots, error, loading } = useOrgUnitsRoot();
   const { orgUnits: selectedOrgUnits = [], userOrgUnit, userSubUnit, userSubX2Unit } = value ?? {};
-  const { filteredOrgUnits, searchValue, setSearchValue, handleExpand, expanded } = useFilterOrgUnits(selectedOrgUnits);
+  const { filteredOrgUnits, searchValue, setSearchValue, handleExpand, expanded } = useFilterOrgUnits(selectedOrgUnits, filterByGroups);
   const disableSelections = useMemo(() => userOrgUnit || userSubX2Unit || userSubUnit, [userOrgUnit, userSubUnit, userSubX2Unit]);
 
   if (error) {

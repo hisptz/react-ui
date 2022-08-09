@@ -15,6 +15,7 @@ export default function OrgUnitDataProvider({ children }: { children: React.Reac
               { id: query.id }
             );
           }
+
           if (query.params?.filter) {
             const keyword = last((query?.params?.filter as string)?.split(":")) ?? "";
             return {

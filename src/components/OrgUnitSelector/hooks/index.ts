@@ -22,14 +22,14 @@ export function useOrgUnitLevelsAndGroups(): { levels: Array<any>; groups: Array
   };
 }
 
-export function useFilterOrgUnits(selectedOrgUnits: Array<OrganisationUnit>) {
+export function useFilterOrgUnits(selectedOrgUnits: Array<OrganisationUnit>, filterByGroups?: string[]) {
   const [searchValue, setSearchValue] = useState<string | undefined>();
   const [expanded, setExpanded] = useState<string[]>(compact((selectedOrgUnits ?? [])?.map(({ path }) => path)));
   const { refetch, data, loading } = useDataQuery(orgUnitSearchQuery, {
     variables: {
       keyword: searchValue,
+      groups: filterByGroups,
     },
-    lazy: true,
   });
 
   const orgUnitsPaths = useMemo(() => {
