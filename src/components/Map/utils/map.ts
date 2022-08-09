@@ -1,7 +1,7 @@
 import { colors } from "@dhis2/ui";
 import type { OrganisationUnit, OrgUnitSelection } from "@hisptz/dhis2-utils";
 import { LeafletMouseEvent } from "leaflet";
-import { compact, filter, find, isString, sortBy } from "lodash";
+import { compact, filter, find, forEach, isEmpty, isString, sortBy } from "lodash";
 import { defaultLegendSet } from "../constants/legendSet";
 
 export function highlightFeature(e: LeafletMouseEvent, style: any) {
@@ -42,6 +42,9 @@ export function getOrgUnitsSelection(orgUnitSelection: OrgUnitSelection) {
 
   if (orgUnitSelection.userSubX2Unit) {
     orgUnits.push("USER_ORGUNIT_GRANDCHILDREN");
+  }
+  if (!isEmpty(orgUnitSelection.levels)) {
+    forEach(orgUnitSelection.levels, (level) => `LEVEL-${level}`);
   }
 
   return [...orgUnits, ...(orgUnitSelection?.orgUnits?.map((ou: OrganisationUnit) => `${ou.id}`) ?? [])];
