@@ -1,5 +1,5 @@
 import { useDataQuery } from "@dhis2/app-runtime";
-import { CircularLoader } from "@dhis2/ui";
+import { CenteredContent, CircularLoader } from "@dhis2/ui";
 import { compact, isEmpty } from "lodash";
 import React, { useEffect, useState } from "react";
 import { MapOrgUnit, MapProviderProps } from "../../interfaces";
@@ -30,7 +30,6 @@ export function MapProvider({ children, orgUnitSelection, periodSelection }: Map
   useEffect(() => {
     async function getOrgUnits() {
       const rawOrgUnitIds = getOrgUnitsSelection(orgUnitSelection);
-      console.log(rawOrgUnitIds);
       const data = await refetch({ orgUnitIds: rawOrgUnitIds });
       const { analytics, boundaries } = (data as any) ?? {};
       const rawOrgUnits = sanitizeOrgUnits(analytics?.metaData);
@@ -52,13 +51,16 @@ export function MapProvider({ children, orgUnitSelection, periodSelection }: Map
       );
       setOrgUnits(orgUnits);
     }
+
     getOrgUnits();
   }, [orgUnitSelection, refetch]);
 
   if (loading) {
     return (
-      <div>
-        <CircularLoader small />
+      <div style={{ height: "100%", width: "100%" }}>
+        <CenteredContent>
+          <CircularLoader small />
+        </CenteredContent>
       </div>
     );
   }

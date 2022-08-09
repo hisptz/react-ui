@@ -6,8 +6,8 @@ export default function MapDataProvider({ children }: { children: React.ReactNod
   return (
     <CustomDataProvider
       data={{
+        ...mapData,
         geoFeatures: async (type, query) => {
-          console.log(query);
           return mapData.geoFeatures;
         },
         analytics: async (type, query) => {
