@@ -30,25 +30,29 @@ export function useFilterOrgUnits(selectedOrgUnits: Array<OrganisationUnit>, fil
       keyword: searchValue,
       groups: filterByGroups,
     },
+    lazy: true,
   });
 
   const orgUnitsPaths = useMemo(() => {
-    if (searchValue) {
-      return sanitizeFilters((data?.orgUnits as any)?.organisationUnits ?? []);
-    }
-    return [];
-  }, [data, searchValue]);
+    return sanitizeFilters((data?.orgUnits as any)?.organisationUnits ?? []);
+  }, [data, searchValue, filterByGroups]);
 
   async function getSearch(keyword?: string) {
     if (keyword) {
-      if (keyword.length > 2) {
-        await refetch({ keyword });
+      if (keyword.length > 1) {
+        await refetch({ keyword, groups: filterByGroups });
       }
     }
   }
 
   useEffect(() => {
-    if (!isEmpty(orgUnitsPaths)) {
+    if (!isEmpty(filterByGroups)) {
+      refetch({ groups: filterByGroups });
+    }
+  }, [filterByGroups]);
+
+  useEffect(() => {
+    if (!isEmpty(orgUnitsPaths) && searchValue) {
       const pathsToExpand = sanitizeExpansionPaths(orgUnitsPaths);
       setExpanded((prevState) => [...prevState, ...pathsToExpand]);
     } else {

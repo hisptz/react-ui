@@ -1,6 +1,5 @@
 import type { Story } from "@storybook/react";
 import React from "react";
-import OrgUnitDataProvider from "../../dataProviders/orgUnit";
 import { OrgUnitSelectorProps } from "./types";
 import OrgUnitSelector from "./index";
 
@@ -95,7 +94,7 @@ FilterByGroups.args = {
   onUpdate: (value) => {
     console.log(value);
   },
-  filterByGroups: ["uYxK4wmcPqA", "CXw2yu5fodb"],
+  filterByGroups: ["RXL3lPSK8oG"],
 };
 
 export default {
@@ -103,9 +102,9 @@ export default {
   component: OrgUnitSelector,
   decorators: [
     (Story: any) => (
-      <OrgUnitDataProvider>
-        <Story />
-      </OrgUnitDataProvider>
+      // <OrgUnitDataProvider>
+      <Story />
+      // </OrgUnitDataProvider>
     ),
   ],
 };
