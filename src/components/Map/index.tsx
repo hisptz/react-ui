@@ -5,7 +5,7 @@ import { ThematicLayer } from "./components/MapLayer/interfaces";
 import { MapProvider } from "./components/MapProvider";
 import { MapProps } from "./interfaces";
 
-export default function Map({ orgUnitSelection, boundaryLayer, thematicLayers, periodSelection }: MapProps) {
+export default function Map({ orgUnitSelection, boundaryLayer, thematicLayers, periodSelection, mapOptions }: MapProps) {
   const enabledThematicLayers = useMemo(() => thematicLayers?.filter((layer: any) => layer.enabled) ?? [], [thematicLayers]);
   return (
     <MapProvider periodSelection={periodSelection} orgUnitSelection={orgUnitSelection}>
@@ -33,6 +33,7 @@ export default function Map({ orgUnitSelection, boundaryLayer, thematicLayers, p
             layer,
           })) ?? []),
         ]}
+        mapOptions={mapOptions}
       />
     </MapProvider>
   );

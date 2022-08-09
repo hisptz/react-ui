@@ -1,6 +1,6 @@
 import { useDataQuery } from "@dhis2/app-runtime";
 import { isEmpty } from "lodash";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { MapOrgUnit } from "../../../../../interfaces";
 import { getOrgUnitsSelection } from "../../../../../utils/map";
 import { useMapOrganisationUnit, useMapPeriods } from "../../../../MapProvider/hooks";
@@ -29,18 +29,29 @@ export default function useThematicLayerData(layer: ThematicLayer): {
 } {
   const { orgUnits, orgUnitSelection } = useMapOrganisationUnit();
   const { periods } = useMapPeriods() ?? {};
-  const ou = getOrgUnitsSelection(orgUnitSelection);
-  const pe = periods?.map((pe: any) => pe.id);
-  const dx = [layer.dataItem.id];
+  const ou = useMemo(() => getOrgUnitsSelection(orgUnitSelection), [orgUnitSelection]);
+  const pe = useMemo(() => periods?.map((pe: any) => pe.id), [periods]);
+  const dx = useMemo(() => [layer.dataItem.id], [layer]);
 
-  const { loading, data, error } = useDataQuery(analyticsQuery, {
+  const { loading, data, error, refetch } = useDataQuery(analyticsQuery, {
     variables: {
       ou,
       pe,
       dx,
       legendSetId: layer?.dataItem?.legendSet?.id,
     },
+    lazy: true,
   });
+
+  useEffect(() => {
+    refetch({
+      ou,
+      pe,
+      dx,
+      legendSetId: layer?.dataItem?.legendSet?.id,
+    });
+  }, [ou, pe, dx]);
+
   const formattedData = useMemo(() => {
     if (data) {
       const { analytics } = data as any;
@@ -55,7 +66,7 @@ export default function useThematicLayerData(layer: ThematicLayer): {
             data: row ? parseFloat(row[valueIndex]) : undefined,
             dataItem: {
               ...layer.dataItem,
-              legendSet: Array.isArray((data?.legendSet as any)?.legendSets) ? (data.legendSet as any)?.legendSets[0] : data.legendSe,
+              legendSet: Array.isArray((data?.legendSet as any)?.legendSets) ? (data.legendSet as any)?.legendSets[0] : data.legendSet,
             },
           };
         });
@@ -63,7 +74,7 @@ export default function useThematicLayerData(layer: ThematicLayer): {
       return [];
     }
     return [];
-  }, [data, orgUnits]);
+  }, [data, orgUnits, periods, layer]);
 
   return {
     data: formattedData as any,
