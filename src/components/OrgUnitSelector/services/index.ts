@@ -1,6 +1,6 @@
-import type { OrganisationUnit } from "@hisptz/dhis2-utils";
+import { compact, isEmpty } from "lodash";
 
-const orgUnitRootsQuery = {
+export const orgUnitRootsQuery = {
   orgUnitRoots: {
     resource: "organisationUnits",
     params: {
@@ -10,7 +10,13 @@ const orgUnitRootsQuery = {
     },
   },
 };
-const orgUnitLevelsQuery = {
+export const orgUnitLevelAndGroupsQuery = {
+  orgUnitGroups: {
+    resource: "organisationUnitGroups",
+    params: {
+      fields: ["id", "displayName"],
+    },
+  },
   orgUnitLevels: {
     resource: "organisationUnitLevels",
     params: {
@@ -18,51 +24,16 @@ const orgUnitLevelsQuery = {
     },
   },
 };
-const orgUnitGroupsQuery = {
-  orgUnitGroups: {
-    resource: "organisationUnitGroups",
-    params: {
-      fields: ["id", "displayName"],
-    },
-  },
-};
 
-const orgUnitSearchQuery = {
+export const orgUnitSearchQuery = {
   orgUnits: {
     resource: "organisationUnits",
-    params: ({ keyword }: any) => ({
+    params: ({ keyword, groups }: any) => ({
       fields: ["id,path"],
-      filter: `identifiable:token:${keyword}`,
+      filter: compact([
+        keyword ? `identifiable:token:${keyword}` : undefined,
+        !isEmpty(groups) ? `organisationUnitGroups.id:in:[${groups.join(",")}]` : undefined,
+      ]),
     }),
   },
-};
-
-export const apiFetchOrganisationUnitRoots = async (dataEngine: any, onError?: (e: any) => void) => {
-  const orgUnitRootsData = await dataEngine.query(orgUnitRootsQuery, {
-    onError,
-  });
-  return orgUnitRootsData.orgUnitRoots.organisationUnits;
-};
-
-export const apiFetchOrganisationUnitLevels = async (dataEngine: any, onError?: (e: any) => void) => {
-  const orgUnitLevelsData = await dataEngine.query(orgUnitLevelsQuery, {
-    onError,
-  });
-  return orgUnitLevelsData.orgUnitLevels.organisationUnitLevels;
-};
-export const apiFetchOrganisationUnitGroups = async (dataEngine: any, onError?: (e: any) => void) => {
-  const orgUnitGroupsData = await dataEngine.query(orgUnitGroupsQuery, {
-    onError,
-  });
-  return orgUnitGroupsData.orgUnitGroups.organisationUnitGroups;
-};
-
-export const searchOrgUnitUsingKeyword = async (dataEngine: any, keyword: string, onError?: (e: any) => void): Promise<Array<OrganisationUnit>> => {
-  const searchedOrgUnits = await dataEngine.query(orgUnitSearchQuery, {
-    onError,
-    variables: {
-      keyword,
-    },
-  });
-  return searchedOrgUnits?.orgUnits?.organisationUnits ?? [];
 };

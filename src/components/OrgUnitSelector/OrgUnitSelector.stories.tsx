@@ -80,6 +80,24 @@ WithAllOptions.args = {
   searchable: true,
 };
 
+export const SelectionDisabledLevels = Template.bind({});
+SelectionDisabledLevels.args = {
+  value: { orgUnits: [] },
+  onUpdate: (value) => {
+    console.log(value);
+  },
+  limitSelectionToLevels: [3, 2],
+};
+
+export const FilterByGroups = Template.bind({});
+FilterByGroups.args = {
+  value: { orgUnits: [] },
+  onUpdate: (value) => {
+    console.log(value);
+  },
+  filterByGroups: ["RXL3lPSK8oG"],
+};
+
 export default {
   title: "Components/Organisation Unit Selector",
   component: OrgUnitSelector,
