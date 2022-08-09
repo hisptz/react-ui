@@ -1,3 +1,4 @@
+import type { MapContainerProps } from "react-leaflet";
 import { MapLayerProps } from "../../MapLayer/interfaces";
 
 export interface MapControls {
@@ -13,4 +14,5 @@ export interface MapAreaProps {
     attribution: string;
   };
   controls?: MapControls[];
+  mapOptions?: MapContainerProps;
 }
