@@ -15,7 +15,6 @@ const highlightStyle = {
 
 export default function Choropleth({ data }: { data: { orgUnit: MapOrgUnit; data?: number; dataItem: ThematicLayerDataItem } }) {
   const { dataItem, orgUnit } = data;
-
   return (
     <>
       <GeoJSON

@@ -6,5 +6,3 @@ module.exports = {
     builder: "@storybook/builder-vite",
   },
 };
-
-export {};
