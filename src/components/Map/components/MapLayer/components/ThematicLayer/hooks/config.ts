@@ -55,7 +55,7 @@ export default function useThematicLayerData(layer: ThematicLayer): {
             data: row ? parseFloat(row[valueIndex]) : undefined,
             dataItem: {
               ...layer.dataItem,
-              legendSet: Array.isArray((data?.legendSet as any)?.legendSets) ? (data.legendSet as any)?.legendSets[0] : data.legendSe,
+              legendSet: Array.isArray((data?.legendSet as any)?.legendSets) ? (data.legendSet as any)?.legendSets[0] : data.legendSet,
             },
           };
         });
