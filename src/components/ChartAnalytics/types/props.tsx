@@ -44,4 +44,5 @@ export type ChartConfig = {
 export type ChartAnalyticsProps = {
   analytics: Analytics;
   config: ChartConfig;
+  containerProps?: Record<string, any>;
 };

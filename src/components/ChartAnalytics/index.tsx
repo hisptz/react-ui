@@ -10,14 +10,14 @@ import "./styles/custom-highchart.css";
 export * from "./services/export";
 export { ChartDownloadMenu };
 
-function ChartAnalytics({ analytics, config }: ChartAnalyticsProps, ref: React.ForwardedRef<HighchartsReact.RefObject>) {
+function ChartAnalytics({ analytics, config, containerProps }: ChartAnalyticsProps, ref: React.ForwardedRef<HighchartsReact.RefObject>) {
   const id = useRef(`${uid()}-chart-item`);
   const { chart } = useChart({ id: id.current, analytics, config });
 
   if (!chart) {
     return null;
   }
-  return <HighchartsReact immutable ref={ref} containerProps={{ id: id.current }} highcharts={HighCharts} options={{ ...chart }} />;
+  return <HighchartsReact immutable ref={ref} containerProps={{ id: id.current, ...(containerProps ?? {}) }} highcharts={HighCharts} options={{ ...chart }} />;
 }
 
 export default forwardRef(ChartAnalytics);
