@@ -20,6 +20,8 @@ import OrgUnitSelector from "./components/OrgUnitSelector/index";
 import PeriodSelector from "./components/PeriodSelector";
 import SingleValueContainer, { SingleValueItem } from "./components/SingleValueContainer";
 
+export * from "./components/CachedOrgUnitProvider";
+
 export {
   PeriodSelector,
   OrgUnitSelector,
