@@ -22,8 +22,7 @@ export default function OfflineOrganisationUnitProvider({ children }: { children
         organisationUnitLevels: (type, query, options) => {
           return getData(db.organisationUnitLevels, query, { engine }) as any;
         },
-      }}
-      options={{ failOnMiss: true }}>
+      }}>
       {children}
     </CustomDataProvider>
   );

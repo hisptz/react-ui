@@ -9,14 +9,26 @@ async function getFromEngine(engine: any, query: any) {
 async function getData(instance: Table<OfflineOrganisationUnitGroup> | Table<OfflineOrganisationUnitLevel>, query: any, { engine }: { engine: any }) {
   if (query.id) {
     const data = head(await instance.where("id").equals(query.id).toArray());
-    if (data) {
+    if (!isEmpty(data)) {
       return data;
     } else {
-      return getFromEngine(engine, query);
+      const data = await getFromEngine(engine, query);
+      if (!isEmpty(data)) {
+        await instance.add(data);
+      }
+      return data;
     }
   }
+
+  const data = await instance.toArray();
+  if (!isEmpty(data)) {
+    return {
+      [query.resource]: data,
+    };
+  }
+  const dataFromEngine = await getFromEngine(engine, query);
   return {
-    [query.resource]: await instance.toArray(),
+    [query.resource]: dataFromEngine?.[query.resource],
   };
 }
 
@@ -45,24 +57,44 @@ async function getOrgUnits(instance: Table<OfflineOrganisationUnit>, query: any,
       }
       return orgUnit;
     } else {
-      return getFromEngine(engine, query);
+      return await getFromEngine(engine, query);
     }
   }
   if (query.params.userDataViewFallback) {
-    return (await engine.query({ query }))?.query;
+    return await getFromEngine(engine, query);
   }
   if (!isEmpty(query.params.filter)) {
     const filter = query.params.filter;
     if (Array.isArray(filter)) {
       const keywords = compact(filter.map((filterString: string) => last(filterString.split(":"))?.trim())) ?? [];
+      const data = await instance.where("id").startsWithAnyOfIgnoreCase(keywords).or("displayName").startsWithAnyOfIgnoreCase(keywords).toArray();
+      if (!isEmpty(data)) {
+        return {
+          [query.resource]: data,
+        };
+      }
+      const dataFromEngine = await getFromEngine(engine, query);
+      if (dataFromEngine) {
+        await instance.bulkAdd(dataFromEngine);
+      }
       return {
-        [query.resource]: await instance.where("id").startsWithAnyOfIgnoreCase(keywords).or("displayName").startsWithAnyOfIgnoreCase(keywords).toArray(),
+        [query.resource]: dataFromEngine,
       };
     } else {
       const keyword: string | undefined = last(filter.split(":") as string[])?.trim();
       if (keyword) {
+        const data = await instance.where("id").startsWithIgnoreCase(keyword).or("displayName").startsWithIgnoreCase(keyword).toArray();
+        if (!isEmpty(data)) {
+          return {
+            [query.resource]: data,
+          };
+        }
+        const dataFromEngine = await getFromEngine(engine, query);
+        if (dataFromEngine) {
+          await instance.bulkAdd(dataFromEngine);
+        }
         return {
-          [query.resource]: await instance.where("id").startsWithIgnoreCase(keyword).or("displayName").startsWithIgnoreCase(keyword).toArray(),
+          [query.resource]: dataFromEngine,
         };
       }
     }
