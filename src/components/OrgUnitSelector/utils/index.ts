@@ -114,7 +114,7 @@ export const sanitizeFilters = (filters: Array<OrganisationUnit>): Array<string>
 
     return remove(newFilter, (filter) => filter !== "/");
   });
-  return uniq(flattenDeep(compact(sanitizedFilters)));
+  return uniq(flattenDeep(compact(sanitizedFilters))).filter((filter) => filter !== "");
 };
 
 export const sanitizeExpansionPaths = (orgUnitPaths: string[]): string[] => {

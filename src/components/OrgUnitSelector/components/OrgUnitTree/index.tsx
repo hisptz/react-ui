@@ -23,6 +23,7 @@ export function OrgUnitTree({
   keyword,
   limitSelectionToLevels,
   filtering,
+  searchMode,
 }: {
   value: OrgUnitSelection | undefined;
   onUpdate: ((value: OrgUnitSelection) => void) | undefined;
@@ -35,6 +36,7 @@ export function OrgUnitTree({
   keyword?: string;
   limitSelectionToLevels?: number[];
   filtering?: boolean;
+  searchMode?: boolean;
 }) {
   const selectedOrgUnits = value?.orgUnits ?? [];
 
@@ -52,8 +54,6 @@ export function OrgUnitTree({
     }
   };
 
-  console.log(filtering);
-
   return (
     <div
       style={
@@ -67,7 +67,7 @@ export function OrgUnitTree({
       }>
       {filtering ? (
         <FullPageLoader small />
-      ) : (keyword?.length ?? 0) > 3 && isEmpty(filter) ? (
+      ) : (keyword?.length ?? 0) > 3 && isEmpty(filter) && searchMode && !filtering ? (
         <div className="column center align-items-center w-100 h-100">
           <p>
             {i18n.t("Could not find organisation units matching keyword ")}
