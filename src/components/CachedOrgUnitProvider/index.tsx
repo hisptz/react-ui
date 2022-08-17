@@ -8,7 +8,7 @@ interface OfflineOrgUnitProviderProps {
   fallback?: React.ReactNode;
 }
 
-export default function OfflineOrgUnitProvider({ children, fallback }: OfflineOrgUnitProviderProps) {
+function OfflineOrgUnitProvider({ children, fallback }: OfflineOrgUnitProviderProps) {
   const { loading } = useOrganisationUnitData();
 
   if (fallback && loading) {
@@ -18,5 +18,5 @@ export default function OfflineOrgUnitProvider({ children, fallback }: OfflineOr
   return <>{children}</>;
 }
 
-export { useOrganisationUnitData, useClearOrganisationData, db, CustomOrgUnitProvider };
+export { useOrganisationUnitData, useClearOrganisationData, db, CustomOrgUnitProvider, OfflineOrgUnitProvider };
 export type { OfflineOrgUnitProviderProps };
