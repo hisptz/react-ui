@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-08-09T13:23:50.731Z\n"
-"PO-Revision-Date: 2022-08-09T13:23:50.731Z\n"
+"POT-Creation-Date: 2022-08-17T09:32:21.395Z\n"
+"PO-Revision-Date: 2022-08-17T09:32:21.395Z\n"
 
 msgid "Download PNG"
 msgstr "Download PNG"
@@ -127,6 +127,9 @@ msgstr "Select Level(s)"
 msgid "Select Group(s)"
 msgstr "Select Group(s)"
 
+msgid "Search name, id"
+msgstr "Search name, id"
+
 msgid "Could not find organisation units matching keyword "
 msgstr "Could not find organisation units matching keyword "
 
@@ -138,9 +141,6 @@ msgstr "User sub-units"
 
 msgid "User sub-x2-units"
 msgstr "User sub-x2-units"
-
-msgid "Search name, id"
-msgstr "Search name, id"
 
 msgid "Relative Periods"
 msgstr "Relative Periods"

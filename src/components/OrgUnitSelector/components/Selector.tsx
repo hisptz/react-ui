@@ -1,11 +1,11 @@
-import i18n from "@dhis2/d2-i18n";
-import { Box, CenteredContent, CircularLoader, colors, IconError24, InputField } from "@dhis2/ui";
+import { Box, CenteredContent, CircularLoader, colors, IconError24 } from "@dhis2/ui";
 import React, { Fragment, useMemo } from "react";
-import { useFilterOrgUnits, useOrgUnitsRoot } from "../hooks";
+import { useOrgUnitsRoot } from "../hooks";
 import { OrgUnitSelectorProps } from "../types";
 import "../../../styles/styles.css";
 import "../styles/styles.css";
 import { LevelAndGroupSelector } from "./LevelAndGroupSelector";
+import { OrgUnitSearch } from "./OrgUnitSearch";
 import { OrgUnitTree } from "./OrgUnitTree";
 import { OrgUnitUserOptions } from "./OrgUnitUserOptions";
 
@@ -18,11 +18,9 @@ export default function OrgUnitSelector({
   singleSelection,
   searchable,
   limitSelectionToLevels,
-  filterByGroups,
 }: OrgUnitSelectorProps) {
   const { roots, error, loading } = useOrgUnitsRoot();
-  const { orgUnits: selectedOrgUnits = [], userOrgUnit, userSubUnit, userSubX2Unit } = value ?? {};
-  const { filteredOrgUnits, searchValue, setSearchValue, handleExpand, expanded } = useFilterOrgUnits(selectedOrgUnits, filterByGroups);
+  const { userOrgUnit, userSubUnit, userSubX2Unit } = value ?? {};
   const disableSelections = useMemo(() => userOrgUnit || userSubX2Unit || userSubUnit, [userOrgUnit, userSubUnit, userSubX2Unit]);
 
   if (error) {
@@ -50,26 +48,13 @@ export default function OrgUnitSelector({
               </CenteredContent>
             )}
             <div className="p-16">
-              {searchable && (
-                <div className="pb-8">
-                  <InputField
-                    value={searchValue}
-                    onChange={({ value }: { value: string }) => setSearchValue(value)}
-                    dense
-                    placeholder={i18n.t("Search name, id")}
-                  />
-                </div>
-              )}
+              <OrgUnitSearch searchable={searchable} />
               {roots && (
                 <OrgUnitTree
                   limitSelectionToLevels={limitSelectionToLevels}
-                  keyword={searchValue}
                   value={value}
                   onUpdate={onUpdate}
-                  expanded={expanded}
-                  handleExpand={handleExpand}
                   roots={roots}
-                  filter={filteredOrgUnits}
                   disableSelections={disableSelections}
                   singleSelection={singleSelection}
                 />
