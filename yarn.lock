@@ -4664,6 +4664,11 @@
   resolved "https://registry.yarnpkg.com/@types/aria-query/-/aria-query-4.2.2.tgz#ed4e0ad92306a704f9fb132a0cfcf77486dbe2bc"
   integrity sha512-HnYpAE1Y6kRyKM/XkEuiRQhTHvkzMBurTHnpFLYLBGPIylZNPs9jJcuOOYWxPLJCSEtmZT0Y8rHDokKN7rRTig==
 
+"@types/async@^3.2.15":
+  version "3.2.15"
+  resolved "https://registry.yarnpkg.com/@types/async/-/async-3.2.15.tgz#26d4768fdda0e466f18d6c9918ca28cc89a4e1fe"
+  integrity sha512-PAmPfzvFA31mRoqZyTVsgJMsvbynR429UTTxhmfsUCrWGh3/fxOrzqBtaTPJsn4UtzTv4Vb0+/O7CARWb69N4g==
+
 "@types/babel__core@^7.0.0", "@types/babel__core@^7.1.14", "@types/babel__core@^7.1.7":
   version "7.1.19"
   resolved "https://registry.yarnpkg.com/@types/babel__core/-/babel__core-7.1.19.tgz#7b497495b7d1b4812bdb9d02804d0576f43ee460"
@@ -6313,6 +6318,11 @@ async-each@^1.0.1:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/async-each/-/async-each-1.0.3.tgz#b727dbf87d7651602f06f4d4ac387f47d91b0cbf"
   integrity sha512-z/WhQ5FPySLdvREByI2vZiTWwCnF0moMJ1hK9YQwDTHKh6I7/uSckMetoRGb5UBZPC1z0jlw+n/XCgjeH7y1AQ==
+
+async-es@^3.2.4:
+  version "3.2.4"
+  resolved "https://registry.yarnpkg.com/async-es/-/async-es-3.2.4.tgz#92b1a15d575c9847f232be729cbfdae188013162"
+  integrity sha512-GFHAAfmW7GzEiHFR6DvE5WMm6+js9pb+RLm+m1UpsyMX+I4j/R4QVw2Te664q+fvDVOz7Y0bORPDNvQS7BJ3Hw==
 
 async-limiter@~1.0.0:
   version "1.0.1"
@@ -9123,6 +9133,11 @@ detective@^5.2.0:
     acorn-node "^1.8.2"
     defined "^1.0.0"
     minimist "^1.2.6"
+
+dexie@^3.2.2:
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/dexie/-/dexie-3.2.2.tgz#fa6f2a3c0d6ed0766f8d97a03720056f88fe0e01"
+  integrity sha512-q5dC3HPmir2DERlX+toCBbHQXW5MsyrFqPFcovkH9N2S/UW/H3H5AWAB6iEOExeraAu+j+zRDG+zg/D7YhH0qg==
 
 diff-sequences@^26.6.2:
   version "26.6.2"
