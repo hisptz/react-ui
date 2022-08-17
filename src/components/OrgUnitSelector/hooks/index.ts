@@ -34,19 +34,20 @@ export function useFilterOrgUnits(selectedOrgUnits: Array<OrganisationUnit>, fil
   });
 
   const orgUnitsPaths = useMemo(() => {
-    return sanitizeFilters((data?.orgUnits as any)?.organisationUnits ?? []);
+    if (searchValue || !isEmpty(filterByGroups)) {
+      return sanitizeFilters((data?.orgUnits as any)?.organisationUnits ?? []);
+    }
+    return [];
   }, [data, searchValue, filterByGroups]);
 
   async function getSearch(keyword?: string) {
     if (keyword) {
-      if (keyword.length > 1) {
-        await refetch({ keyword, groups: filterByGroups });
-      }
+      await refetch({ keyword, groups: filterByGroups });
     }
   }
 
   useEffect(() => {
-    if (!isEmpty(filterByGroups)) {
+    if (!isEmpty(filterByGroups) && isEmpty(searchValue)) {
       refetch({ groups: filterByGroups });
     }
   }, [filterByGroups]);
@@ -60,7 +61,7 @@ export function useFilterOrgUnits(selectedOrgUnits: Array<OrganisationUnit>, fil
     }
   }, [orgUnitsPaths]);
 
-  const onSearch = useRef(debounce(async (keyword?: string) => await getSearch(keyword), 500));
+  const onSearch = useRef(debounce(async (keyword?: string) => await getSearch(keyword), 1000));
 
   const handleExpand = ({ path }: { path: string }) => {
     setExpanded((prevState) => {

@@ -3,6 +3,7 @@ import { OrganisationUnitTree } from "@dhis2/ui";
 import type { OrganisationUnit, OrgUnitSelection } from "@hisptz/dhis2-utils";
 import { isEmpty } from "lodash";
 import React from "react";
+import FullPageLoader from "../../../shared/components/FullPageLoader";
 import { isOrgUnitSelected, onDeselectOrgUnit, onSelectOrgUnit } from "../../utils";
 
 export function CustomOrgUnitNodeLabel({ node, limitSelectionToLevels }: { node: { displayName: string; level: number }; limitSelectionToLevels?: number[] }) {
@@ -21,6 +22,7 @@ export function OrgUnitTree({
   singleSelection,
   keyword,
   limitSelectionToLevels,
+  filtering,
 }: {
   value: OrgUnitSelection | undefined;
   onUpdate: ((value: OrgUnitSelection) => void) | undefined;
@@ -32,6 +34,7 @@ export function OrgUnitTree({
   roots: OrganisationUnit[];
   keyword?: string;
   limitSelectionToLevels?: number[];
+  filtering?: boolean;
 }) {
   const selectedOrgUnits = value?.orgUnits ?? [];
 
@@ -49,6 +52,8 @@ export function OrgUnitTree({
     }
   };
 
+  console.log(filtering);
+
   return (
     <div
       style={
@@ -60,7 +65,9 @@ export function OrgUnitTree({
             }
           : { overflow: "auto", maxHeight: 400, height: 400 }
       }>
-      {(keyword?.length ?? 0) > 3 && isEmpty(filter) ? (
+      {filtering ? (
+        <FullPageLoader small />
+      ) : (keyword?.length ?? 0) > 3 && isEmpty(filter) ? (
         <div className="column center align-items-center w-100 h-100">
           <p>
             {i18n.t("Could not find organisation units matching keyword ")}

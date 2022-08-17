@@ -22,7 +22,7 @@ export default function OrgUnitSelector({
 }: OrgUnitSelectorProps) {
   const { roots, error, loading } = useOrgUnitsRoot();
   const { orgUnits: selectedOrgUnits = [], userOrgUnit, userSubUnit, userSubX2Unit } = value ?? {};
-  const { filteredOrgUnits, searchValue, setSearchValue, handleExpand, expanded } = useFilterOrgUnits(selectedOrgUnits, filterByGroups);
+  const { filteredOrgUnits, searchValue, setSearchValue, handleExpand, expanded, filtering } = useFilterOrgUnits(selectedOrgUnits, filterByGroups);
   const disableSelections = useMemo(() => userOrgUnit || userSubX2Unit || userSubUnit, [userOrgUnit, userSubUnit, userSubX2Unit]);
 
   if (error) {
@@ -62,6 +62,7 @@ export default function OrgUnitSelector({
               )}
               {roots && (
                 <OrgUnitTree
+                  filtering={filtering}
                   limitSelectionToLevels={limitSelectionToLevels}
                   keyword={searchValue}
                   value={value}
