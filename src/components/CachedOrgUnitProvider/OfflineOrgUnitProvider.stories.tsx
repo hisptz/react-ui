@@ -5,7 +5,7 @@ import OrgUnitDataProvider from "../../dataProviders/orgUnit";
 import { OrgUnitSelector } from "../../index";
 import FullPageLoader from "../shared/components/FullPageLoader";
 import type { OfflineOrgUnitProviderProps } from "./index";
-import OfflineOrgUnitProvider, { CustomOrgUnitProvider, useClearOrganisationData } from "./index";
+import { CustomOrgUnitProvider, OfflineOrgUnitProvider, useClearOrganisationData } from "./index";
 
 const Template: Story<OfflineOrgUnitProviderProps> = (args) => <OfflineOrgUnitProvider {...args}>{args.children}</OfflineOrgUnitProvider>;
 
