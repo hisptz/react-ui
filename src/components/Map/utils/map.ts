@@ -1,4 +1,3 @@
-import { colors } from "@dhis2/ui";
 import type { OrganisationUnit, OrgUnitSelection } from "@hisptz/dhis2-utils";
 import { LeafletMouseEvent } from "leaflet";
 import { compact, filter, find, forEach, isEmpty, isString, sortBy } from "lodash";
@@ -22,7 +21,7 @@ export function getColorFromLegendSet(legendSet: any, value?: number): string {
   }
   const legends = legendSet?.legends ?? defaultLegendSet.legends;
   const legend = find(legends ?? [], (legend: any) => legend?.startValue <= value && legend?.endValue >= value) ?? {};
-  return legend.color ? legend.color : colors.grey100;
+  return legend.color ? legend.color : "transparent";
 }
 
 export function getLegendCount(legend: any, data: any) {
@@ -119,4 +118,11 @@ export function toGeoJson(organisationUnits: any) {
       return {};
     }
   });
+}
+
+export function sanitizeDate(startDate: string): string {
+  if (startDate?.split("-")?.[0]?.length < 4) {
+    return startDate?.split("-")?.reverse()?.join("-");
+  }
+  return startDate;
 }
