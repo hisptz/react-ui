@@ -5,7 +5,7 @@ import React, { createContext, ReactNode, useCallback, useEffect, useMemo, useSt
 import { orgUnitSearchQuery } from "../services";
 import { sanitizeExpansionPaths, sanitizeFilters } from "../utils";
 
-interface FilterStateProps {
+export interface FilterStateProps {
   searchValue?: string;
   searchMode?: boolean;
   expanded?: string[];

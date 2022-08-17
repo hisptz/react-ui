@@ -1,7 +1,7 @@
 import { useDataQuery } from "@dhis2/app-runtime";
 import { useContext } from "react";
 import { orgUnitLevelAndGroupsQuery, orgUnitRootsQuery } from "../services";
-import { FilterState } from "../states/filter";
+import { FilterState, FilterStateProps } from "../states/filter";
 
 export function useOrgUnitsRoot(): { roots?: Array<any>; loading: boolean; error: any } {
   const { loading, error, data } = useDataQuery(orgUnitRootsQuery);
@@ -20,6 +20,6 @@ export function useOrgUnitLevelsAndGroups(): { levels: Array<any>; groups: Array
   };
 }
 
-export function useFilterOrgUnits() {
+export function useFilterOrgUnits(): FilterStateProps {
   return useContext(FilterState);
 }
