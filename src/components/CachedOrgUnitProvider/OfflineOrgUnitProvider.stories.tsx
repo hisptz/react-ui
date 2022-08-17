@@ -13,7 +13,7 @@ export const Default = Template.bind({});
 Default.args = {
   children: (
     <CustomOrgUnitProvider>
-      <OrgUnitSelector />
+      <OrgUnitSelector searchable />
     </CustomOrgUnitProvider>
   ),
 };
