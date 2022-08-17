@@ -1,17 +1,26 @@
 import { useDataQuery } from "@dhis2/app-runtime";
-import { isEmpty } from "lodash";
+import { compact, head, isEmpty } from "lodash";
 import { useEffect, useMemo } from "react";
 import { MapOrgUnit } from "../../../../../interfaces";
-import { getOrgUnitsSelection } from "../../../../../utils/map";
+import { getOrgUnitsSelection, sanitizeDate } from "../../../../../utils/map";
 import { useMapOrganisationUnit, useMapPeriods } from "../../../../MapProvider/hooks";
 import { ThematicLayer, ThematicLayerData } from "../../../interfaces";
 
 const analyticsQuery = {
   analytics: {
     resource: "analytics",
-    params: ({ ou, pe, dx }: any) => ({
-      dimension: [`ou:${ou.join(";")}`, `pe:${pe.join(";")}`, `dx:${dx.join(";")}`],
-    }),
+    params: ({ ou, pe, dx, startDate, endDate }: any) => {
+      const peDimension = !isEmpty(pe) ? `pe:${pe?.join(";")}` : undefined;
+      const ouDimension = !isEmpty(ou) ? `ou:${ou?.join(";")}` : undefined;
+      const dxDimension = !isEmpty(dx) ? `dx:${dx?.join(";")}` : undefined;
+
+      return {
+        dimension: compact([dxDimension, peDimension, ouDimension]),
+        startDate,
+        endDate,
+        displayProperty: "NAME",
+      };
+    },
   },
   legendSet: {
     resource: "legendSets",
@@ -33,6 +42,20 @@ export default function useThematicLayerData(layer: ThematicLayer): {
   const pe = useMemo(() => periods?.map((pe: any) => pe.id), [periods]);
   const dx = useMemo(() => [layer.dataItem.id], [layer]);
 
+  const { startDate, endDate } = useMemo(() => {
+    const period = head(periods);
+    if (period?.type !== "RANGE" || !isEmpty(periods)) {
+      return {
+        startDate: undefined,
+        endDate: undefined,
+      };
+    }
+    return {
+      startDate: sanitizeDate(period.startDate),
+      endDate: sanitizeDate(period.endDate),
+    };
+  }, [periods]);
+
   const { loading, data, error, refetch } = useDataQuery(analyticsQuery, {
     variables: {
       ou,
@@ -49,6 +72,8 @@ export default function useThematicLayerData(layer: ThematicLayer): {
       pe,
       dx,
       legendSetId: layer?.dataItem?.legendSet?.id,
+      startDate,
+      endDate,
     });
   }, [ou, pe, dx]);
 

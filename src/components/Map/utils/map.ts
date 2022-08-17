@@ -120,3 +120,10 @@ export function toGeoJson(organisationUnits: any) {
     }
   });
 }
+
+export function sanitizeDate(startDate: string): string {
+  if (startDate?.split("-")?.[0]?.length < 4) {
+    return startDate?.split("-")?.reverse()?.join("-");
+  }
+  return startDate;
+}
