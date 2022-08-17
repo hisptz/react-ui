@@ -1,9 +1,7 @@
 import { useDataQuery } from "@dhis2/app-runtime";
-import type { OrganisationUnit } from "@hisptz/dhis2-utils";
-import { compact, debounce, isEmpty } from "lodash";
-import { useEffect, useMemo, useRef, useState } from "react";
-import { orgUnitLevelAndGroupsQuery, orgUnitRootsQuery, orgUnitSearchQuery } from "../services";
-import { sanitizeExpansionPaths, sanitizeFilters } from "../utils";
+import { useContext } from "react";
+import { orgUnitLevelAndGroupsQuery, orgUnitRootsQuery } from "../services";
+import { FilterState } from "../states/filter";
 
 export function useOrgUnitsRoot(): { roots?: Array<any>; loading: boolean; error: any } {
   const { loading, error, data } = useDataQuery(orgUnitRootsQuery);
@@ -22,71 +20,6 @@ export function useOrgUnitLevelsAndGroups(): { levels: Array<any>; groups: Array
   };
 }
 
-export function useFilterOrgUnits(selectedOrgUnits: Array<OrganisationUnit>, filterByGroups?: string[]) {
-  const [searchValue, setSearchValue] = useState<string | undefined>();
-  const [searchMode, setSearchMode] = useState(false);
-  const [expanded, setExpanded] = useState<string[]>(compact((selectedOrgUnits ?? [])?.map(({ path }) => path)));
-  const { refetch, data, loading } = useDataQuery(orgUnitSearchQuery, {
-    variables: {
-      keyword: searchValue,
-      groups: filterByGroups,
-    },
-    lazy: true,
-  });
-
-  const orgUnitsPaths = useMemo(() => {
-    if (!isEmpty(searchValue) || !isEmpty(filterByGroups)) {
-      return sanitizeFilters((data?.orgUnits as any)?.organisationUnits ?? []);
-    }
-    return [];
-  }, [data, searchValue, filterByGroups]);
-
-  async function getSearch(keyword?: string) {
-    if (!isEmpty(keyword)) {
-      setSearchMode(true);
-      await refetch({ keyword, groups: filterByGroups });
-    } else {
-      setSearchMode(false);
-    }
-  }
-
-  useEffect(() => {
-    if (!isEmpty(filterByGroups) && isEmpty(searchValue)) {
-      refetch({ groups: filterByGroups });
-    }
-  }, [filterByGroups, searchValue]);
-
-  useEffect(() => {
-    if (!isEmpty(orgUnitsPaths) && !isEmpty(searchValue)) {
-      const pathsToExpand = sanitizeExpansionPaths(orgUnitsPaths);
-      setExpanded((prevState) => [...prevState, ...pathsToExpand]);
-    } else {
-      setExpanded([...sanitizeExpansionPaths(compact(selectedOrgUnits?.map(({ path }) => path)) ?? [])]);
-    }
-  }, [orgUnitsPaths, searchValue]);
-
-  const onSearch = useRef(debounce(async (keyword?: string) => await getSearch(keyword), 1000));
-
-  const handleExpand = ({ path }: { path: string }) => {
-    setExpanded((prevState) => {
-      if (prevState.includes(path)) {
-        return prevState.filter((p) => p !== path);
-      }
-      return [...prevState, path];
-    });
-  };
-
-  useEffect(() => {
-    onSearch.current(searchValue);
-  }, [searchValue]);
-
-  return {
-    searchValue,
-    setSearchValue,
-    filteredOrgUnits: orgUnitsPaths,
-    expanded,
-    handleExpand,
-    filtering: loading,
-    searchMode,
-  };
+export function useFilterOrgUnits() {
+  return useContext(FilterState);
 }

@@ -2,8 +2,9 @@ import i18n from "@dhis2/d2-i18n";
 import { OrganisationUnitTree } from "@dhis2/ui";
 import type { OrganisationUnit, OrgUnitSelection } from "@hisptz/dhis2-utils";
 import { isEmpty } from "lodash";
-import React from "react";
+import React, { memo } from "react";
 import FullPageLoader from "../../../shared/components/FullPageLoader";
+import { useFilterOrgUnits } from "../../hooks";
 import { isOrgUnitSelected, onDeselectOrgUnit, onSelectOrgUnit } from "../../utils";
 
 export function CustomOrgUnitNodeLabel({ node, limitSelectionToLevels }: { node: { displayName: string; level: number }; limitSelectionToLevels?: number[] }) {
@@ -11,33 +12,22 @@ export function CustomOrgUnitNodeLabel({ node, limitSelectionToLevels }: { node:
   return <div style={!allowSelection ? { opacity: 0.5 } : undefined}>{node.displayName}</div>;
 }
 
-export function OrgUnitTree({
+function Tree({
   value,
   onUpdate,
   disableSelections,
-  filter,
-  expanded,
-  handleExpand,
   roots,
   singleSelection,
-  keyword,
   limitSelectionToLevels,
-  filtering,
-  searchMode,
 }: {
   value: OrgUnitSelection | undefined;
   onUpdate: ((value: OrgUnitSelection) => void) | undefined;
   disableSelections?: boolean;
   singleSelection?: boolean;
-  filter: string[];
-  expanded: string[];
-  handleExpand: (orgUnit: { path: string }) => void;
   roots: OrganisationUnit[];
-  keyword?: string;
   limitSelectionToLevels?: number[];
-  filtering?: boolean;
-  searchMode?: boolean;
 }) {
+  const { searchMode, searchValue, expanded, filtering, filteredOrgUnits, handleExpand } = useFilterOrgUnits();
   const selectedOrgUnits = value?.orgUnits ?? [];
 
   const onSelect = (orgUnit: any) => {
@@ -67,17 +57,17 @@ export function OrgUnitTree({
       }>
       {filtering ? (
         <FullPageLoader small />
-      ) : (keyword?.length ?? 0) > 3 && isEmpty(filter) && searchMode && !filtering ? (
+      ) : (searchValue?.length ?? 0) > 3 && isEmpty(filteredOrgUnits) && searchMode && !filtering ? (
         <div className="column center align-items-center w-100 h-100">
           <p>
             {i18n.t("Could not find organisation units matching keyword ")}
-            <b>{keyword}</b>
+            <b>{searchValue}</b>
           </p>
         </div>
       ) : (
         <OrganisationUnitTree
           forceReload
-          filter={filter}
+          filter={filteredOrgUnits}
           disableSelection={disableSelections}
           selected={selectedOrgUnits?.map((orgUnit) => orgUnit.path)}
           expanded={expanded}
@@ -92,3 +82,5 @@ export function OrgUnitTree({
     </div>
   );
 }
+
+export const OrgUnitTree = memo(Tree);
