@@ -2,7 +2,7 @@ import { TableHead, TableBody, DataTable, DataTableRow, DataTableCell, DataTable
 import React from "react";
 import { lowerCaseAllWordsExceptFirstLetters } from "../../../../../../../Utils/Functions/FormulaFunctions";
 
-export default function Row(props) {
+export default function Row(props:any) {
     const target = props.target;
     const analyticsPeriodBoundaryType = props.analyticsPeriodBoundaryType;
     const offsetPeriod = props.offsetPeriod;

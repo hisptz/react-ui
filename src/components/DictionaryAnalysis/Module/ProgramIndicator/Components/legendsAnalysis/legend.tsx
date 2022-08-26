@@ -26,7 +26,7 @@ export default function Legend(props:any) {
                   <DataTableCell bordered>{legend?.displayName}</DataTableCell>
                   <DataTableCell bordered>{legend?.endValue}</DataTableCell>
                   <DataTableCell bordered>{legend?.startValue}</DataTableCell>
-                  <td bordered style={{
+                  <td style={{
                     background: legend?.color
                 }}></td>
                 </DataTableRow>);

@@ -24,7 +24,7 @@ export default function OtherDetailTable(props:any) {
 
     const levels = detail?.aggregationLevels;
 
-    const { loading, error, data, refetch } = useDataQuery(query, {
+    const { loading, error, data, refetch }:any = useDataQuery(query, {
         variables: { levels }
     });
 
@@ -49,7 +49,7 @@ export default function OtherDetailTable(props:any) {
           <DataTableCell bordered tag="th">
             {i18n.t("Details")}
           </DataTableCell>
-          <td bordered style={{
+          <td style={{
             background: detail?.style?.color,
             width: "inherit",
             height: 50
@@ -76,7 +76,7 @@ export default function OtherDetailTable(props:any) {
           </DataTableCell>
           <DataTableCell bordered>
             {loading ? (<Loader text={""}/>) : error ? (<Error error={error}/>) : data?.orgUnitLevels?.organisationUnitLevels?.length === 0 ? (i18n.t("No organization unit level assigned")) : (<ol>
-                {data?.orgUnitLevels?.organisationUnitLevels?.map((lev) => {
+                {data?.orgUnitLevels?.organisationUnitLevels?.map((lev:any) => {
                 return <li key={lev?.id}>{lev?.displayName}</li>;
             })}
               </ol>)}

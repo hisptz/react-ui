@@ -9,7 +9,7 @@ import Loader from "../../../../Shared/Componets/Loaders/Loader";
 const query = {
     dataElements: {
         resource: "dataElements",
-        id: ({ id }) => id,
+        id: ({ id }:any) => id,
         params: {
             fields: [
                 "id",
@@ -24,8 +24,8 @@ const query = {
     }
 };
 
-export default function Introduction({ id }) {
-    const { loading, error, data, refetch } = useDataQuery(query, {
+export default function Introduction({ id }:any) {
+    const { loading, error, data, refetch }:any = useDataQuery(query, {
         variables: { id }
     });
 

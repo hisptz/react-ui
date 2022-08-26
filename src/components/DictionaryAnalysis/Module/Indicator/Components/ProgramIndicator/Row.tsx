@@ -7,7 +7,7 @@ import { dataTypes } from "../../../../Utils/Models";
 const query = {
     programIndicator: {
         resource: "programIndicators",
-        id: ({ id }) => id,
+        id: ({ id }:any) => id,
         params: {
             fields: [
                 "id",
@@ -32,9 +32,9 @@ export default function Row(props:any) {
 
     //hooks
     const engine = useDataEngine();
-    const [dataElementsArray, setDataElementArray] = useState([]);
-    const [attributesArray, setAttributesArray] = useState([]);
-    const [constantsArray, setConstantsArray] = useState([]);
+    const [dataElementsArray, setDataElementArray]:any = useState([]);
+    const [attributesArray, setAttributesArray]:any = useState([]);
+    const [constantsArray, setConstantsArray]:any = useState([]);
 
     useEffect(() => {
         if (data?.programIndicator?.filter) {
@@ -60,9 +60,9 @@ export default function Row(props:any) {
     }, [data]);
 
     //variables
-    const wordDtEl = [];
-    const attributes = [];
-    const constants = [];
+    const wordDtEl:any[] = [];
+    const attributes:any[]  = [];
+    const constants:any[]  = [];
     const final_filter_result = getFinalWordFormula(data?.programIndicator?.filter, dataElementsArray, [], [], attributesArray, constantsArray);
 
     // if(loading){
@@ -99,14 +99,14 @@ export default function Row(props:any) {
             }
             if (type === dataTypes.ATTRIBUTES) {
                 //for Attribute
-                value.map((val) => {
+                value.map((val:any) => {
                     //We always return array just for uniformity
                     attributes.push({ id: arr[i], val: val[0] });
                     ++i;
                 });
             }
             if (type === dataTypes.CONSTANTS) {
-                value.map((val) => {
+                value.map((val:any) => {
                     //We always return array just for uniformity
                     constants.push({ id: arr[i], val: val[0] });
                     ++i;
