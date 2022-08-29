@@ -1,7 +1,7 @@
+import { DataSourceState } from "core/state/data";
 import { head } from "lodash";
 import React, { useState } from "react";
 import { useRecoilValue } from "recoil";
-import { DataSourceState } from "../../state/data";
 import TopBar from "./Module/TopBar";
 import DataSourceSelector from "./Module/TopBar/Components/DataSourceSelector";
 
