@@ -63,7 +63,7 @@ export default function Row(props:any) {
     const wordDtEl:any[] = [];
     const attributes:any[]  = [];
     const constants:any[]  = [];
-    const final_filter_result = getFinalWordFormula(data?.programIndicator?.filter, dataElementsArray, [], [], attributesArray, constantsArray);
+    const final_filter_result = getFinalWordFormula(data?.programIndicator?.filter, dataElementsArray, [], [], attributesArray, constantsArray,null,null);
 
     // if(loading){
     //     return <CircularLoader />

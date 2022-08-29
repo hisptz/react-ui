@@ -2,7 +2,6 @@ import { useDataEngine } from "@dhis2/app-runtime";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { useRecoilCallback } from "recoil";
-import { getDataSourceType } from "@hisptz/scorecard-utils";
 import { dataElementsStateDictionary, dataSetDataElementCountState, dataSetReportingRatesStateDictionary, programDataElementCountState, programIndicatorStateDictionary, } from "../../../Store";
 import { indicatorGroupAggregateDataElements, indicatorGroupDataSets, indicatorGroupDenominatorDataElements, indicatorGroupNumeratorDataElements, indicatorGroupProgramDataElements, indicatorGroupPrograms, } from "../../../Store/IndicatorGroup";
 import { dataSourceTypes } from "../../../Utils/Models";
@@ -13,7 +12,7 @@ import Index from "../../Indicator/Index";
 import IndicatorGroupPage from "../../IndicatorGroup";
 import ProgramIndicatorPage from "../../ProgramIndicator";
 import ModalLoader from "../../Loaders/ModalLoader";
-// import { ModalLoader } from "../../../../../../../../../../index";
+import { getDataSourceType } from "core/utils/dataSource";
 
 export default function DataSourceSelector({ type, id }:any) {
     const engine = useDataEngine();
