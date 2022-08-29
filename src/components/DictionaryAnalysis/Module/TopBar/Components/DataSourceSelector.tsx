@@ -12,7 +12,8 @@ import FunctionPage2 from "../../Function/index2";
 import Index from "../../Indicator/Index";
 import IndicatorGroupPage from "../../IndicatorGroup";
 import ProgramIndicatorPage from "../../ProgramIndicator";
-import { ModalLoader } from "../../../../../../../../../../index";
+import ModalLoader from "../../Loaders/ModalLoader";
+// import { ModalLoader } from "../../../../../../../../../../index";
 
 export default function DataSourceSelector({ type, id }:any) {
     const engine = useDataEngine();

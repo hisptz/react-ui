@@ -35,7 +35,7 @@ export default function DisplayFormula(props:any) {
         return <Error error={error}/>;
     }
     return (<div>
-      {getFinalWordFormula(formula, data?.dataElements, data?.programIndicators, data?.dataSetReportingRates, data?.attributes, data?.constants)}
+      {getFinalWordFormula(formula, data?.dataElements, data?.programIndicators, data?.dataSetReportingRates, data?.attributes, data?.constants,null,null)}
     </div>);
 }
 
