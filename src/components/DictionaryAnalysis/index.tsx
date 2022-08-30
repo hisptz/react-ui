@@ -1,12 +1,12 @@
 import { DataSourceState } from "core/state/data";
 import { head } from "lodash";
 import React, { useState } from "react";
-import { useRecoilValue } from "recoil";
+
 import TopBar from "./Module/TopBar";
 import DataSourceSelector from "./Module/TopBar/Components/DataSourceSelector";
 
-export default function DictionaryAnalysis() {
-    const dataSources = useRecoilValue(DataSourceState) ?? [];
+export default function DictionaryAnalysis({dataSources}:any) {
+    
     const [selectedDataSource, setSelectedDataSource]:any = useState(head(dataSources));
 
     return (<div style={{ overflow: "hidden" }} className="column">
