@@ -1,11 +1,12 @@
 import { useDataQuery } from "@dhis2/app-runtime";
 import i18n from "@dhis2/d2-i18n";
-import React, { useEffect } from "react";
-import { useRecoilValue } from "recoil";
+import CountContext from "components/DictionaryAnalysis/Store/CountContext";
+import React, { useContext, useEffect } from "react";
+// import { useRecoilValue } from "recoil";
 import Error from "../../../../Shared/Componets/Error/ErrorAPIResult";
 import IndicatorCount from "../../../../Shared/Componets/IndicatorCount";
 import Loader from "../../../../Shared/Componets/Loaders/Loader";
-import { dataSetDataElementCountState, programDataElementCountState, } from "../../../../Store";
+//  import { dataSetDataElementCountState, programDataElementCountState, } from "../../../../Store";
 
 const query = {
     sources: {
@@ -21,9 +22,9 @@ export default function Facts({ id }:any) {
     const { loading, error, data, refetch } = useDataQuery(query, {
         variables: { id }
     });
-
-    const dataSetCount = useRecoilValue(dataSetDataElementCountState);
-    const programCount = useRecoilValue(programDataElementCountState);
+       const  {values} =  useContext(CountContext);
+    // const dataSetCount = useRecoilValue(dataSetDataElementCountState);
+    // const programCount = useRecoilValue(programDataElementCountState);
 
     useEffect(() => {
         refetch({ id });
@@ -49,8 +50,8 @@ export default function Facts({ id }:any) {
         <li>
           {" "}
           {i18n.t("It\u2019s data elements belongs to {{variables}} dataset and {{variables2}} program sources of data", {
-            variables: dataSetCount,
-            variables2: programCount
+            variables: values?.dataSetCount,
+            variables2: values?.programCount
         })}
         </li>
         <li>

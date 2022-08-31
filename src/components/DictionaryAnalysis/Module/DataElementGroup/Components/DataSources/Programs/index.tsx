@@ -1,11 +1,12 @@
 import { useDataQuery } from "@dhis2/app-runtime";
 import i18n from "@dhis2/d2-i18n";
+import CountContext from "components/DictionaryAnalysis/Store/CountContext";
 import PropTypes from "prop-types";
-import React, { useEffect } from "react";
-import { useSetRecoilState } from "recoil";
+import React, { useContext, useEffect } from "react";
+// import { useSetRecoilState } from "recoil";
 import Error from "../../../../../Shared/Componets/Error/ErrorAPIResult";
 import Loader from "../../../../../Shared/Componets/Loaders/Loader";
-import { programDataElementCountState } from "../../../../../Store";
+// import { programDataElementCountState } from "../../../../../Store";
 
 const query = {
     programs: {
@@ -20,7 +21,9 @@ const query = {
 export default function Programs({ id, name }:any) {
     const dataElementId = id;
 
-    const updateCount = useSetRecoilState(programDataElementCountState);
+    // const updateCount = useSetRecoilState(programDataElementCountState);
+
+    const {values,setValues}=useContext(CountContext);
 
     const { loading, error, data, refetch } = useDataQuery(query, {
         variables: { dataElementId }
@@ -31,9 +34,11 @@ export default function Programs({ id, name }:any) {
     }, [id]);
 
     useEffect(() => {
-        updateCount((prev:any) => {
-            return prev + (data?.programs as any)?.programStages?.length;
-        });
+        // updateCount((prev:any) => {
+        //     return prev + (data?.programs as any)?.programStages?.length;
+        // });
+        setValues({...values,...{programCount:values?.programCount+(data?.programs as any)?.programStages?.length}});
+        
     }, [data]);
 
     if (loading) {

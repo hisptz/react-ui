@@ -1,16 +1,17 @@
 import { useDataEngine, useDataQuery } from "@dhis2/app-runtime";
 import i18n from "@dhis2/d2-i18n";
+import CountContext from "components/DictionaryAnalysis/Store/CountContext";
 import PropTypes from "prop-types";
-import React, { useEffect } from "react";
-import { useSetRecoilState } from "recoil";
+import React, { useContext, useEffect } from "react";
+// import { useSetRecoilState } from "recoil";
 import Error from "../../../../../Shared/Componets/Error/ErrorAPIResult";
 import Loader from "../../../../../Shared/Componets/Loaders/Loader";
-import { dataSetDataElementCountState } from "../../../../../Store";
+// import { dataSetDataElementCountState } from "../../../../../Store";
 import { useGetDataSet } from "../../../../../Utils/Hooks";
 
 export default function DataSets({ aggregate }:any) {
-    const updateCount = useSetRecoilState(dataSetDataElementCountState);
-
+   // const updateCount = useSetRecoilState(dataSetDataElementCountState);
+    const {values,setValues}=useContext(CountContext);
     const engine = useDataEngine();
 
     const onlyIds = aggregate?.map((el:any) => {
@@ -25,7 +26,7 @@ export default function DataSets({ aggregate }:any) {
         res?.map((e:any) => {
             totalCount += e?.length;
         });
-        updateCount(totalCount);
+        setValues({...values,...{dataSetCount:totalCount}});
         return () => { };
     }, [data]);
 

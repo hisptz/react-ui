@@ -72,7 +72,9 @@ export default function Introduction({ id }:any) {
 
             <p>
         <span>
-          <i onClick={() => onClickIdentified(indicatorDetails?.id)}>
+          <i onClick={() =>{
+            //   onClickIdentified(indicatorDetails?.id)
+          }}>
             {i18n.t("Identified by:")}{" "}
               <span id={"test-indicator-details"} className={classes.identifylink}>
               {" "}
