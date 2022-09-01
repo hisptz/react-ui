@@ -63,3 +63,15 @@ export interface CountValue {
   };
   setValues: (values: any) => void;
 }
+
+export interface IndicatorGroupValue {
+  values?: {
+    numerator:any,
+    denomenator:any;
+    dataSets: any;
+    aggregateDataElements: any;
+    programs:any;
+    programDataElements:any;
+  };
+  setValues: (values: any) => void;
+}

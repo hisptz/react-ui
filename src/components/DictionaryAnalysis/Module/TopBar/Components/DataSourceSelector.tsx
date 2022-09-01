@@ -12,7 +12,7 @@ import Index from "../../Indicator/Index";
 import IndicatorGroupPage from "../../IndicatorGroup";
 import ProgramIndicatorPage from "../../ProgramIndicator";
 import ModalLoader from "../../Loaders/ModalLoader";
-import { getDataSourceType } from "core/utils/dataSource";
+import { getDataSourceType } from "../../../../../core/utils/dataSource";
 
 export default function DataSourceSelector({ type, id }:any) {
     const engine = useDataEngine();

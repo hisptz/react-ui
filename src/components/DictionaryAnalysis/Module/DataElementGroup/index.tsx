@@ -1,4 +1,4 @@
-import { CountProvider } from "components/DictionaryAnalysis/Store/CountContext";
+import { CountProvider } from "./../../../../components/DictionaryAnalysis/Store/CountContext";
 import React, { useState } from "react";
 import AccessibilityAndSharing from "../../Shared/Componets/AccesibilityAndSharing";
 import DataElementSIndicator from "../../Shared/Componets/dataElementsInIndicator/dataElementsIndicator";

@@ -1,13 +1,18 @@
 import i18n from "@dhis2/d2-i18n";
 import { DataTable, DataTableColumnHeader, DataTableRow, TableBody, TableHead, } from "@dhis2/ui";
+import DictionaryContext from "../../../../../components/DictionaryAnalysis/Store/DictionaryContext";
 import PropTypes from "prop-types";
-import React from "react";
-import { useRecoilValue } from "recoil";
-import { dataElementsStateDictionary } from "../../../Store";
+import React, { useContext } from "react";
+// import { useRecoilValue } from "recoil";
+// import { dataElementsStateDictionary } from "../../../Store";
 import Row from "./row";
 
 export default function DataElementSIndicator({ resourceType }:any) {
-    const dataElements = useRecoilValue(dataElementsStateDictionary);
+    // const dataElements = useRecoilValue(dataElementsStateDictionary);
+
+    const {values} =useContext(DictionaryContext);
+
+    const {dataElements}=values as any;
 
     if (dataElements?.length === 0) {
         return (<div>

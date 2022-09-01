@@ -2,7 +2,7 @@ import i18n from "@dhis2/d2-i18n";
 import { DataTableRow, DataTableCell, Button } from "@dhis2/ui";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+//import { useHistory } from "react-router-dom";
 import classes from "./indicatorGroupRow.module.css";
 
 export default function IndicatorGroupRow(props:any) {
@@ -34,10 +34,10 @@ export default function IndicatorGroupRow(props:any) {
 
     const [isListFull, setListFull] = useState(false);
 
-    const history = useHistory();
+    //const history = useHistory();
 
     function navigateToIndicatorHandler(id:any) {
-        history.replace("/indicator/" + id);
+       // history.replace("/indicator/" + id);
     }
 
     return (<DataTableRow>

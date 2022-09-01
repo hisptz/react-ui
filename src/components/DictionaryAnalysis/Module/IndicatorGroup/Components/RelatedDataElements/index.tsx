@@ -1,8 +1,9 @@
 import { useDataQuery } from "@dhis2/app-runtime";
 import i18n from "@dhis2/d2-i18n";
 import { DataTable, DataTableToolbar, DataTableHead, TableHead, DataTableBody, TableBody, DataTableRow, DataTableColumnHeader, } from "@dhis2/ui";
-import React, { useEffect } from "react";
-import { useRecoilValue } from "recoil";
+import {IndicatorGroupContext} from "./../../../../../../components/DictionaryAnalysis/Store/IndicatorGroupContext";
+import React, { useContext, useEffect } from "react";
+// import { useRecoilValue } from "recoil";
 import Row from "../../../../Shared/Componets/dataElementsInIndicator/row";
 import Error from "../../../../Shared/Componets/Error/ErrorAPIResult";
 import Loader from "../../../../Shared/Componets/Loaders/Loader";
@@ -22,8 +23,10 @@ const query = {
 };
 
 export default function RelatedDataElements() {
-    const numerators = useRecoilValue(indicatorGroupNumeratorDataElements);
-    const denominator = useRecoilValue(indicatorGroupDenominatorDataElements);
+  const {values}= useContext(IndicatorGroupContext);
+    // const numerators = useRecoilValue(indicatorGroupNumeratorDataElements);
+    // const denominator = useRecoilValue(indicatorGroupDenominatorDataElements);
+    const {numerator,denominator}=values as any;
 
     return (<div>
       <h3>{i18n.t("Related Data elements")} </h3>
@@ -56,10 +59,10 @@ export default function RelatedDataElements() {
           </DataTableRow>
         </TableHead>
         <TableBody>
-          {numerators?.aggregate?.map((e:any) => {
+          {numerator?.aggregate?.map((e:any) => {
             return <RowAggregate key={e} id={e} location={"numerator"}/>;
         })}
-          {numerators?.tracker?.map((e:any) => {
+          {numerator?.tracker?.map((e:any) => {
             return <RowTracker key={e} id={e} location={"numerator"}/>;
         })}
           {denominator?.aggregate?.map((e:any) => {

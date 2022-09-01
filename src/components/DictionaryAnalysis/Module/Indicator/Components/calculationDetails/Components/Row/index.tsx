@@ -1,6 +1,6 @@
 import { useDataEngine, useDataQuery } from "@dhis2/app-runtime";
 import { CircularLoader, DataTableCell } from "@dhis2/ui";
-import DictionaryContext from "components/DictionaryAnalysis/Store/DictionaryContext";
+import DictionaryContext from "../../../../../../../../components/DictionaryAnalysis/Store/DictionaryContext";
 import PropTypes from "prop-types";
 import React, { useContext, useEffect, useState } from "react";
 // import { useSetRecoilState } from "recoil";

@@ -1,12 +1,16 @@
 import i18n from "@dhis2/d2-i18n";
 import { DataTable, DataTableToolbar, DataTableHead, TableHead, DataTableBody, TableBody, DataTableFoot, DataTableRow, DataTableCell, DataTableColumnHeader, } from "@dhis2/ui";
-import React from "react";
-import { useRecoilValue } from "recoil";
-import { dataSetReportingRatesStateDictionary } from "../../../../Store";
+import DictionaryContext from "../../../../../../components/DictionaryAnalysis/Store/DictionaryContext";
+import React, { useContext } from "react";
+// import { useRecoilValue } from "recoil";
+// import { dataSetReportingRatesStateDictionary } from "../../../../Store";
 import Row from "./Row";
 
 export default function DatasetsReportingRates() {
-    const dataSetReportingRates = useRecoilValue(dataSetReportingRatesStateDictionary);
+   // const dataSetReportingRates = useRecoilValue(dataSetReportingRatesStateDictionary);
+
+    const {values}=   useContext(DictionaryContext);
+    const {dataSetReportingRates}=values as any;
 
     if (dataSetReportingRates.length === 0) {
         return (<div>

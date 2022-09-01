@@ -1,6 +1,6 @@
 import { useDataQuery } from "@dhis2/app-runtime";
 import i18n from "@dhis2/d2-i18n";
-import CountContext from "components/DictionaryAnalysis/Store/CountContext";
+import CountContext from "../../../../../../components/DictionaryAnalysis/Store/CountContext";
 import React, { useContext, useEffect } from "react";
 // import { useRecoilValue } from "recoil";
 import Error from "../../../../Shared/Componets/Error/ErrorAPIResult";
