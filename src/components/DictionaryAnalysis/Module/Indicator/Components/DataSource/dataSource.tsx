@@ -34,7 +34,7 @@ export default function DataSource({ id }:any) {
     if (error) {
         return <Error error={error}/>;
     }
-    if (data?.sources?.dataSets.length === 0) {
+    if (data?.sources?.dataSets?.length === 0) {
         return <div />;
     }
 
@@ -44,7 +44,7 @@ export default function DataSource({ id }:any) {
       <h5>Datasets</h5>
 
       <ul>
-        {data?.sources?.dataSets.map((dataSet:any) => {
+        {data?.sources?.dataSets?.map((dataSet:any) => {
             return (<li key={dataSet?.id}>
               <b>{dataSet?.displayName}</b>{" "}
               {i18n.t("submitting {{variables1}} after every {{variables2}} days", {

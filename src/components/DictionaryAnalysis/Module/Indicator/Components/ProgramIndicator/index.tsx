@@ -10,10 +10,10 @@ export default function ProgramIndicatorIndicator() {
   //  const programIndicators = useRecoilValue(programIndicatorStateDictionary);
 
     const {values}= useContext(DictionaryContext);
+    
+    const programIndicators=values?.programIndicators;
 
-    const {programIndicators}=values as any;
-
-    if (programIndicators.length === 0) {
+    if (programIndicators?.length === 0) {
         return (<div>
         <h3>{i18n.t("Program Indicators in indicator")} </h3>
         <p>
@@ -54,7 +54,7 @@ export default function ProgramIndicatorIndicator() {
           </DataTableRow>
         </TableHead>
         <TableBody>
-          {programIndicators.map((programInd:any) => {
+          {programIndicators?.map((programInd:any) => {
             ++i;
             return <Row key={i} programInd={programInd}/>;
         })}

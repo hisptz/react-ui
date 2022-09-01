@@ -11,7 +11,7 @@ export default function DataElementSIndicator() {
 
     const {values} =useContext(DictionaryContext);
 
-    const {dataElements} =values as any;
+    const dataElements =values?.dataElements;
     if (dataElements?.length === 0) {
         return (<div>
         <h3> {i18n.t("Data elements in indicator")} </h3>

@@ -10,9 +10,9 @@ export default function DatasetsReportingRates() {
    // const dataSetReportingRates = useRecoilValue(dataSetReportingRatesStateDictionary);
 
     const {values}=   useContext(DictionaryContext);
-    const {dataSetReportingRates}=values as any;
+    const dataSetReportingRates=values?.dataSetReportingRates;
 
-    if (dataSetReportingRates.length === 0) {
+    if (dataSetReportingRates?.length === 0) {
         return (<div>
         <h3> {i18n.t("Datasets (Reporting rates) in indicator")} </h3>
         <p>
@@ -55,7 +55,7 @@ export default function DatasetsReportingRates() {
           </DataTableRow>
         </TableHead>
         <TableBody>
-          {dataSetReportingRates.map((dataSet:any) => {
+          {dataSetReportingRates?.map((dataSet:any) => {
             ++i;
             return <Row key={i} dataSet={dataSet}/>;
         })}

@@ -12,7 +12,7 @@ export default function DataElementSIndicator({ resourceType }:any) {
 
     const {values} =useContext(DictionaryContext);
 
-    const {dataElements}=values as any;
+    const dataElements: any[]= [];  
 
     if (dataElements?.length === 0) {
         return (<div>

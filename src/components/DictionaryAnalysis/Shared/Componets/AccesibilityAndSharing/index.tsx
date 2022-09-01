@@ -95,7 +95,7 @@ export default function AccessibilityAndSharing(props:any) {
             <DataTableCell bordered>
               {i18n.t(result?.userAccesses?.length === 0 ? "No access granted" : "")}
               <ul>
-                {result?.userAccesses.map((dt:any) => {
+                {result?.userAccesses?.map((dt:any) => {
             return (<li key={dt.id}>
                       {dt?.displayName} {i18n.t("can")}{" "}
                       <i>{displayAccessPermission(dt.access)} </i>{" "}
@@ -113,7 +113,7 @@ export default function AccessibilityAndSharing(props:any) {
             ? "No access granted"
             : "")}
               <ul>
-                {result?.userGroupAccesses.map((dt:any) => {
+                {result?.userGroupAccesses?.map((dt:any) => {
             return (<li key={dt.id}>
                       {dt?.displayName} {i18n.t("can")}{" "}
                       <i>{displayAccessPermission(dt.access)}</i>{" "}
