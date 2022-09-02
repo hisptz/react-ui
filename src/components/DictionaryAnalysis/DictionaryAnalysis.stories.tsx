@@ -1,12 +1,12 @@
 import type { Story } from "@storybook/react";
 import React from "react";
-// import { DataSourceSelectorProps } from "./types";
 import DataSourceSelector from "./index";
 import "../../styles/styles.css";
 import DataSourceProvider from "../../dataProviders/dataSourceProvider";
 import DictionaryAnalysis from "./index";
+import { DataSourceSelectorProps } from "./Utils/Models";
 
-const Template: Story<any> = (args) => <DictionaryAnalysis {...args} />;
+const Template: Story<DataSourceSelectorProps> = (args) => <DictionaryAnalysis {...args} />;
 
 export const IndicatorSelector = Template.bind({});
 IndicatorSelector.args = {
@@ -59,10 +59,5 @@ export default {
       </div>
     ),
   ],
-  argTypes: {
-    maxSelections: {
-      control: "radio",
-      options: [1, "Infinity"],
-    },
-  },
+  argTypes: {},
 };

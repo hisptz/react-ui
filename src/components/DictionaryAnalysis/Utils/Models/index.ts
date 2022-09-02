@@ -66,12 +66,49 @@ export interface CountValue {
 
 export interface IndicatorGroupValue {
   values?: {
-    numerator:any,
-    denomenator:any;
+    numerator: any;
+    denomenator: any;
     dataSets: any;
     aggregateDataElements: any;
-    programs:any;
-    programDataElements:any;
+    programs: any;
+    programDataElements: any;
   };
   setValues: (values: any) => void;
+}
+
+export interface DataSourceItem {
+  id: string;
+  name: string;
+  type: string;
+  label: string;
+  weight: number;
+  legends: [
+    {
+      id: string;
+      endValue: number;
+      startValue: number;
+      legendDefinitionId: string;
+    },
+    {
+      id: string;
+      endValue: number;
+      startValue: number;
+      legendDefinitionId: string;
+    },
+    {
+      id: string;
+      endValue: number;
+      startValue: number;
+      legendDefinitionId: string;
+    }
+  ];
+  highIsGood: boolean;
+  showColors: boolean;
+  effectiveGap: number;
+  displayArrows: boolean;
+}
+
+
+export interface DataSourceSelectorProps{
+  dataSources:DataSourceItem[]
 }
