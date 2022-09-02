@@ -1,11 +1,21 @@
 import { useDataEngine } from "@dhis2/app-runtime";
 import { mapSeries } from "async-es";
-import { flattenDeep, get, range } from "lodash";
+import { flattenDeep, get, range, set } from "lodash";
 import { useCallback, useEffect, useState } from "react";
 import { OFFLINE_ORG_UNIT_PAGE_SIZE } from "../constants/config";
 import { groupQuery, levelQuery, ouQuery } from "../constants/queries";
 import { db, OfflineOrganisationUnit, OfflineOrganisationUnitGroup, OfflineOrganisationUnitLevel } from "../services/db";
 import { getPagination } from "../utils";
+
+function sanitizeOrgUnitGroups(groups: Array<any>): Array<OfflineOrganisationUnit> {
+  return groups.map((ou) =>
+    set(
+      ou,
+      "organisationUnitGroups",
+      ou.organisationUnitGroups?.map((ouGroup: { id: string }) => ouGroup.id)
+    )
+  );
+}
 
 function useOrganisationUnitData() {
   const [loading, setLoading] = useState(false);
@@ -40,7 +50,7 @@ function useOrganisationUnitData() {
         });
         return get(data, ["ous", "organisationUnits"]) as OfflineOrganisationUnit[];
       }).then(flattenDeep);
-      await db.addOrganisationUnits(groups);
+      await db.addOrganisationUnits(sanitizeOrgUnitGroups(groups));
     }
   }, []);
 
