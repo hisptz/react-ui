@@ -1,7 +1,6 @@
 import { Button } from "@dhis2/ui";
 import type { Story } from "@storybook/react";
 import React from "react";
-import OrgUnitDataProvider from "../../dataProviders/orgUnit";
 import { OrgUnitSelector } from "../../index";
 import FullPageLoader from "../shared/components/FullPageLoader";
 import type { OfflineOrgUnitProviderProps } from "./index";
@@ -14,6 +13,15 @@ Default.args = {
   children: (
     <CustomOrgUnitProvider>
       <OrgUnitSelector searchable />
+    </CustomOrgUnitProvider>
+  ),
+};
+
+export const WithFilteredOrgUnitGroups = Template.bind({});
+WithFilteredOrgUnitGroups.args = {
+  children: (
+    <CustomOrgUnitProvider>
+      <OrgUnitSelector searchable filterByGroups={["RXL3lPSK8oG"]} />
     </CustomOrgUnitProvider>
   ),
 };
@@ -35,12 +43,12 @@ export default {
     (Story: any) => {
       const clear = useClearOrganisationData();
       return (
-        <OrgUnitDataProvider>
-          <div>
-            <Story />
-            <Button onClick={clear}>Clear cache</Button>
-          </div>
-        </OrgUnitDataProvider>
+        // <OrgUnitDataProvider>
+        <div>
+          <Story />
+          <Button onClick={clear}>Clear cache</Button>
+        </div>
+        // </OrgUnitDataProvider>
       );
     },
   ],

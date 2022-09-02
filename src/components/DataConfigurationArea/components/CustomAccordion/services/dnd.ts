@@ -22,7 +22,6 @@ export function dragUpdate(event: any): { top: number; left: number; width: numb
     return;
   }
 
-  console.log(event);
   const draggedDOM = getDraggedDom(event.draggableId);
 
   const destinationIndex = event?.destination?.index;

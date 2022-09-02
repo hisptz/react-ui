@@ -113,8 +113,6 @@ export function toGeoJson(organisationUnits: any) {
         },
       };
     } catch (e) {
-      console.log(ou);
-      console.log(e);
       return {};
     }
   });

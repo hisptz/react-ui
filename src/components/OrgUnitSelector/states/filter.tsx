@@ -41,16 +41,22 @@ export function FilterStateProvider({
       return sanitizeFilters((data?.orgUnits as any)?.organisationUnits ?? []);
     }
     return [];
-  }, [data, filterByGroups, searchValue]);
+  }, [data, filterByGroups, searchValue, searchMode]);
 
-  async function getSearch(keyword?: string) {
-    if (!isEmpty(keyword)) {
-      setSearchMode(true);
-      await refetch({ keyword, groups: filterByGroups });
-    } else {
-      setSearchMode(false);
-    }
-  }
+  const getSearch = useCallback(
+    async (keyword?: string) => {
+      if (!isEmpty(keyword)) {
+        setSearchMode(true);
+        await refetch({ keyword, groups: filterByGroups });
+      } else {
+        setSearchMode(false);
+        if (!isEmpty(filterByGroups)) {
+          await refetch({ keyword: null, groups: filterByGroups });
+        }
+      }
+    },
+    [refetch, filterByGroups]
+  );
 
   useEffect(() => {
     if (!isEmpty(filterByGroups)) {
@@ -67,10 +73,13 @@ export function FilterStateProvider({
     }
   }, [orgUnitsPaths]);
 
-  const onSearch = useCallback(async (keyword: string) => {
-    setSearchValue(keyword);
-    return await getSearch(keyword);
-  }, []);
+  const onSearch = useCallback(
+    async (keyword: string) => {
+      setSearchValue(keyword);
+      return await getSearch(keyword);
+    },
+    [getSearch]
+  );
 
   const handleExpand = ({ path }: { path: string }) => {
     setExpanded((prevState) => {

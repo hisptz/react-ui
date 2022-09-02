@@ -30,8 +30,8 @@ export class OfflineOrganisationUnitDB extends Dexie {
 
   public constructor(name?: string) {
     super(name ?? "ou");
-    this.version(1).stores({
-      organisationUnits: "&id, displayName, parent.id",
+    this.version(2).stores({
+      organisationUnits: "&id, displayName, parent.id, *organisationUnitGroups",
       organisationUnitGroups: "&id, displayName",
       organisationUnitLevels: "&id, displayName",
     });
