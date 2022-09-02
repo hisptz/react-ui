@@ -101,7 +101,6 @@ function filterByStringFilter(ou: OfflineOrganisationUnit, filter: string): bool
 
 async function getOrgUnits(instance: Table<OfflineOrganisationUnit>, query: any, { engine }: { engine: any }) {
   try {
-    console.log(query);
     if (query.id) {
       return getOrgUnitById(instance, query, engine);
     }
@@ -140,7 +139,6 @@ async function getOrgUnits(instance: Table<OfflineOrganisationUnit>, query: any,
       [query.resource]: await instance.toArray(),
     };
   } catch (e) {
-    console.log(e);
     console.info("Could not get data from cache...");
     return {
       [query.resource]: await getFromEngine(engine, query),

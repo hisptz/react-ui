@@ -31,9 +31,7 @@ export function useManageLegendDefinitions(
 
       if (shouldVerify) {
         confirm({
-          onCancel(): void {
-            console.log("Cancelled");
-          },
+          onCancel(): void {},
           title: i18n.t("Confirm legend reset"),
           message: i18n.t("Adding a legend definition will reset all legends to their default values. Are you sure you want to continue?"),
           confirmButtonColor: "primary",
@@ -70,9 +68,7 @@ export function useManageLegendDefinitions(
 
       if (shouldVerify) {
         confirm({
-          onCancel(): void {
-            console.log("Cancelled");
-          },
+          onCancel(): void {},
           title: `${i18n.t("Confirm legends reset")}`,
           message: `${i18n.t("Deleting this definition will reset all configured legends. Are you sure you want to delete this legend definition?")}`,
           confirmButtonColor: "primary",

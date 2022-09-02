@@ -49,7 +49,6 @@ export function FilterStateProvider({
         setSearchMode(true);
         await refetch({ keyword, groups: filterByGroups });
       } else {
-        console.log("Reset");
         setSearchMode(false);
         if (!isEmpty(filterByGroups)) {
           await refetch({ keyword: null, groups: filterByGroups });

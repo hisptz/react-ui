@@ -57,10 +57,6 @@ export default function CalendarSpecificPeriodSelector({
 
   const [selectedPeriodCategory, setSelectedPeriodCategory] = useState(head(tabs));
 
-  console.log({
-    weekly: new Period().setPreferences({ openFuturePeriods: 4, allowFuturePeriods: true }).setCalendar(calendar).setYear(year).setType("Weekly").get().list(),
-  });
-
   useEffect(() => {
     if (excludeFixedPeriods && excludeRelativePeriods) {
       throw Error("Both Fixed and Relative Periods are excluded.");
