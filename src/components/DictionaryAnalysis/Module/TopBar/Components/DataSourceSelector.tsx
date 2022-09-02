@@ -1,9 +1,6 @@
 import { useDataEngine } from "@dhis2/app-runtime";
 import propTypes from "prop-types";
-import React, { useEffect, useState } from "react";
-// import { useRecoilCallback } from "recoil";
-//import { dataElementsStateDictionary, dataSetDataElementCountState, dataSetReportingRatesStateDictionary, programDataElementCountState, programIndicatorStateDictionary, } from "../../../Store";
-import { indicatorGroupAggregateDataElements, indicatorGroupDataSets, indicatorGroupDenominatorDataElements, indicatorGroupNumeratorDataElements, indicatorGroupProgramDataElements, indicatorGroupPrograms, } from "../../../Store/IndicatorGroup";
+import { useEffect, useState } from "react";
 import { dataSourceTypes } from "../../../Utils/Models";
 import DataElementPage from "../../DataElement";
 import DataElementGroupPage from "../../DataElementGroup";
@@ -16,19 +13,6 @@ import { getDataSourceType } from "../../../../../core/utils/dataSource";
 
 export default function DataSourceSelector({ type, id }:any) {
     const engine = useDataEngine();
-    // const reset = useRecoilCallback(({ reset }:any) => () => {
-    //     reset(dataElementsStateDictionary);
-    //     reset(dataSetReportingRatesStateDictionary);
-    //     reset(programIndicatorStateDictionary);
-    //     reset(dataSetDataElementCountState);
-    //     reset(programDataElementCountState);
-    //     reset(indicatorGroupDataSets);
-    //     reset(indicatorGroupPrograms);
-    //     reset(indicatorGroupProgramDataElements);
-    //     reset(indicatorGroupAggregateDataElements);
-    //     reset(indicatorGroupNumeratorDataElements);
-    //     reset(indicatorGroupDenominatorDataElements);
-    // });
     const [dataType, setDataType] = useState(type);
     const [loading, setLoading] = useState(false);
 
@@ -48,13 +32,6 @@ export default function DataSourceSelector({ type, id }:any) {
 
         getType();
     }, [engine, id]);
-
-
-    // useEffect(() => {
-    //     return () => {
-    //         reset();
-    //     };
-    // }, [id]);
     
     if (loading) {
         return <ModalLoader />;
