@@ -18,8 +18,8 @@ export const parameters = {
 };
 
 const appConfig = {
-  baseUrl: process.env.STORYBOOK_DHIS2_BASE_URL ??  "https://play.dhis2.org"??"http://localhost:8081",
-  apiVersion: parseInt(process.env.STORYBOOK_DHIS2_API_VERSION ?? "38") ?? 38,
+  baseUrl: process.env.STORYBOOK_DHIS2_BASE_URL ?? "http://localhost:8080",
+  apiVersion: parseInt(process.env.STORYBOOK_DHIS2_API_VERSION ?? "34") ?? 34,
 };
 const DHIS2Provider = ({ children }: { children: React.ReactNode }) => <Provider config={appConfig}>{children}</Provider>;
 

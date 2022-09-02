@@ -12,37 +12,37 @@ export const IndicatorSelector = Template.bind({});
 IndicatorSelector.args = {
   dataSources: [
     {
-        "id": "UT1DJmtzyox",
-        "name": "RMNCH ANC 1st visit coverage (%)",
-        "type": "indicator",
-        "label": "RMNCH ANC 1st visit coverage (%)",
-        "weight": 100,
-        "legends": [
-            {
-                "id": "LS8UhHFbikY",
-                "endValue": 100,
-                "startValue": "90",
-                "legendDefinitionId": "#008000"
-            },
-            {
-                "id": "cE4yOxFXwat",
-                "endValue": "89",
-                "startValue": "60",
-                "legendDefinitionId": "#FFFF00"
-            },
-            {
-                "id": "whkLs1HWa2T",
-                "endValue": "59",
-                "startValue": 1,
-                "legendDefinitionId": "#FF0000"
-            }
-        ],
-        "highIsGood": true,
-        "showColors": false,
-        "effectiveGap": 5,
-        "displayArrows": true
-    }
-],
+      id: "BvG8P80QxqZ",
+      name: "Access to ANC Services",
+      type: "indicator",
+      label: "Access to ANC Services",
+      weight: 100,
+      legends: [
+        {
+          id: "VNRS77WEraG",
+          endValue: 100,
+          startValue: 67,
+          legendDefinitionId: "#008000",
+        },
+        {
+          id: "xeyNrAejMTX",
+          endValue: 67,
+          startValue: 34,
+          legendDefinitionId: "#FFFF00",
+        },
+        {
+          id: "FUQZwnesklK",
+          endValue: 34,
+          startValue: 1,
+          legendDefinitionId: "#FF0000",
+        },
+      ],
+      highIsGood: true,
+      showColors: true,
+      effectiveGap: 5,
+      displayArrows: true,
+    },
+  ],
 };
 
 export default {
@@ -51,9 +51,9 @@ export default {
   decorators: [
     (DataSourceSelectorStory: any) => (
       <div className="row w-100 center">
-        <div style={{ width: 600 }}>
+        <div style={{ width: 650, height:"100vh", overflow: 'auto', }}>
           {/* <DataSourceProvider> */}
-            <DataSourceSelectorStory />
+          <DataSourceSelectorStory />
           {/* </DataSourceProvider> */}
         </div>
       </div>

@@ -41,6 +41,7 @@ export default function Introduction({ id }:any) {
         return <Error error={error}/>;
     }
 
+    console.log("introduction",data);
     const indicatorDetails = data?.indicatorsDetails;
 
     return (<div>

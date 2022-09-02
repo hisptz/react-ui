@@ -1,5 +1,5 @@
 import { useDataEngine } from "@dhis2/app-runtime";
-import PropTypes from "prop-types";
+import propTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 // import { useRecoilCallback } from "recoil";
 //import { dataElementsStateDictionary, dataSetDataElementCountState, dataSetReportingRatesStateDictionary, programDataElementCountState, programIndicatorStateDictionary, } from "../../../Store";
@@ -55,7 +55,6 @@ export default function DataSourceSelector({ type, id }:any) {
     //         reset();
     //     };
     // }, [id]);
-
     
     if (loading) {
         return <ModalLoader />;
@@ -86,7 +85,7 @@ export default function DataSourceSelector({ type, id }:any) {
 }
 
 DataSourceSelector.propTypes = {
-    id: PropTypes.string.isRequired,
-    type: PropTypes.oneOf(Object.values(dataSourceTypes)).isRequired
+    id: propTypes.string.isRequired,
+    type: propTypes.oneOf(Object.values(dataSourceTypes)).isRequired
 };
 
