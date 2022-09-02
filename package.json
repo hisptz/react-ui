@@ -108,7 +108,6 @@
     "postinstall.js"
   ],
   "peerDependencies": {
-    "@dhis2/app-runtime": "^3.2.5",
     "@dhis2/ui": "^7.7.5",
     "lodash": "^4.17.21"
   },
