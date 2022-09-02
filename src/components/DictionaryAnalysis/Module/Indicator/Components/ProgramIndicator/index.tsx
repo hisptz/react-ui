@@ -2,12 +2,9 @@ import i18n from "@dhis2/d2-i18n";
 import { DataTable, TableHead, TableBody, DataTableRow, DataTableColumnHeader, } from "@dhis2/ui";
 import DictionaryContext from "../../../../../../components/DictionaryAnalysis/Store/DictionaryContext";
 import { useContext } from "react";
-//import { useRecoilValue } from "recoil";
-// import { programIndicatorStateDictionary } from "../../../../Store";
 import Row from "./Row";
 
 export default function ProgramIndicatorIndicator() {
-  //  const programIndicators = useRecoilValue(programIndicatorStateDictionary);
 
     const {values}= useContext(DictionaryContext);
     
