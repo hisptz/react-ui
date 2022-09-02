@@ -51,7 +51,7 @@ export default {
   decorators: [
     (DataSourceSelectorStory: any) => (
       <div className="row w-100 center">
-        <div style={{ width: 650, height:"100vh", overflow: 'auto', }}>
+        <div style={{ width: 700, height:"100vh", overflow: 'auto', }}>
           {/* <DataSourceProvider> */}
           <DataSourceSelectorStory />
           {/* </DataSourceProvider> */}
