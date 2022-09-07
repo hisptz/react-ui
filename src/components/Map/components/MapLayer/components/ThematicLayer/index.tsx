@@ -4,6 +4,7 @@ import React from "react";
 import { LayerGroup, LayersControl } from "react-leaflet";
 import Control from "react-leaflet-custom-control";
 import { ThematicLayer as ThematicLayerInterface } from "../../interfaces";
+import Bubble from "./components/Bubble";
 import Choropleth from "./components/Choropleth";
 import ChoroplethLegend from "./components/Choropleth/components/ChoroplethLegend";
 import useThematicLayerData from "./hooks/config";
@@ -11,7 +12,6 @@ import useThematicLayerData from "./hooks/config";
 export default function ThematicLayer({ layer }: { layer: ThematicLayerInterface }) {
   const { type, enabled, control, dataItem, name } = layer;
   const { loading, data } = useThematicLayerData(layer);
-
   if (loading) {
     return (
       <LayersControl.Overlay name={name ?? dataItem.displayName} checked={enabled}>
@@ -27,6 +27,7 @@ export default function ThematicLayer({ layer }: { layer: ThematicLayerInterface
       <LayersControl.Overlay checked={enabled} name={name ?? dataItem.displayName}>
         <LayerGroup>
           {data?.map((datum) => (type === "choropleth" ? <Choropleth data={datum} key={`${datum?.dataItem?.id}-${datum?.orgUnit?.id}-layer`} /> : null))}
+          {data?.map((datum) => (type === "bubble" ? <Bubble data={datum} key={`${datum?.dataItem?.id}-${datum?.orgUnit?.id}-layer`} /> : null))}
         </LayerGroup>
       </LayersControl.Overlay>
       {control && (

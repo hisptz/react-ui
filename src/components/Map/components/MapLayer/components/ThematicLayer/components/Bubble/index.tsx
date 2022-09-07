@@ -1,10 +1,10 @@
 import { colors } from "@dhis2/ui";
+import { geoJSON } from "leaflet";
 import React from "react";
-import { GeoJSON } from "react-leaflet";
+import { CircleMarker } from "react-leaflet";
 import { defaultLegendSet } from "../../../../../../constants/legendSet";
-import { MapOrgUnit } from "../../../../../../interfaces";
 import { getColorFromLegendSet, highlightFeature, resetHighlight } from "../../../../../../utils/map";
-import { ThematicLayerDataItem } from "../../../../interfaces";
+import { ThematicLayerData } from "../../../../interfaces";
 import CustomTooltip from "../CustomTooltip";
 
 const defaultStyle = {
@@ -14,12 +14,16 @@ const highlightStyle = {
   weight: 2,
 };
 
-export default function Choropleth({ data }: { data: { orgUnit: MapOrgUnit; data?: number; dataItem: ThematicLayerDataItem } }) {
-  const { dataItem, orgUnit } = data;
+export default function Bubble({ data }: { data: ThematicLayerData }) {
+  const { orgUnit, data: value, dataItem } = data ?? {};
+
+  const geoJSONObject = orgUnit.geoJSON;
+  const center = geoJSON(geoJSONObject).getBounds().getCenter();
+
   return (
     <>
-      <GeoJSON
-        data={orgUnit.geoJSON}
+      <CircleMarker
+        interactive
         eventHandlers={{
           mouseover: (e) => highlightFeature(e, highlightStyle),
           mouseout: (e) => resetHighlight(e, defaultStyle),
@@ -30,9 +34,10 @@ export default function Choropleth({ data }: { data: { orgUnit: MapOrgUnit; data
           color: colors.grey900,
           weight: 1,
         }}
-        key={`${data.dataItem.id}-layer`}>
+        radius={(value ?? 0) / 5}
+        center={center}>
         <CustomTooltip data={data} />
-      </GeoJSON>
+      </CircleMarker>
     </>
   );
 }

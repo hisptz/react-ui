@@ -1,7 +1,6 @@
 import { Period } from "@iapps/period-utilities";
 import type { Story } from "@storybook/react";
 import React from "react";
-import MapDataProvider from "../../dataProviders/map";
 import { MapProps } from "./interfaces";
 import Map from "./index";
 
@@ -49,6 +48,37 @@ ChoroplethThematicLayer.args = {
     {
       type: "choropleth",
       id: "choropleth",
+      enabled: true,
+      dataItem: {
+        id: "Uvn6LCg7dVU",
+        displayName: "ANC 1 Coverage",
+        type: "indicator",
+      },
+      control: {
+        enabled: true,
+        position: "topright",
+      },
+    },
+  ],
+  periodSelection: {
+    periods: [
+      {
+        ...new Period().setPreferences({ allowFuturePeriods: true }).getById("2022"),
+      },
+    ],
+  },
+};
+
+export const BubbleThematicLayer = Template.bind({});
+BubbleThematicLayer.args = {
+  orgUnitSelection: { orgUnits: [], userOrgUnit: true, userSubUnit: true, userSubX2Unit: true },
+  boundaryLayer: {
+    enabled: true,
+  },
+  thematicLayers: [
+    {
+      type: "bubble",
+      id: "bubble",
       enabled: true,
       dataItem: {
         id: "Uvn6LCg7dVU",
@@ -119,9 +149,9 @@ export default {
     (MapStory: any) => {
       return (
         <div style={{ width: "100%", height: "100%" }}>
-          <MapDataProvider>
-            <MapStory />
-          </MapDataProvider>
+          {/*<MapDataProvider>*/}
+          <MapStory />
+          {/*</MapDataProvider>*/}
         </div>
       );
     },
