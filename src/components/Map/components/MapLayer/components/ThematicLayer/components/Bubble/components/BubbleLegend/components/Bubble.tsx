@@ -4,7 +4,7 @@ import { guideLength, textPadding } from "./Bubbles";
 export interface BubbleProps {
   radius: number;
   maxRadius: number;
-  text: string;
+  text?: string;
   textAlign?: "left" | "right";
   color?: string;
   stroke?: string;

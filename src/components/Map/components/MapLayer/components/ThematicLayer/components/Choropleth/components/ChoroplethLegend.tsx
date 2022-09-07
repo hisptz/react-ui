@@ -1,7 +1,7 @@
-import React, { forwardRef, useMemo } from "react";
 import "../../../styles/legends.css";
 import { Divider } from "@dhis2/ui";
 import { sortBy } from "lodash";
+import React, { forwardRef, useMemo } from "react";
 import { defaultLegendSet } from "../../../../../../../constants/legendSet";
 import { getLegendCount } from "../../../../../../../utils/map";
 import { ThematicLayerData, ThematicLayerDataItem } from "../../../../../interfaces";

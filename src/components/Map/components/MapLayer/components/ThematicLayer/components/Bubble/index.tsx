@@ -14,7 +14,7 @@ const highlightStyle = {
   weight: 2,
 };
 
-export default function Bubble({ data }: { data: ThematicLayerData }) {
+export default function Bubble({ data, lowestData }: { data: ThematicLayerData; lowestData: number }) {
   const { orgUnit, data: value, dataItem } = data ?? {};
 
   const geoJSONObject = orgUnit.geoJSON;
@@ -34,7 +34,7 @@ export default function Bubble({ data }: { data: ThematicLayerData }) {
           color: colors.grey900,
           weight: 1,
         }}
-        radius={(value ?? 0) / 5}
+        radius={((value ?? 0) / lowestData) * 8}
         center={center}>
         <CustomTooltip data={data} />
       </CircleMarker>

@@ -1,5 +1,5 @@
 import { useDataQuery } from "@dhis2/app-runtime";
-import { compact, head, isEmpty } from "lodash";
+import { compact, head, isEmpty, sortBy } from "lodash";
 import { useEffect, useMemo } from "react";
 import { MapOrgUnit } from "../../../../../interfaces";
 import { getOrgUnitsSelection, sanitizeDate } from "../../../../../utils/map";
@@ -84,17 +84,20 @@ export default function useThematicLayerData(layer: ThematicLayer): {
       const ouIndex = analytics.headers.findIndex((header: any) => header.name === "ou");
       const valueIndex = analytics.headers.findIndex((header: any) => header.name === "value");
       if (!isEmpty(rows)) {
-        return orgUnits?.map((ou: MapOrgUnit) => {
-          const row = rows.find((row: any) => row[ouIndex] === ou.id);
-          return {
-            orgUnit: ou,
-            data: row ? parseFloat(row[valueIndex]) : undefined,
-            dataItem: {
-              ...layer.dataItem,
-              legendSet: Array.isArray((data?.legendSet as any)?.legendSets) ? (data.legendSet as any)?.legendSets[0] : data.legendSet,
-            },
-          };
-        });
+        return sortBy(
+          orgUnits?.map((ou: MapOrgUnit) => {
+            const row = rows.find((row: any) => row[ouIndex] === ou.id);
+            return {
+              orgUnit: ou,
+              data: row ? parseFloat(row[valueIndex]) : undefined,
+              dataItem: {
+                ...layer.dataItem,
+                legendSet: Array.isArray((data?.legendSet as any)?.legendSets) ? (data.legendSet as any)?.legendSets[0] : data.legendSet,
+              },
+            };
+          }),
+          ["data"]
+        );
       }
       return [];
     }
