@@ -100,6 +100,65 @@ BubbleThematicLayer.args = {
   },
 };
 
+export const AllThematicLayers = Template.bind({});
+AllThematicLayers.args = {
+  orgUnitSelection: { orgUnits: [], userOrgUnit: true, userSubUnit: true, userSubX2Unit: true },
+  boundaryLayer: {
+    enabled: true,
+  },
+  thematicLayers: [
+    {
+      type: "choropleth",
+      id: "choropleth",
+      enabled: true,
+      dataItem: {
+        id: "ReUHfIn0pTQ",
+        displayName: "ANC 1-3 Dropout Rate",
+        type: "indicator",
+      },
+      control: {
+        enabled: true,
+        position: "topright",
+      },
+    },
+    {
+      type: "bubble",
+      id: "bubble",
+      enabled: true,
+      dataItem: {
+        id: "Uvn6LCg7dVU",
+        displayName: "ANC 1 Coverage",
+        type: "indicator",
+      },
+      control: {
+        enabled: true,
+        position: "topright",
+      },
+    },
+  ],
+  periodSelection: {
+    periods: [
+      {
+        ...new Period().setPreferences({ allowFuturePeriods: true }).getById("2022"),
+      },
+    ],
+  },
+  controls: [
+    {
+      type: "scale",
+      position: "bottomleft",
+      options: {
+        imperial: false,
+        metric: true,
+      },
+    },
+    {
+      type: "fullscreen",
+      position: "bottomleft",
+    },
+  ],
+};
+
 export const ChoroplethThematicLayerWithLevels = Template.bind({});
 ChoroplethThematicLayerWithLevels.args = {
   orgUnitSelection: {

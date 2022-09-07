@@ -1,10 +1,11 @@
+import { ControlPosition } from "leaflet";
 import type { MapContainerProps } from "react-leaflet";
 import { MapLayerProps } from "../../MapLayer/interfaces";
 
 export interface MapControls {
-  enabled: boolean;
-  position: "top-left" | "top-right" | "bottom-left" | "bottom-right";
-  type: "zoom" | "rotate" | "fullscreen" | "compass";
+  position: ControlPosition;
+  type: "zoom" | "rotate" | "fullscreen" | "compass" | "scale";
+  options?: Record<string, any>;
 }
 
 export interface MapAreaProps {
@@ -15,4 +16,5 @@ export interface MapAreaProps {
   };
   controls?: MapControls[];
   mapOptions?: MapContainerProps;
+  key?: string;
 }
