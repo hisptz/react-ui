@@ -1,16 +1,13 @@
 import i18n from "@dhis2/d2-i18n";
 import { SegmentedControl } from "@dhis2/ui";
-import { PeriodInterface } from "@iapps/period-utilities";
 import { head, isEmpty } from "lodash";
 import React, { useCallback, useMemo, useState } from "react";
-import CalendarSpecificPeriodSelector from "./components/CalendarSpecificPeriodDimension";
-import { CalendarTypes } from "./components/CalendarSpecificPeriodDimension/constants/calendar";
 import DateRange from "./components/DateRange";
+import PeriodSelect from "./components/PeriodSelect";
 import { DateRangeValue, PeriodSelectorProps } from "./types/props";
 
 export default function PeriodSelector({
   excludedPeriodTypes,
-  calendar,
   selectedPeriods,
   onSelect,
   excludeFixedPeriods,
@@ -60,17 +57,18 @@ export default function PeriodSelector({
         />
       )}
       {inputType === "period" && (
-        <CalendarSpecificPeriodSelector
+        <PeriodSelect
           singleSelection={singleSelection}
           excludedPeriodTypes={excludedPeriodTypes ?? []}
-          calendar={calendar ?? CalendarTypes.GREGORIAN}
-          onSelect={onSelect}
-          selectedPeriods={selectedPeriods as PeriodInterface[]}
+          onSelect={onSelect as unknown as (selected: { items: string[] }) => void}
+          selectedPeriods={selectedPeriods as string[]}
           excludeFixedPeriods={excludeFixedPeriods}
           excludeRelativePeriods={excludeRelativePeriods}
         />
       )}
-      {inputType === "dateRange" && <DateRange value={selectedPeriods as DateRangeValue[]} onChange={onSelect} />}
+      {inputType === "dateRange" && (
+        <DateRange value={selectedPeriods as DateRangeValue[]} onChange={onSelect as unknown as (selected: { items: DateRangeValue[] }) => void} />
+      )}
     </div>
   );
 }

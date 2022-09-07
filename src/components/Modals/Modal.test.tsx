@@ -2,7 +2,7 @@ import { mount } from "@cypress/react";
 import React from "react";
 import OrgUnitDataProvider from "../../dataProviders/orgUnit";
 import { OrgUnitSelectorValue } from "../OrgUnitSelector/types";
-import { Period } from "../PeriodSelector/components/CalendarSpecificPeriodDimension/interfaces/period";
+import { Period } from "../PeriodSelector/components/PeriodSelect/interfaces/period";
 import { OrgUnitSelectorModal, PeriodSelectorModal } from "./index";
 
 const DHIS2Provider = ({ children }: { children: any }) => <OrgUnitDataProvider>{children}</OrgUnitDataProvider>;

@@ -10,7 +10,7 @@ export default function DateRange({
   onChange,
 }: {
   value?: DateRangeValue[] | PeriodInterface[];
-  onChange: ({ items }: { items: DateRangeValue[] | PeriodInterface[] }) => void;
+  onChange: ({ items }: { items: DateRangeValue[] }) => void;
 }) {
   const data = useMemo(() => head(value as DateRangeValue[]) ?? { startDate: "", endDate: "", type: "RANGE" }, [value]);
   const { startDate, endDate } = data;

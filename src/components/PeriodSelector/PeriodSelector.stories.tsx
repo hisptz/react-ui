@@ -1,6 +1,6 @@
 import type { Story } from "@storybook/react";
 import React from "react";
-import { CalendarTypes } from "./components/CalendarSpecificPeriodDimension/constants/calendar";
+import { CalendarTypes } from "./components/PeriodSelect/constants/calendar";
 import { PeriodSelectorProps } from "./types/props";
 import PeriodSelector from "./index";
 
@@ -13,17 +13,6 @@ Default.args = {
   },
   selectedPeriods: [],
   excludedPeriodTypes: [],
-  calendar: CalendarTypes.GREGORIAN,
-};
-
-export const Ethiopian = Template.bind({});
-Ethiopian.args = {
-  onSelect: ({ items }) => {
-    console.log(items);
-  },
-  selectedPeriods: [],
-  excludedPeriodTypes: [],
-  calendar: CalendarTypes.ETHIOPIAN,
 };
 
 export const ExcludedFixedPeriodTypes = Template.bind({});
@@ -33,7 +22,6 @@ ExcludedFixedPeriodTypes.args = {
   },
   selectedPeriods: [],
   excludedPeriodTypes: [],
-  calendar: CalendarTypes.GREGORIAN,
   excludeFixedPeriods: true,
 };
 
@@ -44,7 +32,6 @@ ExcludedRelativePeriodTypes.args = {
   },
   selectedPeriods: [],
   excludedPeriodTypes: [],
-  calendar: CalendarTypes.GREGORIAN,
   excludeRelativePeriods: true,
 };
 
@@ -55,7 +42,6 @@ ExcludedPeriodTypes.args = {
   },
   selectedPeriods: [],
   excludedPeriodTypes: ["RelativeWeek", "RelativeMonth", "Monthly", "Weekly"],
-  calendar: CalendarTypes.GREGORIAN,
 };
 
 export const SingleSelection = Template.bind({});
@@ -65,7 +51,6 @@ SingleSelection.args = {
   },
   selectedPeriods: [],
   excludedPeriodTypes: ["RelativeWeek", "RelativeMonth", "Monthly", "Weekly"],
-  calendar: CalendarTypes.GREGORIAN,
 };
 
 export const SelectedDateRangePeriod = Template.bind({});
@@ -82,7 +67,6 @@ SelectedDateRangePeriod.args = {
     },
   ],
   excludedPeriodTypes: [],
-  calendar: CalendarTypes.GREGORIAN,
 };
 export const SelectedPeriods = Template.bind({});
 SelectedPeriods.args = {
@@ -90,14 +74,8 @@ SelectedPeriods.args = {
     console.log(items);
   },
   enableDateRange: true,
-  selectedPeriods: [
-    {
-      id: "2022",
-      name: "2022",
-    },
-  ],
+  selectedPeriods: ["2022"],
   excludedPeriodTypes: [],
-  calendar: CalendarTypes.GREGORIAN,
 };
 
 export const DateRange = Template.bind({});
@@ -108,7 +86,6 @@ DateRange.args = {
   enableDateRange: true,
   selectedPeriods: [],
   excludedPeriodTypes: [],
-  calendar: CalendarTypes.GREGORIAN,
   defaultInputType: "dateRange",
 };
 

@@ -1,8 +1,6 @@
 import { mount } from "@cypress/react";
 import { PeriodInterface } from "@iapps/period-utilities";
 import React from "react";
-import { Period } from "./components/CalendarSpecificPeriodDimension/interfaces/period";
-import { DateRangeValue } from "./types/props";
 import PeriodSelector from "./index";
 
 describe("Period Selector Tests", () => {
