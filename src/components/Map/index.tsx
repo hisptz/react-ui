@@ -28,9 +28,11 @@ const Map = (
   ];
 
   return (
-    <MapProvider layers={sanitizedLayers.map(({ layer }) => layer)} periodSelection={periodSelection} orgUnitSelection={orgUnitSelection}>
-      <MapArea controls={controls} key={key} ref={ref} mapOptions={mapOptions} />
-    </MapProvider>
+    <>
+      <MapProvider layers={sanitizedLayers.map(({ layer }) => layer)} periodSelection={periodSelection} orgUnitSelection={orgUnitSelection}>
+        <MapArea controls={controls} key={key} ref={ref} mapOptions={mapOptions} />
+      </MapProvider>
+    </>
   );
 };
 export default forwardRef(Map);

@@ -5,6 +5,7 @@ import React, { forwardRef, useMemo } from "react";
 import { defaultLegendSet } from "../../../../../../../constants/legendSet";
 import { getLegendCount } from "../../../../../../../utils/map";
 import { ThematicLayerData, ThematicLayerDataItem } from "../../../../../interfaces";
+import LegendCardHeader from "../../../../LegendArea/components/LegendCardHeader";
 
 function LegendItem({ legend, value }: { legend: { startValue: number; endValue: number; color: string }; value: number }) {
   return (
@@ -17,7 +18,13 @@ function LegendItem({ legend, value }: { legend: { startValue: number; endValue:
 }
 
 function ChoroplethLegend(
-  { dataItem, data, name }: { data: ThematicLayerData[]; dataItem: ThematicLayerDataItem; name?: string },
+  {
+    dataItem,
+    data,
+    name,
+    collapsible,
+    onCollapse,
+  }: { data: ThematicLayerData[]; dataItem: ThematicLayerDataItem; name?: string; collapsible?: boolean; onCollapse?: () => void },
   ref: React.LegacyRef<HTMLDivElement> | undefined
 ) {
   const legends = useMemo(() => {
@@ -26,7 +33,7 @@ function ChoroplethLegend(
 
   return (
     <div className="legend-card" ref={ref}>
-      <h4 className="legend-header">{dataItem?.displayName}</h4>
+      <LegendCardHeader title={dataItem.displayName} collapsible={collapsible} onCollapse={onCollapse} />
       <Divider margin={"0"} />
       <div className="legend-list pt-8">
         {legends?.map((legend: any) => (

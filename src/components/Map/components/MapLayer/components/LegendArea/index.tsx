@@ -1,6 +1,7 @@
+import { IconLegend24, Tooltip } from "@dhis2/ui";
 import { ControlPosition } from "leaflet";
 import { compact, head } from "lodash";
-import React from "react";
+import React, { useState } from "react";
 import { CustomControl } from "../../../MapControls/components/CustomControl";
 import { CustomThematicLayer } from "../../interfaces";
 import BubbleLegend from "../ThematicLayer/components/Bubble/components/BubbleLegend";
@@ -20,14 +21,42 @@ function getLegendComponent(layer: CustomThematicLayer) {
   }
 }
 
-export default function LegendArea({ layers, position }: { layers: CustomThematicLayer[]; position: ControlPosition }) {
+function Legend({ children, collapsible }: { children: React.ReactElement; collapsible: boolean }) {
+  const [collapsed, setCollapsed] = useState(collapsible);
+
+  const onCollapse = () => {
+    if (collapsible) {
+      setCollapsed((prevState) => !prevState);
+    }
+  };
+
+  const name = head(React.Children.toArray(children) as React.ReactElement[])?.props.name;
+
+  return (
+    <div>
+      {collapsed ? (
+        <Tooltip content={name}>
+          <div onClick={onCollapse} style={{ width: 28, height: 28 }} className="legend-card collapsed">
+            <IconLegend24 />
+          </div>
+        </Tooltip>
+      ) : (
+        React.Children.map(children, (child) => React.cloneElement(child, { collapsible, onCollapse }))
+      )}
+    </div>
+  );
+}
+
+export default function LegendArea({ layers, position, collapsible }: { layers: CustomThematicLayer[]; position: ControlPosition; collapsible?: boolean }) {
   const legends: JSX.Element[] = compact(layers.map(getLegendComponent));
 
   return (
     <CustomControl position={position}>
-      <div className="column gap-16">
+      <div className="column gap-16 align-items-end">
         {legends?.map((legend: any, index) => (
-          <div key={`${index}-map-legend`}>{legend}</div>
+          <Legend collapsible={collapsible ?? true} key={`${index}-map-legend`}>
+            {legend}
+          </Legend>
         ))}
       </div>
     </CustomControl>
