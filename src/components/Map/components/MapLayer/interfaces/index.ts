@@ -4,12 +4,12 @@ import { MapOrgUnit } from "../../../interfaces";
 export type BoundaryLayerType = "basemap" | "overlay";
 export type ThematicLayerType = "choropleth" | "bubble";
 
-export interface BoundaryLayer {
+export interface CustomBoundaryLayer extends CustomMapLayer {
   id: string;
   type: BoundaryLayerType;
 }
 
-export interface PointLayer {
+export interface CustomPointLayer extends CustomMapLayer {
   id: string;
   type: "point";
 }
@@ -34,20 +34,38 @@ export interface ThematicLayerData {
   dataItem: ThematicLayerDataItem;
 }
 
-export interface ThematicLayer {
+export interface ThematicLayerRawData {
+  orgUnit: string;
+  data?: number;
+  dataItem: string;
+}
+
+export interface CustomThematicLayer extends CustomMapLayer {
   enabled: boolean;
   name?: string;
-  id: string;
   data: ThematicLayerData[];
   dataItem: ThematicLayerDataItem;
   type: ThematicLayerType;
   control?: ThematicLayerControl;
 }
 
-export type MapLayer = BoundaryLayer | PointLayer | ThematicLayer;
+export interface CustomThematicPrimitiveLayer {
+  id: string;
+  data?: ThematicLayerRawData[];
+  enabled: boolean;
+  name?: string;
+  dataItem: ThematicLayerDataItem;
+  type: ThematicLayerType;
+  control?: ThematicLayerControl;
+}
+
+export interface CustomMapLayer {
+  id: string;
+  type: string;
+}
 
 export interface MapLayerProps {
   enabled: boolean;
-  type: "boundary" | "thematic";
-  layer: MapLayer | any;
+  type: "boundary" | "thematic" | "external";
+  layer: CustomBoundaryLayer | CustomThematicPrimitiveLayer;
 }

@@ -1,19 +1,20 @@
 import { uid } from "@hisptz/dhis2-utils";
 import { Map as LeafletMap } from "leaflet";
 import { isEmpty } from "lodash";
-import React, { forwardRef, useRef } from "react";
+import React, { forwardRef, useContext, useRef } from "react";
 import { LayersControl, MapContainer, TileLayer } from "react-leaflet";
 import { useMapBounds } from "../../hooks/map";
+import { MapLayersContext } from "../../state";
 import MapControl from "../MapControls";
 import MapLayer from "../MapLayer";
 import LegendArea from "../MapLayer/components/LegendArea";
 import MapUpdater from "../MapUpdater";
 import { MapAreaProps } from "./interfaces";
 
-const MapArea = ({ layers, base, controls, mapOptions, key }: MapAreaProps, ref: React.Ref<LeafletMap> | undefined) => {
+const MapArea = ({ base, controls, mapOptions, key }: MapAreaProps, ref: React.Ref<LeafletMap> | undefined) => {
   const { center, bounds } = useMapBounds();
   const { current: id } = useRef<string>(uid());
-  const enabledLayers = layers.filter((l) => l.enabled);
+  const { layers } = useContext(MapLayersContext);
 
   return (
     <div id="map-container" style={{ height: "100%", width: "100%" }}>
@@ -39,16 +40,14 @@ const MapArea = ({ layers, base, controls, mapOptions, key }: MapAreaProps, ref:
         {controls?.map((control) => (
           <MapControl key={`${control.type}-control`} {...control} />
         ))}
-        {!isEmpty(enabledLayers) && (
+        {!isEmpty(layers) && (
           <LayersControl hideSingleBase position={"topleft"}>
-            {enabledLayers.map((layer) => (
-              <MapLayer key={layer.layer.id} {...layer} />
+            {layers.map((layer) => (
+              <MapLayer key={layer.id} {...layer} />
             ))}
           </LayersControl>
         )}
-        {!isEmpty(enabledLayers) && (
-          <LegendArea layers={enabledLayers.filter((layer) => layer.type === "thematic").map(({ layer }) => layer)} position={"topright"} />
-        )}
+        {!isEmpty(layers) && <LegendArea layers={layers} position={"topright"} />}
       </MapContainer>
     </div>
   );

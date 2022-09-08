@@ -1,28 +1,19 @@
-import { CenteredContent, CircularLoader } from "@dhis2/ui";
 import { head } from "lodash";
 import React from "react";
 import { LayerGroup, LayersControl, Pane } from "react-leaflet";
-import { ThematicLayer as ThematicLayerInterface } from "../../interfaces";
 import Bubble from "./components/Bubble";
 import Choropleth from "./components/Choropleth";
-import useThematicLayerData from "./hooks/config";
+import useThematicLayer from "./hooks/config";
 
-export default function ThematicLayer({ layer }: { layer: ThematicLayerInterface }) {
-  const { type, enabled, control, dataItem, name } = layer;
-  const { loading, data } = useThematicLayerData(layer);
-  const uniqueName = name ?? dataItem.displayName;
-  if (loading) {
-    return (
-      <LayersControl.Overlay name={uniqueName} checked={enabled}>
-        <>
-          <CenteredContent>
-            <CircularLoader small />
-          </CenteredContent>
-        </>
-      </LayersControl.Overlay>
-    );
+export default function ThematicLayer({ layerId }: { layerId: string }) {
+  const layer = useThematicLayer(layerId);
+
+  if (!layer) {
+    return null;
   }
 
+  const { type, dataItem, name, data, enabled } = layer ?? {};
+  const uniqueName = name ?? dataItem.displayName;
   return (
     <>
       <LayersControl.Overlay checked={enabled} name={uniqueName}>

@@ -1,11 +1,12 @@
 import type { OrgUnitSelection } from "@hisptz/dhis2-utils";
 import type { MapContainerProps } from "react-leaflet";
 import { MapControls } from "../components/MapArea/interfaces";
-import { ThematicLayer } from "../components/MapLayer/interfaces";
+import { CustomBoundaryLayer, CustomThematicPrimitiveLayer } from "../components/MapLayer/interfaces";
 
 export interface MapProviderProps {
   children: React.ReactNode;
   orgUnitSelection: OrgUnitSelection;
+  layers?: Array<CustomBoundaryLayer | CustomThematicPrimitiveLayer>;
   periodSelection?: { periods: any[] };
 }
 
@@ -16,7 +17,7 @@ export interface MapProps {
     enabled: boolean;
   };
   controls?: MapControls[];
-  thematicLayers?: ThematicLayer[];
+  thematicLayers?: CustomThematicPrimitiveLayer[];
   periodSelection?: { periods: any[] };
   mapOptions?: MapContainerProps;
 }

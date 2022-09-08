@@ -2,11 +2,11 @@ import { ControlPosition } from "leaflet";
 import { compact, head } from "lodash";
 import React from "react";
 import { CustomControl } from "../../../MapControls/components/CustomControl";
-import { ThematicLayer } from "../../interfaces";
+import { CustomThematicLayer } from "../../interfaces";
 import BubbleLegend from "../ThematicLayer/components/Bubble/components/BubbleLegend";
 import ChoroplethLegend from "../ThematicLayer/components/Choropleth/components/ChoroplethLegend";
 
-function getLegendComponent(layer: ThematicLayer) {
+function getLegendComponent(layer: CustomThematicLayer) {
   const { type, enabled, control, dataItem, name, data } = layer ?? {};
 
   if (!enabled || !control) {
@@ -20,7 +20,7 @@ function getLegendComponent(layer: ThematicLayer) {
   }
 }
 
-export default function LegendArea({ layers, position }: { layers: ThematicLayer[]; position: ControlPosition }) {
+export default function LegendArea({ layers, position }: { layers: CustomThematicLayer[]; position: ControlPosition }) {
   const legends: JSX.Element[] = compact(layers.map(getLegendComponent));
 
   return (

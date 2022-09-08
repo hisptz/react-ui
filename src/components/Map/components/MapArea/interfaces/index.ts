@@ -1,6 +1,5 @@
 import { ControlPosition } from "leaflet";
 import type { MapContainerProps } from "react-leaflet";
-import { MapLayerProps } from "../../MapLayer/interfaces";
 
 export interface MapControls {
   position: ControlPosition;
@@ -9,7 +8,6 @@ export interface MapControls {
 }
 
 export interface MapAreaProps {
-  layers: MapLayerProps[];
   base?: {
     url: string;
     attribution: string;

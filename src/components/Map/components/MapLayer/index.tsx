@@ -1,14 +1,16 @@
 import React from "react";
 import BoundaryLayer from "./components/BoundaryLayer";
 import ThematicLayer from "./components/ThematicLayer";
-import { MapLayerProps } from "./interfaces";
+import { CustomBoundaryLayer, CustomThematicLayer } from "./interfaces";
 
-export default function MapLayer({ layer, enabled, type }: MapLayerProps) {
-  switch (type) {
-    case "boundary":
-      return <BoundaryLayer {...layer} enabled={enabled} />;
-    case "thematic":
-      return <ThematicLayer layer={layer} />;
+export default function MapLayer(layer: CustomThematicLayer | CustomBoundaryLayer) {
+  switch (layer.type) {
+    case "overlay":
+    case "basemap":
+      return <BoundaryLayer {...layer} />;
+    case "bubble":
+    case "choropleth":
+      return <ThematicLayer layerId={layer.id} />;
     default:
       return null;
   }

@@ -4,7 +4,7 @@ import React from "react";
 import { GeoJSON, LayerGroup, LayersControl, Popup, Tooltip } from "react-leaflet";
 import { MapOrgUnit } from "../../../../interfaces";
 import { highlightFeature, resetHighlight } from "../../../../utils/map";
-import { BoundaryLayer as BoundaryLayerInterface } from "../../interfaces";
+import { CustomBoundaryLayer as BoundaryLayerInterface } from "../../interfaces";
 import { useBoundaryData } from "./hooks/useBoundaryData";
 
 const defaultStyle = {
