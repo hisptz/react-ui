@@ -2,12 +2,9 @@ import { CenteredContent, CircularLoader } from "@dhis2/ui";
 import { head } from "lodash";
 import React from "react";
 import { LayerGroup, LayersControl, Pane } from "react-leaflet";
-import Control from "react-leaflet-custom-control";
 import { ThematicLayer as ThematicLayerInterface } from "../../interfaces";
 import Bubble from "./components/Bubble";
-import BubbleLegend from "./components/Bubble/components/BubbleLegend";
 import Choropleth from "./components/Choropleth";
-import ChoroplethLegend from "./components/Choropleth/components/ChoroplethLegend";
 import useThematicLayerData from "./hooks/config";
 
 export default function ThematicLayer({ layer }: { layer: ThematicLayerInterface }) {
@@ -43,12 +40,6 @@ export default function ThematicLayer({ layer }: { layer: ThematicLayerInterface
           </LayerGroup>
         </Pane>
       </LayersControl.Overlay>
-      {control && enabled && (
-        <Control prepend position={control.position}>
-          {type === "choropleth" && <ChoroplethLegend name={uniqueName} data={data} dataItem={head(data)?.dataItem ?? dataItem} />}
-          {type === "bubble" && <BubbleLegend name={uniqueName} data={data} dataItem={head(data)?.dataItem ?? dataItem} />}
-        </Control>
-      )}
     </>
   );
 }

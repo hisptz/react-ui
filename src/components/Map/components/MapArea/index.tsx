@@ -6,6 +6,7 @@ import { LayersControl, MapContainer, TileLayer } from "react-leaflet";
 import { useMapBounds } from "../../hooks/map";
 import MapControl from "../MapControls";
 import MapLayer from "../MapLayer";
+import LegendArea from "../MapLayer/components/LegendArea";
 import MapUpdater from "../MapUpdater";
 import { MapAreaProps } from "./interfaces";
 
@@ -44,6 +45,9 @@ const MapArea = ({ layers, base, controls, mapOptions, key }: MapAreaProps, ref:
               <MapLayer key={layer.layer.id} {...layer} />
             ))}
           </LayersControl>
+        )}
+        {!isEmpty(enabledLayers) && (
+          <LegendArea layers={enabledLayers.filter((layer) => layer.type === "thematic").map(({ layer }) => layer)} position={"topright"} />
         )}
       </MapContainer>
     </div>

@@ -38,6 +38,7 @@ export interface ThematicLayer {
   enabled: boolean;
   name?: string;
   id: string;
+  data: ThematicLayerData[];
   dataItem: ThematicLayerDataItem;
   type: ThematicLayerType;
   control?: ThematicLayerControl;
