@@ -67,6 +67,11 @@ ChoroplethThematicLayer.args = {
       },
     ],
   },
+  legends: {
+    enabled: true,
+    position: "topright",
+    collapsible: true,
+  },
 };
 
 export const BubbleThematicLayer = Template.bind({});

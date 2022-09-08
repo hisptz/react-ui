@@ -7,6 +7,12 @@ export interface MapControls {
   options?: Record<string, any>;
 }
 
+export interface MapLegendConfig {
+  enabled: boolean;
+  position: ControlPosition;
+  collapsible: boolean;
+}
+
 export interface MapAreaProps {
   base?: {
     url: string;
@@ -14,5 +20,6 @@ export interface MapAreaProps {
   };
   controls?: MapControls[];
   mapOptions?: MapContainerProps;
+  legends?: MapLegendConfig;
   key?: string;
 }

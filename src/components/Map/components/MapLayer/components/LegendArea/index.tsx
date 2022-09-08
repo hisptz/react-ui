@@ -2,6 +2,7 @@ import { IconLegend24, Tooltip } from "@dhis2/ui";
 import { ControlPosition } from "leaflet";
 import { compact, head } from "lodash";
 import React, { useState } from "react";
+import { MapLegendConfig } from "../../../MapArea/interfaces";
 import { CustomControl } from "../../../MapControls/components/CustomControl";
 import { CustomThematicLayer } from "../../interfaces";
 import BubbleLegend from "../ThematicLayer/components/Bubble/components/BubbleLegend";
@@ -47,8 +48,9 @@ function Legend({ children, collapsible }: { children: React.ReactElement; colla
   );
 }
 
-export default function LegendArea({ layers, position, collapsible }: { layers: CustomThematicLayer[]; position: ControlPosition; collapsible?: boolean }) {
+export default function LegendArea({ layers, legends: legendConfig }: { layers: CustomThematicLayer[]; position: ControlPosition; legends: MapLegendConfig }) {
   const legends: JSX.Element[] = compact(layers.map(getLegendComponent));
+  const { position, collapsible } = legendConfig ?? {};
 
   return (
     <CustomControl position={position}>

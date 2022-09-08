@@ -11,7 +11,7 @@ import LegendArea from "../MapLayer/components/LegendArea";
 import MapUpdater from "../MapUpdater";
 import { MapAreaProps } from "./interfaces";
 
-const MapArea = ({ base, controls, mapOptions, key }: MapAreaProps, ref: React.Ref<LeafletMap> | undefined) => {
+const MapArea = ({ base, controls, mapOptions, key, legends }: MapAreaProps, ref: React.Ref<LeafletMap> | undefined) => {
   const { center, bounds } = useMapBounds();
   const { current: id } = useRef<string>(uid());
   const { layers } = useContext(MapLayersContext);
@@ -47,7 +47,7 @@ const MapArea = ({ base, controls, mapOptions, key }: MapAreaProps, ref: React.R
             ))}
           </LayersControl>
         )}
-        {!isEmpty(layers) && <LegendArea layers={layers} position={"topright"} />}
+        {!isEmpty(layers) && legends && <LegendArea legends={legends} layers={layers} position={"topright"} />}
       </MapContainer>
     </div>
   );
