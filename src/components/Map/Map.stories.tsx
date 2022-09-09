@@ -40,7 +40,7 @@ BoundaryLayerWithLevels.args = {
 
 export const ChoroplethThematicLayer = Template.bind({});
 ChoroplethThematicLayer.args = {
-  orgUnitSelection: { orgUnits: [], userOrgUnit: true, userSubUnit: true, userSubX2Unit: true },
+  orgUnitSelection: { orgUnits: [], userOrgUnit: true, userSubUnit: true, userSubX2Unit: false },
   boundaryLayer: {
     enabled: true,
   },
@@ -48,7 +48,7 @@ ChoroplethThematicLayer.args = {
     {
       type: "choropleth",
       id: "choropleth",
-      enabled: true,
+      enabled: false,
       dataItem: {
         id: "Uvn6LCg7dVU",
         displayName: "ANC 1 Coverage",
@@ -96,6 +96,11 @@ BubbleThematicLayer.args = {
       },
     },
   ],
+  legends: {
+    enabled: true,
+    position: "topright",
+    collapsible: true,
+  },
   periodSelection: {
     periods: [
       {
@@ -135,12 +140,18 @@ AllThematicLayers.args = {
         displayName: "ANC 1 Coverage",
         type: "indicator",
       },
+
       control: {
         enabled: true,
         position: "topright",
       },
     },
   ],
+  legends: {
+    enabled: true,
+    position: "topright",
+    collapsible: true,
+  },
   periodSelection: {
     periods: [
       {
@@ -197,6 +208,11 @@ ChoroplethThematicLayerWithLevels.args = {
       },
     },
   ],
+  legends: {
+    enabled: true,
+    position: "topright",
+    collapsible: true,
+  },
   periodSelection: {
     periods: [
       {

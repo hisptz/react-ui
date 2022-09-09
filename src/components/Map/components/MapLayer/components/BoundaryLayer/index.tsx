@@ -20,17 +20,9 @@ const highlightStyle = {
   fillOpacity: 0.1,
 };
 
-export interface BoundaryLayerProps extends BoundaryLayerInterface {
-  enabled?: boolean;
-}
-
-export default function BoundaryLayer(props: BoundaryLayerProps) {
-  const { enabled = true } = props;
+export default function BoundaryLayer(props: BoundaryLayerInterface) {
+  const { enabled } = props ?? {};
   const orgUnits = useBoundaryData();
-
-  if (!enabled) {
-    return null;
-  }
 
   return (
     <LayersControl.Overlay checked={enabled} name={i18n.t("Boundaries")}>

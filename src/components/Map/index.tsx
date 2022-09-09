@@ -1,5 +1,5 @@
 import { Map as LeafletMap } from "leaflet";
-import React, { forwardRef, useMemo } from "react";
+import React, { forwardRef } from "react";
 import MapArea from "./components/MapArea";
 import { CustomThematicPrimitiveLayer, MapLayerProps } from "./components/MapLayer/interfaces";
 import { MapProvider } from "./components/MapProvider";
@@ -10,7 +10,6 @@ const Map = (
   { orgUnitSelection, boundaryLayer, thematicLayers, periodSelection, mapOptions, key, controls, legends }: MapProps,
   ref: React.Ref<LeafletMap> | undefined
 ) => {
-  const enabledThematicLayers = useMemo(() => thematicLayers?.filter((layer: any) => layer.enabled) ?? [], [thematicLayers]);
   const sanitizedLayers: MapLayerProps[] = [
     {
       enabled: boundaryLayer?.enabled ?? false,
@@ -18,19 +17,20 @@ const Map = (
       layer: {
         type: "overlay",
         id: "boundary",
+        enabled: boundaryLayer?.enabled ?? false,
       },
     },
-    ...(enabledThematicLayers.map((layer: CustomThematicPrimitiveLayer) => ({
+    ...(thematicLayers?.map((layer: CustomThematicPrimitiveLayer) => ({
       type: "thematic" as any,
       enabled: layer.enabled,
       layer,
     })) ?? []),
-  ]?.filter((layer) => layer.enabled) as MapLayerProps[];
+  ];
 
   return (
     <>
-      <MapProvider layers={sanitizedLayers.map(({ layer }) => layer)} periodSelection={periodSelection} orgUnitSelection={orgUnitSelection}>
-        <MapArea legends={legends} controls={controls} key={key} ref={ref} mapOptions={mapOptions} />
+      <MapProvider periodSelection={periodSelection} orgUnitSelection={orgUnitSelection}>
+        <MapArea layers={sanitizedLayers.map(({ layer }) => layer)} legends={legends} controls={controls} key={key} ref={ref} mapOptions={mapOptions} />
       </MapProvider>
     </>
   );

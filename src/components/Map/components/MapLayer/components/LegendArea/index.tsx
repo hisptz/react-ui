@@ -49,7 +49,7 @@ function Legend({ children, collapsible }: { children: React.ReactElement; colla
 }
 
 export default function LegendArea({ layers, legends: legendConfig }: { layers: CustomThematicLayer[]; position: ControlPosition; legends: MapLegendConfig }) {
-  const legends: JSX.Element[] = compact(layers.map(getLegendComponent));
+  const legends: JSX.Element[] = compact(layers.filter((layer) => layer.enabled).map(getLegendComponent));
   const { position, collapsible } = legendConfig ?? {};
 
   return (

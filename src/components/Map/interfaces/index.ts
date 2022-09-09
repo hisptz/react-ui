@@ -1,12 +1,11 @@
 import type { OrgUnitSelection } from "@hisptz/dhis2-utils";
 import type { MapContainerProps } from "react-leaflet";
 import { MapControls, MapLegendConfig } from "../components/MapArea/interfaces";
-import { CustomBoundaryLayer, CustomThematicPrimitiveLayer } from "../components/MapLayer/interfaces";
+import { CustomThematicPrimitiveLayer } from "../components/MapLayer/interfaces";
 
 export interface MapProviderProps {
   children: React.ReactNode;
   orgUnitSelection: OrgUnitSelection;
-  layers?: Array<CustomBoundaryLayer | CustomThematicPrimitiveLayer>;
   periodSelection?: { periods: any[] };
 }
 

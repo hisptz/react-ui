@@ -7,6 +7,7 @@ export type ThematicLayerType = "choropleth" | "bubble";
 export interface CustomBoundaryLayer extends CustomMapLayer {
   id: string;
   type: BoundaryLayerType;
+  enabled: boolean;
 }
 
 export interface CustomPointLayer extends CustomMapLayer {
@@ -62,6 +63,7 @@ export interface CustomThematicPrimitiveLayer {
 export interface CustomMapLayer {
   id: string;
   type: string;
+  enabled: boolean;
 }
 
 export interface MapLayerProps {
