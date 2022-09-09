@@ -1,8 +1,7 @@
 import "../../../styles/legends.css";
 import { Divider } from "@dhis2/ui";
-import { sortBy } from "lodash";
-import React, { forwardRef, useMemo } from "react";
-import { defaultLegendSet } from "../../../../../../../constants/legendSet";
+import type { Legend } from "@hisptz/dhis2-utils";
+import React, { forwardRef } from "react";
 import { getLegendCount } from "../../../../../../../utils/map";
 import { ThematicLayerData, ThematicLayerDataItem } from "../../../../../interfaces";
 import LegendCardHeader from "../../../../LegendArea/components/LegendCardHeader";
@@ -24,13 +23,10 @@ function ChoroplethLegend(
     name,
     collapsible,
     onCollapse,
-  }: { data: ThematicLayerData[]; dataItem: ThematicLayerDataItem; name?: string; collapsible?: boolean; onCollapse?: () => void },
+    legends,
+  }: { data: ThematicLayerData[]; dataItem: ThematicLayerDataItem; name?: string; collapsible?: boolean; onCollapse?: () => void; legends: Legend[] },
   ref: React.LegacyRef<HTMLDivElement> | undefined
 ) {
-  const legends = useMemo(() => {
-    return sortBy((dataItem.legendSet ?? defaultLegendSet)?.legends, "startValue").reverse();
-  }, [dataItem.legendSet]);
-
   return (
     <div className="legend-card" ref={ref}>
       <LegendCardHeader title={dataItem.displayName} collapsible={collapsible} onCollapse={onCollapse} />

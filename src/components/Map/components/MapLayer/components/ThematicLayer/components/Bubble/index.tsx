@@ -1,8 +1,8 @@
 import { colors } from "@dhis2/ui";
+import { Legend } from "@hisptz/dhis2-utils";
 import { geoJSON } from "leaflet";
 import React from "react";
 import { CircleMarker } from "react-leaflet";
-import { defaultLegendSet } from "../../../../../../constants/legendSet";
 import { getColorFromLegendSet, highlightFeature, resetHighlight } from "../../../../../../utils/map";
 import { ThematicLayerData } from "../../../../interfaces";
 import CustomTooltip from "../CustomTooltip";
@@ -14,8 +14,8 @@ const highlightStyle = {
   weight: 2,
 };
 
-export default function Bubble({ data, lowestData }: { data: ThematicLayerData; lowestData: number }) {
-  const { orgUnit, data: value, dataItem } = data ?? {};
+export default function Bubble({ data, lowestData, legends }: { data: ThematicLayerData; lowestData: number; legends: Legend[] }) {
+  const { orgUnit, data: value } = data ?? {};
 
   const geoJSONObject = orgUnit.geoJSON;
   const center = geoJSON(geoJSONObject).getBounds().getCenter();
@@ -29,7 +29,7 @@ export default function Bubble({ data, lowestData }: { data: ThematicLayerData; 
           mouseout: (e) => resetHighlight(e, defaultStyle),
         }}
         pathOptions={{
-          fillColor: getColorFromLegendSet(dataItem.legendSet ?? defaultLegendSet, data.data),
+          fillColor: getColorFromLegendSet(legends, data.data),
           fillOpacity: 1,
           color: colors.grey900,
           weight: 1,

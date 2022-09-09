@@ -1,7 +1,7 @@
-import type { OrganisationUnit, OrgUnitSelection } from "@hisptz/dhis2-utils";
+import type { Legend, OrganisationUnit, OrgUnitSelection } from "@hisptz/dhis2-utils";
 import { LeafletMouseEvent } from "leaflet";
 import { compact, filter, find, forEach, isEmpty, isString, sortBy } from "lodash";
-import { defaultLegendSet } from "../constants/legendSet";
+import { defaultClasses, defaultColorScaleName, getColorPalette } from "./colors";
 
 export function highlightFeature(e: LeafletMouseEvent, style: any) {
   const layer = e.target;
@@ -15,12 +15,11 @@ export function resetHighlight(e: LeafletMouseEvent, defaultStyle: any) {
   // layer.bringToBack();
 }
 
-export function getColorFromLegendSet(legendSet: any, value?: number): string {
+export function getColorFromLegendSet(legends: Legend[], value?: number): string {
   if (!value) {
     return "";
   }
-  const legends = legendSet?.legends ?? defaultLegendSet.legends;
-  const legend = find(legends ?? [], (legend: any) => legend?.startValue <= value && legend?.endValue >= value) ?? {};
+  const legend: any = find(legends ?? [], (legend: any) => legend?.startValue <= value && legend?.endValue >= value) ?? {};
   return legend.color ? legend.color : "transparent";
 }
 
@@ -123,4 +122,29 @@ export function sanitizeDate(startDate: string): string {
     return startDate?.split("-")?.reverse()?.join("-");
   }
   return startDate;
+}
+
+export function generateLegends(maxValue: number, minValue: number, { classesCount, colorClass }: { classesCount: number; colorClass: string }): Array<Legend> {
+  const count: number = classesCount ?? defaultClasses;
+  const color = colorClass ?? defaultColorScaleName;
+
+  const colorScale = [...getColorPalette(color, count)].reverse();
+
+  const maxLegendValue = 5 * Math.ceil(maxValue / 5);
+  const range = maxLegendValue / count;
+
+  const values = [];
+  let legendColorsIterator = colorScale.length - 1;
+  for (let i = 0; i < maxLegendValue; i += range) {
+    const id = colorScale[legendColorsIterator];
+    values.push({
+      startValue: Math.floor(i),
+      endValue: Math.floor(i + range),
+      id,
+      color: id,
+    });
+    legendColorsIterator--;
+  }
+
+  return values.reverse();
 }

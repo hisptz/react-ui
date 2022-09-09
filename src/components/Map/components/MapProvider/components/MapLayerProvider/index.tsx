@@ -2,12 +2,13 @@ import { useDataQuery } from "@dhis2/app-runtime";
 import i18n from "@dhis2/d2-i18n";
 import { CenteredContent, CircularLoader } from "@dhis2/ui";
 import { LayersControlEvent } from "leaflet";
-import { compact, differenceBy, find, head, isEmpty, set, sortBy } from "lodash";
+import { compact, differenceBy, find, head, isEmpty, last, set, sortBy } from "lodash";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useMapEvents } from "react-leaflet";
 import { MapOrgUnit } from "../../../../interfaces";
 import { MapLayersContext } from "../../../../state";
-import { getOrgUnitsSelection, sanitizeDate } from "../../../../utils/map";
+import { defaultClasses, defaultColorScaleName } from "../../../../utils/colors";
+import { generateLegends, getOrgUnitsSelection, sanitizeDate } from "../../../../utils/map";
 import { CustomBoundaryLayer, CustomMapLayer, CustomThematicLayer, CustomThematicPrimitiveLayer } from "../../../MapLayer/interfaces";
 import { useMapOrganisationUnit, useMapPeriods } from "../../hooks";
 
@@ -30,7 +31,7 @@ const analyticsQuery = {
 };
 
 export function MapLayersProvider({ layers, children }: { layers: Array<CustomThematicPrimitiveLayer | CustomBoundaryLayer>; children: React.ReactNode }) {
-  const [updatedLayers, setUpdatedLayers] = useState(layers);
+  const [updatedLayers, setUpdatedLayers] = useState<Array<CustomThematicLayer | CustomBoundaryLayer>>([]);
   const { orgUnits, orgUnitSelection } = useMapOrganisationUnit();
   const { periods } = useMapPeriods() ?? {};
   useMapEvents({
@@ -123,7 +124,8 @@ export function MapLayersProvider({ layers, children }: { layers: Array<CustomTh
         name: layer?.name ?? layer?.dataItem?.displayName ?? layer.id,
       })),
     }));
-    setUpdatedLayers([...otherLayers, ...sanitizedLayersWithData, ...sanitizedLayersWithOrgUnits]);
+    const sanitizedThematicLayers: CustomThematicLayer[] = sanitizeLegends([...sanitizedLayersWithData, ...sanitizedLayersWithOrgUnits]);
+    setUpdatedLayers([...(otherLayers as any), ...sanitizedThematicLayers]);
   };
 
   const updateLayer = useCallback((id: string, updatedLayer: CustomMapLayer) => {
@@ -141,6 +143,30 @@ export function MapLayersProvider({ layers, children }: { layers: Array<CustomTh
   useEffect(() => {
     sanitizeLayers();
   }, []);
+
+  const sanitizeLegends = (layers: CustomThematicLayer[]) => {
+    return layers.map((layer) => {
+      const legends = [];
+      if (layer.dataItem.legendSet) {
+        legends.push(...layer.dataItem.legendSet.legends);
+      } else {
+        const { scale, colorClass } = layer.dataItem.legendConfig ?? {
+          scale: defaultClasses,
+          colorClass: defaultColorScaleName,
+        };
+        const sortedData = sortBy(layer.data, "data");
+        const autoLegends = generateLegends(last(sortedData)?.data ?? 0, head(sortedData)?.data ?? 0, {
+          classesCount: scale,
+          colorClass,
+        });
+        legends.push(...autoLegends);
+      }
+      return {
+        ...layer,
+        legends,
+      };
+    });
+  };
 
   const setupLayerListeners = (type: "add" | "remove", event: LayersControlEvent) => {
     const name = event.name;
@@ -175,6 +201,5 @@ export function MapLayersProvider({ layers, children }: { layers: Array<CustomTh
       </div>
     );
   }
-
   return <MapLayersContext.Provider value={{ layers: updatedLayers, updateLayer }}>{children}</MapLayersContext.Provider>;
 }

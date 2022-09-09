@@ -108,6 +108,12 @@ BubbleThematicLayer.args = {
       },
     ],
   },
+  controls: [
+    {
+      type: "fullscreen",
+      position: "topleft",
+    },
+  ],
 };
 
 export const AllThematicLayers = Template.bind({});

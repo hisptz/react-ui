@@ -9,16 +9,16 @@ import BubbleLegend from "../ThematicLayer/components/Bubble/components/BubbleLe
 import ChoroplethLegend from "../ThematicLayer/components/Choropleth/components/ChoroplethLegend";
 
 function getLegendComponent(layer: CustomThematicLayer) {
-  const { type, enabled, control, dataItem, name, data } = layer ?? {};
+  const { type, enabled, control, dataItem, name, data, legends } = layer ?? {};
 
   if (!enabled || !control) {
     return null;
   }
   switch (type) {
     case "bubble":
-      return <BubbleLegend name={name ?? dataItem.displayName} data={data} dataItem={head(data)?.dataItem ?? dataItem} />;
+      return <BubbleLegend legends={legends ?? []} name={name ?? dataItem.displayName} data={data} dataItem={head(data)?.dataItem ?? dataItem} />;
     case "choropleth":
-      return <ChoroplethLegend name={name ?? dataItem.displayName} data={data} dataItem={head(data)?.dataItem ?? dataItem} />;
+      return <ChoroplethLegend legends={legends ?? []} name={name ?? dataItem.displayName} data={data} dataItem={head(data)?.dataItem ?? dataItem} />;
   }
 }
 

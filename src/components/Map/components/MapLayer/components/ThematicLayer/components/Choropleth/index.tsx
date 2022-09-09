@@ -1,7 +1,7 @@
 import { colors } from "@dhis2/ui";
+import { Legend } from "@hisptz/dhis2-utils";
 import React from "react";
 import { GeoJSON } from "react-leaflet";
-import { defaultLegendSet } from "../../../../../../constants/legendSet";
 import { MapOrgUnit } from "../../../../../../interfaces";
 import { getColorFromLegendSet, highlightFeature, resetHighlight } from "../../../../../../utils/map";
 import { ThematicLayerDataItem } from "../../../../interfaces";
@@ -14,8 +14,8 @@ const highlightStyle = {
   weight: 2,
 };
 
-export default function Choropleth({ data }: { data: { orgUnit: MapOrgUnit; data?: number; dataItem: ThematicLayerDataItem } }) {
-  const { dataItem, orgUnit } = data;
+export default function Choropleth({ data, legends }: { data: { orgUnit: MapOrgUnit; data?: number; dataItem: ThematicLayerDataItem }; legends: Legend[] }) {
+  const { orgUnit } = data;
   return (
     <>
       <GeoJSON
@@ -25,7 +25,7 @@ export default function Choropleth({ data }: { data: { orgUnit: MapOrgUnit; data
           mouseout: (e) => resetHighlight(e, defaultStyle),
         }}
         pathOptions={{
-          fillColor: getColorFromLegendSet(dataItem.legendSet ?? defaultLegendSet, data.data),
+          fillColor: getColorFromLegendSet(legends, data.data),
           fillOpacity: 1,
           color: colors.grey900,
           weight: 1,

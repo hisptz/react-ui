@@ -12,7 +12,7 @@ export default function ThematicLayer({ layerId }: { layerId: string }) {
     return null;
   }
 
-  const { type, dataItem, name, data, enabled } = layer ?? {};
+  const { type, dataItem, name, data, enabled, legends } = layer ?? {};
   const uniqueName = name ?? dataItem.displayName;
   return (
     <>
@@ -23,9 +23,13 @@ export default function ThematicLayer({ layerId }: { layerId: string }) {
           }}
           name={uniqueName}>
           <LayerGroup>
-            {data?.map((datum) => (type === "choropleth" ? <Choropleth data={datum} key={`${datum?.dataItem?.id}-${datum?.orgUnit?.id}-layer`} /> : null))}
             {data?.map((datum) =>
-              type === "bubble" ? <Bubble lowestData={head(data)?.data ?? 1} data={datum} key={`${datum?.dataItem?.id}-${datum?.orgUnit?.id}-layer`} /> : null
+              type === "choropleth" ? <Choropleth legends={legends ?? []} data={datum} key={`${datum?.dataItem?.id}-${datum?.orgUnit?.id}-layer`} /> : null
+            )}
+            {data?.map((datum) =>
+              type === "bubble" ? (
+                <Bubble legends={legends ?? []} lowestData={head(data)?.data ?? 1} data={datum} key={`${datum?.dataItem?.id}-${datum?.orgUnit?.id}-layer`} />
+              ) : null
             )}
           </LayerGroup>
         </Pane>

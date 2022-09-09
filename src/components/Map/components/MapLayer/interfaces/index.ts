@@ -1,5 +1,6 @@
-import type { LegendSet } from "@hisptz/dhis2-utils";
+import type { Legend, LegendSet } from "@hisptz/dhis2-utils";
 import { MapOrgUnit } from "../../../interfaces";
+import { LegendColorScale } from "../../../utils/colors";
 
 export type BoundaryLayerType = "basemap" | "overlay";
 export type ThematicLayerType = "choropleth" | "bubble";
@@ -22,6 +23,10 @@ export interface ThematicLayerDataItem {
   displayName: string;
   type: DataItemType;
   legendSet?: LegendSet;
+  legendConfig?: {
+    colorClass: LegendColorScale;
+    scale: number;
+  };
 }
 
 export interface ThematicLayerControl {
@@ -48,6 +53,7 @@ export interface CustomThematicLayer extends CustomMapLayer {
   dataItem: ThematicLayerDataItem;
   type: ThematicLayerType;
   control?: ThematicLayerControl;
+  legends?: Legend[];
 }
 
 export interface CustomThematicPrimitiveLayer {

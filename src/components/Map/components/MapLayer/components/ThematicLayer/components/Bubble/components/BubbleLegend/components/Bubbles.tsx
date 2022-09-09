@@ -104,13 +104,13 @@ const Bubbles = ({ radiusLow, radiusHigh, color, classes }: { radiusLow: number;
   }
 
   // Too cramped to show number for each bubble
-  if (smallestGap < 6) {
+  if (smallestGap < 4) {
     const [maxBubble] = bubbles;
     const minBubble = bubbles[bubbles.length - 1];
     const gap = maxBubble.radius - minBubble.radius;
     const showNumbers = [0]; // Always show the largest number
 
-    if (gap > 6) {
+    if (gap > 4) {
       showNumbers.push(bubbles.length - 1);
     }
 
