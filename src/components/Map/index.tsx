@@ -25,7 +25,7 @@ const Map = (
       enabled: layer.enabled,
       layer,
     })) ?? []),
-  ];
+  ]?.filter((layer) => layer.enabled) as MapLayerProps[];
 
   return (
     <>

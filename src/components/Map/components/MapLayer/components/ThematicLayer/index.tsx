@@ -21,8 +21,7 @@ export default function ThematicLayer({ layerId }: { layerId: string }) {
           style={{
             zIndex: type === "bubble" ? 500 : undefined,
           }}
-          name={uniqueName}
-          pane="overlayPane">
+          name={uniqueName}>
           <LayerGroup>
             {data?.map((datum) => (type === "choropleth" ? <Choropleth data={datum} key={`${datum?.dataItem?.id}-${datum?.orgUnit?.id}-layer`} /> : null))}
             {data?.map((datum) =>

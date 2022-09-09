@@ -1,11 +1,11 @@
 import React from "react";
-import { Popup, Tooltip } from "react-leaflet";
+import { Pane, Popup, Tooltip } from "react-leaflet";
 import { ThematicLayerData } from "../../../../interfaces";
 
 export default function CustomTooltip({ data: dataObject }: { data: ThematicLayerData }) {
   const { dataItem, orgUnit, data } = dataObject ?? {};
   return (
-    <>
+    <Pane name={`${dataItem.displayName}-${orgUnit.id}-popup-pane`} pane="popupPane">
       <Tooltip>
         {orgUnit?.name} ({data})
       </Tooltip>
@@ -20,6 +20,6 @@ export default function CustomTooltip({ data: dataObject }: { data: ThematicLaye
           {data}
         </div>
       </Popup>
-    </>
+    </Pane>
   );
 }
