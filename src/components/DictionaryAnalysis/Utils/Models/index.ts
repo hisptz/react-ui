@@ -52,6 +52,7 @@ export interface DictionaryValue {
     constants: any;
     programDtElement: any;
     orgUnitCount: any;
+    introduction:any
   };
   setValues: (values: any) => void;
 }
@@ -78,34 +79,6 @@ export interface IndicatorGroupValue {
 
 export interface DataSourceItem {
   id: string;
-  name: string;
-  type: string;
-  label: string;
-  weight: number;
-  legends: [
-    {
-      id: string;
-      endValue: number;
-      startValue: number;
-      legendDefinitionId: string;
-    },
-    {
-      id: string;
-      endValue: number;
-      startValue: number;
-      legendDefinitionId: string;
-    },
-    {
-      id: string;
-      endValue: number;
-      startValue: number;
-      legendDefinitionId: string;
-    }
-  ];
-  highIsGood: boolean;
-  showColors: boolean;
-  effectiveGap: number;
-  displayArrows: boolean;
 }
 
 

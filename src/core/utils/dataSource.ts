@@ -31,7 +31,7 @@ export async function getDataSourceType(engine:any, dataSourceId:any) {
     const {object} = await engine.query(identifiableObjectsQuery, {variables: {id: dataSourceId}}) ?? {};
     if (object.href) {
         const resource = getResourceFromHref(object.href);
-        return getTypeFromResource(resource);
+        return ({object,resource:getTypeFromResource(resource)})
     }
     return null;
 }

@@ -20,7 +20,7 @@ export default function DataSourceSelector({ type, id }:any) {
         async function getType() {
             setLoading(true);
             try {
-                setDataType(await getDataSourceType(engine, id));
+                setDataType((await getDataSourceType(engine, id))?.resource);
             }
             catch (e) {
                 console.error(e);
