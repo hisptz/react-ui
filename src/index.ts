@@ -1,3 +1,4 @@
+import DictionaryAnalysis from "components/DictionaryAnalysis";
 import ChartAnalytics, {
   ChartDownloadMenu,
   onCSVDownload,
@@ -51,6 +52,7 @@ export {
   onPDFDownload,
   onCSVDownload,
   onImageDownload,
+  DictionaryAnalysis
 };
 
 export type { ConfirmDialogConfig, RHFLegendDefinitionFormFieldProps };
