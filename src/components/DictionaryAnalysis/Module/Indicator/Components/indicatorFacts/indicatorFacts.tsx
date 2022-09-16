@@ -1,7 +1,7 @@
 import { useDataQuery } from "@dhis2/app-runtime";
 import i18n from "@dhis2/d2-i18n";
 import { DataTable, TableHead, DataTableBody, TableBody, DataTableFoot, DataTableRow, DataTableCell, DataTableColumnHeader, CircularLoader, } from "@dhis2/ui";
-import PropTypes from "prop-types";
+import propTypes from "prop-types";
 import React, { useEffect } from "react";
 import Error from "../../../../Shared/Componets/Error/ErrorAPIResult";
 import Loader from "../../../../Shared/Componets/Loaders/Loader";
@@ -69,6 +69,6 @@ export default function IndicatorFacts({ id }:any) {
 }
 
 IndicatorFacts.PropTypes = {
-    id: PropTypes.string.isRequired
+    id: propTypes.string.isRequired
 };
 

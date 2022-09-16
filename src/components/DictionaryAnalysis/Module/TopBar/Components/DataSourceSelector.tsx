@@ -11,9 +11,9 @@ import ProgramIndicatorPage from "../../ProgramIndicator";
 import ModalLoader from "../../Loaders/ModalLoader";
 import { getDataSourceType } from "../../../../../core/utils/dataSource";
 
-export default function DataSourceSelector({ type, id }:any) {
+export default function DataSourceSelector({ id }:{id:string}) {
     const engine = useDataEngine();
-    const [dataType, setDataType] = useState(type);
+    const [dataType, setDataType] = useState();
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -62,7 +62,6 @@ export default function DataSourceSelector({ type, id }:any) {
 }
 
 DataSourceSelector.propTypes = {
-    id: propTypes.string.isRequired,
-    type: propTypes.oneOf(Object.values(dataSourceTypes)).isRequired
+    id: propTypes.string.isRequired
 };
 

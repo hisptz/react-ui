@@ -26,7 +26,7 @@ export default function CalculationDetailRow({ formula, location, ...props }: an
   if (error) {
     return <Error error={error} />;
   }
- console.log("data",data);
+  
   // for store
   setValues(data);
 

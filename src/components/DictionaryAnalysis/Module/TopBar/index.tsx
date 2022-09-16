@@ -19,8 +19,8 @@ export default function TopBar({ dataSources, onTabChange, selectedTab }: any) {
 
   return (
     <TabBar>
-      {data?.map((dataSource: any) => (
-        <Tab selected={selectedTab?.id === dataSource?.id} onClick={() => onTabChange(dataSource)} key={`${dataSource?.id}-tab`}>
+      {data?.map((dataSource: any,index:number) => (
+        <Tab  selected={selectedTab?.id === dataSource?.id} onClick={() => onTabChange(dataSource)} key={`${dataSource?.id}-tab-${index}`}>
           {dataSource?.label ?? dataSource?.displayName}
         </Tab>
       ))}
