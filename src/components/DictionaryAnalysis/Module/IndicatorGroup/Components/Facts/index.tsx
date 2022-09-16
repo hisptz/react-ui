@@ -3,11 +3,9 @@ import i18n from "@dhis2/d2-i18n";
 import {IndicatorGroupContext} from "./../../../../../../components/DictionaryAnalysis/Store/IndicatorGroupContext";
 import _ from "lodash";
 import React, { useContext, useEffect } from "react";
-// import { useRecoilValue } from "recoil";
 import Error from "../../../../Shared/Componets/Error/ErrorAPIResult";
 import IndicatorCount from "../../../../Shared/Componets/IndicatorCount";
 import Loader from "../../../../Shared/Componets/Loaders/Loader";
-// import { indicatorGroupAggregateDataElements, indicatorGroupDataSets, indicatorGroupProgramDataElements, indicatorGroupPrograms, } from "../../../../Store/IndicatorGroup";
 
 const query = {
   sources: {
@@ -30,10 +28,6 @@ export default function Facts({ id }: any) {
 
   const { values } = useContext(IndicatorGroupContext);
   let { dataSets, programs, programDataElements, aggregateDataElements } = values as any;
-  // let dataSets = useRecoilValue(indicatorGroupDataSets);
-  // let programs = useRecoilValue(indicatorGroupPrograms);
-  // let programDataElements = useRecoilValue(indicatorGroupProgramDataElements);
-  // let dataElements = useRecoilValue(indicatorGroupAggregateDataElements);
 
   if (loading) {
     return <Loader text={""} />;

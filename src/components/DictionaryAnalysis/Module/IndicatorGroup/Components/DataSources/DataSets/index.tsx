@@ -4,27 +4,19 @@ import {IndicatorGroupContext} from "../../../../../../../components/DictionaryA
 import _ from "lodash";
 import PropTypes from "prop-types";
 import React, { useContext, useEffect } from "react";
-// import { useSetRecoilState } from "recoil";
 import Error from "../../../../../Shared/Componets/Error/ErrorAPIResult";
 import Loader from "../../../../../Shared/Componets/Loaders/Loader";
-import { indicatorGroupAggregateDataElements, indicatorGroupDataSets } from "../../../../../Store/IndicatorGroup";
 import { useGetDataSet } from "../../../../../Utils/Hooks";
 
 export default function DataSets({ aggregate }: any) {
   const { values, setValues } = useContext(IndicatorGroupContext);
-  // const updateDataSets = useSetRecoilState(indicatorGroupDataSets);
-
-  // const updateDataElements = useSetRecoilState(indicatorGroupAggregateDataElements);
 
   const dt = aggregate?.map((e: any) => {
     return e.split(".")[0];
   });
 
   setValues({ ...values, ...{ groupAggregateDataElements: _.concat(values?.aggregateDataElements, dt) } });
-  // updateDataElements((prev:any) => {
-  //     return _.concat(prev, dt);
-  // });
-
+ 
   const engine = useDataEngine();
 
   const onlyIds = aggregate?.map((el: any) => {
@@ -40,10 +32,7 @@ export default function DataSets({ aggregate }: any) {
       });
     });
     allDataSets = _.uniqWith(allDataSets, _.isEqual);
-    // update for Count its used in the facts components
-    // updateDataSets((prev: any) => {
-    //   return _.concat(prev, allDataSets);
-    // });
+
     setValues({ ...values, ...{ groupDataSets: _.concat(values?.dataSets,allDataSets) } });
     
   }, [data]);

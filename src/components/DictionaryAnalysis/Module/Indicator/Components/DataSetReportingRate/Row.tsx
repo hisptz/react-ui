@@ -28,12 +28,6 @@ export default function Row(props:any) {
     const id = dataSet.id;
 
     const { loading, error, data } = useDataQuery(query, { variables: { id } });
-    // if(loading){
-    //     return <CircularLoader />
-    // }
-    // if(error){
-    //     return <i>Something went wrong</i>
-    // }
 
     function OtherCells(dataSet:any) {
         return (<>

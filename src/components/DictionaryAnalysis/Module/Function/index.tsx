@@ -1,6 +1,4 @@
 import React from "react";
-import { useRecoilValue } from "recoil";
-import { functionDictionarySourceSelector } from "../../Store/FunctionDictionary";
 import AccessibilityAndSharingFunction from "./Components/AccessibilityAndSharing";
 import AccessibilityAndSharing from "./Components/AccessibilityAndSharing";
 import ApiEndPoint from "./Components/ApiEndPoint";

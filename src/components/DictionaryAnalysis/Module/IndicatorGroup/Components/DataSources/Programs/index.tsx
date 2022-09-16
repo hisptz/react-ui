@@ -1,13 +1,12 @@
 import { useDataEngine, useDataQuery } from "@dhis2/app-runtime";
 import i18n from "@dhis2/d2-i18n";
-import {IndicatorGroupContext} from "../../../../../../../components/DictionaryAnalysis/Store/IndicatorGroupContext";
+import { IndicatorGroupContext } from "../../../../../../../components/DictionaryAnalysis/Store/IndicatorGroupContext";
 import _ from "lodash";
 import PropTypes from "prop-types";
 import React, { useContext, useEffect } from "react";
-// import { useSetRecoilState } from "recoil";
 import Error from "../../../../../Shared/Componets/Error/ErrorAPIResult";
 import Loader from "../../../../../Shared/Componets/Loaders/Loader";
-import { indicatorGroupProgramDataElements, indicatorGroupPrograms } from "../../../../../Store/IndicatorGroup";
+
 import { useGetIndicatorProgramSource } from "../../../../../Utils/Hooks/DataSource";
 
 export default function Programs({ sources }: any) {
@@ -15,26 +14,15 @@ export default function Programs({ sources }: any) {
 
   const { values, setValues } = useContext(IndicatorGroupContext);
 
-  // const updatePrograms = useSetRecoilState(indicatorGroupPrograms);
-  // const updateProgramDataElements = useSetRecoilState(indicatorGroupProgramDataElements);
-
   const { loading, error, data }: any = useGetIndicatorProgramSource(sources, engine);
   let res = [];
   let allProgram: any[] = [];
   useEffect(() => {
-    // updateProgramDataElements((prev:any) => {
-    //     return _.concat(prev, sources?.prgDtEl);
-    // });
-
     setValues({ ...values, ...{ programDataElements: _.concat(values?.programDataElements, sources?.prgDtEl) } });
 
     res = _.concat([], data?.attr ?? [], data?.prgInd ?? [], data?.prgDtEl ?? []);
     allProgram = _.uniqWith(res, _.isEqual);
 
-    //updating count its used in the facts component
-    // updatePrograms((prev:any) => {
-    //     return _.concat(prev, allProgram);
-    // });
     setValues({ ...values, ...{ programs: _.concat(values?.programs, allProgram) } });
   }, [data]);
 

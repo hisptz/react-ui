@@ -104,8 +104,4 @@ export default function Row(props:any) {
     </DataTableRow>);
 }
 
-// RowAggregate.prototype={
-//     datEl:PropTypes.
-//
-// }
 

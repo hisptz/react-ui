@@ -3,12 +3,6 @@ import i18n from "@dhis2/d2-i18n";
 import { DataTable, DataTableToolbar, DataTableHead, TableHead, DataTableBody, TableBody, DataTableRow, DataTableColumnHeader, } from "@dhis2/ui";
 import {IndicatorGroupContext} from "./../../../../../../components/DictionaryAnalysis/Store/IndicatorGroupContext";
 import React, { useContext, useEffect } from "react";
-// import { useRecoilValue } from "recoil";
-import Row from "../../../../Shared/Componets/dataElementsInIndicator/row";
-import Error from "../../../../Shared/Componets/Error/ErrorAPIResult";
-import Loader from "../../../../Shared/Componets/Loaders/Loader";
-import RelatedIndicatorTable from "../../../../Shared/Componets/RelatedIndicatorTable";
-import { indicatorGroupDenominatorDataElements, indicatorGroupNumeratorDataElements, } from "../../../../Store/IndicatorGroup";
 import RowAggregate from "./Components/RowAggregate";
 import RowTracker from "./Components/RowTracker";
 
@@ -24,8 +18,6 @@ const query = {
 
 export default function RelatedDataElements() {
   const {values}= useContext(IndicatorGroupContext);
-    // const numerators = useRecoilValue(indicatorGroupNumeratorDataElements);
-    // const denominator = useRecoilValue(indicatorGroupDenominatorDataElements);
     const {numerator,denominator}=values as any;
 
     return (<div>

@@ -1,13 +1,11 @@
 import { useDataQuery } from "@dhis2/app-runtime";
 import i18n from "@dhis2/d2-i18n";
-import {IndicatorGroupContext,IndicatorGroupProvider } from "./../../../../../../components/DictionaryAnalysis/Store/IndicatorGroupContext";
+import { IndicatorGroupContext, IndicatorGroupProvider } from "./../../../../../../components/DictionaryAnalysis/Store/IndicatorGroupContext";
 import _ from "lodash";
 import PropTypes from "prop-types";
 import React, { useContext, useEffect, useState } from "react";
-// import { useSetRecoilState } from "recoil";
 import Error from "../../../../Shared/Componets/Error/ErrorAPIResult";
 import Loader from "../../../../Shared/Componets/Loaders/Loader";
-// import { indicatorGroupDenominatorDataElements, indicatorGroupNumeratorDataElements } from "../../../../Store/IndicatorGroup";
 import { getFormulaSources } from "../../../../Utils/Functions/FormulaFunctions";
 import { dataElementDomainTypes, dataTypesInitials } from "../../../../Utils/Models";
 import DataSets from "./DataSets";
@@ -34,8 +32,6 @@ export default function DataSources({ id }: any) {
 
   const [result, setResult]: any = useState({});
   const { values, setValues } = useContext(IndicatorGroupContext);
-  // const updateNum = useSetRecoilState(indicatorGroupNumeratorDataElements);
-  // const updateDen = useSetRecoilState(indicatorGroupDenominatorDataElements);
 
   useEffect(() => {
     let numeratorDataElement;
@@ -79,15 +75,6 @@ export default function DataSources({ id }: any) {
         tracker: denominatorProgramDtElement,
       },
     });
-    //for related indicator
-    // updateNum({
-    //   aggregate: numeratorDataElement,
-    //   tracker: numeratorProgramDtElement,
-    // });
-    // updateDen({
-    //   aggregate: denominatorDataElement,
-    //   tracker: denominatorProgramDtElement,
-    // });
   }, [data]);
 
   if (loading) {
