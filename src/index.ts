@@ -12,6 +12,7 @@ import ConfigurationStepper from "./components/ConfigurationStepper/index";
 import { ConfirmDialog, ConfirmDialogConfig, ConfirmDialogProvider, useConfirmDialog } from "./components/ConfirmDialog";
 import DataConfigurationArea, { DataConfigurationAreaGroup, DataConfigurationAreaItem } from "./components/DataConfigurationArea";
 import DataSourceSelector from "./components/DataSourceSelector";
+import DictionaryAnalysis from "./components/DictionaryAnalysis";
 import FormField, { Input as CustomInput, RHFInput as RHFCustomInput } from "./components/FormField";
 import { RHFLegendDefinitionFormFieldProps, RHFLegendDefinitionsField } from "./components/LegendDefinitions";
 import Map from "./components/Map";
@@ -51,6 +52,7 @@ export {
   onPDFDownload,
   onCSVDownload,
   onImageDownload,
+  DictionaryAnalysis,
 };
 
 export type { ConfirmDialogConfig, RHFLegendDefinitionFormFieldProps };

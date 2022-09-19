@@ -1,0 +1,10 @@
+
+
+.sources {
+    overflow: auto;
+    height: 80px
+}
+
+.sources:hover {
+    overflow-y: scroll;
+}
