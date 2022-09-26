@@ -9,7 +9,7 @@ import { MapOrgUnit } from "../../../../interfaces";
 import { MapLayersContext } from "../../../../state";
 import { defaultClasses, defaultColorScaleName } from "../../../../utils/colors";
 import { generateLegends, getOrgUnitsSelection, sanitizeDate } from "../../../../utils/map";
-import { CustomBoundaryLayer, CustomMapLayer, CustomThematicLayer, CustomThematicPrimitiveLayer } from "../../../MapLayer/interfaces";
+import { CustomBoundaryLayer, CustomMapLayer, CustomPointLayer, CustomThematicLayer, CustomThematicPrimitiveLayer } from "../../../MapLayer/interfaces";
 import { useMapOrganisationUnit, useMapPeriods } from "../../hooks";
 
 const analyticsQuery = {
@@ -30,7 +30,13 @@ const analyticsQuery = {
   },
 };
 
-export function MapLayersProvider({ layers, children }: { layers: Array<CustomThematicPrimitiveLayer | CustomBoundaryLayer>; children: React.ReactNode }) {
+export function MapLayersProvider({
+  layers,
+  children,
+}: {
+  layers: Array<CustomThematicPrimitiveLayer | CustomBoundaryLayer | CustomPointLayer>;
+  children: React.ReactNode;
+}) {
   const [updatedLayers, setUpdatedLayers] = useState<Array<CustomThematicLayer | CustomBoundaryLayer>>([]);
   const { orgUnits, orgUnitSelection } = useMapOrganisationUnit();
   const { periods } = useMapPeriods() ?? {};

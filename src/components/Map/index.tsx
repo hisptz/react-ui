@@ -7,7 +7,7 @@ import { MapProps } from "./interfaces";
 import "leaflet/dist/leaflet.css";
 
 const Map = (
-  { orgUnitSelection, boundaryLayer, thematicLayers, periodSelection, mapOptions, key, controls, legends }: MapProps,
+  { orgUnitSelection, pointLayer, boundaryLayer, thematicLayers, periodSelection, mapOptions, key, controls, legends }: MapProps,
   ref: React.Ref<LeafletMap> | undefined
 ) => {
   const sanitizedLayers: MapLayerProps[] = [
@@ -18,6 +18,16 @@ const Map = (
         type: "overlay",
         id: "boundary",
         enabled: boundaryLayer?.enabled ?? false,
+      },
+    },
+    {
+      enabled: pointLayer?.enabled ?? false,
+      type: "point",
+      layer: {
+        type: "point",
+        id: "point",
+        enabled: pointLayer?.enabled ?? false,
+        ...pointLayer,
       },
     },
     ...(thematicLayers?.map((layer: CustomThematicPrimitiveLayer) => ({

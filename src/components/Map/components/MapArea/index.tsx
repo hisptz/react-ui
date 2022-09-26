@@ -28,6 +28,7 @@ function MapLayerArea({
   legends?: MapLegendConfig;
 }) {
   const { layers } = useMapLayers();
+
   return (
     <>
       <TileLayer

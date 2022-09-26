@@ -14,6 +14,13 @@ export interface CustomBoundaryLayer extends CustomMapLayer {
 export interface CustomPointLayer extends CustomMapLayer {
   id: string;
   type: "point";
+  label?: string;
+  level?: string | number;
+  group?: string;
+  style?: {
+    icon?: string;
+    groupSet?: string;
+  };
 }
 
 export type DataItemType = "dataElement" | "indicator" | "programIndicator";
@@ -74,6 +81,6 @@ export interface CustomMapLayer {
 
 export interface MapLayerProps {
   enabled: boolean;
-  type: "boundary" | "thematic" | "external";
-  layer: CustomBoundaryLayer | CustomThematicPrimitiveLayer;
+  type: "boundary" | "thematic" | "external" | "point";
+  layer: CustomBoundaryLayer | CustomThematicPrimitiveLayer | CustomPointLayer;
 }

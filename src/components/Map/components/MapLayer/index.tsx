@@ -1,9 +1,10 @@
 import React from "react";
 import BoundaryLayer from "./components/BoundaryLayer";
+import { PointLayer } from "./components/PointLayer";
 import ThematicLayer from "./components/ThematicLayer";
-import { CustomBoundaryLayer, CustomThematicLayer } from "./interfaces";
+import { CustomBoundaryLayer, CustomPointLayer, CustomThematicLayer } from "./interfaces";
 
-export default function MapLayer(layer: CustomThematicLayer | CustomBoundaryLayer) {
+export default function MapLayer(layer: CustomThematicLayer | CustomBoundaryLayer | CustomPointLayer) {
   switch (layer.type) {
     case "overlay":
     case "basemap":
@@ -11,6 +12,8 @@ export default function MapLayer(layer: CustomThematicLayer | CustomBoundaryLaye
     case "bubble":
     case "choropleth":
       return <ThematicLayer layerId={layer.id} />;
+    case "point":
+      return <PointLayer {...layer} />;
     default:
       return null;
   }

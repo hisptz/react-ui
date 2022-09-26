@@ -228,6 +228,19 @@ ChoroplethThematicLayerWithLevels.args = {
   },
 };
 
+export const PointLayer = Template.bind({});
+PointLayer.args = {
+  orgUnitSelection: { orgUnits: [], userOrgUnit: true, userSubUnit: true, userSubX2Unit: false },
+  pointLayer: {
+    enabled: true,
+    label: "Facilities",
+    level: "m9lBJogzE95",
+    style: {
+      groupSet: "J5jldMd8OHv",
+    },
+  },
+};
+
 export default {
   title: "Components/Map",
   component: Map,
