@@ -1,4 +1,5 @@
 import { useDataQuery } from "@dhis2/app-runtime";
+import i18n from "@dhis2/d2-i18n";
 import { CenteredContent, CircularLoader } from "@dhis2/ui";
 import { compact, isEmpty } from "lodash";
 import React, { useEffect, useState } from "react";
@@ -25,7 +26,7 @@ const boundaryQuery = {
 
 export function MapProvider({ children, orgUnitSelection, periodSelection }: MapProviderProps) {
   const [orgUnits, setOrgUnits] = useState<MapOrgUnit[]>([]);
-  const { refetch, loading } = useDataQuery(boundaryQuery, { lazy: true });
+  const { refetch, loading, error } = useDataQuery(boundaryQuery, { lazy: true });
 
   useEffect(() => {
     async function getOrgUnits() {
@@ -60,6 +61,18 @@ export function MapProvider({ children, orgUnitSelection, periodSelection }: Map
       <div style={{ height: "100%", width: "100%" }}>
         <CenteredContent>
           <CircularLoader small />
+        </CenteredContent>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div style={{ height: "100%", width: "100%" }}>
+        <CenteredContent>
+          <h4>
+            {i18n.t("Error")}: {error.message}
+          </h4>
         </CenteredContent>
       </div>
     );

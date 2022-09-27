@@ -1,18 +1,27 @@
+import { ControlPosition } from "leaflet";
 import type { MapContainerProps } from "react-leaflet";
-import { MapLayerProps } from "../../MapLayer/interfaces";
+import { CustomBoundaryLayer, CustomPointLayer, CustomThematicPrimitiveLayer } from "../../MapLayer/interfaces";
 
 export interface MapControls {
+  position: ControlPosition;
+  type: "zoom" | "rotate" | "fullscreen" | "compass" | "scale";
+  options?: Record<string, any>;
+}
+
+export interface MapLegendConfig {
   enabled: boolean;
-  position: "top-left" | "top-right" | "bottom-left" | "bottom-right";
-  type: "zoom" | "rotate" | "fullscreen" | "compass";
+  position: ControlPosition;
+  collapsible: boolean;
 }
 
 export interface MapAreaProps {
-  layers: MapLayerProps[];
   base?: {
     url: string;
     attribution: string;
   };
   controls?: MapControls[];
   mapOptions?: MapContainerProps;
+  legends?: MapLegendConfig;
+  layers: Array<CustomThematicPrimitiveLayer | CustomBoundaryLayer | CustomPointLayer>;
+  key?: string;
 }
