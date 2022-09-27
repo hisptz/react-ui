@@ -231,6 +231,29 @@ ChoroplethThematicLayerWithLevels.args = {
 export const PointLayer = Template.bind({});
 PointLayer.args = {
   orgUnitSelection: { orgUnits: [], userOrgUnit: true, userSubUnit: true, userSubX2Unit: false },
+  thematicLayers: [
+    {
+      type: "choropleth",
+      id: "choropleth",
+      enabled: true,
+      dataItem: {
+        id: "Uvn6LCg7dVU",
+        displayName: "ANC 1 Coverage",
+        type: "indicator",
+      },
+      control: {
+        enabled: true,
+        position: "topright",
+      },
+    },
+  ],
+  periodSelection: {
+    periods: [
+      {
+        ...new Period().setPreferences({ allowFuturePeriods: true }).getById("2022"),
+      },
+    ],
+  },
   pointLayer: {
     enabled: true,
     label: "Facilities",

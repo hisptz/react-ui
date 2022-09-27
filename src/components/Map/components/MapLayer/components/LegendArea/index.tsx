@@ -4,11 +4,16 @@ import { compact, head } from "lodash";
 import React, { useState } from "react";
 import { MapLegendConfig } from "../../../MapArea/interfaces";
 import { CustomControl } from "../../../MapControls/components/CustomControl";
-import { CustomThematicLayer } from "../../interfaces";
+import { CustomPointLayer, CustomThematicLayer } from "../../interfaces";
+import PointLegend from "../PointLayer/components/PointLegend";
 import BubbleLegend from "../ThematicLayer/components/Bubble/components/BubbleLegend";
 import ChoroplethLegend from "../ThematicLayer/components/Choropleth/components/ChoroplethLegend";
 
-function getLegendComponent(layer: CustomThematicLayer) {
+function getLegendComponent(layer: CustomThematicLayer | CustomPointLayer) {
+  if (layer.type === "point") {
+    return <PointLegend name={layer.label} />;
+  }
+
   const { type, enabled, control, dataItem, name, data, legends } = layer ?? {};
 
   if (!enabled || !control) {
@@ -34,7 +39,7 @@ function Legend({ children, collapsible }: { children: React.ReactElement; colla
   const name = head(React.Children.toArray(children) as React.ReactElement[])?.props.name;
 
   return (
-    <div>
+    <div className="w-100">
       {collapsed ? (
         <Tooltip content={name}>
           <div onClick={onCollapse} style={{ width: 28, height: 28 }} className="legend-card collapsed">
@@ -48,7 +53,14 @@ function Legend({ children, collapsible }: { children: React.ReactElement; colla
   );
 }
 
-export default function LegendArea({ layers, legends: legendConfig }: { layers: CustomThematicLayer[]; position: ControlPosition; legends: MapLegendConfig }) {
+export default function LegendArea({
+  layers,
+  legends: legendConfig,
+}: {
+  layers: Array<CustomThematicLayer | CustomPointLayer>;
+  position: ControlPosition;
+  legends?: MapLegendConfig;
+}) {
   const legends: JSX.Element[] = compact(layers.filter((layer) => layer.enabled).map(getLegendComponent));
   const { position, collapsible } = legendConfig ?? {};
 

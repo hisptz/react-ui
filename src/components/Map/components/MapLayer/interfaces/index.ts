@@ -20,6 +20,7 @@ export interface CustomPointLayer extends CustomMapLayer {
   style?: {
     icon?: string;
     groupSet?: string;
+    orgUnitGroups?: Array<{ name: string; symbol: string }>;
   };
   points?: Array<PointOrgUnit>;
 }

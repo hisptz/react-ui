@@ -29,7 +29,6 @@ function MapLayerArea({
 }) {
   const { layers } = useMapLayers();
 
-  console.log(layers);
   return (
     <>
       <TileLayer
@@ -50,7 +49,7 @@ function MapLayerArea({
           ))}
         </LayersControl>
       )}
-      {!isEmpty(layers) && legends && <LegendArea legends={legends} layers={layers as CustomThematicLayer[]} position={"topright"} />}
+      {!isEmpty(layers) && <LegendArea legends={legends} layers={layers as CustomThematicLayer[]} position={"topright"} />}
     </>
   );
 }

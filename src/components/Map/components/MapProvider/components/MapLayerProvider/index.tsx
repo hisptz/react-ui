@@ -221,9 +221,17 @@ function usePointLayer() {
     const groupSetData = await refetchGroupSetData({ groupSet: layer.style?.groupSet });
     const sanitizedOrgUnitData = sanitizePointData(pointData, groupSetData);
 
+    const orgUnitGroups = (groupSetData?.groupSet as any)?.organisationUnitGroups ?? [];
+
+    const sanitizedOrgUnitGroups = orgUnitGroups.map((ouGroup: any) => ({ ...ouGroup, organisationUnits: undefined }));
+
     return {
       ...layer,
       points: sanitizedOrgUnitData,
+      style: {
+        ...layer.style,
+        orgUnitGroups: sanitizedOrgUnitGroups,
+      },
     };
   }, []);
 
