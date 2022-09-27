@@ -29,6 +29,7 @@ function MapLayerArea({
 }) {
   const { layers } = useMapLayers();
 
+  console.log(layers);
   return (
     <>
       <TileLayer

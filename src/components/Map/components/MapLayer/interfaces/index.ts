@@ -1,5 +1,5 @@
 import type { Legend, LegendSet } from "@hisptz/dhis2-utils";
-import { MapOrgUnit } from "../../../interfaces";
+import { MapOrgUnit, PointOrgUnit } from "../../../interfaces";
 import { LegendColorScale } from "../../../utils/colors";
 
 export type BoundaryLayerType = "basemap" | "overlay";
@@ -21,6 +21,7 @@ export interface CustomPointLayer extends CustomMapLayer {
     icon?: string;
     groupSet?: string;
   };
+  points?: Array<PointOrgUnit>;
 }
 
 export type DataItemType = "dataElement" | "indicator" | "programIndicator";

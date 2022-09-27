@@ -2,13 +2,13 @@ import { useDataQuery } from "@dhis2/app-runtime";
 import i18n from "@dhis2/d2-i18n";
 import { CenteredContent, CircularLoader } from "@dhis2/ui";
 import { LayersControlEvent } from "leaflet";
-import { compact, differenceBy, find, head, isEmpty, last, set, sortBy } from "lodash";
+import { compact, differenceBy, find, groupBy, head, isEmpty, last, set, sortBy } from "lodash";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useMapEvents } from "react-leaflet";
-import { MapOrgUnit } from "../../../../interfaces";
+import { MapOrgUnit, PointOrgUnit } from "../../../../interfaces";
 import { MapLayersContext } from "../../../../state";
 import { defaultClasses, defaultColorScaleName } from "../../../../utils/colors";
-import { generateLegends, getOrgUnitsSelection, sanitizeDate } from "../../../../utils/map";
+import { generateLegends, getOrgUnitsSelection, sanitizeDate, sanitizeOrgUnits, toGeoJson } from "../../../../utils/map";
 import { CustomBoundaryLayer, CustomMapLayer, CustomPointLayer, CustomThematicLayer, CustomThematicPrimitiveLayer } from "../../../MapLayer/interfaces";
 import { useMapOrganisationUnit, useMapPeriods } from "../../hooks";
 
@@ -30,25 +30,36 @@ const analyticsQuery = {
   },
 };
 
-export function MapLayersProvider({
-  layers,
-  children,
-}: {
-  layers: Array<CustomThematicPrimitiveLayer | CustomBoundaryLayer | CustomPointLayer>;
-  children: React.ReactNode;
-}) {
-  const [updatedLayers, setUpdatedLayers] = useState<Array<CustomThematicLayer | CustomBoundaryLayer>>([]);
+const query = {
+  layer: {
+    resource: "geoFeatures",
+    params: ({ ous }: any) => ({
+      ou: `ou:${ous.join(";")}`,
+    }),
+  },
+  analytics: {
+    resource: "analytics",
+    params: ({ ous }: any) => ({
+      dimension: [`ou:${ous.join(";")}`, `pe:${new Date().getFullYear()}`],
+      skipData: true,
+      hierarchyMeta: true,
+    }),
+  },
+};
+
+const groupSetQuery = {
+  groupSet: {
+    resource: "organisationUnitGroupSets",
+    id: ({ groupSet }: any) => groupSet,
+    params: {
+      fields: ["organisationUnitGroups[name,color,symbol,organisationUnits[id]]"],
+    },
+  },
+};
+
+function useThematicLayers() {
   const { orgUnits, orgUnitSelection } = useMapOrganisationUnit();
   const { periods } = useMapPeriods() ?? {};
-  useMapEvents({
-    overlayremove: (event) => {
-      setupLayerListeners("remove", event);
-    },
-    overlayadd: (event) => {
-      setupLayerListeners("add", event);
-    },
-  });
-
   const ou = useMemo(() => getOrgUnitsSelection(orgUnitSelection), [orgUnitSelection]);
   const pe = useMemo(() => periods?.map((pe: any) => pe.id), [periods]);
 
@@ -75,7 +86,7 @@ export function MapLayersProvider({
     lazy: true,
   });
 
-  const sanitizeData = (data: any, layer: CustomThematicLayer) => {
+  const sanitizeData = (data: any, layer: CustomThematicPrimitiveLayer) => {
     if (data) {
       const { analytics } = data as any;
       const rows = analytics?.rows;
@@ -103,53 +114,6 @@ export function MapLayersProvider({
     return [];
   };
 
-  const sanitizeLayers = async () => {
-    const dataLayers: CustomThematicLayer[] = layers?.filter((layer) => ["bubble", "choropleth"].includes(layer.type)) as unknown as CustomThematicLayer[];
-    const otherLayers = differenceBy(layers, dataLayers, "id");
-    const layersWithoutData = dataLayers?.filter((layer) => !layer.data);
-    const layersWithData = differenceBy(dataLayers, layersWithoutData, "id");
-    const dx = layersWithoutData.map((layer) => layer.dataItem.id);
-    let sanitizedLayersWithData: any = [];
-
-    if (!isEmpty(dx)) {
-      const data = await refetch({
-        dx,
-      });
-      sanitizedLayersWithData = layersWithoutData.map((layer) => ({
-        ...layer,
-        name: layer?.name ?? layer?.dataItem?.displayName ?? layer.id,
-        data: sanitizeData(data, layer),
-      }));
-    }
-    const sanitizedLayersWithOrgUnits = layersWithData.map((layer) => ({
-      ...layer,
-      data: layer.data?.map((datum) => ({
-        ...datum,
-        orgUnit: find(orgUnits, ["id", datum.orgUnit]) as MapOrgUnit,
-        dataItem: layer.dataItem,
-        name: layer?.name ?? layer?.dataItem?.displayName ?? layer.id,
-      })),
-    }));
-    const sanitizedThematicLayers: CustomThematicLayer[] = sanitizeLegends([...sanitizedLayersWithData, ...sanitizedLayersWithOrgUnits]);
-    setUpdatedLayers([...(otherLayers as any), ...sanitizedThematicLayers]);
-  };
-
-  const updateLayer = useCallback((id: string, updatedLayer: CustomMapLayer) => {
-    setUpdatedLayers((prevLayers) => {
-      const updatedLayers = [...prevLayers];
-      const layerIndex = updatedLayers.findIndex((layer) => layer.id === updatedLayer.id);
-      if (layerIndex < 0) {
-        return prevLayers;
-      }
-      set(updatedLayers, layerIndex, updatedLayer);
-      return updatedLayers;
-    });
-  }, []);
-
-  useEffect(() => {
-    sanitizeLayers();
-  }, []);
-
   const sanitizeLegends = (layers: CustomThematicLayer[]) => {
     return layers.map((layer) => {
       const legends = [];
@@ -173,6 +137,152 @@ export function MapLayersProvider({
       };
     });
   };
+
+  const sanitizeLayers = async (layers: CustomThematicPrimitiveLayer[]): Promise<CustomThematicLayer[]> => {
+    const layersWithoutData = layers?.filter((layer) => !layer.data);
+    const layersWithData = differenceBy(layers, layersWithoutData, "id");
+    const dx = layersWithoutData.map((layer) => layer.dataItem.id);
+    let sanitizedLayersWithData: any = [];
+
+    if (!isEmpty(dx)) {
+      const data = await refetch({
+        dx,
+      });
+      sanitizedLayersWithData = layersWithoutData.map((layer) => ({
+        ...layer,
+        name: layer?.name ?? layer?.dataItem?.displayName ?? layer.id,
+        data: sanitizeData(data, layer),
+      }));
+    }
+    const sanitizedLayersWithOrgUnits = layersWithData.map((layer) => ({
+      ...layer,
+      data: layer.data?.map((datum) => ({
+        ...datum,
+        orgUnit: find(orgUnits, ["id", datum.orgUnit]) as MapOrgUnit,
+        dataItem: layer.dataItem,
+        name: layer?.name ?? layer?.dataItem?.displayName ?? layer.id,
+      })),
+    }));
+    return sanitizeLegends([...sanitizedLayersWithData, ...sanitizedLayersWithOrgUnits]);
+  };
+
+  return {
+    sanitizeLayers,
+    loading,
+    error,
+  };
+}
+
+function usePointLayer() {
+  const { orgUnitSelection } = useMapOrganisationUnit();
+  const { loading, refetch: refetchOrgUnitData } = useDataQuery(query, {
+    lazy: true,
+  });
+  const { loading: groupSetDataLoading, refetch: refetchGroupSetData } = useDataQuery(groupSetQuery, {
+    lazy: true,
+  });
+
+  const sanitizePointData = useCallback((orgUnitData: any, groupSetData: any): PointOrgUnit[] => {
+    const { analytics, layer } = (orgUnitData as any) ?? {};
+    const rawOrgUnits = sanitizeOrgUnits(analytics?.metaData);
+    const geoJSONObjects = toGeoJson(layer?.filter((bound: any) => bound.co));
+    return compact(
+      rawOrgUnits.map((orgUnit: any) => {
+        const geoJSONObject: any = geoJSONObjects?.find((geoJSON: any) => geoJSON.properties.id === orgUnit.id);
+        const orgUnitGroups: any = (groupSetData?.groupSet as any)?.organisationUnitGroups ?? [];
+        const ouGroup = find(orgUnitGroups, (ouGroup) => !!find(ouGroup?.organisationUnits ?? [], ["id", orgUnit.id]));
+
+        if (!geoJSONObject || geoJSONObject.properties.type !== "Point") {
+          return;
+        }
+        return {
+          ...orgUnit,
+          geoJSON: geoJSONObject,
+          level: geoJSONObject.properties.level,
+          icon: {
+            type: "groupIcon",
+            icon: ouGroup?.symbol,
+          },
+        };
+      })
+    );
+  }, []);
+
+  const sanitizeLayer = useCallback(async (layer: CustomPointLayer): Promise<CustomPointLayer | undefined> => {
+    if (!layer.level && !layer.group) {
+      return;
+    }
+
+    const level = layer.level ? `LEVEL-${layer.level}` : undefined;
+    const group = layer.group ? `OU_GROUP-${layer.group}` : undefined;
+    const ous = [...getOrgUnitsSelection(orgUnitSelection), level, group];
+
+    const pointData = await refetchOrgUnitData({ ous });
+    const groupSetData = await refetchGroupSetData({ groupSet: layer.style?.groupSet });
+    const sanitizedOrgUnitData = sanitizePointData(pointData, groupSetData);
+
+    return {
+      ...layer,
+      points: sanitizedOrgUnitData,
+    };
+  }, []);
+
+  return {
+    loading: loading || groupSetDataLoading,
+    sanitizeLayer,
+  };
+}
+
+export function MapLayersProvider({
+  layers,
+  children,
+}: {
+  layers: Array<CustomThematicPrimitiveLayer | CustomBoundaryLayer | CustomPointLayer>;
+  children: React.ReactNode;
+}) {
+  const [updatedLayers, setUpdatedLayers] = useState<Array<CustomThematicLayer | CustomBoundaryLayer | CustomPointLayer>>([]);
+  const { sanitizeLayers: sanitizeThematicLayers, loading: loadingThematicLayer, error } = useThematicLayers();
+  const { sanitizeLayer: sanitizePointLayer, loading: loadingPointLayer } = usePointLayer();
+  const loading = useMemo(() => loadingPointLayer || loadingThematicLayer, [loadingPointLayer, loadingThematicLayer]);
+
+  useMapEvents({
+    overlayremove: (event) => {
+      setupLayerListeners("remove", event);
+    },
+    overlayadd: (event) => {
+      setupLayerListeners("add", event);
+    },
+  });
+
+  const sanitizeLayers = async () => {
+    const { bubble, choropleth, overlay, point } =
+      groupBy(layers, "type") ??
+      ({
+        choropleth: [],
+        overlay: [],
+        bubble: [],
+      } as { choropleth: CustomThematicPrimitiveLayer[]; overlay: CustomBoundaryLayer[]; bubble: CustomThematicPrimitiveLayer[] });
+    const sanitizedThematicLayers = await sanitizeThematicLayers([...(bubble ?? []), ...(choropleth ?? [])] as CustomThematicPrimitiveLayer[]);
+    const sanitizedBoundaryLayers = (overlay ?? []) as CustomBoundaryLayer[];
+    const sanitizedPointLayer = head(point ?? []) ? await sanitizePointLayer(point[0] as CustomPointLayer) : undefined;
+    setUpdatedLayers(compact([...(sanitizedBoundaryLayers ?? []), ...(sanitizedThematicLayers ?? []), sanitizedPointLayer]));
+  };
+
+  const updateLayer = useCallback((id: string, updatedLayer: CustomMapLayer) => {
+    setUpdatedLayers((prevLayers) => {
+      const updatedLayers = [...prevLayers];
+      const layerIndex = updatedLayers.findIndex((layer) => layer.id === updatedLayer.id);
+      if (layerIndex < 0) {
+        return prevLayers;
+      }
+      set(updatedLayers, layerIndex, updatedLayer);
+      return updatedLayers;
+    });
+  }, []);
+
+  useEffect(() => {
+    sanitizeLayers();
+  }, []);
 
   const setupLayerListeners = (type: "add" | "remove", event: LayersControlEvent) => {
     const name = event.name;
