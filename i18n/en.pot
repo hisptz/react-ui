@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-08-17T09:32:21.395Z\n"
-"PO-Revision-Date: 2022-08-17T09:32:21.395Z\n"
+"POT-Creation-Date: 2022-09-27T09:45:34.316Z\n"
+"PO-Revision-Date: 2022-09-27T09:45:34.316Z\n"
 
 msgid "Download PNG"
 msgstr "Download PNG"
@@ -102,6 +102,21 @@ msgstr ""
 
 msgid "Boundaries"
 msgstr "Boundaries"
+
+msgid "Points"
+msgstr "Points"
+
+msgid "Max"
+msgstr "Max"
+
+msgid "Mid"
+msgstr "Mid"
+
+msgid "Min"
+msgstr "Min"
+
+msgid "Error"
+msgstr "Error"
 
 msgid "Select Organisation Unit"
 msgstr "Select Organisation Unit"

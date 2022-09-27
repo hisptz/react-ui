@@ -13,7 +13,7 @@ export default function MapLayer(layer: CustomThematicLayer | CustomBoundaryLaye
     case "choropleth":
       return <ThematicLayer layerId={layer.id} />;
     case "point":
-      return <PointLayer {...layer} />;
+      return <PointLayer />;
     default:
       return null;
   }
