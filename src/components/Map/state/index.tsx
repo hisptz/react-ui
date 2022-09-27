@@ -1,5 +1,6 @@
 import type { OrgUnitSelection } from "@hisptz/dhis2-utils";
 import { createContext } from "react";
+import { CustomMapLayer } from "../components/MapLayer/interfaces";
 import { MapOrgUnit } from "../interfaces";
 
 export const MapOrgUnitContext = createContext<{
@@ -17,4 +18,12 @@ export const MapPeriodContext = createContext<
   | undefined
 >({
   periods: [],
+});
+
+export const MapLayersContext = createContext<{
+  layers: CustomMapLayer[];
+  updateLayer: (id: string, updatedLayer: CustomMapLayer) => void;
+}>({
+  layers: [],
+  updateLayer: () => {},
 });

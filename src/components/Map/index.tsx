@@ -1,40 +1,48 @@
-import React, { useMemo } from "react";
-import { Helmet } from "react-helmet";
+import { Map as LeafletMap } from "leaflet";
+import React, { forwardRef } from "react";
 import MapArea from "./components/MapArea";
-import { ThematicLayer } from "./components/MapLayer/interfaces";
+import { CustomThematicPrimitiveLayer, MapLayerProps } from "./components/MapLayer/interfaces";
 import { MapProvider } from "./components/MapProvider";
 import { MapProps } from "./interfaces";
+import "leaflet/dist/leaflet.css";
 
-export default function Map({ orgUnitSelection, boundaryLayer, thematicLayers, periodSelection, mapOptions }: MapProps) {
-  const enabledThematicLayers = useMemo(() => thematicLayers?.filter((layer: any) => layer.enabled) ?? [], [thematicLayers]);
+const Map = (
+  { orgUnitSelection, pointLayer, boundaryLayer, thematicLayers, periodSelection, mapOptions, key, controls, legends }: MapProps,
+  ref: React.Ref<LeafletMap> | undefined
+) => {
+  const sanitizedLayers: MapLayerProps[] = [
+    {
+      enabled: boundaryLayer?.enabled ?? false,
+      type: "boundary",
+      layer: {
+        type: "overlay",
+        id: "boundary",
+        enabled: boundaryLayer?.enabled ?? false,
+      },
+    },
+    {
+      enabled: pointLayer?.enabled ?? false,
+      type: "point",
+      layer: {
+        type: "point",
+        id: "point",
+        enabled: pointLayer?.enabled ?? false,
+        ...pointLayer,
+      },
+    },
+    ...(thematicLayers?.map((layer: CustomThematicPrimitiveLayer) => ({
+      type: "thematic" as any,
+      enabled: layer.enabled,
+      layer,
+    })) ?? []),
+  ];
+
   return (
-    <MapProvider periodSelection={periodSelection} orgUnitSelection={orgUnitSelection}>
-      <Helmet>
-        <link
-          rel="stylesheet"
-          href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-          integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-          crossOrigin=""
-        />
-      </Helmet>
-      <MapArea
-        layers={[
-          {
-            enabled: boundaryLayer?.enabled ?? false,
-            type: "boundary",
-            layer: {
-              type: "overlay",
-              id: "boundary",
-            },
-          },
-          ...(enabledThematicLayers.map((layer: ThematicLayer) => ({
-            type: "thematic" as any,
-            enabled: layer.enabled,
-            layer,
-          })) ?? []),
-        ]}
-        mapOptions={mapOptions}
-      />
-    </MapProvider>
+    <>
+      <MapProvider periodSelection={periodSelection} orgUnitSelection={orgUnitSelection}>
+        <MapArea layers={sanitizedLayers.map(({ layer }) => layer)} legends={legends} controls={controls} key={key} ref={ref} mapOptions={mapOptions} />
+      </MapProvider>
+    </>
   );
-}
+};
+export default forwardRef(Map);

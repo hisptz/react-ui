@@ -1,10 +1,10 @@
-import React, { forwardRef, useMemo } from "react";
 import "../../../styles/legends.css";
 import { Divider } from "@dhis2/ui";
-import { sortBy } from "lodash";
-import { defaultLegendSet } from "../../../../../../../constants/legendSet";
+import type { Legend } from "@hisptz/dhis2-utils";
+import React, { forwardRef } from "react";
 import { getLegendCount } from "../../../../../../../utils/map";
 import { ThematicLayerData, ThematicLayerDataItem } from "../../../../../interfaces";
+import LegendCardHeader from "../../../../LegendArea/components/LegendCardHeader";
 
 function LegendItem({ legend, value }: { legend: { startValue: number; endValue: number; color: string }; value: number }) {
   return (
@@ -17,18 +17,21 @@ function LegendItem({ legend, value }: { legend: { startValue: number; endValue:
 }
 
 function ChoroplethLegend(
-  { dataItem, data, name }: { data: ThematicLayerData[]; dataItem: ThematicLayerDataItem; name?: string },
+  {
+    dataItem,
+    data,
+    name,
+    collapsible,
+    onCollapse,
+    legends,
+  }: { data: ThematicLayerData[]; dataItem: ThematicLayerDataItem; name?: string; collapsible?: boolean; onCollapse?: () => void; legends: Legend[] },
   ref: React.LegacyRef<HTMLDivElement> | undefined
 ) {
-  const legends = useMemo(() => {
-    return sortBy((dataItem.legendSet ?? defaultLegendSet)?.legends, "startValue").reverse();
-  }, [dataItem.legendSet]);
-
   return (
     <div className="legend-card" ref={ref}>
-      <h4 className="legend-header">{name ?? dataItem?.displayName}</h4>
+      <LegendCardHeader title={dataItem.displayName} collapsible={collapsible} onCollapse={onCollapse} />
       <Divider margin={"0"} />
-      <div style={{ width: 150 }} className="legend-list pt-8">
+      <div className="legend-list pt-8">
         {legends?.map((legend: any) => (
           <LegendItem key={`${legend?.color}-legend-list`} legend={legend} value={getLegendCount(legend, data)} />
         ))}

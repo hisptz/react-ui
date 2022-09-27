@@ -1,7 +1,6 @@
 import { Period } from "@iapps/period-utilities";
 import type { Story } from "@storybook/react";
 import React from "react";
-import MapDataProvider from "../../dataProviders/map";
 import { MapProps } from "./interfaces";
 import Map from "./index";
 
@@ -41,7 +40,7 @@ BoundaryLayerWithLevels.args = {
 
 export const ChoroplethThematicLayer = Template.bind({});
 ChoroplethThematicLayer.args = {
-  orgUnitSelection: { orgUnits: [], userOrgUnit: true, userSubUnit: true, userSubX2Unit: true },
+  orgUnitSelection: { orgUnits: [], userOrgUnit: true, userSubUnit: true, userSubX2Unit: false },
   boundaryLayer: {
     enabled: true,
   },
@@ -49,7 +48,7 @@ ChoroplethThematicLayer.args = {
     {
       type: "choropleth",
       id: "choropleth",
-      enabled: true,
+      enabled: false,
       dataItem: {
         id: "Uvn6LCg7dVU",
         displayName: "ANC 1 Coverage",
@@ -68,6 +67,118 @@ ChoroplethThematicLayer.args = {
       },
     ],
   },
+  legends: {
+    enabled: true,
+    position: "topright",
+    collapsible: true,
+  },
+};
+
+export const BubbleThematicLayer = Template.bind({});
+BubbleThematicLayer.args = {
+  orgUnitSelection: { orgUnits: [], userOrgUnit: true, userSubUnit: true, userSubX2Unit: true },
+  boundaryLayer: {
+    enabled: true,
+  },
+  thematicLayers: [
+    {
+      type: "bubble",
+      id: "bubble",
+      enabled: true,
+      dataItem: {
+        id: "Uvn6LCg7dVU",
+        displayName: "ANC 1 Coverage",
+        type: "indicator",
+      },
+      control: {
+        enabled: true,
+        position: "topright",
+      },
+    },
+  ],
+  legends: {
+    enabled: true,
+    position: "topright",
+    collapsible: true,
+  },
+  periodSelection: {
+    periods: [
+      {
+        ...new Period().setPreferences({ allowFuturePeriods: true }).getById("2022"),
+      },
+    ],
+  },
+  controls: [
+    {
+      type: "fullscreen",
+      position: "topleft",
+    },
+  ],
+};
+
+export const AllThematicLayers = Template.bind({});
+AllThematicLayers.args = {
+  orgUnitSelection: { orgUnits: [], userOrgUnit: true, userSubUnit: true, userSubX2Unit: true },
+  boundaryLayer: {
+    enabled: true,
+  },
+  thematicLayers: [
+    {
+      type: "choropleth",
+      id: "choropleth",
+      enabled: true,
+      dataItem: {
+        id: "ReUHfIn0pTQ",
+        displayName: "ANC 1-3 Dropout Rate",
+        type: "indicator",
+      },
+      control: {
+        enabled: true,
+        position: "topright",
+      },
+    },
+    {
+      type: "bubble",
+      id: "bubble",
+      enabled: true,
+      dataItem: {
+        id: "Uvn6LCg7dVU",
+        displayName: "ANC 1 Coverage",
+        type: "indicator",
+      },
+
+      control: {
+        enabled: true,
+        position: "topright",
+      },
+    },
+  ],
+  legends: {
+    enabled: true,
+    position: "topright",
+    collapsible: true,
+  },
+  periodSelection: {
+    periods: [
+      {
+        ...new Period().setPreferences({ allowFuturePeriods: true }).getById("2022"),
+      },
+    ],
+  },
+  controls: [
+    {
+      type: "scale",
+      position: "bottomleft",
+      options: {
+        imperial: false,
+        metric: true,
+      },
+    },
+    {
+      type: "fullscreen",
+      position: "bottomleft",
+    },
+  ],
 };
 
 export const ChoroplethThematicLayerWithLevels = Template.bind({});
@@ -103,12 +214,53 @@ ChoroplethThematicLayerWithLevels.args = {
       },
     },
   ],
+  legends: {
+    enabled: true,
+    position: "topright",
+    collapsible: true,
+  },
   periodSelection: {
     periods: [
       {
         ...new Period().setPreferences({ allowFuturePeriods: true }).getById("2022"),
       },
     ],
+  },
+};
+
+export const PointLayer = Template.bind({});
+PointLayer.args = {
+  orgUnitSelection: { orgUnits: [], userOrgUnit: true, userSubUnit: true, userSubX2Unit: false },
+  thematicLayers: [
+    {
+      type: "choropleth",
+      id: "choropleth",
+      enabled: true,
+      dataItem: {
+        id: "Uvn6LCg7dVU",
+        displayName: "ANC 1 Coverage",
+        type: "indicator",
+      },
+      control: {
+        enabled: true,
+        position: "topright",
+      },
+    },
+  ],
+  periodSelection: {
+    periods: [
+      {
+        ...new Period().setPreferences({ allowFuturePeriods: true }).getById("2022"),
+      },
+    ],
+  },
+  pointLayer: {
+    enabled: true,
+    label: "Facilities",
+    level: "m9lBJogzE95",
+    style: {
+      groupSet: "J5jldMd8OHv",
+    },
   },
 };
 
@@ -119,9 +271,9 @@ export default {
     (MapStory: any) => {
       return (
         <div style={{ width: "100%", height: "100%" }}>
-          <MapDataProvider>
-            <MapStory />
-          </MapDataProvider>
+          {/*<MapDataProvider>*/}
+          <MapStory />
+          {/*</MapDataProvider>*/}
         </div>
       );
     },
