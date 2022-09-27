@@ -12,7 +12,13 @@ export const IndicatorSelector = Template.bind({});
 IndicatorSelector.args = {
   dataSources: [
     {
-      id: "BvG8P80QxqZ"
+      id: "QQkOAJFukyY"
+    },
+    {
+      id: "cTzH6P0K2Eq"
+    },
+    {
+      id: "QVZjSkvUCgu"
     },
   ],
 };
