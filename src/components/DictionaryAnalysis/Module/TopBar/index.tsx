@@ -3,6 +3,7 @@ import { Tab, TabBar } from "@dhis2/ui";
 import { getDataSourceType } from "./../../../../core/utils/dataSource";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
+import styles from './TopBar.module.css'
 
 export default function TopBar({ dataSources, onTabChange, selectedTab }: any) {
   const engine = useDataEngine();
@@ -19,11 +20,13 @@ export default function TopBar({ dataSources, onTabChange, selectedTab }: any) {
 
   return (
     <TabBar>
-      {data?.map((dataSource: any,index:number) => (
-        <Tab  selected={selectedTab?.id === dataSource?.id} onClick={() => onTabChange(dataSource)} key={`${dataSource?.id}-tab-${index}`}>
-          {dataSource?.label ?? dataSource?.displayName}
-        </Tab>
-      ))}
+      <div style={{width:"100%",overflowX:"auto",display:"flex"}} className={styles["scrollbar-hidden"]}>
+        {data?.map((dataSource: any, index: number) => (
+          <Tab selected={selectedTab?.id === dataSource?.id} onClick={() => onTabChange(dataSource)} key={`${dataSource?.id}-tab-${index}`}>
+            {dataSource?.label ?? dataSource?.displayName}
+          </Tab>
+        ))}
+      </div>
     </TabBar>
   );
 }
