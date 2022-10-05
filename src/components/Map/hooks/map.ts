@@ -1,10 +1,10 @@
 import { geoJSON } from "leaflet";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useMapOrganisationUnit } from "../components/MapProvider/hooks";
 
 export function useMapBounds() {
   const { orgUnits } = useMapOrganisationUnit();
-
+  const sizeChanged = useMediaQuery();
   const geoJSONObject = useMemo(
     () =>
       geoJSON({
@@ -16,13 +16,25 @@ export function useMapBounds() {
 
   const center = useMemo(() => {
     return geoJSONObject.getBounds().getCenter();
-  }, [orgUnits]);
+  }, [orgUnits, sizeChanged]);
   const bounds: any = useMemo(() => {
     return geoJSONObject.getBounds();
-  }, [orgUnits]);
+  }, [orgUnits, sizeChanged]);
 
   return {
     center,
     bounds,
   };
+}
+
+export function useMediaQuery() {
+  const [sizeChanges, setSizeChanges] = useState(false);
+  const toggleState = () => setSizeChanges((prevState) => !prevState);
+  useEffect(() => {
+    window.addEventListener("resize", toggleState);
+    return () => {
+      window.removeEventListener("resize", toggleState);
+    };
+  }, []);
+  return sizeChanges;
 }
