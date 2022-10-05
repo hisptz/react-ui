@@ -131,6 +131,10 @@ AllThematicLayers.args = {
         id: "ReUHfIn0pTQ",
         displayName: "ANC 1-3 Dropout Rate",
         type: "indicator",
+        legendConfig: {
+          colorClass: "RdPu",
+          scale: 7,
+        },
       },
       control: {
         enabled: true,

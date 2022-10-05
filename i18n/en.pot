@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-09-27T09:45:34.316Z\n"
-"PO-Revision-Date: 2022-09-27T09:45:34.316Z\n"
+"POT-Creation-Date: 2022-10-05T10:30:28.205Z\n"
+"PO-Revision-Date: 2022-10-05T10:30:28.205Z\n"
 
 msgid "Download PNG"
 msgstr "Download PNG"
@@ -46,6 +46,542 @@ msgstr "Save"
 
 msgid "Delete"
 msgstr "Delete"
+
+msgid "Analytics Details"
+msgstr "Analytics Details"
+
+msgid "Uses"
+msgstr "Uses"
+
+msgid "aggregation type through period and hierarchy"
+msgstr "aggregation type through period and hierarchy"
+
+msgid "data sources"
+msgstr "data sources"
+
+msgid "Category Combo is"
+msgstr "Category Combo is"
+
+msgid "which has cross-tabulation between "
+msgstr "which has cross-tabulation between "
+
+msgid "with following details"
+msgstr "with following details"
+
+msgid "Data sources"
+msgstr "Data sources"
+
+msgid "Data element is captured from following sources"
+msgstr "Data element is captured from following sources"
+
+msgid "Datasets"
+msgstr "Datasets"
+
+msgid "submitting {{variables1}} after every {{variables2}} days "
+msgstr "submitting {{variables1}} after every {{variables2}} days "
+
+msgid "Color"
+msgstr "Color"
+
+msgid " Icon"
+msgstr " Icon"
+
+msgid "Option set"
+msgstr "Option set"
+
+msgid "Option set for Comments"
+msgstr "Option set for Comments"
+
+msgid "Legends"
+msgstr "Legends"
+
+msgid "Aggregation Levels"
+msgstr "Aggregation Levels"
+
+msgid "Details"
+msgstr "Details"
+
+msgid "no color"
+msgstr "no color"
+
+msgid "no icon"
+msgstr "no icon"
+
+msgid "No legends assigned"
+msgstr "No legends assigned"
+
+msgid "No organization unit level assigned"
+msgstr "No organization unit level assigned"
+
+msgid "Programs"
+msgstr "Programs"
+
+msgid "submitting records on every event(case or individual)"
+msgstr "submitting records on every event(case or individual)"
+
+msgid "Related Indicators"
+msgstr "Related Indicators"
+
+msgid "Data element Facts"
+msgstr "Data element Facts"
+
+msgid "Accepts only"
+msgstr "Accepts only"
+
+msgid "to enforce validation"
+msgstr "to enforce validation"
+
+msgid "Has"
+msgstr "Has"
+
+msgid "related validation rules"
+msgstr "related validation rules"
+
+msgid "Part of numerators of"
+msgstr "Part of numerators of"
+
+msgid "indicators"
+msgstr "indicators"
+
+msgid "Part of denominators of"
+msgstr "Part of denominators of"
+
+msgid "Introduction"
+msgstr "Introduction"
+
+msgid "can be described as {{variables}}."
+msgstr "can be described as {{variables}}."
+
+msgid ""
+"It’s labelled in short as {{variables1}} and has a code of {{variables2}}. "
+"In data entry form, it’s named “{{variables3}}”"
+msgstr ""
+"It’s labelled in short as {{variables1}} and has a code of {{variables2}}. "
+"In data entry form, it’s named “{{variables3}}”"
+
+msgid "sources"
+msgstr "sources"
+
+msgid " submitting "
+msgstr " submitting "
+
+msgid " after every "
+msgstr " after every "
+
+msgid "days"
+msgstr "days"
+
+msgid "Data sources (Datasets/Programs)"
+msgstr "Data sources (Datasets/Programs)"
+
+msgid "Data elements in this group are captured from the following sources"
+msgstr "Data elements in this group are captured from the following sources"
+
+msgid "There are no Data Elements in this Data Element group"
+msgstr "There are no Data Elements in this Data Element group"
+
+msgid " Data element group Facts"
+msgstr " Data element group Facts"
+
+msgid "It has {{variables}} data Elements"
+msgstr "It has {{variables}} data Elements"
+
+msgid ""
+"It’s data elements belongs to {{variables}} dataset and {{variables2}} "
+"program sources of data"
+msgstr ""
+"It’s data elements belongs to {{variables}} dataset and {{variables2}} "
+"program sources of data"
+
+msgid ""
+"The following is the summary of indicators using the data elements in this "
+"group"
+msgstr ""
+"The following is the summary of indicators using the data elements in this "
+"group"
+
+msgid "User Access"
+msgstr "User Access"
+
+msgid "can"
+msgstr "can"
+
+msgid "User Group Access"
+msgstr "User Group Access"
+
+msgid "Accesibility & Sharing Settings"
+msgstr "Accesibility & Sharing Settings"
+
+msgid "This Function was first created on"
+msgstr "This Function was first created on"
+
+msgid "and last updated on"
+msgstr "and last updated on"
+
+msgid "Endpoint"
+msgstr "Endpoint"
+
+msgid "Appearances"
+msgstr "Appearances"
+
+msgid "Suggesting Factor"
+msgstr "Suggesting Factor"
+
+msgid "Documentation"
+msgstr "Documentation"
+
+msgid "Data Sources"
+msgstr "Data Sources"
+
+msgid ""
+"Function have rules calculating from multiple data sources. Here are few "
+"data sources observed"
+msgstr ""
+"Function have rules calculating from multiple data sources. Here are few "
+"data sources observed"
+
+msgid "Id"
+msgstr "Id"
+
+msgid "Name"
+msgstr "Name"
+
+msgid "Description"
+msgstr "Description"
+
+msgid "Code"
+msgstr "Code"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "More details"
+msgstr "More details"
+
+msgid "Last updated"
+msgstr "Last updated"
+
+msgid "It is approximately {{variables}}  in size"
+msgstr "It is approximately {{variables}}  in size"
+
+msgid "It’s using function analytics library"
+msgstr "It’s using function analytics library"
+
+msgid "It’s using jquery api library "
+msgstr "It’s using jquery api library "
+
+msgid "Performs ajax promises"
+msgstr "Performs ajax promises"
+
+msgid "Fetches from DHIS2 API without function analytics"
+msgstr "Fetches from DHIS2 API without function analytics"
+
+msgid "Function Rules"
+msgstr "Function Rules"
+
+msgid "The following are available rules used for data analytics"
+msgstr "The following are available rules used for data analytics"
+
+msgid "Default Rule"
+msgstr "Default Rule"
+
+msgid "JSON"
+msgstr "JSON"
+
+msgid "Datasets (Reporting rates) in indicator"
+msgstr "Datasets (Reporting rates) in indicator"
+
+msgid "There were no Datasets (Reporting rates) in the Indicator Calculations"
+msgstr "There were no Datasets (Reporting rates) in the Indicator Calculations"
+
+msgid "Dataset"
+msgstr "Dataset"
+
+msgid "Timely Submission"
+msgstr "Timely Submission"
+
+msgid "Expiry days"
+msgstr "Expiry days"
+
+msgid "Period type"
+msgstr "Period type"
+
+msgid "Assigned orgunits"
+msgstr "Assigned orgunits"
+
+msgid "Data elements"
+msgstr "Data elements"
+
+msgid "Indicator is captured from the following sources,"
+msgstr "Indicator is captured from the following sources,"
+
+msgid "submitting {{variables1}} after every {{variables2}} days"
+msgstr "submitting {{variables1}} after every {{variables2}} days"
+
+msgid "Program Indicators in indicator"
+msgstr "Program Indicators in indicator"
+
+msgid "There were no Program Indicators in the Indicator Calculations"
+msgstr "There were no Program Indicators in the Indicator Calculations"
+
+msgid "Program Indicator"
+msgstr "Program Indicator"
+
+msgid "Expression part"
+msgstr "Expression part"
+
+msgid "Filter"
+msgstr "Filter"
+
+msgid "Aggregation type"
+msgstr "Aggregation type"
+
+msgid "Analytics type"
+msgstr "Analytics type"
+
+msgid "Period boundaries"
+msgstr "Period boundaries"
+
+msgid "Groups"
+msgstr "Groups"
+
+msgid "Calculation details"
+msgstr "Calculation details"
+
+msgid ""
+"Below are expression computing numerator and denominator, and related "
+"sources"
+msgstr ""
+"Below are expression computing numerator and denominator, and related "
+"sources"
+
+msgid "Expression"
+msgstr "Expression"
+
+msgid "Formula"
+msgstr "Formula"
+
+msgid "Sources"
+msgstr "Sources"
+
+msgid "Numerator"
+msgstr "Numerator"
+
+msgid "Denominator"
+msgstr "Denominator"
+
+msgid "Data elements in indicator"
+msgstr "Data elements in indicator"
+
+msgid "There were no Data Elements in the Indicator Calculations"
+msgstr "There were no Data Elements in the Indicator Calculations"
+
+msgid "Data Element"
+msgstr "Data Element"
+
+msgid "Expression part (Numerator/ Denominator)"
+msgstr "Expression part (Numerator/ Denominator)"
+
+msgid "Value Type"
+msgstr "Value Type"
+
+msgid "Zero Significance"
+msgstr "Zero Significance"
+
+msgid "Categories"
+msgstr "Categories"
+
+msgid "Datasets/ Programs"
+msgstr "Datasets/ Programs"
+
+msgid " There are no indicator facts associated with this indicator"
+msgstr " There are no indicator facts associated with this indicator"
+
+msgid "Indicator facts"
+msgstr "Indicator facts"
+
+msgid "Belongs to the following groups of indicators"
+msgstr "Belongs to the following groups of indicators"
+
+msgid "Indicators"
+msgstr "Indicators"
+
+msgid "is a"
+msgstr "is a"
+
+msgid "indicator, measured by"
+msgstr "indicator, measured by"
+
+msgid "to"
+msgstr "to"
+
+msgid "Its described as {{variable}}"
+msgstr "Its described as {{variable}}"
+
+msgid "Class"
+msgstr "Class"
+
+msgid "Upper"
+msgstr "Upper"
+
+msgid "Lower"
+msgstr "Lower"
+
+msgid "Legends for analysis"
+msgstr "Legends for analysis"
+
+msgid " days"
+msgstr " days"
+
+msgid "Indicators in this group are captured from the following sources"
+msgstr "Indicators in this group are captured from the following sources"
+
+msgid "Indicator group Facts"
+msgstr "Indicator group Facts"
+
+msgid " It has {{variables}} indicators"
+msgstr " It has {{variables}} indicators"
+
+msgid ""
+" It’s data elements belongs to {{variables}} datasets and {{variables2}} "
+"program sources of data"
+msgstr ""
+" It’s data elements belongs to {{variables}} datasets and {{variables2}} "
+"program sources of data"
+
+msgid "Indicator Group name is  {{variables1}}."
+msgstr "Indicator Group name is  {{variables1}}."
+
+msgid "Related Data elements"
+msgstr "Related Data elements"
+
+msgid "The following is the summary of the data elements used in the group"
+msgstr "The following is the summary of the data elements used in the group"
+
+msgid "Program Indicator is captured from with following program"
+msgstr "Program Indicator is captured from with following program"
+
+msgid "{{variables}} submitting records on every event"
+msgstr "{{variables}} submitting records on every event"
+
+msgid ""
+"{{variables1}} is a {{variables2}} indicator, described as {{variables3}}. "
+"It’s labelled in short as {{variables4}} and has a code of {{variables5}}. "
+"In analytics it displays up to {{variables6}} decimals."
+msgstr ""
+"{{variables1}} is a {{variables2}} indicator, described as {{variables3}}. "
+"It’s labelled in short as {{variables4}} and has a code of {{variables5}}. "
+"In analytics it displays up to {{variables6}} decimals."
+
+msgid "It is also set to display in form"
+msgstr "It is also set to display in form"
+
+msgid " Calculation details"
+msgstr " Calculation details"
+
+msgid ""
+"Calculation of the values will be {{variables}} of {{variables2}} across "
+"orgunit and period."
+msgstr ""
+"Calculation of the values will be {{variables}} of {{variables2}} across "
+"orgunit and period."
+
+msgid ""
+" Events implies, each event from data source is considered as independent "
+"row to be counted, and properties and details of the event are used to "
+"filter events."
+msgstr ""
+" Events implies, each event from data source is considered as independent "
+"row to be counted, and properties and details of the event are used to "
+"filter events."
+
+msgid ""
+"Enrollment implies, each enrollment from data source is considered as "
+"independent row to be counted, and events from any stage and other "
+"properties and details of enrollment are used to filter enrollments."
+msgstr ""
+"Enrollment implies, each enrollment from data source is considered as "
+"independent row to be counted, and events from any stage and other "
+"properties and details of enrollment are used to filter enrollments."
+
+msgid ""
+"Below are expression details on computing program indicator and it’s "
+"related data source"
+msgstr ""
+"Below are expression details on computing program indicator and it’s "
+"related data source"
+
+msgid ""
+"Below are period boundaries that determines which {{variables}} will be "
+"included in calculations of the program indicators, where for"
+msgstr ""
+"Below are period boundaries that determines which {{variables}} will be "
+"included in calculations of the program indicators, where for"
+
+msgid " event date will be used."
+msgstr " event date will be used."
+
+msgid "enrollment analytics will be used."
+msgstr "enrollment analytics will be used."
+
+msgid "There are no indicator facts associated with this Program Indicator"
+msgstr "There are no indicator facts associated with this Program Indicator"
+
+msgid "Program Indicator facts"
+msgstr "Program Indicator facts"
+
+msgid "Belongs to the following program groups of indicators"
+msgstr "Belongs to the following program groups of indicators"
+
+msgid "#"
+msgstr "#"
+
+msgid "show less"
+msgstr "show less"
+
+msgid "show more"
+msgstr "show more"
+
+msgid "There are no legends associated with these Program Indicator"
+msgstr "There are no legends associated with these Program Indicator"
+
+msgid "Accessibility & Sharing Settings"
+msgstr "Accessibility & Sharing Settings"
+
+msgid "This"
+msgstr "This"
+
+msgid "was first created on"
+msgstr "was first created on"
+
+msgid "by"
+msgstr "by"
+
+msgid ""
+"It’s data elements belongs to {{variables}} indicators using it as "
+"numerator/denominator"
+msgstr ""
+"It’s data elements belongs to {{variables}} indicators using it as "
+"numerator/denominator"
+
+msgid "This {{variables1}} is not related to any indicator"
+msgstr "This {{variables1}} is not related to any indicator"
+
+msgid ""
+"Below are set of indicators using this {{variables}} as numerator or "
+"denominator in their calculations."
+msgstr ""
+"Below are set of indicators using this {{variables}} as numerator or "
+"denominator in their calculations."
+
+msgid "No description given"
+msgstr "No description given"
+
+msgid "Data elements in {{variables}}"
+msgstr "Data elements in {{variables}}"
+
+msgid "There were no Data Elements in the {{variables}} Calculations"
+msgstr "There were no Data Elements in the {{variables}} Calculations"
 
 msgid "Date"
 msgstr "Date"
