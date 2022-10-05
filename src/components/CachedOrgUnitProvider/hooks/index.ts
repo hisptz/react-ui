@@ -21,15 +21,26 @@ function useOrganisationUnitData() {
   const [loading, setLoading] = useState(false);
   const engine = useDataEngine();
   const getLevels = useCallback(async (options: any) => {
+    db.clearOrgUnitLevels();
     const pagination = await getPagination(engine, levelQuery, {
       queryKey: "levels",
       options,
     });
     const pageCount = pagination.pageCount ?? 0;
     if (pageCount > 0) {
+      db.updateCount({
+        resource: "levels",
+        key: "total",
+        value: pageCount,
+      });
       const levels = await mapSeries(range(1, pageCount + 1), async (page: number) => {
         const data = await engine.query(levelQuery, {
           variables: { ...options, page },
+        });
+        db.updateCount({
+          resource: "levels",
+          key: "page",
+          value: page,
         });
         return get(data, ["levels", "organisationUnitLevels"]) as OfflineOrganisationUnitLevel[];
       }).then(flattenDeep);
@@ -38,15 +49,26 @@ function useOrganisationUnitData() {
   }, []);
 
   const getOrgUnits = useCallback(async (options: any) => {
+    db.clearOrgUnits();
     const pagination = await getPagination(engine, ouQuery, {
       queryKey: "ous",
       options: {},
     });
     const pageCount = pagination.pageCount ?? 0;
+    db.updateCount({
+      resource: "orgUnits",
+      key: "total",
+      value: pageCount,
+    });
     if (pageCount > 0) {
       const groups = await mapSeries(range(1, pageCount + 1), async (page: number) => {
         const data = await engine.query(ouQuery, {
           variables: { ...options, page },
+        });
+        db.updateCount({
+          resource: "orgUnits",
+          key: "page",
+          value: page,
         });
         return get(data, ["ous", "organisationUnits"]) as OfflineOrganisationUnit[];
       }).then(flattenDeep);
@@ -55,15 +77,26 @@ function useOrganisationUnitData() {
   }, []);
 
   const getGroups = useCallback(async (options: any) => {
+    db.clearOrgUnitGroups();
     const pagination = await getPagination(engine, groupQuery, {
       queryKey: "groups",
       options: {},
     });
     const pageCount = pagination.pageCount ?? 0;
+    db.updateCount({
+      resource: "groups",
+      key: "total",
+      value: pageCount,
+    });
     if (pageCount > 0) {
       const groups = await mapSeries(range(1, pageCount + 1), async (page: number) => {
         const data = await engine.query(groupQuery, {
           variables: { ...options, page },
+        });
+        db.updateCount({
+          resource: "groups",
+          key: "page",
+          value: page,
         });
         return get(data, ["groups", "organisationUnitGroups"]) as OfflineOrganisationUnitGroup[];
       }).then(flattenDeep);
