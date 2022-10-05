@@ -84,7 +84,7 @@ export function MapProvider({ children, orgUnitSelection, periodSelection }: Map
   if (!isEmpty(orgUnits)) {
     return (
       <MapOrgUnitContext.Provider value={{ orgUnitSelection, orgUnits }}>
-        <MapPeriodContext.Provider value={{ periods }}>{children}</MapPeriodContext.Provider>
+        <MapPeriodContext.Provider value={{ ...periodSelection, periods }}>{children}</MapPeriodContext.Provider>
       </MapOrgUnitContext.Provider>
     );
   }

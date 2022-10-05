@@ -14,7 +14,8 @@ export const MapOrgUnitContext = createContext<{
 
 export const MapPeriodContext = createContext<
   | {
-      periods: PeriodInterface[];
+      periods?: PeriodInterface[];
+      range?: { start: Date; end: Date };
     }
   | undefined
 >({
