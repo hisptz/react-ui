@@ -167,6 +167,10 @@ function useThematicLayers() {
     if (!isEmpty(dx)) {
       const data = await refetch({
         dx,
+        ou,
+        pe,
+        startDate,
+        endDate,
       });
       sanitizedLayersWithData = layersWithoutData.map((layer) => ({
         ...layer,
