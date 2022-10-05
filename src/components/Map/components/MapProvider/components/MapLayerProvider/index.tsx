@@ -1,6 +1,8 @@
 import { useDataQuery } from "@dhis2/app-runtime";
 import i18n from "@dhis2/d2-i18n";
 import { CenteredContent, CircularLoader } from "@dhis2/ui";
+import type { LegendSet } from "@hisptz/dhis2-utils";
+import { asyncify, map } from "async-es";
 import { LayersControlEvent } from "leaflet";
 import { compact, differenceBy, find, groupBy, head, isEmpty, last, set, sortBy } from "lodash";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
@@ -57,6 +59,16 @@ const groupSetQuery = {
   },
 };
 
+const legendSetsQuery = {
+  legendSets: {
+    resource: "legendSets",
+    id: ({ id }: any) => id,
+    params: {
+      fields: ["id", "displayName", "legends[id,code,startValue,endValue,color]"],
+    },
+  },
+};
+
 function useThematicLayers() {
   const { orgUnits, orgUnitSelection } = useMapOrganisationUnit();
   const { periods } = useMapPeriods() ?? {};
@@ -85,6 +97,7 @@ function useThematicLayers() {
     },
     lazy: true,
   });
+  const { loading: loadingLegendSets, refetch: getLegends } = useDataQuery(legendSetsQuery, { lazy: true });
 
   const sanitizeData = (data: any, layer: CustomThematicPrimitiveLayer) => {
     if (data) {
@@ -114,28 +127,35 @@ function useThematicLayers() {
     return [];
   };
 
-  const sanitizeLegends = (layers: CustomThematicLayer[]) => {
-    return layers.map((layer) => {
-      const legends = [];
-      if (layer.dataItem.legendSet) {
-        legends.push(...layer.dataItem.legendSet.legends);
-      } else {
-        const { scale, colorClass } = layer.dataItem.legendConfig ?? {
-          scale: defaultClasses,
-          colorClass: defaultColorScaleName,
+  const sanitizeLegends = async (layers: CustomThematicLayer[]): Promise<CustomThematicLayer[]> => {
+    return (await map(
+      layers,
+      asyncify(async (layer: CustomThematicLayer) => {
+        const legends = [];
+        if (layer.dataItem.legendSet) {
+          const legendSetData = await getLegends({ id: layer.dataItem.legendSet });
+          const legendSet: LegendSet = legendSetData?.legendSets as LegendSet;
+          if (legendSet) {
+            legends.push(...legendSet.legends);
+          }
+        } else {
+          const { scale, colorClass } = layer.dataItem.legendConfig ?? {
+            scale: defaultClasses,
+            colorClass: defaultColorScaleName,
+          };
+          const sortedData = sortBy(layer.data, "data");
+          const autoLegends = generateLegends(last(sortedData)?.data ?? 0, head(sortedData)?.data ?? 0, {
+            classesCount: scale,
+            colorClass,
+          });
+          legends.push(...autoLegends);
+        }
+        return {
+          ...layer,
+          legends,
         };
-        const sortedData = sortBy(layer.data, "data");
-        const autoLegends = generateLegends(last(sortedData)?.data ?? 0, head(sortedData)?.data ?? 0, {
-          classesCount: scale,
-          colorClass,
-        });
-        legends.push(...autoLegends);
-      }
-      return {
-        ...layer,
-        legends,
-      };
-    });
+      })
+    )) as CustomThematicLayer[];
   };
 
   const sanitizeLayers = async (layers: CustomThematicPrimitiveLayer[]): Promise<CustomThematicLayer[]> => {
@@ -163,12 +183,12 @@ function useThematicLayers() {
         name: layer?.name ?? layer?.dataItem?.displayName ?? layer.id,
       })),
     }));
-    return sanitizeLegends([...sanitizedLayersWithData, ...sanitizedLayersWithOrgUnits]);
+    return await sanitizeLegends([...sanitizedLayersWithData, ...sanitizedLayersWithOrgUnits]);
   };
 
   return {
     sanitizeLayers,
-    loading,
+    loading: loading || loadingLegendSets,
     error,
   };
 }

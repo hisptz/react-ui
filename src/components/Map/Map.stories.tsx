@@ -48,7 +48,7 @@ ChoroplethThematicLayer.args = {
     {
       type: "choropleth",
       id: "choropleth",
-      enabled: false,
+      enabled: true,
       dataItem: {
         id: "Uvn6LCg7dVU",
         displayName: "ANC 1 Coverage",
@@ -131,10 +131,7 @@ AllThematicLayers.args = {
         id: "ReUHfIn0pTQ",
         displayName: "ANC 1-3 Dropout Rate",
         type: "indicator",
-        legendConfig: {
-          colorClass: "RdPu",
-          scale: 7,
-        },
+        legendSet: "fqs276KXCXi",
       },
       control: {
         enabled: true,
