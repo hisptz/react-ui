@@ -71,23 +71,22 @@ const legendSetsQuery = {
 
 function useThematicLayers() {
   const { orgUnits, orgUnitSelection } = useMapOrganisationUnit();
-  const { periods } = useMapPeriods() ?? {};
+  const { periods, range } = useMapPeriods() ?? {};
   const ou = useMemo(() => getOrgUnitsSelection(orgUnitSelection), [orgUnitSelection]);
   const pe = useMemo(() => periods?.map((pe: any) => pe.id), [periods]);
 
   const { startDate, endDate } = useMemo(() => {
-    const period = head(periods);
-    if (period?.type !== "RANGE" || !isEmpty(periods)) {
+    if (!range) {
       return {
         startDate: undefined,
         endDate: undefined,
       };
     }
     return {
-      startDate: sanitizeDate(period.startDate),
-      endDate: sanitizeDate(period.endDate),
+      startDate: sanitizeDate(range.start.toDateString()),
+      endDate: sanitizeDate(range.end.toDateString()),
     };
-  }, [periods]);
+  }, [range]);
   const { loading, error, refetch } = useDataQuery(analyticsQuery, {
     variables: {
       ou,
@@ -167,6 +166,10 @@ function useThematicLayers() {
     if (!isEmpty(dx)) {
       const data = await refetch({
         dx,
+        ou,
+        pe,
+        startDate,
+        endDate,
       });
       sanitizedLayersWithData = layersWithoutData.map((layer) => ({
         ...layer,
@@ -268,6 +271,8 @@ export function MapLayersProvider({
   layers: Array<CustomThematicPrimitiveLayer | CustomBoundaryLayer | CustomPointLayer>;
   children: React.ReactNode;
 }) {
+  const period = useMapPeriods();
+  const orgUnit = useMapOrganisationUnit();
   const [updatedLayers, setUpdatedLayers] = useState<Array<CustomThematicLayer | CustomBoundaryLayer | CustomPointLayer>>([]);
   const { sanitizeLayers: sanitizeThematicLayers, loading: loadingThematicLayer, error } = useThematicLayers();
   const { sanitizeLayer: sanitizePointLayer, loading: loadingPointLayer } = usePointLayer();
@@ -310,7 +315,7 @@ export function MapLayersProvider({
 
   useEffect(() => {
     sanitizeLayers();
-  }, []);
+  }, [period, orgUnit]);
 
   const setupLayerListeners = (type: "add" | "remove", event: LayersControlEvent) => {
     const name = event.name;
