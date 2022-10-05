@@ -29,7 +29,7 @@ export interface MapProps {
   controls?: MapControls[];
   legends?: MapLegendConfig;
   thematicLayers?: CustomThematicPrimitiveLayer[];
-  periodSelection?: { periods: any[] };
+  periodSelection?: { periods?: string[]; range?: { start: Date; end: Date } };
   mapOptions?: MapContainerProps;
 }
 

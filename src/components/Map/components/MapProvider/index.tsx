@@ -1,6 +1,7 @@
 import { useDataQuery } from "@dhis2/app-runtime";
 import i18n from "@dhis2/d2-i18n";
 import { CenteredContent, CircularLoader } from "@dhis2/ui";
+import { Period, PeriodInterface } from "@iapps/period-utilities";
 import { compact, isEmpty } from "lodash";
 import React, { useEffect, useState } from "react";
 import { MapOrgUnit, MapProviderProps } from "../../interfaces";
@@ -77,10 +78,13 @@ export function MapProvider({ children, orgUnitSelection, periodSelection }: Map
       </div>
     );
   }
+
+  const periods: PeriodInterface[] = compact(periodSelection?.periods.map((pe) => new Period().setPreferences({ allowFuturePeriods: true }).getById(pe)));
+
   if (!isEmpty(orgUnits)) {
     return (
       <MapOrgUnitContext.Provider value={{ orgUnitSelection, orgUnits }}>
-        <MapPeriodContext.Provider value={periodSelection}>{children}</MapPeriodContext.Provider>
+        <MapPeriodContext.Provider value={{ ...periodSelection, periods }}>{children}</MapPeriodContext.Provider>
       </MapOrgUnitContext.Provider>
     );
   }
