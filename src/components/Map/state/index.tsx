@@ -1,4 +1,5 @@
 import type { OrgUnitSelection } from "@hisptz/dhis2-utils";
+import { PeriodInterface } from "@iapps/period-utilities";
 import { createContext } from "react";
 import { CustomMapLayer } from "../components/MapLayer/interfaces";
 import { MapOrgUnit } from "../interfaces";
@@ -13,7 +14,7 @@ export const MapOrgUnitContext = createContext<{
 
 export const MapPeriodContext = createContext<
   | {
-      periods: any[];
+      periods: PeriodInterface[];
     }
   | undefined
 >({

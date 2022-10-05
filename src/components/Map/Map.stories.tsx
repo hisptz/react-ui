@@ -1,4 +1,3 @@
-import { Period } from "@iapps/period-utilities";
 import type { Story } from "@storybook/react";
 import React from "react";
 import { MapProps } from "./interfaces";
@@ -61,11 +60,7 @@ ChoroplethThematicLayer.args = {
     },
   ],
   periodSelection: {
-    periods: [
-      {
-        ...new Period().setPreferences({ allowFuturePeriods: true }).getById("2022"),
-      },
-    ],
+    periods: ["2022"],
   },
   legends: {
     enabled: true,
@@ -102,11 +97,7 @@ BubbleThematicLayer.args = {
     collapsible: true,
   },
   periodSelection: {
-    periods: [
-      {
-        ...new Period().setPreferences({ allowFuturePeriods: true }).getById("2022"),
-      },
-    ],
+    periods: ["2022"],
   },
   controls: [
     {
@@ -160,11 +151,7 @@ AllThematicLayers.args = {
     collapsible: true,
   },
   periodSelection: {
-    periods: [
-      {
-        ...new Period().setPreferences({ allowFuturePeriods: true }).getById("2022"),
-      },
-    ],
+    periods: ["2022"],
   },
   controls: [
     {
@@ -221,11 +208,7 @@ ChoroplethThematicLayerWithLevels.args = {
     collapsible: true,
   },
   periodSelection: {
-    periods: [
-      {
-        ...new Period().setPreferences({ allowFuturePeriods: true }).getById("2022"),
-      },
-    ],
+    periods: ["2022"],
   },
 };
 
@@ -249,11 +232,7 @@ PointLayer.args = {
     },
   ],
   periodSelection: {
-    periods: [
-      {
-        ...new Period().setPreferences({ allowFuturePeriods: true }).getById("2022"),
-      },
-    ],
+    periods: ["2022"],
   },
   pointLayer: {
     enabled: true,
