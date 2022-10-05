@@ -1,4 +1,4 @@
-import type { Legend, LegendSet } from "@hisptz/dhis2-utils";
+import type { Legend } from "@hisptz/dhis2-utils";
 import { MapOrgUnit, PointOrgUnit } from "../../../interfaces";
 import { LegendColorScale } from "../../../utils/colors";
 
@@ -31,7 +31,7 @@ export interface ThematicLayerDataItem {
   id: string;
   displayName: string;
   type: DataItemType;
-  legendSet?: LegendSet;
+  legendSet?: string;
   legendConfig?: {
     colorClass: LegendColorScale;
     scale: number;

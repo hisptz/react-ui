@@ -1,7 +1,7 @@
 {
   "name": "@hisptz/react-ui",
   "homepage": "https://hisptz.github.io/react-ui",
-  "version": "1.0.66",
+  "version": "1.0.67",
   "description": "A collection of reusable complex DHIS2 react ui components.",
   "license": "BSD-3-Clause",
   "scripts": {
@@ -35,7 +35,7 @@
     "@dhis2/cli-utils-cypress": "^9.0.2",
     "@dhis2/cypress-commands": "^9.0.2",
     "@dhis2/cypress-plugins": "^9.0.2",
-    "@dhis2/ui": "^8.4.3",
+    "@dhis2/ui": "^8.4.16",
     "@hookform/devtools": "^4.1.0",
     "@storybook/addon-actions": "^6.5.9",
     "@storybook/addon-essentials": "^6.5.9",
