@@ -79,7 +79,7 @@ export function MapProvider({ children, orgUnitSelection, periodSelection }: Map
     );
   }
 
-  const periods: PeriodInterface[] = compact(periodSelection?.periods.map((pe) => new Period().setPreferences({ allowFuturePeriods: true }).getById(pe)));
+  const periods: PeriodInterface[] = compact(periodSelection?.periods?.map((pe) => new Period().setPreferences({ allowFuturePeriods: true }).getById(pe)));
 
   if (!isEmpty(orgUnits)) {
     return (
