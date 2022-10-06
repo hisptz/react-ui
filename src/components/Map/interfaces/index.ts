@@ -7,7 +7,7 @@ import { CustomThematicPrimitiveLayer } from "../components/MapLayer/interfaces"
 export interface MapProviderProps {
   children: React.ReactNode;
   orgUnitSelection: OrgUnitSelection;
-  periodSelection?: { periods: any[] };
+  periodSelection?: { periods?: string[]; range?: { start: Date; end: Date } };
 }
 
 export interface MapProps {

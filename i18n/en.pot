@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-10-05T10:30:28.205Z\n"
-"PO-Revision-Date: 2022-10-05T10:30:28.205Z\n"
+"POT-Creation-Date: 2022-10-06T04:21:58.762Z\n"
+"PO-Revision-Date: 2022-10-06T04:21:58.762Z\n"
 
 msgid "Download PNG"
 msgstr "Download PNG"
@@ -650,6 +650,9 @@ msgstr "Mid"
 
 msgid "Min"
 msgstr "Min"
+
+msgid "Value"
+msgstr "Value"
 
 msgid "Error"
 msgstr "Error"
