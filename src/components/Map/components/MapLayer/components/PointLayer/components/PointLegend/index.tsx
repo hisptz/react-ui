@@ -19,7 +19,7 @@ function PointLegends({ orgUnitGroups, icon, label }: { orgUnitGroups: { name: s
       {orgUnitGroups.map(({ name, symbol }) => {
         return (
           <div key={`${name}-legend`} className="row gap-16  align-items-center">
-            <img height={20} width={20} alt={`${name}-icon`} src={getIconUrl(symbol, { baseUrl })} />
+            <img height={20} width={20} alt={`${name}-icon`} src={getIconUrl(icon ?? "", { baseUrl })} />
             <p>{name}</p>
           </div>
         );
