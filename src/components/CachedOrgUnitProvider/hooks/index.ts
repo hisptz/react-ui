@@ -17,14 +17,17 @@ function sanitizeOrgUnitGroups(groups: Array<any>): Array<OfflineOrganisationUni
   );
 }
 
-function useOrganisationUnitData() {
+function useOrganisationUnitData(pageSize?: number) {
   const [loading, setLoading] = useState(false);
   const engine = useDataEngine();
   const getLevels = useCallback(async (options: any) => {
     db.clearOrgUnitLevels();
     const pagination = await getPagination(engine, levelQuery, {
       queryKey: "levels",
-      options,
+      options: {
+        ...options,
+        pageSize,
+      },
     });
     const pageCount = pagination.pageCount ?? 0;
     if (pageCount > 0) {
@@ -52,7 +55,9 @@ function useOrganisationUnitData() {
     db.clearOrgUnits();
     const pagination = await getPagination(engine, ouQuery, {
       queryKey: "ous",
-      options: {},
+      options: {
+        pageSize,
+      },
     });
     const pageCount = pagination.pageCount ?? 0;
     db.updateCount({
@@ -80,7 +85,9 @@ function useOrganisationUnitData() {
     db.clearOrgUnitGroups();
     const pagination = await getPagination(engine, groupQuery, {
       queryKey: "groups",
-      options: {},
+      options: {
+        pageSize,
+      },
     });
     const pageCount = pagination.pageCount ?? 0;
     db.updateCount({
@@ -112,13 +119,13 @@ function useOrganisationUnitData() {
         const hasGroups = await db.hasOrganisationUnitGroups();
         const hasOus = await db.hasOrganisationUnits();
         if (!hasLevels) {
-          await getLevels({ pageSize: OFFLINE_ORG_UNIT_PAGE_SIZE });
+          await getLevels({ pageSize: pageSize ?? OFFLINE_ORG_UNIT_PAGE_SIZE });
         }
         if (!hasGroups) {
-          await getGroups({ pageSize: OFFLINE_ORG_UNIT_PAGE_SIZE });
+          await getGroups({ pageSize: pageSize ?? OFFLINE_ORG_UNIT_PAGE_SIZE });
         }
         if (!hasOus) {
-          await getOrgUnits({ pageSize: OFFLINE_ORG_UNIT_PAGE_SIZE });
+          await getOrgUnits({ pageSize: pageSize ?? OFFLINE_ORG_UNIT_PAGE_SIZE });
         }
       } catch (e) {
         console.error(e);

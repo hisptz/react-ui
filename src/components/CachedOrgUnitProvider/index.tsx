@@ -6,10 +6,11 @@ import { db } from "./services/db";
 interface OfflineOrgUnitProviderProps {
   children: React.ReactNode;
   fallback?: React.ReactNode;
+  pageSize?: number;
 }
 
-function OfflineOrgUnitProvider({ children, fallback }: OfflineOrgUnitProviderProps) {
-  const { loading } = useOrganisationUnitData();
+function OfflineOrgUnitProvider({ children, fallback, pageSize }: OfflineOrgUnitProviderProps) {
+  const { loading } = useOrganisationUnitData(pageSize);
 
   if (fallback && loading) {
     return <>{fallback}</>;
