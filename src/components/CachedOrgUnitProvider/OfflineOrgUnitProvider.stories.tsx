@@ -36,6 +36,17 @@ WithInitialLoader.args = {
   ),
 };
 
+export const WithPageSize = Template.bind({});
+WithPageSize.args = {
+  fallback: <FullPageLoader small />,
+  pageSize: 10000,
+  children: (
+    <CustomOrgUnitProvider>
+      <OrgUnitSelector />
+    </CustomOrgUnitProvider>
+  ),
+};
+
 export default {
   title: "Components/Cached Organisation Unit Provider",
   component: OfflineOrgUnitProvider,
