@@ -1,6 +1,7 @@
-import { head } from "lodash";
+import { last } from "lodash";
 import React from "react";
 import { LayerGroup, LayersControl, Pane } from "react-leaflet";
+import { CustomBubbleLayer } from "../../interfaces";
 import Bubble from "./components/Bubble";
 import Choropleth from "./components/Choropleth";
 import useThematicLayer from "./hooks/config";
@@ -28,7 +29,13 @@ export default function ThematicLayer({ layerId }: { layerId: string }) {
             )}
             {data?.map((datum) =>
               type === "bubble" ? (
-                <Bubble legends={legends ?? []} lowestData={head(data)?.data ?? 1} data={datum} key={`${datum?.dataItem?.id}-${datum?.orgUnit?.id}-layer`} />
+                <Bubble
+                  radius={(layer as CustomBubbleLayer)?.radius}
+                  legends={legends ?? []}
+                  highestData={last(data)?.data ?? 1}
+                  data={datum}
+                  key={`${datum?.dataItem?.id}-${datum?.orgUnit?.id}-layer`}
+                />
               ) : null
             )}
           </LayerGroup>

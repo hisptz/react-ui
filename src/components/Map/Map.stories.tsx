@@ -89,6 +89,10 @@ BubbleThematicLayer.args = {
         enabled: true,
         position: "topright",
       },
+      radius: {
+        min: 0,
+        max: 40,
+      },
     },
   ],
   legends: {

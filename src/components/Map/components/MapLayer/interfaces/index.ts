@@ -55,15 +55,31 @@ export interface ThematicLayerRawData {
   dataItem: string;
 }
 
-export interface CustomThematicLayer extends CustomMapLayer {
+export interface CustomChoroplethLayer extends CustomMapLayer {
   enabled: boolean;
   name?: string;
   data: ThematicLayerData[];
   dataItem: ThematicLayerDataItem;
-  type: ThematicLayerType;
+  type: "choropleth";
   control?: ThematicLayerControl;
   legends?: Legend[];
 }
+
+export interface CustomBubbleLayer extends CustomMapLayer {
+  enabled: boolean;
+  name?: string;
+  data: ThematicLayerData[];
+  dataItem: ThematicLayerDataItem;
+  type: "bubble";
+  control?: ThematicLayerControl;
+  legends?: Legend[];
+  radius?: {
+    min: number;
+    max: number;
+  };
+}
+
+export type CustomThematicLayer = CustomBubbleLayer | CustomChoroplethLayer;
 
 export interface CustomThematicPrimitiveLayer {
   id: string;
@@ -73,6 +89,10 @@ export interface CustomThematicPrimitiveLayer {
   dataItem: ThematicLayerDataItem;
   type: ThematicLayerType;
   control?: ThematicLayerControl;
+  radius?: {
+    min: number;
+    max: number;
+  };
 }
 
 export interface CustomMapLayer {
