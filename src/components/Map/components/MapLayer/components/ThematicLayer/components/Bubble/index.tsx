@@ -1,7 +1,7 @@
 import { colors } from "@dhis2/ui";
-import { Legend } from "@hisptz/dhis2-utils";
+import type { Legend } from "@hisptz/dhis2-utils";
 import { geoJSON } from "leaflet";
-import React from "react";
+import React, { useMemo } from "react";
 import { CircleMarker } from "react-leaflet";
 import { getColorFromLegendSet, highlightFeature, resetHighlight } from "../../../../../../utils/map";
 import { ThematicLayerData } from "../../../../interfaces";
@@ -14,11 +14,25 @@ const highlightStyle = {
   weight: 2,
 };
 
-export default function Bubble({ data, lowestData, legends }: { data: ThematicLayerData; lowestData: number; legends: Legend[] }) {
+export default function Bubble({
+  data,
+  highestData,
+  legends,
+  radius,
+}: {
+  data: ThematicLayerData;
+  highestData: number;
+  legends: Legend[];
+  radius?: { min: number; max: number };
+}) {
   const { orgUnit, data: value } = data ?? {};
 
   const geoJSONObject = orgUnit.geoJSON;
   const center = geoJSON(geoJSONObject).getBounds().getCenter();
+
+  const circleRadius = useMemo(() => {
+    return ((value ?? 0) * (radius?.max ?? 50)) / highestData;
+  }, [radius, data, highestData]);
 
   return (
     <>
@@ -34,7 +48,7 @@ export default function Bubble({ data, lowestData, legends }: { data: ThematicLa
           color: colors.grey900,
           weight: 1,
         }}
-        radius={((value ?? 0) / lowestData) * 8}
+        radius={circleRadius}
         center={center}>
         <CustomTooltip data={data} />
       </CircleMarker>
