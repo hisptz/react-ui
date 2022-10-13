@@ -239,7 +239,7 @@ PointLayer.args = {
     label: "Facilities",
     level: "m9lBJogzE95",
     style: {
-      groupSet: "J5jldMd8OHv",
+      icon: "05.png",
     },
   },
 };
