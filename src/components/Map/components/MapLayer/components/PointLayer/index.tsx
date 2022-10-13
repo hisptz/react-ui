@@ -9,9 +9,8 @@ import { usePointLayer } from "./hooks";
 
 export function PointLayer() {
   const pointLayer = usePointLayer();
-  const { enabled, label, points: orgUnits } = pointLayer ?? {};
+  const { enabled, label, points: orgUnits, style } = pointLayer ?? {};
   const { baseUrl } = useConfig();
-
   return (
     <LayersControl.Overlay checked={enabled} name={label ?? i18n.t("Points")}>
       <LayerGroup>
@@ -19,7 +18,7 @@ export function PointLayer() {
           return (
             <GeoJSON
               pointToLayer={(_, coordinates) => {
-                return L.marker(coordinates, { icon: getIcon(getIconUrl(area.icon, { baseUrl })) });
+                return L.marker(coordinates, { icon: getIcon(getIconUrl(area.icon.icon ?? style?.icon, { baseUrl })) });
               }}
               data={area.geoJSON}
               interactive

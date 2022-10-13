@@ -89,6 +89,10 @@ BubbleThematicLayer.args = {
         enabled: true,
         position: "topright",
       },
+      radius: {
+        min: 0,
+        max: 40,
+      },
     },
   ],
   legends: {
@@ -239,7 +243,7 @@ PointLayer.args = {
     label: "Facilities",
     level: "m9lBJogzE95",
     style: {
-      groupSet: "J5jldMd8OHv",
+      icon: "05.png",
     },
   },
 };

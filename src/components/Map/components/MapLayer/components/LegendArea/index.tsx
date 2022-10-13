@@ -4,7 +4,7 @@ import { compact, head } from "lodash";
 import React, { useState } from "react";
 import { MapLegendConfig } from "../../../MapArea/interfaces";
 import { CustomControl } from "../../../MapControls/components/CustomControl";
-import { CustomPointLayer, CustomThematicLayer } from "../../interfaces";
+import { CustomBubbleLayer, CustomPointLayer, CustomThematicLayer } from "../../interfaces";
 import PointLegend from "../PointLayer/components/PointLegend";
 import BubbleLegend from "../ThematicLayer/components/Bubble/components/BubbleLegend";
 import ChoroplethLegend from "../ThematicLayer/components/Choropleth/components/ChoroplethLegend";
@@ -21,7 +21,15 @@ function getLegendComponent(layer: CustomThematicLayer | CustomPointLayer) {
   }
   switch (type) {
     case "bubble":
-      return <BubbleLegend legends={legends ?? []} name={name ?? dataItem.displayName} data={data} dataItem={head(data)?.dataItem ?? dataItem} />;
+      return (
+        <BubbleLegend
+          radius={(layer as CustomBubbleLayer)?.radius ?? { min: 0, max: 50 }}
+          legends={legends ?? []}
+          name={name ?? dataItem.displayName}
+          data={data}
+          dataItem={head(data)?.dataItem ?? dataItem}
+        />
+      );
     case "choropleth":
       return <ChoroplethLegend legends={legends ?? []} name={name ?? dataItem.displayName} data={data} dataItem={head(data)?.dataItem ?? dataItem} />;
   }
