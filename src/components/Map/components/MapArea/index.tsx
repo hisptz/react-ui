@@ -44,8 +44,8 @@ function MapLayerArea({
       ))}
       {!isEmpty(layers) && (
         <LayersControl hideSingleBase position={"topleft"}>
-          {(layers as CustomThematicLayer[]).map((layer: CustomThematicLayer) => (
-            <MapLayer key={layer.id} {...layer} />
+          {(layers as CustomThematicLayer[]).map((layer: CustomThematicLayer, index) => (
+            <MapLayer key={layer.id} layer={layer} index={index} />
           ))}
         </LayersControl>
       )}

@@ -120,7 +120,7 @@ AllThematicLayers.args = {
   thematicLayers: [
     {
       type: "choropleth",
-      id: "choropleth",
+      id: "ReUHfIn0pTQ",
       enabled: true,
       dataItem: {
         id: "ReUHfIn0pTQ",
@@ -134,15 +134,14 @@ AllThematicLayers.args = {
       },
     },
     {
-      type: "bubble",
-      id: "bubble",
+      type: "choropleth",
+      id: "Uvn6LCg7dVU",
       enabled: true,
       dataItem: {
         id: "Uvn6LCg7dVU",
         displayName: "ANC 1 Coverage",
         type: "indicator",
       },
-
       control: {
         enabled: true,
         position: "topright",
