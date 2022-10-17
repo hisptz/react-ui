@@ -1,5 +1,5 @@
 import { colors } from "@dhis2/ui";
-import { Legend } from "@hisptz/dhis2-utils";
+import type { Legend } from "@hisptz/dhis2-utils";
 import React from "react";
 import { GeoJSON } from "react-leaflet";
 import { MapOrgUnit } from "../../../../../../interfaces";

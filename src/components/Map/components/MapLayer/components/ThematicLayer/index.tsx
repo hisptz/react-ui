@@ -6,7 +6,7 @@ import Bubble from "./components/Bubble";
 import Choropleth from "./components/Choropleth";
 import useThematicLayer from "./hooks/config";
 
-export default function ThematicLayer({ layerId }: { layerId: string }) {
+export default function ThematicLayer({ layerId, index }: { layerId: string; index: number }) {
   const layer = useThematicLayer(layerId);
 
   if (!layer) {
@@ -20,7 +20,7 @@ export default function ThematicLayer({ layerId }: { layerId: string }) {
       <LayersControl.Overlay checked={enabled} name={uniqueName}>
         <Pane
           style={{
-            zIndex: type === "bubble" ? 500 : undefined,
+            zIndex: type === "bubble" ? 500 : 500 - (index + 1),
           }}
           name={uniqueName}>
           <LayerGroup>
