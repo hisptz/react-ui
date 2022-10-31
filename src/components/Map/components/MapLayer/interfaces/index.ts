@@ -5,10 +5,16 @@ import { LegendColorScale } from "../../../utils/colors";
 export type BoundaryLayerType = "basemap" | "overlay";
 export type ThematicLayerType = "choropleth" | "bubble";
 
+export type GoogleEngineLayerType = "population" | "footprints" | "elevation" | "landCover";
+
 export interface CustomBoundaryLayer extends CustomMapLayer {
   id: string;
   type: BoundaryLayerType;
   enabled: boolean;
+}
+
+export interface CustomGoogleEngineLayer extends CustomMapLayer {
+  type: GoogleEngineLayerType;
 }
 
 export interface CustomPointLayer extends CustomMapLayer {
