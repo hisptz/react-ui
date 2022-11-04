@@ -8,3 +8,5 @@ declare module "node-http-proxy-json";
 declare module "async-es" {
   export * from "async";
 }
+
+declare module "@google/earthengine";
