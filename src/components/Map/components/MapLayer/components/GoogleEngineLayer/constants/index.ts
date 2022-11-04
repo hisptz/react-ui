@@ -1,11 +1,11 @@
 import i18n from "@dhis2/d2-i18n";
-import { defaultFilters } from "../utils";
 
 export const EARTH_ENGINE_LAYER = "earthEngine";
 
-export const earthEngineLayers = () => [
+export const EARTH_ENGINE_LAYERS = [
   {
     layer: EARTH_ENGINE_LAYER,
+    id: "population",
     datasetId: "WorldPop/GP/100m/pop",
     name: i18n.t("Population"),
     unit: i18n.t("people per hectare"),
@@ -33,6 +33,7 @@ export const earthEngineLayers = () => [
   },
   {
     layer: EARTH_ENGINE_LAYER,
+    id: "populationAgeGroups",
     datasetId: "WorldPop/GP/100m/pop_age_sex_cons_unadj",
     name: i18n.t("Population age groups"),
     unit: i18n.t("people per hectare"),
@@ -208,6 +209,7 @@ export const earthEngineLayers = () => [
   },
   {
     layer: EARTH_ENGINE_LAYER,
+    id: "footprints",
     datasetId: "GOOGLE/Research/open-buildings/v1/polygons",
     format: "FeatureCollection",
     name: i18n.t("Building footprints"),
@@ -224,6 +226,7 @@ export const earthEngineLayers = () => [
   },
   {
     layer: EARTH_ENGINE_LAYER,
+    id: "elevation",
     datasetId: "USGS/SRTMGL1_003",
     name: i18n.t("Elevation"),
     unit: i18n.t("meters"),
@@ -244,6 +247,7 @@ export const earthEngineLayers = () => [
   {
     layer: EARTH_ENGINE_LAYER,
     datasetId: "UCSB-CHG/CHIRPS/PENTAD",
+    id: "precipitation",
     name: i18n.t("Precipitation"),
     unit: i18n.t("millimeter"),
     description: i18n.t(
@@ -267,6 +271,7 @@ export const earthEngineLayers = () => [
   {
     layer: EARTH_ENGINE_LAYER,
     datasetId: "MODIS/006/MOD11A2",
+    id: "temperature",
     name: i18n.t("Temperature"),
     unit: i18n.t("°C during daytime"),
     description: i18n.t("Land surface temperatures collected from satellite. Blank spots will appear in areas with a persistent cloud cover."),
@@ -292,6 +297,7 @@ export const earthEngineLayers = () => [
   },
   {
     layer: EARTH_ENGINE_LAYER,
+    id: "landCover",
     datasetId: "MODIS/006/MCD12Q1", // No longer in use: 'MODIS/051/MCD12Q1',
     name: i18n.t("Landcover"),
     description: i18n.t("Distinct landcover types collected from satellites."),
@@ -299,7 +305,7 @@ export const earthEngineLayers = () => [
     sourceUrl: "https://developers.google.com/earth-engine/datasets/catalog/MODIS_006_MCD12Q1",
     periodType: "Yearly",
     band: "LC_Type1",
-    filters: defaultFilters,
+    filters: {},
     defaultAggregations: "percentage",
     legend: {
       items: [
@@ -398,6 +404,7 @@ export const earthEngineLayers = () => [
   },
   {
     layer: EARTH_ENGINE_LAYER,
+    id: "legacyPopulation",
     legacy: true, // Kept for backward compability
     datasetId: "WorldPop/POP",
     name: i18n.t("Population"),
@@ -432,6 +439,7 @@ export const earthEngineLayers = () => [
   },
   {
     layer: EARTH_ENGINE_LAYER,
+    id: "nightLights",
     legacy: true, // Kept for backward compability
     datasetId: "NOAA/DMSP-OLS/NIGHTTIME_LIGHTS",
     name: i18n.t("Nighttime lights"),

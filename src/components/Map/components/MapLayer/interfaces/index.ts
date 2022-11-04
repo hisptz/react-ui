@@ -15,6 +15,8 @@ export interface CustomBoundaryLayer extends CustomMapLayer {
 
 export interface CustomGoogleEngineLayer extends CustomMapLayer {
   type: GoogleEngineLayerType;
+  options?: any;
+  aggregations?: string[];
 }
 
 export interface CustomPointLayer extends CustomMapLayer {
@@ -107,8 +109,10 @@ export interface CustomMapLayer {
   enabled: boolean;
 }
 
+export type MapLayer = CustomBoundaryLayer | CustomThematicPrimitiveLayer | CustomPointLayer | CustomGoogleEngineLayer;
+
 export interface MapLayerProps {
   enabled: boolean;
-  type: "boundary" | "thematic" | "external" | "point";
-  layer: CustomBoundaryLayer | CustomThematicPrimitiveLayer | CustomPointLayer;
+  type: "boundary" | "thematic" | "external" | "point" | "earthEngine";
+  layer: MapLayer;
 }

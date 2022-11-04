@@ -4,14 +4,23 @@ import { CenteredContent, CircularLoader } from "@dhis2/ui";
 import type { LegendSet } from "@hisptz/dhis2-utils";
 import { asyncify, map } from "async-es";
 import { LayersControlEvent } from "leaflet";
-import { compact, differenceBy, find, groupBy, head, isEmpty, last, set, sortBy } from "lodash";
+import { compact, differenceBy, find, head, isEmpty, last, set, sortBy } from "lodash";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useMapEvents } from "react-leaflet";
 import { MapOrgUnit, PointOrgUnit } from "../../../../interfaces";
 import { MapLayersContext } from "../../../../state";
 import { defaultClasses, defaultColorScaleName } from "../../../../utils/colors";
 import { generateLegends, getOrgUnitsSelection, sanitizeDate, sanitizeOrgUnits, toGeoJson } from "../../../../utils/map";
-import { CustomBoundaryLayer, CustomMapLayer, CustomPointLayer, CustomThematicLayer, CustomThematicPrimitiveLayer } from "../../../MapLayer/interfaces";
+import { MapLayerConfig } from "../../../MapArea/interfaces";
+import { EARTH_ENGINE_LAYERS } from "../../../MapLayer/components/GoogleEngineLayer/constants";
+import {
+  CustomBoundaryLayer,
+  CustomGoogleEngineLayer,
+  CustomMapLayer,
+  CustomPointLayer,
+  CustomThematicLayer,
+  CustomThematicPrimitiveLayer,
+} from "../../../MapLayer/interfaces";
 import { useMapOrganisationUnit, useMapPeriods } from "../../hooks";
 
 const analyticsQuery = {
@@ -264,18 +273,32 @@ function usePointLayer() {
   };
 }
 
-export function MapLayersProvider({
-  layers,
-  children,
-}: {
-  layers: Array<CustomThematicPrimitiveLayer | CustomBoundaryLayer | CustomPointLayer>;
-  children: React.ReactNode;
-}) {
+function useGoogleEngineLayers() {
+  const sanitizeLayers = useCallback((layers: CustomGoogleEngineLayer[]): CustomGoogleEngineLayer[] => {
+    return layers?.map((layer) => {
+      const defaultOptions: any = find(EARTH_ENGINE_LAYERS, ["id", layer.type]) ?? {};
+      return {
+        ...layer,
+        options: {
+          ...defaultOptions,
+          aggregations: layer.aggregations ?? defaultOptions?.aggregations,
+        },
+      };
+    });
+  }, []);
+
+  return {
+    sanitizeLayers,
+  };
+}
+
+export function MapLayersProvider({ layers, children }: { layers: MapLayerConfig; children: React.ReactNode }) {
   const period = useMapPeriods();
   const orgUnit = useMapOrganisationUnit();
-  const [updatedLayers, setUpdatedLayers] = useState<Array<CustomThematicLayer | CustomBoundaryLayer | CustomPointLayer>>([]);
+  const [updatedLayers, setUpdatedLayers] = useState<Array<CustomThematicLayer | CustomBoundaryLayer | CustomPointLayer | CustomGoogleEngineLayer>>([]);
   const { sanitizeLayers: sanitizeThematicLayers, loading: loadingThematicLayer, error } = useThematicLayers();
   const { sanitizeLayer: sanitizePointLayer, loading: loadingPointLayer } = usePointLayer();
+  const { sanitizeLayers: sanitizeEarthEngineLayers } = useGoogleEngineLayers();
   const loading = useMemo(() => loadingPointLayer || loadingThematicLayer, [loadingPointLayer, loadingThematicLayer]);
 
   useMapEvents({
@@ -288,17 +311,14 @@ export function MapLayersProvider({
   });
 
   const sanitizeLayers = async () => {
-    const { bubble, choropleth, overlay, point } =
-      groupBy(layers, "type") ??
-      ({
-        choropleth: [],
-        overlay: [],
-        bubble: [],
-      } as { choropleth: CustomThematicPrimitiveLayer[]; overlay: CustomBoundaryLayer[]; bubble: CustomThematicPrimitiveLayer[] });
-    const sanitizedThematicLayers = await sanitizeThematicLayers([...(bubble ?? []), ...(choropleth ?? [])] as CustomThematicPrimitiveLayer[]);
-    const sanitizedBoundaryLayers = (overlay ?? []) as CustomBoundaryLayer[];
-    const sanitizedPointLayer = head(point ?? []) ? await sanitizePointLayer(point[0] as CustomPointLayer) : undefined;
-    setUpdatedLayers(compact([...(sanitizedBoundaryLayers ?? []), ...(sanitizedThematicLayers ?? []), sanitizedPointLayer]));
+    const { boundaryLayers, thematicLayers, pointLayers, earthEngineLayers } = layers;
+    const sanitizedThematicLayers = await sanitizeThematicLayers([...(thematicLayers ?? [])] as CustomThematicPrimitiveLayer[]);
+    const sanitizedBoundaryLayers = (boundaryLayers ?? []) as CustomBoundaryLayer[];
+    const sanitizedPointLayer = head(pointLayers ?? []) ? await sanitizePointLayer(head(pointLayers) as CustomPointLayer) : undefined;
+    const sanitizedEarthEngineLayers = sanitizeEarthEngineLayers([...(earthEngineLayers ?? [])] as unknown as CustomGoogleEngineLayer[]);
+    setUpdatedLayers(
+      compact([...(sanitizedBoundaryLayers ?? []), ...(sanitizedThematicLayers ?? []), sanitizedPointLayer, ...(sanitizedEarthEngineLayers ?? [])])
+    );
   };
 
   const updateLayer = useCallback((id: string, updatedLayer: CustomMapLayer) => {

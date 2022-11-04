@@ -247,6 +247,31 @@ PointLayer.args = {
   },
 };
 
+export const PopulationLayer = Template.bind({});
+PopulationLayer.args = {
+  orgUnitSelection: { orgUnits: [], userOrgUnit: true, userSubUnit: true, userSubX2Unit: false },
+  thematicLayers: [],
+  periodSelection: {
+    periods: ["2022"],
+  },
+  earthEngineLayers: [
+    {
+      type: "population",
+      id: "population",
+      enabled: true,
+      aggregations: ["sum"],
+    },
+  ],
+  pointLayer: {
+    enabled: true,
+    label: "Facilities",
+    level: "m9lBJogzE95",
+    style: {
+      groupSet: "J5jldMd8OHv",
+    },
+  },
+};
+
 export default {
   title: "Components/Map",
   component: Map,
