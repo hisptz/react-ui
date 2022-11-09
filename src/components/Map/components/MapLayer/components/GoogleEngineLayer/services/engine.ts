@@ -45,6 +45,12 @@ export class EarthEngine {
     }
   }
 
+  protected applyMask(image: any) {
+    if (this.options.mask) {
+      return image.updateMask(image.gt(0));
+    }
+  }
+
   protected async getInfo(imageCollection: any) {
     return await new Promise((resolve, reject) => {});
   }
@@ -168,6 +174,7 @@ export class EarthEngine {
       default:
         image = this.getImageFromImage();
     }
+    image = this.applyMask(image);
     return this.visualize(image.clipToCollection(this.getFeatureCollection()));
   }
 
