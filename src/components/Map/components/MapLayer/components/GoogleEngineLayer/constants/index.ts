@@ -1,12 +1,14 @@
 import i18n from "@dhis2/d2-i18n";
+import { EarthEngineOptions } from "../interfaces";
 
 export const EARTH_ENGINE_LAYER = "earthEngine";
 
-export const EARTH_ENGINE_LAYERS = [
+export const EARTH_ENGINE_LAYERS: EarthEngineOptions[] = [
   {
     layer: EARTH_ENGINE_LAYER,
     id: "population",
     datasetId: "WorldPop/GP/100m/pop",
+    type: "ImageCollection",
     name: i18n.t("Population"),
     unit: i18n.t("people per hectare"),
     description: i18n.t("Estimated number of people living in an area."),
@@ -14,6 +16,8 @@ export const EARTH_ENGINE_LAYERS = [
     sourceUrl: "https://developers.google.com/earth-engine/datasets/catalog/WorldPop_GP_100m_pop",
     img: "images/population.png",
     defaultAggregations: ["sum", "mean"],
+    aggregation: [],
+    tokenType: "Bearer",
     periodType: "Yearly",
     filters: ({ id, name, year }: { id: string; name: string; year: number }) => [
       {
@@ -33,6 +37,8 @@ export const EARTH_ENGINE_LAYERS = [
   },
   {
     layer: EARTH_ENGINE_LAYER,
+    type: "ImageCollection",
+    tokenType: "Bearer",
     id: "populationAgeGroups",
     datasetId: "WorldPop/GP/100m/pop_age_sex_cons_unadj",
     name: i18n.t("Population age groups"),
@@ -211,7 +217,7 @@ export const EARTH_ENGINE_LAYERS = [
     layer: EARTH_ENGINE_LAYER,
     id: "footprints",
     datasetId: "GOOGLE/Research/open-buildings/v1/polygons",
-    format: "FeatureCollection",
+    type: "FeatureCollection",
     name: i18n.t("Building footprints"),
     unit: i18n.t("Number of buildings"),
     description: i18n.t("The outlines of buildings derived from high-resolution satellite imagery. Only for the continent of Africa."),
@@ -220,13 +226,16 @@ export const EARTH_ENGINE_LAYERS = [
     source: "NASA / USGS / JPL-Caltech / Google Earth Engine",
     sourceUrl: "https://sites.research.google/open-buildings/",
     img: "images/buildings.png",
-    aggregations: ["count"],
+    aggregation: ["count"],
     defaultAggregations: ["count"],
     opacity: 0.9,
+    tokenType: "Bearer",
   },
   {
     layer: EARTH_ENGINE_LAYER,
     id: "elevation",
+    type: "Image",
+    tokenType: "Bearer",
     datasetId: "USGS/SRTMGL1_003",
     name: i18n.t("Elevation"),
     unit: i18n.t("meters"),
@@ -234,7 +243,7 @@ export const EARTH_ENGINE_LAYERS = [
     source: "NASA / USGS / JPL-Caltech / Google Earth Engine",
     sourceUrl: "https://explorer.earthengine.google.com/#detail/USGS%2FSRTMGL1_003",
     img: "images/elevation.png",
-    aggregations: ["min", "max", "mean", "median", "stdDev", "variance"],
+    aggregation: ["min", "max", "mean", "median", "stdDev", "variance"],
     defaultAggregations: ["mean", "min", "max"],
     band: "elevation",
     params: {
@@ -248,6 +257,8 @@ export const EARTH_ENGINE_LAYERS = [
     layer: EARTH_ENGINE_LAYER,
     datasetId: "UCSB-CHG/CHIRPS/PENTAD",
     id: "precipitation",
+    type: "ImageCollection",
+    tokenType: "Bearer",
     name: i18n.t("Precipitation"),
     unit: i18n.t("millimeter"),
     description: i18n.t(
@@ -257,7 +268,7 @@ export const EARTH_ENGINE_LAYERS = [
     sourceUrl: "https://explorer.earthengine.google.com/#detail/UCSB-CHG%2FCHIRPS%2FPENTAD",
     periodType: "Custom",
     band: "precipitation",
-    aggregations: ["min", "max", "mean", "median", "stdDev", "variance"],
+    aggregation: ["min", "max", "mean", "median", "stdDev", "variance"],
     defaultAggregations: ["mean", "min", "max"],
     mask: true,
     img: "images/precipitation.png",
@@ -272,13 +283,15 @@ export const EARTH_ENGINE_LAYERS = [
     layer: EARTH_ENGINE_LAYER,
     datasetId: "MODIS/006/MOD11A2",
     id: "temperature",
+    type: "ImageCollection",
+    tokenType: "Bearer",
     name: i18n.t("Temperature"),
     unit: i18n.t("°C during daytime"),
     description: i18n.t("Land surface temperatures collected from satellite. Blank spots will appear in areas with a persistent cloud cover."),
     source: "NASA LP DAAC / Google Earth Engine",
     sourceUrl: "https://explorer.earthengine.google.com/#detail/MODIS%2FMOD11A2",
     img: "images/temperature.png",
-    aggregations: ["min", "max", "mean", "median", "stdDev", "variance"],
+    aggregation: ["min", "max", "mean", "median", "stdDev", "variance"],
     defaultAggregations: ["mean", "min", "max"],
     periodType: "Custom",
     band: "LST_Day_1km",
@@ -297,6 +310,8 @@ export const EARTH_ENGINE_LAYERS = [
   },
   {
     layer: EARTH_ENGINE_LAYER,
+    type: "ImageCollection",
+    tokenType: "Bearer",
     id: "landCover",
     datasetId: "MODIS/006/MCD12Q1", // No longer in use: 'MODIS/051/MCD12Q1',
     name: i18n.t("Landcover"),
@@ -305,8 +320,7 @@ export const EARTH_ENGINE_LAYERS = [
     sourceUrl: "https://developers.google.com/earth-engine/datasets/catalog/MODIS_006_MCD12Q1",
     periodType: "Yearly",
     band: "LC_Type1",
-    filters: {},
-    defaultAggregations: "percentage",
+    defaultAggregations: ["percentage"],
     legend: {
       items: [
         // http://www.eomf.ou.edu/static/IGBP.pdf
@@ -398,48 +412,14 @@ export const EARTH_ENGINE_LAYERS = [
       ],
     },
     mask: false,
-    popup: "{name}: {value}",
     img: "images/landcover.png",
     opacity: 0.9,
   },
   {
     layer: EARTH_ENGINE_LAYER,
-    id: "legacyPopulation",
-    legacy: true, // Kept for backward compability
-    datasetId: "WorldPop/POP",
-    name: i18n.t("Population"),
-    unit: i18n.t("people per km²"),
-    description: i18n.t("Estimated number of people living in an area."),
-    source: "WorldPop / Google Earth Engine",
-    sourceUrl: "https://explorer.earthengine.google.com/#detail/WorldPop%2FPOP",
-    img: "images/population.png",
-    periodType: "Yearly",
-    filters: ({ id, name, year }: { id: string; name: string; year: number }) => [
-      {
-        id,
-        name,
-        type: "eq",
-        arguments: ["year", year],
-      },
-      {
-        type: "eq",
-        arguments: ["UNadj", "yes"],
-      },
-    ],
-    mosaic: true,
-    params: {
-      min: 0,
-      max: 1000,
-      palette: "#fee5d9,#fcbba1,#fc9272,#fb6a4a,#de2d26,#a50f15", // Reds
-    },
-    methods: {
-      multiply: [100], // Convert from people/hectare to people/km2
-    },
-    opacity: 0.9,
-  },
-  {
-    layer: EARTH_ENGINE_LAYER,
     id: "nightLights",
+    type: "ImageCollection",
+    tokenType: "Bearer",
     legacy: true, // Kept for backward compability
     datasetId: "NOAA/DMSP-OLS/NIGHTTIME_LIGHTS",
     name: i18n.t("Nighttime lights"),

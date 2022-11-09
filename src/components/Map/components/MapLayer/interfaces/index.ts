@@ -18,6 +18,14 @@ export interface CustomGoogleEngineLayer extends CustomMapLayer {
   options?: any;
   aggregations?: string[];
   name: string;
+  filters?: {
+    period: string[];
+  };
+  config?: {
+    min: number;
+    max: number;
+    palette: string[];
+  };
 }
 
 export interface CustomPointLayer extends CustomMapLayer {
