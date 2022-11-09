@@ -17,6 +17,7 @@ export interface CustomGoogleEngineLayer extends CustomMapLayer {
   type: GoogleEngineLayerType;
   options?: any;
   aggregations?: string[];
+  name: string;
 }
 
 export interface CustomPointLayer extends CustomMapLayer {
