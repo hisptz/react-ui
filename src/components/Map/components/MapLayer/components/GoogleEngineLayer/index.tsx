@@ -1,29 +1,61 @@
 import { capitalize } from "lodash";
 import React from "react";
-import { LayerGroup, LayersControl } from "react-leaflet";
+import { GeoJSON, LayerGroup, LayersControl, Popup, TileLayer, Tooltip } from "react-leaflet";
 import { useBoundaryData } from "../BoundaryLayer/hooks/useBoundaryData";
-import { GoogleEngineComponent } from "./components/GoogleEngineComponent";
-import useGoogleEngineLayer, { useGoogleEngineToken } from "./hooks";
+import useGoogleEngineLayer, { useGoogleEngine } from "./hooks";
+import { MapOrgUnit } from "../../../../interfaces";
+import { highlightFeature, resetHighlight } from "../../../../utils/map";
+import { defaultStyle, highlightStyle } from "../BoundaryLayer";
+
+import { Center, CircularLoader, Layer } from "@dhis2/ui";
 
 export default function GoogleEngineLayer({ layerId }: { layerId: string }) {
-  const { options, name, type, enabled } = useGoogleEngineLayer(layerId);
-  const { token, refresh, loading } = useGoogleEngineToken();
+  const { name, type, enabled } = useGoogleEngineLayer(layerId);
   const orgUnits = useBoundaryData();
+  const { imageUrl, options, urlLoading, tokenLoading } = useGoogleEngine({ layerId });
 
-  if (!orgUnits || !token) {
-    return null;
-  }
+  const loading = urlLoading || tokenLoading;
+
+  if (!imageUrl) return null;
 
   if (loading) {
-    return null;
+    return (
+      <Layer level={3000} translucent>
+        <Center>
+          <CircularLoader small />
+        </Center>
+      </Layer>
+    );
   }
+
+  console.log(imageUrl);
 
   return (
     <LayersControl.Overlay checked={enabled} name={name ?? capitalize(type)}>
       <LayerGroup>
-        {orgUnits?.map((orgUnit) => (
-          <GoogleEngineComponent key={`${orgUnit.id}-${options.id}-earth-layer`} refresh={refresh} token={token} orgUnit={orgUnit} options={options} />
-        ))}
+        <TileLayer id={options.id} url={imageUrl} />
+        {orgUnits?.map((area: MapOrgUnit) => {
+          return (
+            <GeoJSON
+              data={area.geoJSON}
+              interactive
+              eventHandlers={{
+                mouseover: (e) => highlightFeature(e, highlightStyle),
+                mouseout: (e) => resetHighlight(e, defaultStyle),
+              }}
+              key={`${area.id}-polygon`}
+              pathOptions={defaultStyle}>
+              <Tooltip>{area.name}</Tooltip>
+              <Popup minWidth={80}>
+                <h3>{area.name}</h3>
+                <div>
+                  <b>Level: </b>
+                  {area.level}
+                </div>
+              </Popup>
+            </GeoJSON>
+          );
+        })}
       </LayerGroup>
     </LayersControl.Overlay>
   );

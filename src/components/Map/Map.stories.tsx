@@ -256,6 +256,7 @@ PopulationLayer.args = {
   },
   earthEngineLayers: [
     {
+      name: "Population",
       type: "population",
       id: "population",
       enabled: true,
@@ -263,7 +264,7 @@ PopulationLayer.args = {
     },
   ],
   pointLayer: {
-    enabled: true,
+    enabled: false,
     label: "Facilities",
     level: "m9lBJogzE95",
     style: {
