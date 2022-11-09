@@ -19,7 +19,7 @@ export interface CustomGoogleEngineLayer extends CustomMapLayer {
   aggregations?: string[];
   name: string;
   filters?: {
-    period: string[];
+    period: string;
   };
   config?: {
     min: number;

@@ -261,6 +261,9 @@ PopulationLayer.args = {
       id: "population",
       enabled: true,
       aggregations: ["sum"],
+      filters: {
+        period: "2020",
+      },
     },
   ],
   pointLayer: {

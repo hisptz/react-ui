@@ -11,6 +11,7 @@ export class EarthEngine {
   refresh?: RefreshToken;
   orgUnits?: MapOrgUnit[];
   initialized = false;
+  period?: string | string[];
 
   constructor({ options }: { token: EarthEngineToken; options: EarthEngineOptions; refresh: RefreshToken }) {
     this.options = options;
@@ -33,6 +34,21 @@ export class EarthEngine {
     return this;
   }
 
+  setPeriod(period: string) {
+    this.period = period;
+  }
+
+  protected applyPeriod(imageCollection: any) {
+    const period = this.period;
+    if (period) {
+      return imageCollection.filterDate(period);
+    }
+  }
+
+  protected async getInfo(imageCollection: any) {
+    return await new Promise((resolve, reject) => {});
+  }
+
   protected refreshToken(authArgs: { scope: any }, callback: (props: any) => void) {
     const { tokenType } = this.options;
     if (this.refresh) {
@@ -51,7 +67,6 @@ export class EarthEngine {
   protected async setToken(): Promise<void> {
     const { tokenType } = this.options;
     const token = this.token;
-    console.log();
     await new Promise((resolve, reject) => {
       if (token) {
         const { access_token, client_id, expires_in } = token;
@@ -98,7 +113,7 @@ export class EarthEngine {
     }
   }
 
-  protected getFeatureCollection() {
+  protected getFeatureCollection(): unknown {
     if (this.orgUnits) {
       return ee.FeatureCollection(this.orgUnits.map((orgUnit: MapOrgUnit) => this.getFeatureByType(orgUnit.geoJSON)));
     } else {
@@ -107,21 +122,51 @@ export class EarthEngine {
   }
 
   protected visualize(image: any): string {
-    const { min, max, palette } = this.options.params;
-    console.log(this.options.params);
+    const { min, max, palette } = this.options.params ?? { min: null, max: null, palette: null };
     return image.visualize(null, null, null, min, max, null, null, palette, false).getMap()?.urlFormat;
   }
 
+  protected getImageFromImageCollection() {
+    const { datasetId, mosaic } = this.options;
+    let imageCollection = ee.ImageCollection(datasetId);
+    if (this.period) {
+      imageCollection = this.applyPeriod(imageCollection);
+    }
+    return mosaic ? imageCollection.mosaic() : imageCollection.mean();
+  }
+
+  protected getImageFromImage() {
+    const { datasetId } = this.options;
+    return ee.Image(datasetId);
+  }
+
+  protected getImageFromFeature() {
+    return null;
+  }
+
+  protected getImageFromFeatureCollection() {
+    return null;
+  }
+
   protected async getImage(): Promise<string> {
-    const { datasetId, filters } = this.options;
+    const { type } = this.options;
     let image;
-    if (filters) {
-      //Image collection
-      const imageCollection = ee.ImageCollection(datasetId);
-      // applyFilter(imageCollection);
-      image = imageCollection.mean();
-    } else {
-      image = ee.Image(datasetId);
+
+    switch (type) {
+      case "Feature":
+        image = this.getImageFromFeature();
+        break;
+      case "FeatureCollection":
+        image = this.getImageFromFeatureCollection();
+        break;
+      case "Image":
+        image = this.getImageFromImage();
+        break;
+      case "ImageCollection":
+        image = this.getImageFromImageCollection();
+        break;
+      default:
+        image = this.getImageFromImage();
     }
     return this.visualize(image.clipToCollection(this.getFeatureCollection()));
   }

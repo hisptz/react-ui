@@ -33,7 +33,7 @@ export default function useGoogleEngineLayer(layerId: string) {
 }
 
 export function useGoogleEngine({ layerId }: { layerId: string }) {
-  const { options } = useGoogleEngineLayer(layerId);
+  const { options, filters } = useGoogleEngineLayer(layerId);
   const { token, refresh, loading } = useGoogleEngineToken();
   const orgUnits = useBoundaryData();
   const [imageUrl, setImageUrl] = useState<string | undefined>();
@@ -50,6 +50,11 @@ export function useGoogleEngine({ layerId }: { layerId: string }) {
           setUrlLoading(true);
           await earthEngine.init(token, refresh);
           earthEngine.setOrgUnits(orgUnits ?? []);
+
+          const period = filters?.period;
+          if (period) {
+            earthEngine.setPeriod(period);
+          }
           setImageUrl(await earthEngine.url());
           setUrlLoading(false);
         }

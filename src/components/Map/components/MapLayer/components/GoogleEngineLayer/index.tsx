@@ -16,8 +16,6 @@ export default function GoogleEngineLayer({ layerId }: { layerId: string }) {
 
   const loading = urlLoading || tokenLoading;
 
-  if (!imageUrl) return null;
-
   if (loading) {
     return (
       <Layer level={3000} translucent>
@@ -28,7 +26,7 @@ export default function GoogleEngineLayer({ layerId }: { layerId: string }) {
     );
   }
 
-  console.log(imageUrl);
+  if (!imageUrl) return null;
 
   return (
     <LayersControl.Overlay checked={enabled} name={name ?? capitalize(type)}>
