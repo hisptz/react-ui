@@ -24,7 +24,7 @@ const baseUrl = import.meta.env.STORYBOOK_DHIS2_BASE_URL ?? "http://localhost:80
 
 const appConfig = {
   baseUrl,
-  apiVersion: parseInt(process.env.STORYBOOK_DHIS2_API_VERSION ?? "38") ?? 38,
+  apiVersion: parseInt(import.meta.env.STORYBOOK_DHIS2_API_VERSION ?? "38") ?? 38,
 };
 
 const DHIS2Provider = ({ children }) => <Provider config={appConfig}>{children}</Provider>;
