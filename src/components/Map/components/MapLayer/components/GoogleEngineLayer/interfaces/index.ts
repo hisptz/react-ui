@@ -34,7 +34,7 @@ export interface EarthEngineOptions {
     multiple?: boolean;
   }[];
   mask?: boolean;
-  band?: string;
+  selectedBands?: string[];
   params?: {
     min: number;
     max: number;

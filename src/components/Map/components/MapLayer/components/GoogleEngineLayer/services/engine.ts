@@ -56,6 +56,14 @@ export class EarthEngine {
     }
   }
 
+  protected applyBand(image: any) {
+    if (this.options.selectedBands) {
+      return image.select(this.options.selectedBands);
+    } else {
+      return image;
+    }
+  }
+
   protected async getInfo(imageCollection: any) {
     return await new Promise((resolve, reject) => {});
   }
@@ -132,8 +140,23 @@ export class EarthEngine {
     }
   }
 
+  protected getParamsFromLegend() {
+    if (!this.options.legend) return;
+    const legend = this.options.legend.items;
+    const keys = legend.map((l) => l.id);
+    const min = Math.min(...keys);
+    const max = Math.max(...keys);
+    const palette = legend.map((l) => l.color).join(",");
+    return { min, max, palette };
+  }
+
   protected visualize(image: any): string {
-    const { min, max, palette } = this.options.params ?? { min: null, max: null, palette: null };
+    const { min, max, palette } = this.getParamsFromLegend() ??
+      this.options.params ?? {
+        min: null,
+        max: null,
+        palette: null,
+      };
     return image.visualize(null, null, null, min, max, null, null, palette, false).getMap()?.urlFormat;
   }
 
@@ -187,6 +210,7 @@ export class EarthEngine {
         image = this.getImageFromImage();
     }
     image = this.applyMask(image);
+    image = this.applyBand(image);
     return this.visualize(image);
   }
 

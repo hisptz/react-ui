@@ -302,6 +302,58 @@ BuildingFootprints.args = {
   },
 };
 
+export const Elevation = Template.bind({});
+Elevation.args = {
+  orgUnitSelection: { orgUnits: [], userOrgUnit: true, userSubUnit: true, userSubX2Unit: false },
+  thematicLayers: [],
+  periodSelection: {
+    periods: ["2022"],
+  },
+  earthEngineLayers: [
+    {
+      name: "Elevation",
+      type: "elevation",
+      id: "elevation",
+      enabled: true,
+      aggregations: ["sum"],
+    },
+  ],
+  pointLayer: {
+    enabled: false,
+    label: "Facilities",
+    level: "m9lBJogzE95",
+    style: {
+      groupSet: "J5jldMd8OHv",
+    },
+  },
+};
+
+export const LandCover = Template.bind({});
+LandCover.args = {
+  orgUnitSelection: { orgUnits: [], userOrgUnit: true, userSubUnit: true, userSubX2Unit: false },
+  thematicLayers: [],
+  periodSelection: {
+    periods: ["2022"],
+  },
+  earthEngineLayers: [
+    {
+      name: "Land Cover",
+      type: "landCover",
+      id: "landCover",
+      enabled: true,
+      aggregations: ["sum"],
+    },
+  ],
+  pointLayer: {
+    enabled: false,
+    label: "Facilities",
+    level: "m9lBJogzE95",
+    style: {
+      groupSet: "J5jldMd8OHv",
+    },
+  },
+};
+
 export default {
   title: "Components/Map",
   component: Map,

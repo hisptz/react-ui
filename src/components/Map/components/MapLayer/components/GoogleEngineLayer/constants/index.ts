@@ -245,7 +245,7 @@ export const EARTH_ENGINE_LAYERS: EarthEngineOptions[] = [
     img: "images/elevation.png",
     aggregation: ["min", "max", "mean", "median", "stdDev", "variance"],
     defaultAggregations: ["mean", "min", "max"],
-    band: "elevation",
+    selectedBands: ["elevation"],
     params: {
       min: 0,
       max: 1500,
@@ -267,7 +267,7 @@ export const EARTH_ENGINE_LAYERS: EarthEngineOptions[] = [
     source: "UCSB / CHG / Google Earth Engine",
     sourceUrl: "https://explorer.earthengine.google.com/#detail/UCSB-CHG%2FCHIRPS%2FPENTAD",
     periodType: "Custom",
-    band: "precipitation",
+    selectedBands: ["precipitation"],
     aggregation: ["min", "max", "mean", "median", "stdDev", "variance"],
     defaultAggregations: ["mean", "min", "max"],
     mask: true,
@@ -294,7 +294,7 @@ export const EARTH_ENGINE_LAYERS: EarthEngineOptions[] = [
     aggregation: ["min", "max", "mean", "median", "stdDev", "variance"],
     defaultAggregations: ["mean", "min", "max"],
     periodType: "Custom",
-    band: "LST_Day_1km",
+    selectedBands: ["LST_Day_1km"],
     mask: true,
     methods: {
       toFloat: [],
@@ -319,7 +319,7 @@ export const EARTH_ENGINE_LAYERS: EarthEngineOptions[] = [
     source: "NASA LP DAAC / Google Earth Engine",
     sourceUrl: "https://developers.google.com/earth-engine/datasets/catalog/MODIS_006_MCD12Q1",
     periodType: "Yearly",
-    band: "LC_Type1",
+    selectedBands: ["LC_Type1"],
     defaultAggregations: ["percentage"],
     legend: {
       items: [
@@ -428,7 +428,7 @@ export const EARTH_ENGINE_LAYERS: EarthEngineOptions[] = [
     source: "NOAA / Google Earth Engine",
     sourceUrl: "https://explorer.earthengine.google.com/#detail/NOAA%2FDMSP-OLS%2FNIGHTTIME_LIGHTS",
     periodType: "Yearly",
-    band: "stable_lights",
+    selectedBands: ["stable_lights"],
     mask: true,
     img: "images/nighttime.png",
     params: {
