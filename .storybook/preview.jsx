@@ -17,9 +17,10 @@ export const parameters = {
     theme: hispTheme,
   },
 };
-const username = process.env.STORYBOOK_DHIS2_USERNAME ?? "admin";
-const password = process.env.STORYBOOK_DHIS2_PASSWORD ?? "district";
-const baseUrl = process.env.STORYBOOK_DHIS2_BASE_URL ?? "http://localhost:8080";
+
+const username = import.meta.env.STORYBOOK_DHIS2_USERNAME ?? "admin";
+const password = import.meta.env.STORYBOOK_DHIS2_PASSWORD ?? "district";
+const baseUrl = import.meta.env.STORYBOOK_DHIS2_BASE_URL ?? "http://localhost:8080";
 
 const appConfig = {
   baseUrl,
