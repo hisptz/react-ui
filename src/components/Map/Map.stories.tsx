@@ -276,6 +276,32 @@ PopulationLayer.args = {
   },
 };
 
+export const BuildingFootprints = Template.bind({});
+BuildingFootprints.args = {
+  orgUnitSelection: { orgUnits: [], userOrgUnit: true, userSubUnit: true, userSubX2Unit: false },
+  thematicLayers: [],
+  periodSelection: {
+    periods: ["2022"],
+  },
+  earthEngineLayers: [
+    {
+      name: "Footprints",
+      type: "footprints",
+      id: "footprints",
+      enabled: true,
+      aggregations: ["sum"],
+    },
+  ],
+  pointLayer: {
+    enabled: false,
+    label: "Facilities",
+    level: "m9lBJogzE95",
+    style: {
+      groupSet: "J5jldMd8OHv",
+    },
+  },
+};
+
 export default {
   title: "Components/Map",
   component: Map,

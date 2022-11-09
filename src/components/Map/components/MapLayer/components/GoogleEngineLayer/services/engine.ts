@@ -5,6 +5,9 @@ import { EarthEngineOptions, EarthEngineToken, RefreshToken } from "../interface
 // @ts-ignore
 window.ee = ee;
 
+const FEATURE_STYLE = { color: "FFA500", strokeWidth: 2 };
+const DEFAULT_TILE_SCALE = 1;
+
 export class EarthEngine {
   token?: EarthEngineToken;
   options: EarthEngineOptions;
@@ -48,6 +51,8 @@ export class EarthEngine {
   protected applyMask(image: any) {
     if (this.options.mask) {
       return image.updateMask(image.gt(0));
+    } else {
+      return image;
     }
   }
 
@@ -138,26 +143,33 @@ export class EarthEngine {
     if (this.period) {
       imageCollection = this.applyPeriod(imageCollection);
     }
-    return mosaic ? imageCollection.mosaic() : imageCollection.mean();
+    return mosaic
+      ? imageCollection.mosaic().clipToCollection(this.getFeatureCollection())
+      : ee.Image(imageCollection.first()).clipToCollection(this.getFeatureCollection());
   }
 
   protected getImageFromImage() {
     const { datasetId } = this.options;
-    return ee.Image(datasetId);
+    return ee.Image(datasetId).clipToCollection(this.getFeatureCollection());
   }
 
   protected getImageFromFeature() {
-    return null;
+    const { datasetId } = this.options;
+    return ee.Feature(datasetId);
   }
 
   protected getImageFromFeatureCollection() {
-    return null;
+    const { datasetId } = this.options;
+    let featureCollection = ee.FeatureCollection(datasetId);
+    if (this.period) {
+      featureCollection = this.applyPeriod(featureCollection);
+    }
+    return featureCollection.draw(FEATURE_STYLE).clipToCollection(this.getFeatureCollection());
   }
 
   protected async getImage(): Promise<string> {
     const { type } = this.options;
     let image;
-
     switch (type) {
       case "Feature":
         image = this.getImageFromFeature();
@@ -175,7 +187,7 @@ export class EarthEngine {
         image = this.getImageFromImage();
     }
     image = this.applyMask(image);
-    return this.visualize(image.clipToCollection(this.getFeatureCollection()));
+    return this.visualize(image);
   }
 
   async url(): Promise<string> {
