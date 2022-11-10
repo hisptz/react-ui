@@ -1,6 +1,7 @@
 import { MapOrgUnit } from "../../../../../interfaces";
 import ee from "@google/earthengine";
 import { EarthEngineOptions, EarthEngineToken, RefreshToken } from "../interfaces";
+import { LatLng } from "leaflet";
 
 // @ts-ignore
 window.ee = ee;
@@ -55,8 +56,29 @@ export class EarthEngine {
     }
   }
 
-  protected async getInfo(imageCollection: any) {
-    return await new Promise((resolve, reject) => {});
+  async getValue(location: LatLng) {
+    return new Promise((resolve, reject) => {
+      const { lat, lng } = location;
+      const point = ee.Geometry.Point(lng, lat);
+      const reducer = ee.Reducer.mean();
+      const image = this.getImage();
+
+      const reducedImage = image.reduceRegion(reducer, point, 1);
+
+      reducedImage.evaluate((data: unknown, error: any) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(data);
+        }
+      });
+    });
+  }
+
+  async info() {
+    return new Promise((resolve) => {
+      this.instance.getInfo(resolve);
+    });
   }
 
   static async setToken(token: EarthEngineToken, refresh: RefreshToken): Promise<void> {
@@ -73,6 +95,9 @@ export class EarthEngine {
     }
 
     await new Promise((resolve, reject) => {
+      if (ee.data.getAuthToken()) {
+        ee.initialize(null, null, resolve, reject);
+      }
       if (token) {
         const { access_token, client_id, expires_in } = token;
         ee.data.setAuthToken(
@@ -201,6 +226,16 @@ export class EarthEngine {
     return featureCollection.draw(FEATURE_STYLE).clipToCollection(this.getFeatureCollection());
   }
 
+  protected getClassifiedImage(image: any) {
+    const params = this.options.params;
+    if (!params) {
+      return {
+        image,
+        params: this.getParamsFromLegend(),
+      };
+    }
+  }
+
   protected getInstance() {
     const { type } = this.options;
     switch (type) {
@@ -221,7 +256,7 @@ export class EarthEngine {
     }
   }
 
-  protected async getImage(): Promise<string> {
+  protected getImage(): any {
     const { type } = this.options;
     let image;
     switch (type) {
@@ -242,11 +277,11 @@ export class EarthEngine {
     }
     image = this.applyMask(image);
     image = this.applyBand(image);
-    return this.visualize(image);
+    return image;
   }
 
   async url(): Promise<string> {
     if (!this.initialized) throw "You need to call init() first";
-    return this.getImage();
+    return this.visualize(this.getImage());
   }
 }
