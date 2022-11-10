@@ -295,7 +295,7 @@ export function useGoogleEngineLayers() {
           const earthEngine = new EarthEngine({ options });
           const url = await getImageUrl(earthEngine, updatedLayer);
           return {
-            ...layer,
+            ...updatedLayer,
             engine: earthEngine,
             url,
           };

@@ -7,6 +7,8 @@ import { EarthEngine } from "../components/GoogleEngineLayer/services/engine";
 export type BoundaryLayerType = "basemap" | "overlay";
 export type ThematicLayerType = "choropleth" | "bubble";
 
+export const SUPPORTED_EARTH_ENGINE_LAYERS = ["population", "footprints", "elevation", "landCover"];
+
 export type GoogleEngineLayerType = "population" | "footprints" | "elevation" | "landCover";
 
 export interface CustomBoundaryLayer extends CustomMapLayer {

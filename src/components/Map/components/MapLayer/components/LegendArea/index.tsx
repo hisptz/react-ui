@@ -4,17 +4,22 @@ import { compact, head } from "lodash";
 import React, { useState } from "react";
 import { MapLegendConfig } from "../../../MapArea/interfaces";
 import { CustomControl } from "../../../MapControls/components/CustomControl";
-import { CustomBubbleLayer, CustomPointLayer, CustomThematicLayer } from "../../interfaces";
+import { CustomBubbleLayer, CustomGoogleEngineLayer, CustomPointLayer, CustomThematicLayer, SUPPORTED_EARTH_ENGINE_LAYERS } from "../../interfaces";
 import PointLegend from "../PointLayer/components/PointLegend";
 import BubbleLegend from "../ThematicLayer/components/Bubble/components/BubbleLegend";
 import ChoroplethLegend from "../ThematicLayer/components/Choropleth/components/ChoroplethLegend";
+import EarthEngineLegend from "../GoogleEngineLayer/components/EarthEngineLegend";
 
-function getLegendComponent(layer: CustomThematicLayer | CustomPointLayer) {
+function getLegendComponent(layer: CustomThematicLayer | CustomPointLayer | CustomGoogleEngineLayer) {
   if (layer.type === "point") {
     return <PointLegend name={layer.label} />;
   }
 
-  const { type, enabled, control, dataItem, name, data, legends } = layer ?? {};
+  if (SUPPORTED_EARTH_ENGINE_LAYERS.includes(layer.type)) {
+    return <EarthEngineLegend layer={layer as CustomGoogleEngineLayer} />;
+  }
+
+  const { type, enabled, control, dataItem, name, data, legends } = (layer as CustomThematicLayer) ?? {};
 
   if (!enabled || !control) {
     return null;
