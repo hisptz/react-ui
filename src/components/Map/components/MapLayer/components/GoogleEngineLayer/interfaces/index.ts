@@ -6,7 +6,7 @@ export interface EarthEngineToken {
   expires_in: number;
 }
 
-export type RefreshToken = () => Promise<EarthEngineToken>;
+export type RefreshToken = () => Promise<{ token: EarthEngineToken }>;
 export type DatasetType = "Image" | "ImageCollection" | "Feature" | "FeatureCollection";
 
 export interface EarthEngineOptions {

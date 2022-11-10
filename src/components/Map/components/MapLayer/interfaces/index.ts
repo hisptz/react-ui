@@ -1,6 +1,8 @@
 import type { Legend } from "@hisptz/dhis2-utils";
 import { MapOrgUnit, PointOrgUnit } from "../../../interfaces";
 import { LegendColorScale } from "../../../utils/colors";
+import { EarthEngineOptions } from "../components/GoogleEngineLayer/interfaces";
+import { EarthEngine } from "../components/GoogleEngineLayer/services/engine";
 
 export type BoundaryLayerType = "basemap" | "overlay";
 export type ThematicLayerType = "choropleth" | "bubble";
@@ -15,7 +17,7 @@ export interface CustomBoundaryLayer extends CustomMapLayer {
 
 export interface CustomGoogleEngineLayer extends CustomMapLayer {
   type: GoogleEngineLayerType;
-  options?: any;
+  options?: EarthEngineOptions;
   aggregations?: string[];
   name: string;
   filters?: {
@@ -26,6 +28,8 @@ export interface CustomGoogleEngineLayer extends CustomMapLayer {
     max: number;
     palette: string[];
   };
+  url?: string;
+  engine?: EarthEngine;
 }
 
 export interface CustomPointLayer extends CustomMapLayer {

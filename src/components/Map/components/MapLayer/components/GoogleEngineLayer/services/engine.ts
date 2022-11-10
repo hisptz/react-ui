@@ -17,21 +17,10 @@ export class EarthEngine {
   period?: string | string[];
   instance: any;
 
-  constructor({ options }: { token: EarthEngineToken; options: EarthEngineOptions; refresh: RefreshToken }) {
+  constructor({ options }: { options: EarthEngineOptions }) {
     this.options = options;
-  }
-
-  updateToken(token: EarthEngineToken, refresh: RefreshToken) {
-    this.token = token;
-    this.refresh = refresh;
-  }
-
-  async init(token: EarthEngineToken, refresh: RefreshToken): Promise<EarthEngine> {
-    this.updateToken(token, refresh);
-    await this.setToken();
-    this.getInstance();
     this.initialized = true;
-    return this;
+    this.getInstance();
   }
 
   setOrgUnits(orgUnits: MapOrgUnit[]): EarthEngine {
@@ -70,24 +59,19 @@ export class EarthEngine {
     return await new Promise((resolve, reject) => {});
   }
 
-  protected refreshToken(authArgs: { scope: any }, callback: (props: any) => void) {
-    const { tokenType } = this.options;
-    if (this.refresh) {
-      this.refresh().then((token: EarthEngineToken) => {
+  static async setToken(token: EarthEngineToken, refresh: RefreshToken): Promise<void> {
+    const tokenType = "Bearer";
+
+    function refreshToken(authArgs: { scope: any }, callback: (props: any) => void) {
+      refresh().then(({ token }: { token: EarthEngineToken }) => {
         callback({
           ...token,
           token_type: tokenType ?? "Bearer",
           state: authArgs?.scope,
         });
       });
-    } else {
-      throw "Refresh function not set";
     }
-  }
 
-  protected async setToken(): Promise<void> {
-    const { tokenType } = this.options;
-    const token = this.token;
     await new Promise((resolve, reject) => {
       if (token) {
         const { access_token, client_id, expires_in } = token;
@@ -102,7 +86,7 @@ export class EarthEngine {
           },
           false
         );
-        ee.data.setAuthTokenRefresher(this.refreshToken);
+        ee.data.setAuthTokenRefresher(refreshToken);
       }
       resolve("Token not found");
     });

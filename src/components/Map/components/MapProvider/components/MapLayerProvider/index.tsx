@@ -22,6 +22,10 @@ import {
   CustomThematicPrimitiveLayer,
 } from "../../../MapLayer/interfaces";
 import { useMapOrganisationUnit, useMapPeriods } from "../../hooks";
+import { useGoogleEngineToken } from "../../../MapLayer/components/GoogleEngineLayer/hooks";
+import { EarthEngine } from "../../../MapLayer/components/GoogleEngineLayer/services/engine";
+import { useBoundaryData } from "../../../MapLayer/components/BoundaryLayer/hooks/useBoundaryData";
+import { EarthEngineOptions } from "../../../MapLayer/components/GoogleEngineLayer/interfaces";
 
 const analyticsQuery = {
   analytics: {
@@ -274,18 +278,48 @@ function usePointLayer() {
 }
 
 function useGoogleEngineLayers() {
-  const sanitizeLayers = useCallback((layers: CustomGoogleEngineLayer[]): CustomGoogleEngineLayer[] => {
-    return layers?.map((layer) => {
-      const defaultOptions: any = find(EARTH_ENGINE_LAYERS, ["id", layer.type]) ?? {};
-      return {
-        ...layer,
-        options: {
-          ...defaultOptions,
-          aggregations: layer.aggregations ?? defaultOptions?.aggregations,
-        },
-      };
-    });
-  }, []);
+  const { refresh } = useGoogleEngineToken();
+  const orgUnits = useBoundaryData();
+
+  async function getImageUrl(earthEngine: EarthEngine, { filters }: CustomGoogleEngineLayer): Promise<string | undefined> {
+    if (earthEngine.initialized) {
+      earthEngine.setOrgUnits(orgUnits ?? []);
+      const period = filters?.period;
+      if (period) {
+        earthEngine.setPeriod(period);
+      }
+      return earthEngine.url();
+    }
+  }
+
+  const sanitizeLayers = useCallback(
+    async (layers: CustomGoogleEngineLayer[]): Promise<CustomGoogleEngineLayer[]> => {
+      const { token } = await refresh();
+      await EarthEngine.setToken(token, refresh);
+      return map(
+        layers,
+        asyncify(async (layer: CustomGoogleEngineLayer) => {
+          const defaultOptions: any = find(EARTH_ENGINE_LAYERS, ["id", layer.type]) ?? {};
+          const options: EarthEngineOptions = {
+            ...defaultOptions,
+            aggregations: layer.aggregations ?? defaultOptions?.aggregations,
+          };
+          const updatedLayer = {
+            ...layer,
+            options,
+          };
+          const earthEngine = new EarthEngine({ options });
+          const url = await getImageUrl(earthEngine, updatedLayer);
+          return {
+            ...layer,
+            engine: earthEngine,
+            url,
+          };
+        })
+      );
+    },
+    [refresh]
+  );
 
   return {
     sanitizeLayers,
@@ -296,10 +330,10 @@ export function MapLayersProvider({ layers, children }: { layers: MapLayerConfig
   const period = useMapPeriods();
   const orgUnit = useMapOrganisationUnit();
   const [updatedLayers, setUpdatedLayers] = useState<Array<CustomThematicLayer | CustomBoundaryLayer | CustomPointLayer | CustomGoogleEngineLayer>>([]);
-  const { sanitizeLayers: sanitizeThematicLayers, loading: loadingThematicLayer, error } = useThematicLayers();
-  const { sanitizeLayer: sanitizePointLayer, loading: loadingPointLayer } = usePointLayer();
+  const { sanitizeLayers: sanitizeThematicLayers, error } = useThematicLayers();
+  const { sanitizeLayer: sanitizePointLayer } = usePointLayer();
   const { sanitizeLayers: sanitizeEarthEngineLayers } = useGoogleEngineLayers();
-  const loading = useMemo(() => loadingPointLayer || loadingThematicLayer, [loadingPointLayer, loadingThematicLayer]);
+  const [loading, setLoading] = useState(false);
 
   useMapEvents({
     overlayremove: (event) => {
@@ -311,14 +345,17 @@ export function MapLayersProvider({ layers, children }: { layers: MapLayerConfig
   });
 
   const sanitizeLayers = async () => {
+    setLoading(true);
     const { boundaryLayers, thematicLayers, pointLayers, earthEngineLayers } = layers;
     const sanitizedThematicLayers = await sanitizeThematicLayers([...(thematicLayers ?? [])] as CustomThematicPrimitiveLayer[]);
     const sanitizedBoundaryLayers = (boundaryLayers ?? []) as CustomBoundaryLayer[];
     const sanitizedPointLayer = head(pointLayers ?? []) ? await sanitizePointLayer(head(pointLayers) as CustomPointLayer) : undefined;
-    const sanitizedEarthEngineLayers = sanitizeEarthEngineLayers([...(earthEngineLayers ?? [])] as unknown as CustomGoogleEngineLayer[]);
+    const sanitizedEarthEngineLayers = await sanitizeEarthEngineLayers([...(earthEngineLayers ?? [])] as unknown as CustomGoogleEngineLayer[]);
+
     setUpdatedLayers(
       compact([...(sanitizedBoundaryLayers ?? []), ...(sanitizedThematicLayers ?? []), sanitizedPointLayer, ...(sanitizedEarthEngineLayers ?? [])])
     );
+    setLoading(false);
   };
 
   const updateLayer = useCallback((id: string, updatedLayer: CustomMapLayer) => {
