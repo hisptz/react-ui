@@ -16,7 +16,7 @@ function getLegendComponent(layer: CustomThematicLayer | CustomPointLayer | Cust
   }
 
   if (SUPPORTED_EARTH_ENGINE_LAYERS.includes(layer.type)) {
-    return <EarthEngineLegend layer={layer as CustomGoogleEngineLayer} />;
+    return <EarthEngineLegend name={layer.name ?? ""} layer={layer as CustomGoogleEngineLayer} />;
   }
 
   const { type, enabled, control, dataItem, name, data, legends } = (layer as CustomThematicLayer) ?? {};

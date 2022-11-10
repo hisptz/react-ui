@@ -43,10 +43,10 @@ function getLegendsFromParams(params?: { min: number; max: number; palette: stri
 }
 
 function EarthEngineLegend(
-  { layer, collapsible, onCollapse }: { layer: CustomGoogleEngineLayer; collapsible?: boolean; onCollapse?: () => void },
+  { layer, collapsible, onCollapse, name }: { layer: CustomGoogleEngineLayer; collapsible?: boolean; onCollapse?: () => void; name: string },
   ref: React.LegacyRef<HTMLDivElement>
 ) {
-  const { name, options } = layer;
+  const { options } = layer;
   const legends = options?.legend?.items ?? getLegendsFromParams(options?.params);
 
   return (
