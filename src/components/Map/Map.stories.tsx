@@ -247,8 +247,8 @@ PointLayer.args = {
   },
 };
 
-export const PopulationLayer = Template.bind({});
-PopulationLayer.args = {
+export const GoogleEarthEngineLayers = Template.bind({});
+GoogleEarthEngineLayers.args = {
   orgUnitSelection: { orgUnits: [], userOrgUnit: true, userSubUnit: true, userSubX2Unit: false },
   thematicLayers: [],
   periodSelection: {
@@ -265,25 +265,6 @@ PopulationLayer.args = {
         period: "2020",
       },
     },
-  ],
-  pointLayer: {
-    enabled: false,
-    label: "Facilities",
-    level: "m9lBJogzE95",
-    style: {
-      groupSet: "J5jldMd8OHv",
-    },
-  },
-};
-
-export const BuildingFootprints = Template.bind({});
-BuildingFootprints.args = {
-  orgUnitSelection: { orgUnits: [], userOrgUnit: true, userSubUnit: true, userSubX2Unit: false },
-  thematicLayers: [],
-  periodSelection: {
-    periods: ["2022"],
-  },
-  earthEngineLayers: [
     {
       name: "Footprints",
       type: "footprints",
@@ -291,51 +272,6 @@ BuildingFootprints.args = {
       enabled: true,
       aggregations: ["sum"],
     },
-  ],
-  pointLayer: {
-    enabled: false,
-    label: "Facilities",
-    level: "m9lBJogzE95",
-    style: {
-      groupSet: "J5jldMd8OHv",
-    },
-  },
-};
-
-export const Elevation = Template.bind({});
-Elevation.args = {
-  orgUnitSelection: { orgUnits: [], userOrgUnit: true, userSubUnit: true, userSubX2Unit: false },
-  thematicLayers: [],
-  periodSelection: {
-    periods: ["2022"],
-  },
-  earthEngineLayers: [
-    {
-      name: "Elevation",
-      type: "elevation",
-      id: "elevation",
-      enabled: true,
-      aggregations: ["sum"],
-    },
-  ],
-  pointLayer: {
-    enabled: false,
-    label: "Facilities",
-    level: "m9lBJogzE95",
-    style: {
-      groupSet: "J5jldMd8OHv",
-    },
-  },
-};
-
-export const LandCover = Template.bind({});
-LandCover.args = {
-  orgUnitSelection: { orgUnits: [], userOrgUnit: true, userSubUnit: true, userSubX2Unit: false },
-  thematicLayers: [],
-  periodSelection: {
-    periods: ["2022"],
-  },
-  earthEngineLayers: [
     {
       name: "Land Cover",
       type: "landCover",

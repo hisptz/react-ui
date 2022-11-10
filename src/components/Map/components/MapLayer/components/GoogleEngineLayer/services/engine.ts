@@ -15,6 +15,7 @@ export class EarthEngine {
   orgUnits?: MapOrgUnit[];
   initialized = false;
   period?: string | string[];
+  instance: any;
 
   constructor({ options }: { token: EarthEngineToken; options: EarthEngineOptions; refresh: RefreshToken }) {
     this.options = options;
@@ -28,6 +29,7 @@ export class EarthEngine {
   async init(token: EarthEngineToken, refresh: RefreshToken): Promise<EarthEngine> {
     this.updateToken(token, refresh);
     await this.setToken();
+    this.getInstance();
     this.initialized = true;
     return this;
   }
@@ -150,44 +152,89 @@ export class EarthEngine {
     return { min, max, palette };
   }
 
-  protected visualize(image: any): string {
+  protected async visualize(image: any): Promise<string> {
     const { min, max, palette } = this.getParamsFromLegend() ??
       this.options.params ?? {
         min: null,
         max: null,
         palette: null,
       };
-    return image.visualize(null, null, null, min, max, null, null, palette, false).getMap()?.urlFormat;
+    return (
+      (await new Promise((resolve, reject) => {
+        image.getMap({ min, max, palette }, resolve);
+      })) as any
+    )?.urlFormat;
   }
 
-  protected getImageFromImageCollection() {
-    const { datasetId, mosaic } = this.options;
+  protected getImageCollectionInstance() {
+    const { datasetId } = this.options;
     let imageCollection = ee.ImageCollection(datasetId);
     if (this.period) {
       imageCollection = this.applyPeriod(imageCollection);
     }
+    return imageCollection;
+  }
+
+  protected getImageFromImageCollection() {
+    const { mosaic } = this.options;
+    const imageCollection = this.instance;
     return mosaic
       ? imageCollection.mosaic().clipToCollection(this.getFeatureCollection())
       : ee.Image(imageCollection.first()).clipToCollection(this.getFeatureCollection());
   }
 
-  protected getImageFromImage() {
+  protected getImageInstance() {
     const { datasetId } = this.options;
     return ee.Image(datasetId).clipToCollection(this.getFeatureCollection());
   }
 
-  protected getImageFromFeature() {
-    const { datasetId } = this.options;
-    return ee.Feature(datasetId);
+  protected getImageFromImage() {
+    return this.instance;
   }
 
-  protected getImageFromFeatureCollection() {
+  protected getFeatureInstance() {
+    const { datasetId } = this.options;
+    const feature = ee.Feature(datasetId);
+    this.instance = feature;
+    return feature;
+  }
+
+  protected getImageFromFeature() {
+    return this.instance;
+  }
+
+  protected getFeatureCollectionInstance() {
     const { datasetId } = this.options;
     let featureCollection = ee.FeatureCollection(datasetId);
     if (this.period) {
       featureCollection = this.applyPeriod(featureCollection);
     }
+    return featureCollection;
+  }
+
+  protected getImageFromFeatureCollection() {
+    let featureCollection = this.instance;
     return featureCollection.draw(FEATURE_STYLE).clipToCollection(this.getFeatureCollection());
+  }
+
+  protected getInstance() {
+    const { type } = this.options;
+    switch (type) {
+      case "Feature":
+        this.instance = this.getFeatureInstance();
+        break;
+      case "FeatureCollection":
+        this.instance = this.getFeatureCollectionInstance();
+        break;
+      case "Image":
+        this.instance = this.getImageInstance();
+        break;
+      case "ImageCollection":
+        this.instance = this.getImageCollectionInstance();
+        break;
+      default:
+        this.instance = this.getImageFromImage();
+    }
   }
 
   protected async getImage(): Promise<string> {
