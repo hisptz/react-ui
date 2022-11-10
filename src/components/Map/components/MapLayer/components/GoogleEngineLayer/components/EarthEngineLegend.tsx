@@ -61,7 +61,7 @@ function EarthEngineLegend(
         ))}
       </div>
       {options?.source && (
-        <div className="row gap-8 align-items-center">
+        <div className="row gap-8">
           {i18n.t("Source")}:
           <a className="source-url" target="_blank" referrerPolicy="no-referrer" href={options?.sourceUrl}>
             {options?.source ?? ""}
