@@ -2,7 +2,7 @@ import type { OrgUnitSelection } from "@hisptz/dhis2-utils";
 import React from "react";
 import type { MapContainerProps } from "react-leaflet";
 import { MapControls, MapLegendConfig } from "../components/MapArea/interfaces";
-import { CustomThematicPrimitiveLayer } from "../components/MapLayer/interfaces";
+import { CustomGoogleEngineLayer, CustomThematicPrimitiveLayer } from "../components/MapLayer/interfaces";
 
 export interface MapProviderProps {
   children: React.ReactNode;
@@ -29,6 +29,7 @@ export interface MapProps {
   controls?: MapControls[];
   legends?: MapLegendConfig;
   thematicLayers?: CustomThematicPrimitiveLayer[];
+  earthEngineLayers?: CustomGoogleEngineLayer[];
   periodSelection?: { periods?: string[]; range?: { start: Date; end: Date } };
   mapOptions?: MapContainerProps;
 }

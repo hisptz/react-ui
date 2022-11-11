@@ -1,7 +1,7 @@
 {
   "name": "@hisptz/react-ui",
   "homepage": "https://hisptz.github.io/react-ui",
-  "version": "1.0.71",
+  "version": "1.0.72",
   "description": "A collection of reusable complex DHIS2 react ui components.",
   "license": "BSD-3-Clause",
   "scripts": {
@@ -20,7 +20,9 @@
     "build-storybook": "build-storybook",
     "predeploy-storybook": "node --max_old_space_size=16384  ./node_modules/.bin/build-storybook",
     "deploy-storybook": "gh-pages -d storybook-static",
-    "postinstall": "node postinstall.js"
+    "postinstall": "node postinstall.js",
+    "proxy": "node src/proxy.js",
+    "sb:proxy": "concurrently \"yarn proxy\" \" yarn sb\""
   },
   "devDependencies": {
     "@babel/plugin-proposal-nullish-coalescing-operator": "^7.18.6",
@@ -29,13 +31,13 @@
     "@cypress/react": "^6.0.0",
     "@cypress/webpack-dev-server": "^2.0.0",
     "@cypress/webpack-preprocessor": "^5.12.0",
-    "@dhis2/app-runtime": "^3.4.4",
+    "@dhis2/app-runtime": "^3.6.1",
     "@dhis2/cli-app-scripts": "^9.0.1",
     "@dhis2/cli-style": "^10.4.1",
     "@dhis2/cli-utils-cypress": "^9.0.2",
     "@dhis2/cypress-commands": "^9.0.2",
     "@dhis2/cypress-plugins": "^9.0.2",
-    "@dhis2/ui": "^8.4.16",
+    "@dhis2/ui": "^8.6.2",
     "@hookform/devtools": "^4.1.0",
     "@storybook/addon-actions": "^6.5.9",
     "@storybook/addon-essentials": "^6.5.9",
@@ -64,9 +66,11 @@
     "css-loader": "^6.7.1",
     "cypress": "^10.2.0",
     "cypress-cucumber-preprocessor": "^4.3.1",
+    "dotenv": "^16.0.3",
     "eslint-plugin-cypress": "^2.12.1",
     "file-loader": "^6.2.0",
     "gh-pages": "^4.0.0",
+    "http-proxy": "^1.18.1",
     "prettier": "^2.7.1",
     "react": "16.14.0",
     "style-loader": "^3.3.1",
@@ -77,6 +81,7 @@
     "webpack-dev-server": "^4.9.2"
   },
   "dependencies": {
+    "@google/earthengine": "^0.1.330",
     "@hisptz/dhis2-utils": "^1.0.0-alpha.2",
     "@iapps/period-utilities": "^1.0.0-beta.7",
     "@material-ui/core": "^4.12.4",

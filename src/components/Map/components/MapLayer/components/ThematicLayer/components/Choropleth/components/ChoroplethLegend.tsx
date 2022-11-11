@@ -6,7 +6,7 @@ import { getLegendCount } from "../../../../../../../utils/map";
 import { ThematicLayerData, ThematicLayerDataItem } from "../../../../../interfaces";
 import LegendCardHeader from "../../../../LegendArea/components/LegendCardHeader";
 
-function LegendItem({ legend, value }: { legend: { startValue: number; endValue: number; color: string }; value: number }) {
+export function LegendItem({ legend, value }: { legend: { startValue: number; endValue: number; color: string }; value: number }) {
   return (
     <div className="legend-item">
       <div className="legend-item-color" style={{ backgroundColor: legend.color }} />

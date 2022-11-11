@@ -40,6 +40,16 @@
 .legend-item-label {
 }
 
+.source-url {
+    background: none !important;
+    line-height: inherit !important;
+    text-align: inherit !important;
+    width: auto !important;
+    height: auto !important;
+    text-decoration: underline !important;
+    color: #0078A8 !important;
+}
+
 .legend-list {
     display: flex;
     flex-direction: column;
