@@ -1,6 +1,6 @@
 import { ControlPosition } from "leaflet";
 import type { MapContainerProps } from "react-leaflet";
-import { CustomBoundaryLayer, CustomPointLayer, CustomThematicPrimitiveLayer } from "../../MapLayer/interfaces";
+import { CustomBoundaryLayer, CustomGoogleEngineLayer, CustomPointLayer, CustomThematicPrimitiveLayer } from "../../MapLayer/interfaces";
 
 export interface MapControls {
   position: ControlPosition;
@@ -14,6 +14,13 @@ export interface MapLegendConfig {
   collapsible: boolean;
 }
 
+export interface MapLayerConfig {
+  thematicLayers?: CustomThematicPrimitiveLayer[];
+  boundaryLayers?: CustomBoundaryLayer[];
+  pointLayers?: CustomPointLayer[];
+  earthEngineLayers?: CustomGoogleEngineLayer[];
+}
+
 export interface MapAreaProps {
   base?: {
     url: string;
@@ -22,6 +29,6 @@ export interface MapAreaProps {
   controls?: MapControls[];
   mapOptions?: MapContainerProps;
   legends?: MapLegendConfig;
-  layers: Array<CustomThematicPrimitiveLayer | CustomBoundaryLayer | CustomPointLayer>;
+  layers: MapLayerConfig;
   key?: string;
 }

@@ -1,14 +1,37 @@
 import type { Legend } from "@hisptz/dhis2-utils";
 import { MapOrgUnit, PointOrgUnit } from "../../../interfaces";
 import { LegendColorScale } from "../../../utils/colors";
+import { EarthEngineOptions } from "../components/GoogleEngineLayer/interfaces";
+import { EarthEngine } from "../components/GoogleEngineLayer/services/engine";
 
 export type BoundaryLayerType = "basemap" | "overlay";
 export type ThematicLayerType = "choropleth" | "bubble";
+
+export const SUPPORTED_EARTH_ENGINE_LAYERS = ["population", "footprints", "elevation", "landCover"];
+
+export type GoogleEngineLayerType = "population" | "footprints" | "elevation" | "landCover";
 
 export interface CustomBoundaryLayer extends CustomMapLayer {
   id: string;
   type: BoundaryLayerType;
   enabled: boolean;
+}
+
+export interface CustomGoogleEngineLayer extends CustomMapLayer {
+  type: GoogleEngineLayerType;
+  options?: EarthEngineOptions;
+  aggregations?: string[];
+  name: string;
+  filters?: {
+    period: string;
+  };
+  config?: {
+    min: number;
+    max: number;
+    palette: string[];
+  };
+  url?: string;
+  engine?: EarthEngine;
 }
 
 export interface CustomPointLayer extends CustomMapLayer {
@@ -101,8 +124,10 @@ export interface CustomMapLayer {
   enabled: boolean;
 }
 
+export type MapLayer = CustomBoundaryLayer | CustomThematicPrimitiveLayer | CustomPointLayer | CustomGoogleEngineLayer;
+
 export interface MapLayerProps {
   enabled: boolean;
-  type: "boundary" | "thematic" | "external" | "point";
-  layer: CustomBoundaryLayer | CustomThematicPrimitiveLayer | CustomPointLayer;
+  type: "boundary" | "thematic" | "external" | "point" | "earthEngine";
+  layer: MapLayer;
 }

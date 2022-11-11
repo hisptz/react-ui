@@ -7,13 +7,13 @@ import { highlightFeature, resetHighlight } from "../../../../utils/map";
 import { CustomBoundaryLayer as BoundaryLayerInterface } from "../../interfaces";
 import { useBoundaryData } from "./hooks/useBoundaryData";
 
-const defaultStyle = {
+export const defaultStyle = {
   weight: 1,
   color: colors.grey900,
   fillColor: colors.grey900,
   fillOpacity: 0.0,
 };
-const highlightStyle = {
+export const highlightStyle = {
   weight: 2,
   color: colors.grey900,
   dashArray: "",

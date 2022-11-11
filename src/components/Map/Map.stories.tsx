@@ -247,6 +247,49 @@ PointLayer.args = {
   },
 };
 
+export const GoogleEarthEngineLayers = Template.bind({});
+GoogleEarthEngineLayers.args = {
+  orgUnitSelection: { orgUnits: [], userOrgUnit: true, userSubUnit: true, userSubX2Unit: false },
+  thematicLayers: [],
+  periodSelection: {
+    periods: ["2022"],
+  },
+  earthEngineLayers: [
+    {
+      name: "Population",
+      type: "population",
+      id: "population",
+      enabled: true,
+      aggregations: ["sum"],
+      filters: {
+        period: "2020",
+      },
+    },
+    {
+      name: "Footprints",
+      type: "footprints",
+      id: "footprints",
+      enabled: true,
+      aggregations: ["sum"],
+    },
+    {
+      name: "Land Cover",
+      type: "landCover",
+      id: "landCover",
+      enabled: true,
+      aggregations: ["sum"],
+    },
+  ],
+  pointLayer: {
+    enabled: false,
+    label: "Facilities",
+    level: "m9lBJogzE95",
+    style: {
+      groupSet: "J5jldMd8OHv",
+    },
+  },
+};
+
 export default {
   title: "Components/Map",
   component: Map,
