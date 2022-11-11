@@ -6,8 +6,8 @@
   "license": "BSD-3-Clause",
   "scripts": {
     "build:types": "tsc --emitDeclarationOnly --declaration --outDir ./build/types",
-    "build:package": "d2-app-scripts build",
-    "build": "concurrently -n build,types \"yarn build:package\" \"yarn build:types\" && cp postinstall.js build/",
+    "build:package": "d2-app-scripts build --no-verify",
+    "build": "concurrently -n build,types \"yarn build:package \" \"yarn build:types\" && cp postinstall.js build/",
     "start": "d2-app-scripts start",
     "test": "cypress run --component --browser chrome",
     "test:open": "yarn cypress open --component --browser chrome",

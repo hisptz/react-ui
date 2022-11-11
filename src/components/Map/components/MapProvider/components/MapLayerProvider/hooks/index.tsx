@@ -66,7 +66,7 @@ const legendSetsQuery = {
   },
 };
 
-export function useThematicLayers() {
+export function useThematicLayers(): any {
   const { orgUnits, orgUnitSelection } = useMapOrganisationUnit();
   const { periods, range } = useMapPeriods() ?? {};
   const ou = useMemo(() => getOrgUnitsSelection(orgUnitSelection), [orgUnitSelection]);
