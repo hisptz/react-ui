@@ -1,8 +1,8 @@
 import { MapOrgUnit } from "../../../../../interfaces";
 import ee from "@google/earthengine";
 import { EarthEngineOptions, EarthEngineToken, RefreshToken } from "../interfaces";
-import { combineReducers, getFeatureCollectionProperties, getInfo, getScale } from "../utils";
-import { find, isEmpty } from "lodash";
+import { combineReducers, getFeatureCollectionProperties, getHistogramStatistics, getInfo, getScale, hasClasses } from "../utils";
+import { find, head, isEmpty } from "lodash";
 // @ts-ignore
 window.ee = ee;
 
@@ -51,11 +51,11 @@ export class EarthEngine {
     }
   }
 
-  protected applyBand(image: any) {
+  protected applyBand(imageCollection: any) {
     if (this.options.selectedBands) {
-      return image.select(this.options.selectedBands);
+      return imageCollection.select(this.options.selectedBands);
     } else {
-      return image;
+      return imageCollection;
     }
   }
 
@@ -187,15 +187,16 @@ export class EarthEngine {
     if (this.period) {
       imageCollection = this.applyPeriod(imageCollection);
     }
+    imageCollection = this.applyBand(imageCollection);
+    if (imageCollection.first()) {
+      this.scale = getScale(imageCollection.first());
+    }
     return imageCollection;
   }
 
   protected getImageFromImageCollection() {
     const { mosaic } = this.options;
     const imageCollection = this.instance;
-    if (imageCollection.first()) {
-      this.scale = getScale(imageCollection.first());
-    }
     return mosaic
       ? imageCollection.mosaic().clipToCollection(this.getFeatureCollection())
       : ee.Image(imageCollection.first()).clipToCollection(this.getFeatureCollection());
@@ -254,13 +255,63 @@ export class EarthEngine {
     return getInfo(aggFeatures).then(getFeatureCollectionProperties);
   }
 
+  async getHistogramAggregations() {
+    try {
+      const aggregation = head(this.options.aggregations) ?? "";
+      const reducer = ee.Reducer.frequencyHistogram();
+      const collection = this.getFeatureCollection();
+      const legend = this.options.legend?.items;
+      const scale = this.scale;
+      const tileScale = this.options.tileScale ?? DEFAULT_TILE_SCALE;
+      const scaleValue = await getInfo(scale);
+
+      const image = this.getImage();
+      const features = Object.values(
+        await getInfo(
+          image
+            .reduceRegions({
+              collection,
+              reducer,
+              scale,
+              tileScale,
+            })
+            .select(["histogram"], null, false)
+        ).then((data) =>
+          getHistogramStatistics({
+            data,
+            scale: scaleValue,
+            aggregationType: aggregation,
+            legend,
+          })
+        )
+      );
+
+      return features.map((feature: any, index: number) => {
+        return {
+          orgUnit: this.orgUnits?.[index],
+          data: feature,
+        };
+      });
+    } catch (e: any) {
+      throw Error("Could not get histogram", {
+        cause: e,
+      });
+    }
+  }
+
   async getAggregations() {
     const { type } = this.options;
     if (type === "FeatureCollection") {
       this.aggregations = await this.getFeatureCollectionAggregation();
+      return;
     }
     const aggregations = this.options.aggregations;
     if (!aggregations) return;
+
+    if (hasClasses(head(aggregations) ?? "")) {
+      this.aggregations = await this.getHistogramAggregations();
+      return;
+    }
     const reducer = combineReducers(ee)(aggregations);
     const collection = this.getFeatureCollection();
     const image = this.getImage();
@@ -288,6 +339,7 @@ export class EarthEngine {
   }
 
   getAggregation(orgUnit: MapOrgUnit) {
+    console.log(this.aggregations);
     if (isEmpty(this.aggregations)) {
       return;
     }

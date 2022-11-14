@@ -259,7 +259,7 @@ GoogleEarthEngineLayers.args = {
       name: "Population",
       type: "population",
       id: "population",
-      enabled: true,
+      enabled: false,
       aggregations: ["sum", "mean"],
       filters: {
         period: "2020",
@@ -269,14 +269,15 @@ GoogleEarthEngineLayers.args = {
       name: "Footprints",
       type: "footprints",
       id: "footprints",
+      aggregations: ["count"],
       enabled: false,
     },
     {
       name: "Land Cover",
       type: "landCover",
       id: "landCover",
-      enabled: false,
-      aggregations: ["sum"],
+      enabled: true,
+      aggregations: ["percentage"],
     },
   ],
   pointLayer: {

@@ -1,5 +1,5 @@
-import { capitalize } from "lodash";
-import React, { useRef } from "react";
+import { capitalize, find, head, isEmpty, sortBy } from "lodash";
+import React, { useMemo, useRef } from "react";
 import { GeoJSON, LayerGroup, LayersControl, Popup, TileLayer, Tooltip } from "react-leaflet";
 import { useBoundaryData } from "../BoundaryLayer/hooks/useBoundaryData";
 import useGoogleEngineLayer from "./hooks";
@@ -15,9 +15,70 @@ function formatValues(value: number): string {
   return Intl.NumberFormat("en-GB", { maximumFractionDigits: 2 }).format(value);
 }
 
+function getUnit(unit?: string) {
+  console.log(unit);
+  if (unit === "percentage") {
+    return "%";
+  }
+}
+
+function Legend({
+  header,
+  legends,
+  value,
+  unit,
+}: {
+  header: number;
+  legends: { id: number | string; color: string; name: string }[];
+  value: number;
+  unit?: string;
+}) {
+  const legend = find(legends, ["id", header]);
+
+  return (
+    <div className="row gap-8 space-between">
+      <div className="row gap-8">
+        <div className="legend-item-color" style={{ backgroundColor: legend?.color }} />
+        <div>{legend?.name}</div>
+      </div>
+      <span>
+        {formatValues(value)}
+        {getUnit(unit)}
+      </span>
+    </div>
+  );
+}
+
+function AggregationView({ header, value }: { header: string; value: number }) {
+  return (
+    <div className="row space-between">
+      <span>{capitalize(header.toString())}</span>
+      <span>{formatValues(value)}</span>
+    </div>
+  );
+}
+
 function EarthEnginePopup({ layer, orgUnit, loading, error }: { layer?: CustomGoogleEngineLayer; orgUnit: MapOrgUnit; loading: boolean; error?: string }) {
   const engine = layer?.engine;
+  const legends = layer?.engine?.options?.legend?.items;
   const data = engine?.getAggregation(orgUnit)?.data;
+  const unit = layer?.engine?.options?.unit ?? head(layer?.engine?.options.aggregations);
+
+  const aggregations = useMemo(() => {
+    if (!isEmpty(legends)) {
+      return sortBy(
+        Object.keys(data ?? {}).map((key) => {
+          return {
+            id: parseInt(key),
+            value: data[key],
+          };
+        }),
+        ["value"]
+      ).reverse();
+    }
+
+    return data ?? {};
+  }, [data]);
 
   if (loading) {
     return (
@@ -55,16 +116,15 @@ function EarthEnginePopup({ layer, orgUnit, loading, error }: { layer?: CustomGo
       <div className="column gap-8">
         <div className="column">
           <b>{layer?.options?.name}</b>
-          <div>{layer?.options?.unit}</div>
+          <div>{layer?.options?.unit ?? unit}</div>
         </div>
-        <div className="column">
-          {Object.keys(data)?.map((key) => (
-            <div key={`${orgUnit.id}-${key}-details`} className="row space-between">
-              <span>{capitalize(key)}:</span>
-              <span>{formatValues(data?.[key])}</span>
-            </div>
-          ))}
-        </div>
+        {data && (
+          <div className="column">
+            {Array.isArray(aggregations)
+              ? aggregations?.map(({ id, value }) => <Legend legends={legends ?? []} value={value} header={id} unit={unit} />)
+              : Object.keys(aggregations)?.map((key) => <AggregationView header={key} value={aggregations[key]} />)}
+          </div>
+        )}
       </div>
     </div>
   );
@@ -107,7 +167,15 @@ export default function GoogleEngineLayer({ layerId }: { layerId: string }) {
       <LayerGroup>
         <TileLayer id={options?.id} url={url} />
         {orgUnits?.map((area: MapOrgUnit) => {
-          return <EarthEngineArea error={error as string | undefined} loading={loadingAggregateData} key={`${area.id}-polygon`} area={area} layer={layer} />;
+          return (
+            <EarthEngineArea
+              error={(error as any)?.toString() as string | undefined}
+              loading={loadingAggregateData}
+              key={`${area.id}-polygon`}
+              area={area}
+              layer={layer}
+            />
+          );
         })}
       </LayerGroup>
     </LayersControl.Overlay>
