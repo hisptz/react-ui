@@ -75,7 +75,6 @@ function EarthEnginePopup({ layer, orgUnit, loading, error }: { layer?: CustomGo
         ["value"]
       ).reverse();
     }
-
     return data ?? {};
   }, [data]);
 
@@ -123,7 +122,9 @@ function EarthEnginePopup({ layer, orgUnit, loading, error }: { layer?: CustomGo
               ? aggregations?.map(({ id, value }) => (
                   <Legend key={`${orgUnit.id}-legend-details-${id}`} legends={legends ?? []} value={value} header={id} unit={unit} />
                 ))
-              : Object.keys(aggregations)?.map((key) => <AggregationView key={`${orgUnit.id}-aggregate-details`} header={key} value={aggregations[key]} />)}
+              : Object.keys(aggregations)?.map((key) => (
+                  <AggregationView key={`${orgUnit.id}-aggregate-details-${key}`} header={key} value={aggregations[key]} />
+                ))}
           </div>
         )}
       </div>

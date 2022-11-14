@@ -320,6 +320,7 @@ export class EarthEngine {
       this.aggregationData = await this.getHistogramAggregations();
       return;
     }
+
     const reducer = combineReducers(ee)(aggregations);
     const collection = this.getFeatureCollection();
     const image = this.getImage();
