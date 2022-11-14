@@ -32,7 +32,9 @@ export const getFeatureCollectionProperties = (data: any) =>
     {}
   );
 
-export const getScale = (image: any) => image?.select(0).projection()?.nominalScale();
+export const getScale = async (image: any) => {
+  return image.select(0).projection().nominalScale();
+};
 
 const getParamsFromLegend = (legend: any[]) => {
   const keys = legend.map((l) => l.id);

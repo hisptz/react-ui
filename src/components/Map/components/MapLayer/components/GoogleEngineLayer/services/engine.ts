@@ -19,7 +19,7 @@ export class EarthEngine {
   instance: any;
   scale?: any;
   image: any;
-  aggregations: any;
+  aggregationData: any;
 
   constructor({ options }: { options: EarthEngineOptions }) {
     this.options = options;
@@ -181,6 +181,19 @@ export class EarthEngine {
     )?.urlFormat;
   }
 
+  async getScale() {
+    try {
+      const { type } = this.options;
+      switch (type) {
+        case "ImageCollection":
+          this.scale = await getScale(this.instance.first());
+          break;
+        default:
+          this.scale = await getScale(this.getImage());
+      }
+    } catch (e) {}
+  }
+
   protected getImageCollectionInstance() {
     const { datasetId } = this.options;
     let imageCollection = ee.ImageCollection(datasetId);
@@ -188,9 +201,6 @@ export class EarthEngine {
       imageCollection = this.applyPeriod(imageCollection);
     }
     imageCollection = this.applyBand(imageCollection);
-    if (imageCollection.first()) {
-      this.scale = getScale(imageCollection.first());
-    }
     return imageCollection;
   }
 
@@ -208,8 +218,6 @@ export class EarthEngine {
   }
 
   protected getImageFromImage() {
-    this.scale = getScale(this.instance);
-
     return this.instance;
   }
 
@@ -221,7 +229,6 @@ export class EarthEngine {
   }
 
   protected getImageFromFeature() {
-    this.scale = getScale(this.instance);
     return this.instance;
   }
 
@@ -300,16 +307,17 @@ export class EarthEngine {
   }
 
   async getAggregations() {
+    await this.getScale();
     const { type } = this.options;
     if (type === "FeatureCollection") {
-      this.aggregations = await this.getFeatureCollectionAggregation();
+      this.aggregationData = await this.getFeatureCollectionAggregation();
       return;
     }
     const aggregations = this.options.aggregations;
     if (!aggregations) return;
 
     if (hasClasses(head(aggregations) ?? "")) {
-      this.aggregations = await this.getHistogramAggregations();
+      this.aggregationData = await this.getHistogramAggregations();
       return;
     }
     const reducer = combineReducers(ee)(aggregations);
@@ -329,7 +337,7 @@ export class EarthEngine {
     const features = Object.values(getFeatureCollectionProperties(await getInfo(aggregatedFeatures))) as any[];
     if (!isEmpty(features) && features.length === this.orgUnits?.length) {
       //Mapping features to orgUnits using index.
-      this.aggregations = features.map((feature: any, index: number) => {
+      this.aggregationData = features.map((feature: any, index: number) => {
         return {
           orgUnit: this.orgUnits?.[index],
           data: feature,
@@ -339,11 +347,10 @@ export class EarthEngine {
   }
 
   getAggregation(orgUnit: MapOrgUnit) {
-    console.log(this.aggregations);
-    if (isEmpty(this.aggregations)) {
+    if (isEmpty(this.aggregationData)) {
       return;
     }
-    return find(this.aggregations, (aggregation) => aggregation.orgUnit.id === orgUnit.id);
+    return find(this.aggregationData, (aggregation) => aggregation.orgUnit.id === orgUnit.id);
   }
 
   protected getInstance() {

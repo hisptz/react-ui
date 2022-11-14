@@ -16,7 +16,6 @@ function formatValues(value: number): string {
 }
 
 function getUnit(unit?: string) {
-  console.log(unit);
   if (unit === "percentage") {
     return "%";
   }
@@ -121,8 +120,10 @@ function EarthEnginePopup({ layer, orgUnit, loading, error }: { layer?: CustomGo
         {data && (
           <div className="column">
             {Array.isArray(aggregations)
-              ? aggregations?.map(({ id, value }) => <Legend legends={legends ?? []} value={value} header={id} unit={unit} />)
-              : Object.keys(aggregations)?.map((key) => <AggregationView header={key} value={aggregations[key]} />)}
+              ? aggregations?.map(({ id, value }) => (
+                  <Legend key={`${orgUnit.id}-legend-details-${id}`} legends={legends ?? []} value={value} header={id} unit={unit} />
+                ))
+              : Object.keys(aggregations)?.map((key) => <AggregationView key={`${orgUnit.id}-aggregate-details`} header={key} value={aggregations[key]} />)}
           </div>
         )}
       </div>
