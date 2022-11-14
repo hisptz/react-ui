@@ -267,12 +267,16 @@ export function useGoogleEngineLayers() {
 
   async function getImageUrl(earthEngine: EarthEngine, { filters }: CustomGoogleEngineLayer): Promise<string | undefined> {
     if (earthEngine.initialized) {
-      earthEngine.setOrgUnits(orgUnits ?? []);
-      const period = filters?.period;
-      if (period) {
-        earthEngine.setPeriod(period);
+      try {
+        earthEngine.setOrgUnits(orgUnits ?? []);
+        const period = filters?.period;
+        if (period) {
+          earthEngine.setPeriod(period);
+        }
+        return earthEngine.url();
+      } catch (e) {
+        console.error(e);
       }
-      return earthEngine.url();
     }
   }
 

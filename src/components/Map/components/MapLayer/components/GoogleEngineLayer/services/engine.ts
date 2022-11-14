@@ -1,8 +1,8 @@
 import { MapOrgUnit } from "../../../../../interfaces";
 import ee from "@google/earthengine";
 import { EarthEngineOptions, EarthEngineToken, RefreshToken } from "../interfaces";
-import { LatLng } from "leaflet";
-
+import { combineReducers, getFeatureCollectionProperties, getInfo, getScale } from "../utils";
+import { find, isEmpty } from "lodash";
 // @ts-ignore
 window.ee = ee;
 
@@ -17,6 +17,9 @@ export class EarthEngine {
   initialized = false;
   period?: string | string[];
   instance: any;
+  scale?: any;
+  image: any;
+  aggregations: any;
 
   constructor({ options }: { options: EarthEngineOptions }) {
     this.options = options;
@@ -56,11 +59,14 @@ export class EarthEngine {
     }
   }
 
-  async getValue(location: LatLng) {
+  protected getReducerByType(type: string) {
+    return ee.Reducer[type].call();
+  }
+
+  async getValue(geoJSON: any, type: string) {
     return new Promise((resolve, reject) => {
-      const { lat, lng } = location;
-      const point = ee.Geometry.Point(lng, lat);
-      const reducer = ee.Reducer.mean();
+      const point = this.getGeometryByType(geoJSON);
+      const reducer = this.getReducerByType(type);
       const image = this.getImage();
 
       const reducedImage = image.reduceRegion(reducer, point, 1);
@@ -187,6 +193,9 @@ export class EarthEngine {
   protected getImageFromImageCollection() {
     const { mosaic } = this.options;
     const imageCollection = this.instance;
+    if (imageCollection.first()) {
+      this.scale = getScale(imageCollection.first());
+    }
     return mosaic
       ? imageCollection.mosaic().clipToCollection(this.getFeatureCollection())
       : ee.Image(imageCollection.first()).clipToCollection(this.getFeatureCollection());
@@ -198,6 +207,8 @@ export class EarthEngine {
   }
 
   protected getImageFromImage() {
+    this.scale = getScale(this.instance);
+
     return this.instance;
   }
 
@@ -209,6 +220,7 @@ export class EarthEngine {
   }
 
   protected getImageFromFeature() {
+    this.scale = getScale(this.instance);
     return this.instance;
   }
 
@@ -226,14 +238,60 @@ export class EarthEngine {
     return featureCollection.draw(FEATURE_STYLE).clipToCollection(this.getFeatureCollection());
   }
 
-  protected getClassifiedImage(image: any) {
-    const params = this.options.params;
-    if (!params) {
-      return {
-        image,
-        params: this.getParamsFromLegend(),
-      };
+  async getFeatureCollectionAggregation() {
+    const { datasetId } = this.options;
+    const dataset = ee.FeatureCollection(datasetId);
+    const collection = this.getFeatureCollection() as any;
+    const aggFeatures = collection
+      ?.map((feature: any) => {
+        feature = ee.Feature(feature);
+        const count = dataset.filterBounds(feature.geometry()).size();
+
+        return feature.set("count", count);
+      })
+      .select(["count"], null, false);
+
+    return getInfo(aggFeatures).then(getFeatureCollectionProperties);
+  }
+
+  async getAggregations() {
+    const { type } = this.options;
+    if (type === "FeatureCollection") {
+      this.aggregations = await this.getFeatureCollectionAggregation();
     }
+    const aggregations = this.options.aggregations;
+    if (!aggregations) return;
+    const reducer = combineReducers(ee)(aggregations);
+    const collection = this.getFeatureCollection();
+    const image = this.getImage();
+    const scale = this.scale;
+    const tileScale = this.options.tileScale ?? DEFAULT_TILE_SCALE;
+    const aggregatedFeatures = image
+      .reduceRegions({
+        collection,
+        reducer,
+        scale,
+        tileScale,
+      })
+      .select(aggregations, null, false);
+
+    const features = Object.values(getFeatureCollectionProperties(await getInfo(aggregatedFeatures))) as any[];
+    if (!isEmpty(features) && features.length === this.orgUnits?.length) {
+      //Mapping features to orgUnits using index.
+      this.aggregations = features.map((feature: any, index: number) => {
+        return {
+          orgUnit: this.orgUnits?.[index],
+          data: feature,
+        };
+      });
+    }
+  }
+
+  getAggregation(orgUnit: MapOrgUnit) {
+    if (isEmpty(this.aggregations)) {
+      return;
+    }
+    return find(this.aggregations, (aggregation) => aggregation.orgUnit.id === orgUnit.id);
   }
 
   protected getInstance() {
@@ -257,6 +315,9 @@ export class EarthEngine {
   }
 
   protected getImage(): any {
+    if (this.image) {
+      return this.image;
+    }
     const { type } = this.options;
     let image;
     switch (type) {
@@ -277,6 +338,7 @@ export class EarthEngine {
     }
     image = this.applyMask(image);
     image = this.applyBand(image);
+    this.image = image;
     return image;
   }
 

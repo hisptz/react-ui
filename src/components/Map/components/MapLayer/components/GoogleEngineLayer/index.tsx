@@ -1,25 +1,77 @@
 import { capitalize } from "lodash";
-import React, { useMemo, useRef, useState } from "react";
+import React, { useRef } from "react";
 import { GeoJSON, LayerGroup, LayersControl, Popup, TileLayer, Tooltip } from "react-leaflet";
 import { useBoundaryData } from "../BoundaryLayer/hooks/useBoundaryData";
 import useGoogleEngineLayer from "./hooks";
 import { MapOrgUnit } from "../../../../interfaces";
 import { highlightFeature, resetHighlight } from "../../../../utils/map";
 import { defaultStyle, highlightStyle } from "../BoundaryLayer";
-import { EarthEngine } from "./services/engine";
 import { useQuery } from "react-query";
-import { geoJSON } from "leaflet";
+import { CenteredContent, CircularLoader, Divider } from "@dhis2/ui";
+import i18n from "@dhis2/d2-i18n";
+import { CustomGoogleEngineLayer } from "../../interfaces";
 
-function EarthEnginePopup({ engine, orgUnit, open, layerRef }: { engine?: EarthEngine; orgUnit: MapOrgUnit; open: boolean; layerRef: any }) {
-  const center = useMemo(() => geoJSON(orgUnit.geoJSON).getBounds().getCenter(), [orgUnit]);
-  const { data, isLoading, refetch } = useQuery([center, engine], async () => engine?.getValue(center), {});
-
-  return <div></div>;
+function formatValues(value: number): string {
+  return Intl.NumberFormat("en-GB", { maximumFractionDigits: 2 }).format(value);
 }
 
-function EarthEngineArea({ area, engine }: { area: MapOrgUnit; engine?: EarthEngine }) {
+function EarthEnginePopup({ layer, orgUnit, loading, error }: { layer?: CustomGoogleEngineLayer; orgUnit: MapOrgUnit; loading: boolean; error?: string }) {
+  const engine = layer?.engine;
+  const data = engine?.getAggregation(orgUnit)?.data;
+
+  if (loading) {
+    return (
+      <div style={{ width: 200, height: 200 }}>
+        <CenteredContent>
+          <CircularLoader extrasmall />
+        </CenteredContent>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div>
+        <h3 style={{ margin: "0" }}>{orgUnit.name}</h3>
+        <Divider margin={"0"} />
+        <div className="column gap-8">
+          <div className="column">
+            <b>{layer?.options?.name}</b>
+            <div>{layer?.options?.unit}</div>
+          </div>
+          <div className="column">
+            <p>{i18n.t("Could not get aggregate data")}</p>
+            <p>{error}</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <h3 style={{ margin: "0" }}>{orgUnit.name}</h3>
+      <Divider margin={"0"} />
+      <div className="column gap-8">
+        <div className="column">
+          <b>{layer?.options?.name}</b>
+          <div>{layer?.options?.unit}</div>
+        </div>
+        <div className="column">
+          {Object.keys(data)?.map((key) => (
+            <div key={`${orgUnit.id}-${key}-details`} className="row space-between">
+              <span>{capitalize(key)}:</span>
+              <span>{formatValues(data?.[key])}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function EarthEngineArea({ area, layer, loading, error }: { area: MapOrgUnit; layer?: CustomGoogleEngineLayer; loading: boolean; error?: string }) {
   const ref = useRef<any>();
-  const [openedPopup, setOpenedPopup] = useState<boolean>(false);
 
   return (
     <GeoJSON
@@ -34,14 +86,18 @@ function EarthEngineArea({ area, engine }: { area: MapOrgUnit; engine?: EarthEng
       pathOptions={defaultStyle}>
       <Tooltip>{area.name}</Tooltip>
       <Popup minWidth={100}>
-        <EarthEnginePopup engine={engine} orgUnit={area} open={openedPopup} layerRef={ref} />
+        <EarthEnginePopup error={error} layer={layer} orgUnit={area} loading={loading} />
       </Popup>
     </GeoJSON>
   );
 }
 
 export default function GoogleEngineLayer({ layerId }: { layerId: string }) {
-  const { name, type, enabled, url, options, engine } = useGoogleEngineLayer(layerId);
+  const layer = useGoogleEngineLayer(layerId);
+  const { name, type, enabled, url, options, engine } = layer ?? {};
+  const { isLoading: loadingAggregateData, error } = useQuery([engine], async () => engine?.getAggregations(), {
+    suspense: false,
+  });
   const orgUnits = useBoundaryData();
 
   if (!url) return null;
@@ -51,7 +107,7 @@ export default function GoogleEngineLayer({ layerId }: { layerId: string }) {
       <LayerGroup>
         <TileLayer id={options?.id} url={url} />
         {orgUnits?.map((area: MapOrgUnit) => {
-          return <EarthEngineArea key={`${area.id}-polygon`} area={area} engine={engine} />;
+          return <EarthEngineArea error={error as string | undefined} loading={loadingAggregateData} key={`${area.id}-polygon`} area={area} layer={layer} />;
         })}
       </LayerGroup>
     </LayersControl.Overlay>
