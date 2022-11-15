@@ -1,10 +1,25 @@
 import { CustomGoogleEngineLayer } from "../MapLayer/interfaces";
-import { Controller, FormProvider, useFormContext, UseFormReturn, useWatch } from "react-hook-form";
+import { Controller, FormProvider, useForm, useFormContext, UseFormReturn, useWatch } from "react-hook-form";
 import React, { useEffect, useMemo } from "react";
 import { EARTH_ENGINE_LAYERS, SUPPORTED_EARTH_ENGINE_LAYERS } from "../MapLayer/components/GoogleEngineLayer/constants";
 import { capitalize, filter, find, head, isEmpty } from "lodash";
 import i18n from "@dhis2/d2-i18n";
-import { CenteredContent, CircularLoader, Field, InputField, MultiSelectField, MultiSelectOption, SingleSelectField, SingleSelectOption } from "@dhis2/ui";
+import {
+  Button,
+  ButtonStrip,
+  CenteredContent,
+  CircularLoader,
+  Field,
+  InputField,
+  Modal,
+  ModalActions,
+  ModalContent,
+  ModalTitle,
+  MultiSelectField,
+  MultiSelectOption,
+  SingleSelectField,
+  SingleSelectOption,
+} from "@dhis2/ui";
 import { useGoogleEngineToken } from "../MapLayer/components/GoogleEngineLayer/hooks";
 import { EarthEngineOptions } from "../MapLayer/components/GoogleEngineLayer/interfaces";
 import { EarthEngine } from "../MapLayer/components/GoogleEngineLayer/services/engine";
@@ -13,7 +28,6 @@ import ColorScaleSelect from "../ThematicLayerConfiguration/components/ColorScal
 import { defaultClasses, defaultColorScaleName, getColorClasses, getColorPalette, getColorScale } from "../../utils/colors";
 
 export interface EarthEngineLayerConfigurationProps {
-  config: CustomGoogleEngineLayer;
   form: UseFormReturn<CustomGoogleEngineLayer>;
   excluded?: string[];
 }
@@ -278,7 +292,7 @@ function StylesConfig() {
   );
 }
 
-export function EarthEngineLayerConfiguration({ config, form, excluded }: EarthEngineLayerConfigurationProps) {
+export function EarthEngineLayerConfiguration({ form, excluded }: EarthEngineLayerConfigurationProps) {
   const supportedLayers = filter(EARTH_ENGINE_LAYERS, ({ id }) => SUPPORTED_EARTH_ENGINE_LAYERS.includes(id) && !(excluded?.includes(id) ?? false));
 
   return (
@@ -308,5 +322,41 @@ export function EarthEngineLayerConfiguration({ config, form, excluded }: EarthE
         <StylesConfig />
       </div>
     </FormProvider>
+  );
+}
+
+export interface EarthEngineLayerConfigModalProps {
+  open: boolean;
+  config?: CustomGoogleEngineLayer;
+  exclude?: string[];
+  onClose: () => void;
+  onChange: (config: CustomGoogleEngineLayer) => void;
+}
+
+export function EarthEngineLayerConfigModal({ open, exclude, config, onClose, onChange }: EarthEngineLayerConfigModalProps) {
+  const form = useForm<CustomGoogleEngineLayer>({
+    defaultValues: config ?? {},
+  });
+
+  const onSubmitClick = (values: CustomGoogleEngineLayer) => {
+    onChange(values);
+    onClose();
+  };
+
+  return (
+    <Modal open={open} onClose={onClose}>
+      <ModalTitle>{i18n.t("Configure Earth Engine Layer")}</ModalTitle>
+      <ModalContent>
+        <EarthEngineLayerConfiguration form={form} excluded={exclude} />
+      </ModalContent>
+      <ModalActions>
+        <ButtonStrip>
+          <Button onClick={onClose}>{i18n.t("Cancel")}</Button>
+          <Button primary onClick={form.handleSubmit(onSubmitClick)}>
+            {i18n.t("Save")}
+          </Button>
+        </ButtonStrip>
+      </ModalActions>
+    </Modal>
   );
 }
