@@ -18,8 +18,31 @@ export interface ThematicLayerConfigurationProps {
 export function RadiusField() {
   return (
     <div className="row gap-8">
-      <Controller render={({ field, fieldState }) => <InputField label={i18n.t("Min")} type="number" />} name={"radius.min"} />
-      <Controller render={({ field, fieldState }) => <InputField {...field} label={i18n.t("Min")} type="number" />} name={"radius.min"} />
+      <Controller
+        render={({ field, fieldState }) => (
+          <InputField
+            {...field}
+            error={Boolean(fieldState.error)}
+            validationText={fieldState.error?.message}
+            value={field.value.toString()}
+            onChange={({ value }: { value: string }) => field.onChange(parseInt(value))}
+            label={i18n.t("Min radius")}
+            type="number"
+          />
+        )}
+        name={"radius.min"}
+      />
+      <Controller
+        render={({ field, fieldState }) => (
+          <InputField
+            value={field.value.toString()}
+            onChange={({ value }: { value: string }) => field.onChange(parseInt(value))}
+            label={i18n.t("Max radius")}
+            type="number"
+          />
+        )}
+        name={"radius.max"}
+      />
     </div>
   );
 }

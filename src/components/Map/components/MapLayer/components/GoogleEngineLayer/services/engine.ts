@@ -81,6 +81,19 @@ export class EarthEngine {
     });
   }
 
+  async getPeriod() {
+    const { type } = this.options;
+    if (type !== "ImageCollection") {
+      return;
+    }
+
+    const imageCollection = this.instance.distinct("system:time_start").sort("system:time_start", false);
+
+    const featureCollection = ee.FeatureCollection(imageCollection).select(["system:time_start", "system:time_end"], null, false);
+
+    return getInfo(featureCollection);
+  }
+
   async info() {
     return new Promise((resolve) => {
       this.instance.getInfo(resolve);

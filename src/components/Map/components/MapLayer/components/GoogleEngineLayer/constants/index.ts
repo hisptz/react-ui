@@ -18,14 +18,7 @@ export const EARTH_ENGINE_LAYERS: EarthEngineOptions[] = [
     defaultAggregations: ["sum", "mean"],
     tokenType: "Bearer",
     periodType: "Yearly",
-    filters: ({ id, name, year }: { id: string; name: string; year: number }) => [
-      {
-        id,
-        name,
-        type: "eq",
-        arguments: ["year", year],
-      },
-    ],
+    filters: ["period"],
     mosaic: true,
     params: {
       min: 0,
@@ -195,14 +188,7 @@ export const EARTH_ENGINE_LAYERS: EarthEngineOptions[] = [
         name: i18n.t("Female 80 years and above"),
       },
     ],
-    filters: ({ id, name, year }: { id: string; name: string; year: number }) => [
-      {
-        id,
-        name,
-        type: "eq",
-        arguments: ["year", year],
-      },
-    ],
+    filters: ["period"],
     mosaic: true,
     params: {
       min: 0,
@@ -318,6 +304,7 @@ export const EARTH_ENGINE_LAYERS: EarthEngineOptions[] = [
     source: "NASA LP DAAC / Google Earth Engine",
     sourceUrl: "https://developers.google.com/earth-engine/datasets/catalog/MODIS_006_MCD12Q1",
     periodType: "Yearly",
+    filters: ["period"],
     selectedBands: ["LC_Type1"],
     defaultAggregations: ["percentage"],
     legend: {
@@ -438,3 +425,5 @@ export const EARTH_ENGINE_LAYERS: EarthEngineOptions[] = [
     opacity: 0.9,
   },
 ];
+
+export const SUPPORTED_EARTH_ENGINE_LAYERS = ["population", "landCover", "footprints"];
