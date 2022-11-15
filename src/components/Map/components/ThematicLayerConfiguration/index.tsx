@@ -24,7 +24,7 @@ export function RadiusField() {
             {...field}
             error={Boolean(fieldState.error)}
             validationText={fieldState.error?.message}
-            value={field.value.toString()}
+            value={field.value?.toString()}
             onChange={({ value }: { value: string }) => field.onChange(parseInt(value))}
             label={i18n.t("Min radius")}
             type="number"
@@ -35,7 +35,7 @@ export function RadiusField() {
       <Controller
         render={({ field, fieldState }) => (
           <InputField
-            value={field.value.toString()}
+            value={field.value?.toString()}
             onChange={({ value }: { value: string }) => field.onChange(parseInt(value))}
             label={i18n.t("Max radius")}
             type="number"
