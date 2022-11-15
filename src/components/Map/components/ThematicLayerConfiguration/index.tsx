@@ -1,6 +1,6 @@
 import i18n from "@dhis2/d2-i18n";
-import { Button, Field, InputField, Radio, SingleSelectField, SingleSelectOption } from "@dhis2/ui";
-import { Controller, FormProvider, UseFormReturn, useWatch } from "react-hook-form";
+import { Button, ButtonStrip, Field, InputField, Modal, ModalActions, ModalContent, ModalTitle, Radio, SingleSelectField, SingleSelectOption } from "@dhis2/ui";
+import { Controller, FormProvider, useForm, UseFormReturn, useWatch } from "react-hook-form";
 import React, { useMemo, useState } from "react";
 import { compact } from "lodash";
 import { defaultClasses, defaultColorScaleName } from "../../utils/colors";
@@ -10,7 +10,6 @@ import { LegendSetSelector } from "./components/LegendSetSelector";
 import { CustomLegend } from "./components/CustomLegend";
 
 export interface ThematicLayerConfigurationProps {
-  config?: CustomThematicPrimitiveLayer;
   exclude?: string[];
   form: UseFormReturn<CustomThematicPrimitiveLayer>;
 }
@@ -47,14 +46,13 @@ export function RadiusField() {
   );
 }
 
-export function ThematicLayerConfiguration({ config, exclude, form }: ThematicLayerConfigurationProps) {
-  const [legendType, setLegendType] = useState(config?.dataItem.legendSet ? "legendSet" : "custom");
-  const [dataSelectorOpen, setDataSelectorOpen] = useState(false);
-
-  const type = useWatch({
+export function ThematicLayerConfiguration({ exclude, form }: ThematicLayerConfigurationProps) {
+  const [type, legendSet, dataItemId] = useWatch({
     control: form.control,
-    name: "type",
+    name: ["type", "dataItem.legendSet", "dataItem.id"],
   });
+  const [legendType, setLegendType] = useState(legendSet ? "legendSet" : "custom");
+  const [dataSelectorOpen, setDataSelectorOpen] = useState(false);
 
   const onLegendTypeChange =
     (type: string) =>
@@ -68,7 +66,7 @@ export function ThematicLayerConfiguration({ config, exclude, form }: ThematicLa
       }
       setLegendType(value);
     };
-  const disabled = useMemo(() => exclude?.filter((indicator) => indicator !== config?.dataItem?.id) ?? [], [config, exclude]);
+  const disabled = useMemo(() => exclude?.filter((indicator) => indicator !== dataItemId) ?? [], [dataItemId, exclude]);
   return (
     <FormProvider {...form}>
       <div className="column gap-16">
@@ -175,5 +173,53 @@ export function ThematicLayerConfiguration({ config, exclude, form }: ThematicLa
         </div>
       </div>
     </FormProvider>
+  );
+}
+
+export interface ThematicLayerConfigModalProps {
+  open: boolean;
+  config?: CustomThematicPrimitiveLayer;
+  exclude?: string[];
+  onClose: () => void;
+  onChange: (config: CustomThematicPrimitiveLayer) => void;
+}
+
+export function ThematicLayerConfigModal({ open, exclude, config, onClose, onChange }: ThematicLayerConfigModalProps) {
+  const form = useForm<CustomThematicPrimitiveLayer>({
+    defaultValues: config ?? {
+      type: "choropleth",
+      radius: {
+        min: 5,
+        max: 30,
+      },
+      dataItem: {
+        legendConfig: {
+          scale: 5,
+          colorClass: defaultColorScaleName,
+        },
+      },
+    },
+  });
+
+  const onSubmitClick = (values: CustomThematicPrimitiveLayer) => {
+    onChange(values);
+    onClose();
+  };
+
+  return (
+    <Modal open={open} onClose={onClose}>
+      <ModalTitle>{i18n.t("Configure Thematic Layer")}</ModalTitle>
+      <ModalContent>
+        <ThematicLayerConfiguration form={form} exclude={exclude} />
+      </ModalContent>
+      <ModalActions>
+        <ButtonStrip>
+          <Button onClick={onClose}>{i18n.t("Cancel")}</Button>
+          <Button primary onClick={form.handleSubmit(onSubmitClick)}>
+            {i18n.t("Save")}
+          </Button>
+        </ButtonStrip>
+      </ModalActions>
+    </Modal>
   );
 }
