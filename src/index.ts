@@ -22,6 +22,7 @@ import PeriodSelector from "./components/PeriodSelector";
 import SingleValueContainer, { SingleValueItem } from "./components/SingleValueContainer";
 
 export * from "./components/CachedOrgUnitProvider";
+export * from "./components/Map";
 
 export {
   PeriodSelector,

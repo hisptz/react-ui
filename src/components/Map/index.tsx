@@ -47,3 +47,8 @@ const Map = (
   );
 };
 export default forwardRef(Map);
+
+export * from "./components/EarthEngineLayerConfiguration";
+export * from "./components/ThematicLayerConfiguration";
+export * from "./interfaces";
+export * from "./constants/colors";
