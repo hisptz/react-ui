@@ -44,7 +44,7 @@ export interface EarthEngineOptions {
   notice?: string;
   error?: string;
   tokenType: "Bearer";
-  aggregation?: string[];
+  aggregations?: string[];
   tileScale?: number;
   methods?: Record<string, any>;
 }

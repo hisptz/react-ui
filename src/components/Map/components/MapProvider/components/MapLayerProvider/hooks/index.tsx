@@ -267,12 +267,16 @@ export function useGoogleEngineLayers() {
 
   async function getImageUrl(earthEngine: EarthEngine, { filters }: CustomGoogleEngineLayer): Promise<string | undefined> {
     if (earthEngine.initialized) {
-      earthEngine.setOrgUnits(orgUnits ?? []);
-      const period = filters?.period;
-      if (period) {
-        earthEngine.setPeriod(period);
+      try {
+        earthEngine.setOrgUnits(orgUnits ?? []);
+        const period = filters?.period;
+        if (period) {
+          earthEngine.setPeriod(period);
+        }
+        return earthEngine.url();
+      } catch (e) {
+        console.error(e);
       }
-      return earthEngine.url();
     }
   }
 
@@ -283,22 +287,27 @@ export function useGoogleEngineLayers() {
       return map(
         layers,
         asyncify(async (layer: CustomGoogleEngineLayer) => {
-          const defaultOptions: any = find(EARTH_ENGINE_LAYERS, ["id", layer.type]) ?? {};
-          const options: EarthEngineOptions = {
-            ...defaultOptions,
-            aggregations: layer.aggregations ?? defaultOptions?.aggregations,
-          };
-          const updatedLayer = {
-            ...layer,
-            options,
-          };
-          const earthEngine = new EarthEngine({ options });
-          const url = await getImageUrl(earthEngine, updatedLayer);
-          return {
-            ...updatedLayer,
-            engine: earthEngine,
-            url,
-          };
+          try {
+            const defaultOptions: any = find(EARTH_ENGINE_LAYERS, ["id", layer.type]) ?? {};
+            const options: EarthEngineOptions = {
+              ...defaultOptions,
+              aggregations: layer.aggregations ?? defaultOptions?.aggregations,
+            };
+            const updatedLayer = {
+              ...layer,
+              options,
+            };
+            const earthEngine = new EarthEngine({ options });
+            const url = await getImageUrl(earthEngine, updatedLayer);
+            return {
+              ...updatedLayer,
+              engine: earthEngine,
+              url,
+            };
+          } catch (e) {
+            console.error(e);
+            return;
+          }
         })
       );
     },
