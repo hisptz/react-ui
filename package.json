@@ -181,5 +181,6 @@
   "author": "HISP Tanzania",
   "bugs": {
     "url": "https://github.com/hisptz/react-ui/issues"
-  }
+  },
+  "packageManager": "yarn@1.22.19"
 }

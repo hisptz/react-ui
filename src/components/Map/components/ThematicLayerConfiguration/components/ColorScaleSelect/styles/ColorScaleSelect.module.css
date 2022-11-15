@@ -1,0 +1,12 @@
+.colorScale {
+    display: inline-block;
+    margin-top: 4px;
+    overflow: visible;
+    white-space: nowrap;
+}
+
+.popover {
+    padding: 4px 8px;
+    overflow-y: auto;
+    max-height: 50vh;
+}
