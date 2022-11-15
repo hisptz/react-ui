@@ -10,7 +10,7 @@ import { EarthEngineOptions } from "../MapLayer/components/GoogleEngineLayer/int
 import { EarthEngine } from "../MapLayer/components/GoogleEngineLayer/services/engine";
 import { useQuery } from "react-query";
 import ColorScaleSelect from "../ThematicLayerConfiguration/components/ColorScaleSelect";
-import { defaultClasses, defaultColorScaleName, getColorScale } from "../../utils/colors";
+import { defaultClasses, defaultColorScaleName, getColorClasses, getColorPalette, getColorScale } from "../../utils/colors";
 
 export interface EarthEngineLayerConfigurationProps {
   config: CustomGoogleEngineLayer;
@@ -166,11 +166,9 @@ function ColorConfig() {
   useEffect(() => {
     if (config?.params) {
       const { max, min, palette } = config.params;
-      const colorScale = getColorScale(palette);
       setValue("params.max", max);
       setValue("params.min", min);
-      setValue("params.scale", palette.split(",").length);
-      setValue("params.colorClass", colorScale);
+      setValue("params.palette", palette);
     } else {
       setValue("params", undefined);
     }
@@ -208,30 +206,49 @@ function ColorConfig() {
           name={"params.max"}
         />
         <Controller
-          name="params.scale"
-          render={({ field, fieldState }) => (
-            <SingleSelectField
-              validationText={fieldState.error?.message}
-              error={Boolean(fieldState.error)}
-              selected={field.value?.toString() ?? defaultClasses.toString()}
-              label={i18n.t("Steps")}
-              onChange={({ selected }: { selected: string }) => field.onChange(parseInt(selected))}
-              name="scale">
-              {[3, 4, 5, 6, 7, 8, 9].map((value) => (
-                <SingleSelectOption key={`${value}-classes-option`} label={`${value}`} value={value?.toString()} />
-              ))}
-            </SingleSelectField>
-          )}
+          name="params.palette"
+          render={({ field, fieldState }) => {
+            const palette = field.value;
+            const scale = getColorClasses(palette);
+            const colorClass = getColorScale(palette ?? "");
+
+            const onChange = ({ selected }: { selected: string }) => {
+              const palette = getColorPalette(colorClass as string, parseInt(selected))?.join(",");
+              field.onChange(palette);
+            };
+
+            return (
+              <SingleSelectField
+                validationText={fieldState.error?.message}
+                error={Boolean(fieldState.error)}
+                selected={scale?.toString() ?? defaultClasses.toString()}
+                label={i18n.t("Steps")}
+                onChange={onChange}
+                name="scale">
+                {[3, 4, 5, 6, 7, 8, 9].map((value) => (
+                  <SingleSelectOption key={`${value}-classes-option`} label={`${value}`} value={value?.toString()} />
+                ))}
+              </SingleSelectField>
+            );
+          }}
         />
       </div>
       <div>
         <Controller
-          name="params.colorClass"
+          name="params.palette"
           render={({ field, fieldState }) => {
-            console.log(field.value);
+            const palette = field.value;
+            const scale = getColorClasses(palette);
+            const colorClass = getColorScale(palette ?? "");
+
+            const onChange = (colorClass: string) => {
+              const palette = getColorPalette(colorClass, scale)?.join(",");
+              field.onChange(palette);
+            };
+
             return (
               <Field error={Boolean(fieldState.error)} validationText={fieldState.error?.message} label={i18n.t("Colors")}>
-                <ColorScaleSelect count={scale ?? defaultClasses} colorClass={field.value ?? defaultColorScaleName} width={300} onChange={field.onChange} />
+                <ColorScaleSelect count={scale ?? defaultClasses} colorClass={colorClass ?? defaultColorScaleName} width={300} onChange={onChange} />
               </Field>
             );
           }}

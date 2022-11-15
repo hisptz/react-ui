@@ -9,10 +9,14 @@ export const getColorPalette = (scale: string, classes: number) => {
   return colorbrewer[scale][classes];
 };
 
+export const getColorClasses = (palette: string) => {
+  return palette?.split(",")?.length;
+};
+
 // Returns color scale name for a palette
 export const getColorScale = (palette: string) => {
   const classes = palette.split(",").length;
-  return colorScales.find((name) => colorbrewer[name][classes].join(",") === palette);
+  return colorScales.find((name) => colorbrewer[name][classes]?.join(",") === palette);
 };
 
 export const defaultColorScaleName = "YlOrBr";
