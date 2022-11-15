@@ -1,8 +1,8 @@
 import { MapOrgUnit } from "../../../../../interfaces";
 import ee from "@google/earthengine";
 import { EarthEngineOptions, EarthEngineToken, RefreshToken } from "../interfaces";
-import { LatLng } from "leaflet";
-
+import { combineReducers, getFeatureCollectionProperties, getHistogramStatistics, getInfo, getScale, hasClasses } from "../utils";
+import { find, head, isEmpty } from "lodash";
 // @ts-ignore
 window.ee = ee;
 
@@ -17,6 +17,9 @@ export class EarthEngine {
   initialized = false;
   period?: string | string[];
   instance: any;
+  scale?: any;
+  image: any;
+  aggregationData: any;
 
   constructor({ options }: { options: EarthEngineOptions }) {
     this.options = options;
@@ -48,19 +51,22 @@ export class EarthEngine {
     }
   }
 
-  protected applyBand(image: any) {
+  protected applyBand(imageCollection: any) {
     if (this.options.selectedBands) {
-      return image.select(this.options.selectedBands);
+      return imageCollection.select(this.options.selectedBands);
     } else {
-      return image;
+      return imageCollection;
     }
   }
 
-  async getValue(location: LatLng) {
+  protected getReducerByType(type: string) {
+    return ee.Reducer[type].call();
+  }
+
+  async getValue(geoJSON: any, type: string) {
     return new Promise((resolve, reject) => {
-      const { lat, lng } = location;
-      const point = ee.Geometry.Point(lng, lat);
-      const reducer = ee.Reducer.mean();
+      const point = this.getGeometryByType(geoJSON);
+      const reducer = this.getReducerByType(type);
       const image = this.getImage();
 
       const reducedImage = image.reduceRegion(reducer, point, 1);
@@ -73,6 +79,19 @@ export class EarthEngine {
         }
       });
     });
+  }
+
+  async getPeriod() {
+    const { type } = this.options;
+    if (type !== "ImageCollection") {
+      return;
+    }
+
+    const imageCollection = this.instance.distinct("system:time_start").sort("system:time_start", false);
+
+    const featureCollection = ee.FeatureCollection(imageCollection).select(["system:time_start", "system:time_end"], null, false);
+
+    return getInfo(featureCollection);
   }
 
   async info() {
@@ -175,12 +194,26 @@ export class EarthEngine {
     )?.urlFormat;
   }
 
+  async getScale() {
+    try {
+      const { type } = this.options;
+      switch (type) {
+        case "ImageCollection":
+          this.scale = await getScale(this.instance.first());
+          break;
+        default:
+          this.scale = await getScale(this.getImage());
+      }
+    } catch (e) {}
+  }
+
   protected getImageCollectionInstance() {
     const { datasetId } = this.options;
     let imageCollection = ee.ImageCollection(datasetId);
     if (this.period) {
       imageCollection = this.applyPeriod(imageCollection);
     }
+    imageCollection = this.applyBand(imageCollection);
     return imageCollection;
   }
 
@@ -226,14 +259,112 @@ export class EarthEngine {
     return featureCollection.draw(FEATURE_STYLE).clipToCollection(this.getFeatureCollection());
   }
 
-  protected getClassifiedImage(image: any) {
-    const params = this.options.params;
-    if (!params) {
-      return {
-        image,
-        params: this.getParamsFromLegend(),
-      };
+  async getFeatureCollectionAggregation() {
+    const { datasetId } = this.options;
+    const dataset = ee.FeatureCollection(datasetId);
+    const collection = this.getFeatureCollection() as any;
+    const aggFeatures = collection
+      ?.map((feature: any) => {
+        feature = ee.Feature(feature);
+        const count = dataset.filterBounds(feature.geometry()).size();
+
+        return feature.set("count", count);
+      })
+      .select(["count"], null, false);
+
+    return getInfo(aggFeatures).then(getFeatureCollectionProperties);
+  }
+
+  async getHistogramAggregations() {
+    try {
+      const aggregation = head(this.options.aggregations) ?? "";
+      const reducer = ee.Reducer.frequencyHistogram();
+      const collection = this.getFeatureCollection();
+      const legend = this.options.legend?.items;
+      const scale = this.scale;
+      const tileScale = this.options.tileScale ?? DEFAULT_TILE_SCALE;
+      const scaleValue = await getInfo(scale);
+
+      const image = this.getImage();
+      const features = Object.values(
+        await getInfo(
+          image
+            .reduceRegions({
+              collection,
+              reducer,
+              scale,
+              tileScale,
+            })
+            .select(["histogram"], null, false)
+        ).then((data) =>
+          getHistogramStatistics({
+            data,
+            scale: scaleValue,
+            aggregationType: aggregation,
+            legend,
+          })
+        )
+      );
+
+      return features.map((feature: any, index: number) => {
+        return {
+          orgUnit: this.orgUnits?.[index],
+          data: feature,
+        };
+      });
+    } catch (e: any) {
+      throw Error("Could not get histogram", {
+        cause: e,
+      });
     }
+  }
+
+  async getAggregations() {
+    await this.getScale();
+    const { type } = this.options;
+    if (type === "FeatureCollection") {
+      this.aggregationData = await this.getFeatureCollectionAggregation();
+      return;
+    }
+    const aggregations = this.options.aggregations;
+    if (!aggregations) return;
+
+    if (hasClasses(head(aggregations) ?? "")) {
+      this.aggregationData = await this.getHistogramAggregations();
+      return;
+    }
+
+    const reducer = combineReducers(ee)(aggregations);
+    const collection = this.getFeatureCollection();
+    const image = this.getImage();
+    const scale = this.scale;
+    const tileScale = this.options.tileScale ?? DEFAULT_TILE_SCALE;
+    const aggregatedFeatures = image
+      .reduceRegions({
+        collection,
+        reducer,
+        scale,
+        tileScale,
+      })
+      .select(aggregations, null, false);
+
+    const features = Object.values(getFeatureCollectionProperties(await getInfo(aggregatedFeatures))) as any[];
+    if (!isEmpty(features) && features.length === this.orgUnits?.length) {
+      //Mapping features to orgUnits using index.
+      this.aggregationData = features.map((feature: any, index: number) => {
+        return {
+          orgUnit: this.orgUnits?.[index],
+          data: feature,
+        };
+      });
+    }
+  }
+
+  getAggregation(orgUnit: MapOrgUnit) {
+    if (isEmpty(this.aggregationData)) {
+      return;
+    }
+    return find(this.aggregationData, (aggregation) => aggregation.orgUnit.id === orgUnit.id);
   }
 
   protected getInstance() {
@@ -257,6 +388,9 @@ export class EarthEngine {
   }
 
   protected getImage(): any {
+    if (this.image) {
+      return this.image;
+    }
     const { type } = this.options;
     let image;
     switch (type) {
@@ -277,6 +411,7 @@ export class EarthEngine {
     }
     image = this.applyMask(image);
     image = this.applyBand(image);
+    this.image = image;
     return image;
   }
 

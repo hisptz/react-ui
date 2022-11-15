@@ -16,17 +16,9 @@ export const EARTH_ENGINE_LAYERS: EarthEngineOptions[] = [
     sourceUrl: "https://developers.google.com/earth-engine/datasets/catalog/WorldPop_GP_100m_pop",
     img: "images/population.png",
     defaultAggregations: ["sum", "mean"],
-    aggregation: [],
     tokenType: "Bearer",
     periodType: "Yearly",
-    filters: ({ id, name, year }: { id: string; name: string; year: number }) => [
-      {
-        id,
-        name,
-        type: "eq",
-        arguments: ["year", year],
-      },
-    ],
+    filters: ["period"],
     mosaic: true,
     params: {
       min: 0,
@@ -196,14 +188,7 @@ export const EARTH_ENGINE_LAYERS: EarthEngineOptions[] = [
         name: i18n.t("Female 80 years and above"),
       },
     ],
-    filters: ({ id, name, year }: { id: string; name: string; year: number }) => [
-      {
-        id,
-        name,
-        type: "eq",
-        arguments: ["year", year],
-      },
-    ],
+    filters: ["period"],
     mosaic: true,
     params: {
       min: 0,
@@ -226,7 +211,7 @@ export const EARTH_ENGINE_LAYERS: EarthEngineOptions[] = [
     source: "NASA / USGS / JPL-Caltech / Google Earth Engine",
     sourceUrl: "https://sites.research.google/open-buildings/",
     img: "images/buildings.png",
-    aggregation: ["count"],
+    aggregations: ["count"],
     defaultAggregations: ["count"],
     opacity: 0.9,
     tokenType: "Bearer",
@@ -243,7 +228,7 @@ export const EARTH_ENGINE_LAYERS: EarthEngineOptions[] = [
     source: "NASA / USGS / JPL-Caltech / Google Earth Engine",
     sourceUrl: "https://explorer.earthengine.google.com/#detail/USGS%2FSRTMGL1_003",
     img: "images/elevation.png",
-    aggregation: ["min", "max", "mean", "median", "stdDev", "variance"],
+    aggregations: ["min", "max", "mean", "median", "stdDev", "variance"],
     defaultAggregations: ["mean", "min", "max"],
     selectedBands: ["elevation"],
     params: {
@@ -268,7 +253,7 @@ export const EARTH_ENGINE_LAYERS: EarthEngineOptions[] = [
     sourceUrl: "https://explorer.earthengine.google.com/#detail/UCSB-CHG%2FCHIRPS%2FPENTAD",
     periodType: "Custom",
     selectedBands: ["precipitation"],
-    aggregation: ["min", "max", "mean", "median", "stdDev", "variance"],
+    aggregations: ["min", "max", "mean", "median", "stdDev", "variance"],
     defaultAggregations: ["mean", "min", "max"],
     mask: true,
     img: "images/precipitation.png",
@@ -291,7 +276,7 @@ export const EARTH_ENGINE_LAYERS: EarthEngineOptions[] = [
     source: "NASA LP DAAC / Google Earth Engine",
     sourceUrl: "https://explorer.earthengine.google.com/#detail/MODIS%2FMOD11A2",
     img: "images/temperature.png",
-    aggregation: ["min", "max", "mean", "median", "stdDev", "variance"],
+    aggregations: ["min", "max", "mean", "median", "stdDev", "variance"],
     defaultAggregations: ["mean", "min", "max"],
     periodType: "Custom",
     selectedBands: ["LST_Day_1km"],
@@ -319,6 +304,7 @@ export const EARTH_ENGINE_LAYERS: EarthEngineOptions[] = [
     source: "NASA LP DAAC / Google Earth Engine",
     sourceUrl: "https://developers.google.com/earth-engine/datasets/catalog/MODIS_006_MCD12Q1",
     periodType: "Yearly",
+    filters: ["period"],
     selectedBands: ["LC_Type1"],
     defaultAggregations: ["percentage"],
     legend: {
@@ -439,3 +425,5 @@ export const EARTH_ENGINE_LAYERS: EarthEngineOptions[] = [
     opacity: 0.9,
   },
 ];
+
+export const SUPPORTED_EARTH_ENGINE_LAYERS = ["population", "landCover", "footprints"];

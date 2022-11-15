@@ -22,11 +22,7 @@ export function useGoogleEngineToken() {
   };
 }
 
-export default function useGoogleEngineLayer(layerId: string) {
+export default function useGoogleEngineLayer(layerId: string): CustomGoogleEngineLayer | undefined {
   const { layers } = useMapLayers();
-  const layer = find(layers as CustomGoogleEngineLayer[], ["id", layerId]);
-
-  return {
-    ...layer,
-  };
+  return find(layers as CustomGoogleEngineLayer[], ["id", layerId]);
 }

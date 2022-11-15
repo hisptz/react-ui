@@ -22,7 +22,7 @@ export interface EarthEngineOptions {
   img: string;
   defaultAggregations?: string[];
   periodType?: string;
-  filters?: (args: { id: string; name: string; year: number }) => { id: string; name: string; type: string; arguments: any[] }[] | Record<any, any>;
+  filters?: string[];
   legend?: {
     items: { id: number; name: string; color: string }[];
   };
@@ -44,7 +44,7 @@ export interface EarthEngineOptions {
   notice?: string;
   error?: string;
   tokenType: "Bearer";
-  aggregation?: string[];
+  aggregations?: string[];
   tileScale?: number;
   methods?: Record<string, any>;
 }
