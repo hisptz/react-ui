@@ -184,7 +184,7 @@ export interface ThematicLayerConfigModalProps {
   onChange: (config: ThematicLayerConfig) => void;
 }
 
-export function ThematicLayerConfigModal({ open, exclude, config, onClose, onChange }: ThematicLayerConfigModalProps) {
+export function ThematicLayerConfigModal({ open, exclude, config, onClose, onChange, ...props }: ThematicLayerConfigModalProps) {
   const form = useForm<ThematicLayerConfig>({
     defaultValues: config ?? {
       type: "choropleth",
@@ -207,7 +207,7 @@ export function ThematicLayerConfigModal({ open, exclude, config, onClose, onCha
   };
 
   return (
-    <Modal open={open} onClose={onClose}>
+    <Modal {...props} open={open} onClose={onClose}>
       <ModalTitle>{i18n.t("Configure Thematic Layer")}</ModalTitle>
       <ModalContent>
         <ThematicLayerConfiguration form={form} exclude={exclude} />

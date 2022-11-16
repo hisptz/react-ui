@@ -1,4 +1,4 @@
-import { CustomGoogleEngineLayer } from "../MapLayer/interfaces";
+import { EarthEngineLayerConfig } from "../MapLayer/interfaces";
 import { Controller, FormProvider, useForm, useFormContext, UseFormReturn, useWatch } from "react-hook-form";
 import React, { useEffect, useMemo } from "react";
 import { EARTH_ENGINE_LAYERS, SUPPORTED_EARTH_ENGINE_LAYERS } from "../MapLayer/components/GoogleEngineLayer/constants";
@@ -28,7 +28,7 @@ import ColorScaleSelect from "../ThematicLayerConfiguration/components/ColorScal
 import { defaultClasses, defaultColorScaleName, getColorClasses, getColorPalette, getColorScale } from "../../utils/colors";
 
 export interface EarthEngineLayerConfigurationProps {
-  form: UseFormReturn<CustomGoogleEngineLayer>;
+  form: UseFormReturn<EarthEngineLayerConfig>;
   excluded?: string[];
 }
 
@@ -112,7 +112,7 @@ function PeriodSelector() {
 
   useEffect(() => {
     if (!isEmpty(periods)) {
-      setValue("period", head(periods));
+      setValue("filters.period", head(periods));
     }
   }, [periods]);
 
@@ -132,7 +132,7 @@ function PeriodSelector() {
 
   return (
     <Controller
-      name="period"
+      name="filters.period"
       rules={{
         required: i18n.t("Period is required"),
       }}
@@ -283,6 +283,34 @@ function StylesConfig() {
   );
 }
 
+function Name() {
+  const config = useType();
+  const { setValue } = useFormContext();
+  useEffect(() => {
+    setValue("name", config?.name);
+  }, [config]);
+
+  return (
+    <Controller
+      name="name"
+      rules={{
+        required: i18n.t("Name is required"),
+      }}
+      render={({ field, fieldState }) => (
+        <InputField
+          label={i18n.t("Layer name")}
+          type="text"
+          required
+          error={Boolean(fieldState.error)}
+          validationText={fieldState.error?.message}
+          onChange={({ value }: { value: string }) => field.onChange(value)}
+          value={field.value}
+        />
+      )}
+    />
+  );
+}
+
 export function EarthEngineLayerConfiguration({ form, excluded }: EarthEngineLayerConfigurationProps) {
   const supportedLayers = filter(EARTH_ENGINE_LAYERS, ({ id }) => SUPPORTED_EARTH_ENGINE_LAYERS.includes(id) && !(excluded?.includes(id) ?? false));
 
@@ -308,6 +336,7 @@ export function EarthEngineLayerConfiguration({ form, excluded }: EarthEngineLay
             </SingleSelectField>
           )}
         />
+        <Name />
         <AggregationSelector />
         <PeriodSelector />
         <StylesConfig />
@@ -318,24 +347,23 @@ export function EarthEngineLayerConfiguration({ form, excluded }: EarthEngineLay
 
 export interface EarthEngineLayerConfigModalProps {
   open: boolean;
-  config?: CustomGoogleEngineLayer;
+  config?: EarthEngineLayerConfig;
   exclude?: string[];
   onClose: () => void;
-  onChange: (config: CustomGoogleEngineLayer) => void;
+  onChange: (config: EarthEngineLayerConfig) => void;
 }
 
-export function EarthEngineLayerConfigModal({ open, exclude, config, onClose, onChange }: EarthEngineLayerConfigModalProps) {
-  const form = useForm<CustomGoogleEngineLayer>({
+export function EarthEngineLayerConfigModal({ open, exclude, config, onClose, onChange, ...props }: EarthEngineLayerConfigModalProps) {
+  const form = useForm<EarthEngineLayerConfig>({
     defaultValues: config ?? {},
   });
-
-  const onSubmitClick = (values: CustomGoogleEngineLayer) => {
+  const onSubmitClick = (values: EarthEngineLayerConfig) => {
     onChange(values);
     onClose();
   };
 
   return (
-    <Modal open={open} onClose={onClose}>
+    <Modal {...props} open={open} onClose={onClose}>
       <ModalTitle>{i18n.t("Configure Earth Engine Layer")}</ModalTitle>
       <ModalContent>
         <EarthEngineLayerConfiguration form={form} excluded={exclude} />
