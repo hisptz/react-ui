@@ -3,7 +3,7 @@ import { useMapOrganisationUnit, useMapPeriods } from "../../../hooks";
 import { useCallback, useMemo, useState } from "react";
 import { generateLegends, getOrgUnitsSelection, sanitizeDate, sanitizeOrgUnits, toGeoJson } from "../../../../../utils/map";
 import { useDataEngine } from "@dhis2/app-runtime";
-import { CustomGoogleEngineLayer, CustomPointLayer, CustomThematicLayer, CustomThematicPrimitiveLayer } from "../../../../MapLayer/interfaces";
+import { CustomGoogleEngineLayer, CustomPointLayer, CustomThematicLayer, EarthEngineLayerConfig, ThematicLayerConfig } from "../../../../MapLayer/interfaces";
 import { MapOrgUnit, PointOrgUnit } from "../../../../../interfaces";
 import { asyncify, map } from "async-es";
 import { LegendSet } from "@hisptz/dhis2-utils";
@@ -86,7 +86,7 @@ export function useThematicLayers(): any {
       endDate: sanitizeDate(range.end.toDateString()),
     };
   }, [range]);
-  const sanitizeData = (data: any, layer: CustomThematicPrimitiveLayer) => {
+  const sanitizeData = (data: any, layer: ThematicLayerConfig) => {
     if (data) {
       const { analytics } = data as any;
       const rows = analytics?.rows;
@@ -153,7 +153,7 @@ export function useThematicLayers(): any {
     )) as CustomThematicLayer[];
   };
 
-  const sanitizeLayers = async (layers: CustomThematicPrimitiveLayer[]): Promise<CustomThematicLayer[]> => {
+  const sanitizeLayers = async (layers: ThematicLayerConfig[]): Promise<CustomThematicLayer[]> => {
     try {
       setLoading(true);
       const layersWithoutData = layers?.filter((layer) => !layer.data);
@@ -286,7 +286,7 @@ export function useGoogleEngineLayers() {
   const { refresh } = useGoogleEngineToken();
   const orgUnits = useBoundaryData();
 
-  async function getImageUrl(earthEngine: EarthEngine, { filters }: CustomGoogleEngineLayer): Promise<string | undefined> {
+  async function getImageUrl(earthEngine: EarthEngine, { filters }: EarthEngineLayerConfig): Promise<string | undefined> {
     if (earthEngine.initialized) {
       try {
         earthEngine.setOrgUnits(orgUnits ?? []);
@@ -302,18 +302,19 @@ export function useGoogleEngineLayers() {
   }
 
   const sanitizeLayers = useCallback(
-    async (layers: CustomGoogleEngineLayer[]): Promise<CustomGoogleEngineLayer[]> => {
+    async (layers: EarthEngineLayerConfig[]): Promise<CustomGoogleEngineLayer[]> => {
       try {
         const { token } = await refresh();
         await EarthEngine.setToken(token, refresh);
         return map(
           layers,
-          asyncify(async (layer: CustomGoogleEngineLayer) => {
+          asyncify(async (layer: EarthEngineLayerConfig) => {
             try {
               const defaultOptions: any = find(EARTH_ENGINE_LAYERS, ["id", layer.type]) ?? {};
               const options: EarthEngineOptions = {
                 ...defaultOptions,
                 aggregations: layer.aggregations ?? defaultOptions?.aggregations,
+                params: layer.params ?? defaultOptions?.params,
               };
               const updatedLayer = {
                 ...layer,

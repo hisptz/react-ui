@@ -260,6 +260,11 @@ GoogleEarthEngineLayers.args = {
       type: "population",
       id: "population",
       enabled: false,
+      params: {
+        min: 0,
+        max: 50,
+        palette: "#fee5d9,#fcbba1,#fc9272,#fb6a4a,#de2d26,#a50f15",
+      },
       aggregations: ["sum", "mean"],
       filters: {
         period: "2020",

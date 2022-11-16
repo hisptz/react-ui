@@ -12,7 +12,7 @@ import {
   CustomMapLayer,
   CustomPointLayer,
   CustomThematicLayer,
-  CustomThematicPrimitiveLayer,
+  ThematicLayerConfig,
 } from "../../../MapLayer/interfaces";
 import { useMapOrganisationUnit, useMapPeriods } from "../../hooks";
 import { useGoogleEngineLayers, usePointLayer, useThematicLayers } from "./hooks";
@@ -39,7 +39,7 @@ export function MapLayersProvider({ layers, children }: { layers: MapLayerConfig
     setLoading(true);
     try {
       const { boundaryLayers, thematicLayers, pointLayers, earthEngineLayers } = layers;
-      const sanitizedThematicLayers = await sanitizeThematicLayers([...(thematicLayers ?? [])] as CustomThematicPrimitiveLayer[]);
+      const sanitizedThematicLayers = await sanitizeThematicLayers([...(thematicLayers ?? [])] as ThematicLayerConfig[]);
       const sanitizedBoundaryLayers = (boundaryLayers ?? []) as CustomBoundaryLayer[];
       const sanitizedPointLayer = head(pointLayers ?? []) ? await sanitizePointLayer(head(pointLayers) as CustomPointLayer) : undefined;
       const sanitizedEarthEngineLayers = await sanitizeEarthEngineLayers([...(earthEngineLayers ?? [])] as unknown as CustomGoogleEngineLayer[]);
@@ -73,7 +73,6 @@ export function MapLayersProvider({ layers, children }: { layers: MapLayerConfig
 
     const layerConfig = find(updatedLayers, (layer: any) => {
       const nameFromConfig = layer?.name ?? layer?.dataItem?.displayname ?? layer?.label;
-      console.log(nameFromConfig);
       return nameFromConfig === name;
     });
 

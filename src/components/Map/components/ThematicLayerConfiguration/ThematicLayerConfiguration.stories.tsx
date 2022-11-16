@@ -2,12 +2,12 @@ import { Story } from "@storybook/react";
 import { ThematicLayerConfiguration, ThematicLayerConfigurationProps } from "./index";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { CustomThematicPrimitiveLayer } from "../MapLayer/interfaces";
+import { ThematicLayerConfig } from "../MapLayer/interfaces";
 import i18n from "@dhis2/d2-i18n";
 import { Button } from "@dhis2/ui";
 
 const Template: Story<ThematicLayerConfigurationProps> = (args) => {
-  const form = useForm<CustomThematicPrimitiveLayer>();
+  const form = useForm<ThematicLayerConfig>();
   return (
     <form className="column gap-16" onSubmit={form.handleSubmit(console.log)}>
       <ThematicLayerConfiguration {...args} form={form} />
@@ -20,7 +20,7 @@ export const Basic = Template.bind({});
 Basic.args = {};
 
 export default {
-  title: "Components/Map/ThematicLayerConfiguration",
+  title: "Components/Map/Thematic Layer Configuration",
   component: ThematicLayerConfiguration,
   decorators: [
     (MapStory: any) => {
