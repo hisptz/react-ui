@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-11-16T16:55:20.387Z\n"
-"PO-Revision-Date: 2022-11-16T16:55:20.387Z\n"
+"POT-Creation-Date: 2022-11-16T18:07:31.380Z\n"
+"PO-Revision-Date: 2022-11-16T18:07:31.380Z\n"
 
 msgid "Download PNG"
 msgstr "Download PNG"
@@ -665,6 +665,12 @@ msgstr "Colors"
 
 msgid "Unit"
 msgstr "Unit"
+
+msgid "Name is required"
+msgstr "Name is required"
+
+msgid "Layer name"
+msgstr "Layer name"
 
 msgid "Type is required"
 msgstr "Type is required"
