@@ -1,8 +1,8 @@
 import { compact, differenceBy, find, head, isEmpty, last, sortBy } from "lodash";
 import { useMapOrganisationUnit, useMapPeriods } from "../../../hooks";
-import { useCallback, useMemo } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { generateLegends, getOrgUnitsSelection, sanitizeDate, sanitizeOrgUnits, toGeoJson } from "../../../../../utils/map";
-import { useDataQuery } from "@dhis2/app-runtime";
+import { useDataEngine } from "@dhis2/app-runtime";
 import { CustomGoogleEngineLayer, CustomPointLayer, CustomThematicLayer, CustomThematicPrimitiveLayer } from "../../../../MapLayer/interfaces";
 import { MapOrgUnit, PointOrgUnit } from "../../../../../interfaces";
 import { asyncify, map } from "async-es";
@@ -67,6 +67,8 @@ const legendSetsQuery = {
 };
 
 export function useThematicLayers(): any {
+  const engine = useDataEngine();
+  const [loading, setLoading] = useState(false);
   const { orgUnits, orgUnitSelection } = useMapOrganisationUnit();
   const { periods, range } = useMapPeriods() ?? {};
   const ou = useMemo(() => getOrgUnitsSelection(orgUnitSelection), [orgUnitSelection]);
@@ -84,17 +86,6 @@ export function useThematicLayers(): any {
       endDate: sanitizeDate(range.end.toDateString()),
     };
   }, [range]);
-  const { loading, error, refetch } = useDataQuery(analyticsQuery, {
-    variables: {
-      ou,
-      pe,
-      startDate,
-      endDate,
-    },
-    lazy: true,
-  });
-  const { loading: loadingLegendSets, refetch: getLegends } = useDataQuery(legendSetsQuery, { lazy: true });
-
   const sanitizeData = (data: any, layer: CustomThematicPrimitiveLayer) => {
     if (data) {
       const { analytics } = data as any;
@@ -127,80 +118,93 @@ export function useThematicLayers(): any {
     return (await map(
       layers,
       asyncify(async (layer: CustomThematicLayer) => {
-        const legends = [];
-        if (layer.dataItem.legendSet) {
-          const legendSetData = await getLegends({ id: layer.dataItem.legendSet });
-          const legendSet: LegendSet = legendSetData?.legendSets as LegendSet;
-          if (legendSet) {
-            legends.push(...legendSet.legends);
+        try {
+          const legends = [];
+          if (layer.dataItem.legendSet) {
+            const legendSetData = await engine.query(legendSetsQuery, {
+              variables: {
+                id: layer.dataItem.legendSet,
+              },
+            });
+            const legendSet: LegendSet = legendSetData?.legendSets as LegendSet;
+            if (legendSet) {
+              legends.push(...legendSet.legends);
+            }
+          } else {
+            const { scale, colorClass } = layer.dataItem.legendConfig ?? {
+              scale: defaultClasses,
+              colorClass: defaultColorScaleName,
+            };
+            const sortedData = sortBy(layer.data, "data");
+            const autoLegends = generateLegends(last(sortedData)?.data ?? 0, head(sortedData)?.data ?? 0, {
+              classesCount: scale,
+              colorClass,
+            });
+            legends.push(...autoLegends);
           }
-        } else {
-          const { scale, colorClass } = layer.dataItem.legendConfig ?? {
-            scale: defaultClasses,
-            colorClass: defaultColorScaleName,
+          return {
+            ...layer,
+            legends,
           };
-          const sortedData = sortBy(layer.data, "data");
-          const autoLegends = generateLegends(last(sortedData)?.data ?? 0, head(sortedData)?.data ?? 0, {
-            classesCount: scale,
-            colorClass,
-          });
-          legends.push(...autoLegends);
+        } catch (e) {
+          return layer;
         }
-        return {
-          ...layer,
-          legends,
-        };
       })
     )) as CustomThematicLayer[];
   };
 
   const sanitizeLayers = async (layers: CustomThematicPrimitiveLayer[]): Promise<CustomThematicLayer[]> => {
-    const layersWithoutData = layers?.filter((layer) => !layer.data);
-    const layersWithData = differenceBy(layers, layersWithoutData, "id");
-    const dx = layersWithoutData.map((layer) => layer.dataItem.id);
-    let sanitizedLayersWithData: any = [];
+    try {
+      setLoading(true);
+      const layersWithoutData = layers?.filter((layer) => !layer.data);
+      const layersWithData = differenceBy(layers, layersWithoutData, "id");
+      const dx = layersWithoutData.map((layer) => layer.dataItem.id);
+      let sanitizedLayersWithData: any = [];
 
-    if (!isEmpty(dx)) {
-      const data = await refetch({
-        dx,
-        ou,
-        pe,
-        startDate,
-        endDate,
-      });
-      sanitizedLayersWithData = layersWithoutData.map((layer) => ({
+      if (!isEmpty(dx)) {
+        const data = await engine.query(analyticsQuery, {
+          variables: {
+            dx,
+            ou,
+            pe,
+            startDate,
+            endDate,
+          },
+        });
+        sanitizedLayersWithData = layersWithoutData.map((layer) => ({
+          ...layer,
+          name: layer?.name ?? layer?.dataItem?.displayName ?? layer.id,
+          data: sanitizeData(data, layer),
+        }));
+      }
+      const sanitizedLayersWithOrgUnits = layersWithData.map((layer) => ({
         ...layer,
-        name: layer?.name ?? layer?.dataItem?.displayName ?? layer.id,
-        data: sanitizeData(data, layer),
+        data: layer.data?.map((datum) => ({
+          ...datum,
+          orgUnit: find(orgUnits, ["id", datum.orgUnit]) as MapOrgUnit,
+          dataItem: layer.dataItem,
+          name: layer?.name ?? layer?.dataItem?.displayName ?? layer.id,
+        })),
       }));
+      setLoading(false);
+      return await sanitizeLegends([...sanitizedLayersWithData, ...sanitizedLayersWithOrgUnits]);
+    } catch (e: any) {
+      console.error(`Error getting thematic layers`, e.details);
+      setLoading(false);
+      return [];
     }
-    const sanitizedLayersWithOrgUnits = layersWithData.map((layer) => ({
-      ...layer,
-      data: layer.data?.map((datum) => ({
-        ...datum,
-        orgUnit: find(orgUnits, ["id", datum.orgUnit]) as MapOrgUnit,
-        dataItem: layer.dataItem,
-        name: layer?.name ?? layer?.dataItem?.displayName ?? layer.id,
-      })),
-    }));
-    return await sanitizeLegends([...sanitizedLayersWithData, ...sanitizedLayersWithOrgUnits]);
   };
 
   return {
     sanitizeLayers,
-    loading: loading || loadingLegendSets,
-    error,
+    loading,
   };
 }
 
 export function usePointLayer() {
+  const engine = useDataEngine();
   const { orgUnitSelection } = useMapOrganisationUnit();
-  const { loading, refetch: refetchOrgUnitData } = useDataQuery(query, {
-    lazy: true,
-  });
-  const { loading: groupSetDataLoading, refetch: refetchGroupSetData } = useDataQuery(groupSetQuery, {
-    lazy: true,
-  });
+  const [loading, setLoading] = useState(false);
 
   const sanitizePointData = useCallback((orgUnitData: any, groupSetData: any): PointOrgUnit[] => {
     const { analytics, layer } = (orgUnitData as any) ?? {};
@@ -229,34 +233,51 @@ export function usePointLayer() {
   }, []);
 
   const sanitizeLayer = useCallback(async (layer: CustomPointLayer): Promise<CustomPointLayer | undefined> => {
-    if (!layer.level && !layer.group) {
+    try {
+      if (!layer.level && !layer.group) {
+        return;
+      }
+      setLoading(true);
+      const level = layer.level ? `LEVEL-${layer.level}` : undefined;
+      const group = layer.group ? `OU_GROUP-${layer.group}` : undefined;
+      const ous = [...getOrgUnitsSelection(orgUnitSelection), level, group];
+
+      const pointData = await engine.query(query, {
+        variables: {
+          ous,
+        },
+      });
+      const groupSetData = await engine.query(groupSetQuery, {
+        variables: {
+          groupSet: layer.style?.groupSet,
+        },
+      });
+      const sanitizedOrgUnitData = sanitizePointData(pointData, groupSetData);
+
+      const orgUnitGroups = (groupSetData?.groupSet as any)?.organisationUnitGroups ?? [];
+
+      const sanitizedOrgUnitGroups = orgUnitGroups.map((ouGroup: any) => ({
+        ...ouGroup,
+        organisationUnits: undefined,
+      }));
+      setLoading(false);
+      return {
+        ...layer,
+        points: sanitizedOrgUnitData,
+        style: {
+          ...layer.style,
+          orgUnitGroups: sanitizedOrgUnitGroups,
+        },
+      };
+    } catch (e: any) {
+      setLoading(false);
+      console.error(`Error getting point layer`, e.details);
       return;
     }
-
-    const level = layer.level ? `LEVEL-${layer.level}` : undefined;
-    const group = layer.group ? `OU_GROUP-${layer.group}` : undefined;
-    const ous = [...getOrgUnitsSelection(orgUnitSelection), level, group];
-
-    const pointData = await refetchOrgUnitData({ ous });
-    const groupSetData = await refetchGroupSetData({ groupSet: layer.style?.groupSet });
-    const sanitizedOrgUnitData = sanitizePointData(pointData, groupSetData);
-
-    const orgUnitGroups = (groupSetData?.groupSet as any)?.organisationUnitGroups ?? [];
-
-    const sanitizedOrgUnitGroups = orgUnitGroups.map((ouGroup: any) => ({ ...ouGroup, organisationUnits: undefined }));
-
-    return {
-      ...layer,
-      points: sanitizedOrgUnitData,
-      style: {
-        ...layer.style,
-        orgUnitGroups: sanitizedOrgUnitGroups,
-      },
-    };
   }, []);
 
   return {
-    loading: loading || groupSetDataLoading,
+    loading,
     sanitizeLayer,
   };
 }
@@ -282,34 +303,39 @@ export function useGoogleEngineLayers() {
 
   const sanitizeLayers = useCallback(
     async (layers: CustomGoogleEngineLayer[]): Promise<CustomGoogleEngineLayer[]> => {
-      const { token } = await refresh();
-      await EarthEngine.setToken(token, refresh);
-      return map(
-        layers,
-        asyncify(async (layer: CustomGoogleEngineLayer) => {
-          try {
-            const defaultOptions: any = find(EARTH_ENGINE_LAYERS, ["id", layer.type]) ?? {};
-            const options: EarthEngineOptions = {
-              ...defaultOptions,
-              aggregations: layer.aggregations ?? defaultOptions?.aggregations,
-            };
-            const updatedLayer = {
-              ...layer,
-              options,
-            };
-            const earthEngine = new EarthEngine({ options });
-            const url = await getImageUrl(earthEngine, updatedLayer);
-            return {
-              ...updatedLayer,
-              engine: earthEngine,
-              url,
-            };
-          } catch (e) {
-            console.error(e);
-            return;
-          }
-        })
-      );
+      try {
+        const { token } = await refresh();
+        await EarthEngine.setToken(token, refresh);
+        return map(
+          layers,
+          asyncify(async (layer: CustomGoogleEngineLayer) => {
+            try {
+              const defaultOptions: any = find(EARTH_ENGINE_LAYERS, ["id", layer.type]) ?? {};
+              const options: EarthEngineOptions = {
+                ...defaultOptions,
+                aggregations: layer.aggregations ?? defaultOptions?.aggregations,
+              };
+              const updatedLayer = {
+                ...layer,
+                options,
+              };
+              const earthEngine = new EarthEngine({ options });
+              const url = await getImageUrl(earthEngine, updatedLayer);
+              return {
+                ...updatedLayer,
+                engine: earthEngine,
+                url,
+              };
+            } catch (e) {
+              console.error(e);
+              return;
+            }
+          })
+        );
+      } catch (e: any) {
+        console.error(`Error getting thematic layers`, e.details);
+        return [];
+      }
     },
     [refresh]
   );

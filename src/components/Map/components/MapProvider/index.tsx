@@ -54,7 +54,7 @@ export function MapProvider({ children, orgUnitSelection, periodSelection }: Map
       setOrgUnits(orgUnits);
     }
 
-    getOrgUnits();
+    getOrgUnits().catch((error) => console.log(error));
   }, [orgUnitSelection, refetch]);
 
   if (loading) {

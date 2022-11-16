@@ -37,15 +37,18 @@ export function MapLayersProvider({ layers, children }: { layers: MapLayerConfig
 
   const sanitizeLayers = async () => {
     setLoading(true);
-    const { boundaryLayers, thematicLayers, pointLayers, earthEngineLayers } = layers;
-    const sanitizedThematicLayers = await sanitizeThematicLayers([...(thematicLayers ?? [])] as CustomThematicPrimitiveLayer[]);
-    const sanitizedBoundaryLayers = (boundaryLayers ?? []) as CustomBoundaryLayer[];
-    const sanitizedPointLayer = head(pointLayers ?? []) ? await sanitizePointLayer(head(pointLayers) as CustomPointLayer) : undefined;
-    const sanitizedEarthEngineLayers = await sanitizeEarthEngineLayers([...(earthEngineLayers ?? [])] as unknown as CustomGoogleEngineLayer[]);
-
-    setUpdatedLayers(
-      compact([...(sanitizedBoundaryLayers ?? []), ...(sanitizedThematicLayers ?? []), sanitizedPointLayer, ...(sanitizedEarthEngineLayers ?? [])])
-    );
+    try {
+      const { boundaryLayers, thematicLayers, pointLayers, earthEngineLayers } = layers;
+      const sanitizedThematicLayers = await sanitizeThematicLayers([...(thematicLayers ?? [])] as CustomThematicPrimitiveLayer[]);
+      const sanitizedBoundaryLayers = (boundaryLayers ?? []) as CustomBoundaryLayer[];
+      const sanitizedPointLayer = head(pointLayers ?? []) ? await sanitizePointLayer(head(pointLayers) as CustomPointLayer) : undefined;
+      const sanitizedEarthEngineLayers = await sanitizeEarthEngineLayers([...(earthEngineLayers ?? [])] as unknown as CustomGoogleEngineLayer[]);
+      setUpdatedLayers(
+        compact([...(sanitizedBoundaryLayers ?? []), ...(sanitizedThematicLayers ?? []), sanitizedPointLayer, ...(sanitizedEarthEngineLayers ?? [])])
+      );
+    } catch (e: any) {
+      console.error(`Error sanitizing layers`, e.toString());
+    }
     setLoading(false);
   };
 
@@ -62,7 +65,7 @@ export function MapLayersProvider({ layers, children }: { layers: MapLayerConfig
   }, []);
 
   useEffect(() => {
-    sanitizeLayers();
+    sanitizeLayers().catch(console.error);
   }, [period, orgUnit]);
 
   const setupLayerListeners = (type: "add" | "remove", event: LayersControlEvent) => {
