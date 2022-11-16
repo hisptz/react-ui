@@ -72,7 +72,8 @@ export function MapLayersProvider({ layers, children }: { layers: MapLayerConfig
     const name = event.name;
 
     const layerConfig = find(updatedLayers, (layer: any) => {
-      const nameFromConfig = layer?.name ?? layer?.dataItem?.displayname ?? layer.id;
+      const nameFromConfig = layer?.name ?? layer?.dataItem?.displayname ?? layer?.label;
+      console.log(nameFromConfig);
       return nameFromConfig === name;
     });
 
