@@ -12,7 +12,7 @@ import {
   CustomMapLayer,
   CustomPointLayer,
   CustomThematicLayer,
-  CustomThematicPrimitiveLayer,
+  ThematicLayerConfig,
 } from "../../../MapLayer/interfaces";
 import { useMapOrganisationUnit, useMapPeriods } from "../../hooks";
 import { useGoogleEngineLayers, usePointLayer, useThematicLayers } from "./hooks";
@@ -37,15 +37,18 @@ export function MapLayersProvider({ layers, children }: { layers: MapLayerConfig
 
   const sanitizeLayers = async () => {
     setLoading(true);
-    const { boundaryLayers, thematicLayers, pointLayers, earthEngineLayers } = layers;
-    const sanitizedThematicLayers = await sanitizeThematicLayers([...(thematicLayers ?? [])] as CustomThematicPrimitiveLayer[]);
-    const sanitizedBoundaryLayers = (boundaryLayers ?? []) as CustomBoundaryLayer[];
-    const sanitizedPointLayer = head(pointLayers ?? []) ? await sanitizePointLayer(head(pointLayers) as CustomPointLayer) : undefined;
-    const sanitizedEarthEngineLayers = await sanitizeEarthEngineLayers([...(earthEngineLayers ?? [])] as unknown as CustomGoogleEngineLayer[]);
-
-    setUpdatedLayers(
-      compact([...(sanitizedBoundaryLayers ?? []), ...(sanitizedThematicLayers ?? []), sanitizedPointLayer, ...(sanitizedEarthEngineLayers ?? [])])
-    );
+    try {
+      const { boundaryLayers, thematicLayers, pointLayers, earthEngineLayers } = layers;
+      const sanitizedThematicLayers = await sanitizeThematicLayers([...(thematicLayers ?? [])] as ThematicLayerConfig[]);
+      const sanitizedBoundaryLayers = (boundaryLayers ?? []) as CustomBoundaryLayer[];
+      const sanitizedPointLayer = head(pointLayers ?? []) ? await sanitizePointLayer(head(pointLayers) as CustomPointLayer) : undefined;
+      const sanitizedEarthEngineLayers = await sanitizeEarthEngineLayers([...(earthEngineLayers ?? [])] as unknown as CustomGoogleEngineLayer[]);
+      setUpdatedLayers(
+        compact([...(sanitizedBoundaryLayers ?? []), ...(sanitizedThematicLayers ?? []), sanitizedPointLayer, ...(sanitizedEarthEngineLayers ?? [])])
+      );
+    } catch (e: any) {
+      console.error(`Error sanitizing layers`, e.toString());
+    }
     setLoading(false);
   };
 
@@ -62,14 +65,14 @@ export function MapLayersProvider({ layers, children }: { layers: MapLayerConfig
   }, []);
 
   useEffect(() => {
-    sanitizeLayers();
+    sanitizeLayers().catch(console.error);
   }, [period, orgUnit]);
 
   const setupLayerListeners = (type: "add" | "remove", event: LayersControlEvent) => {
     const name = event.name;
 
     const layerConfig = find(updatedLayers, (layer: any) => {
-      const nameFromConfig = layer?.name ?? layer?.dataItem?.displayname ?? layer.id;
+      const nameFromConfig = layer?.name ?? layer?.dataItem?.displayname ?? layer?.label;
       return nameFromConfig === name;
     });
 
