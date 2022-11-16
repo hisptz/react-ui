@@ -1,8 +1,9 @@
-import { useDataQuery } from "@dhis2/app-runtime";
+import { useDataEngine } from "@dhis2/app-runtime";
 import { find } from "lodash";
 import { useMapLayers } from "../../../../MapProvider/hooks";
 import { CustomGoogleEngineLayer } from "../../../interfaces";
 import { EarthEngineToken } from "../interfaces";
+import { useState } from "react";
 
 const googleEngineKeyQuery = {
   token: {
@@ -11,13 +12,18 @@ const googleEngineKeyQuery = {
 };
 
 export function useGoogleEngineToken() {
-  const { data, refetch, loading } = useDataQuery(googleEngineKeyQuery, {
-    lazy: true,
-  });
-  const token = data?.token as unknown as EarthEngineToken;
+  const engine = useDataEngine();
+  const [loading, setLoading] = useState(false);
+
+  const getToken = async () => {
+    setLoading(true);
+    const token = await engine.query(googleEngineKeyQuery);
+    setLoading(false);
+    return token;
+  };
+
   return {
-    token,
-    refresh: refetch as unknown as () => Promise<{ token: EarthEngineToken }>,
+    refresh: getToken as unknown as () => Promise<{ token: EarthEngineToken }>,
     loading,
   };
 }

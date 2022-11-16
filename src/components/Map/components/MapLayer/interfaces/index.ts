@@ -17,20 +17,26 @@ export interface CustomBoundaryLayer extends CustomMapLayer {
   enabled: boolean;
 }
 
-export interface CustomGoogleEngineLayer extends CustomMapLayer {
+export interface EarthEngineLayerConfig extends CustomMapLayer {
   type: GoogleEngineLayerType;
-  options?: EarthEngineOptions;
   aggregations?: string[];
-  name: string;
+  name?: string;
   filters?: {
     period: string;
   };
-  config?: {
+  params?: {
     min: number;
     max: number;
-    palette: string[];
+    palette?: string;
   };
-  url?: string;
+}
+
+export interface CustomGoogleEngineLayer extends CustomMapLayer {
+  type: GoogleEngineLayerType;
+  options: EarthEngineOptions;
+  aggregations?: string[];
+  name: string;
+  url: string;
   engine?: EarthEngine;
 }
 
@@ -104,7 +110,7 @@ export interface CustomBubbleLayer extends CustomMapLayer {
 
 export type CustomThematicLayer = CustomBubbleLayer | CustomChoroplethLayer;
 
-export interface CustomThematicPrimitiveLayer {
+export interface ThematicLayerConfig {
   id: string;
   data?: ThematicLayerRawData[];
   enabled: boolean;
@@ -124,7 +130,7 @@ export interface CustomMapLayer {
   enabled: boolean;
 }
 
-export type MapLayer = CustomBoundaryLayer | CustomThematicPrimitiveLayer | CustomPointLayer | CustomGoogleEngineLayer;
+export type MapLayer = CustomBoundaryLayer | ThematicLayerConfig | CustomPointLayer | CustomGoogleEngineLayer;
 
 export interface MapLayerProps {
   enabled: boolean;

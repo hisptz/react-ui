@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-11-11T07:06:37.742Z\n"
-"PO-Revision-Date: 2022-11-11T07:06:37.742Z\n"
+"POT-Creation-Date: 2022-11-16T16:55:20.387Z\n"
+"PO-Revision-Date: 2022-11-16T16:55:20.387Z\n"
 
 msgid "Download PNG"
 msgstr "Download PNG"
@@ -636,6 +636,45 @@ msgstr ""
 "Deleting this definition will reset all configured legends. Are you sure "
 "you want to delete this legend definition?"
 
+msgid "Submit"
+msgstr "Submit"
+
+msgid "Aggregations"
+msgstr "Aggregations"
+
+msgid "Period is required"
+msgstr "Period is required"
+
+msgid "Available periods are set by the source data"
+msgstr "Available periods are set by the source data"
+
+msgid "Period"
+msgstr "Period"
+
+msgid "Min"
+msgstr "Min"
+
+msgid "Max"
+msgstr "Max"
+
+msgid "Steps"
+msgstr "Steps"
+
+msgid "Colors"
+msgstr "Colors"
+
+msgid "Unit"
+msgstr "Unit"
+
+msgid "Type is required"
+msgstr "Type is required"
+
+msgid "Layer type"
+msgstr "Layer type"
+
+msgid "Configure Earth Engine Layer"
+msgstr "Configure Earth Engine Layer"
+
 msgid "Boundaries"
 msgstr "Boundaries"
 
@@ -895,17 +934,14 @@ msgstr ""
 "Light intensity from cities, towns, and other sites with persistent "
 "lighting, including gas flares."
 
+msgid "Could not get aggregate data"
+msgstr "Could not get aggregate data"
+
 msgid "Points"
 msgstr "Points"
 
-msgid "Max"
-msgstr "Max"
-
 msgid "Mid"
 msgstr "Mid"
-
-msgid "Min"
-msgstr "Min"
 
 msgid "Value"
 msgstr "Value"
@@ -913,14 +949,68 @@ msgstr "Value"
 msgid "Error"
 msgstr "Error"
 
+msgid "Classes"
+msgstr "Classes"
+
+msgid "Select Data Item"
+msgstr "Select Data Item"
+
+msgid "Update"
+msgstr "Update"
+
+msgid "Legend set"
+msgstr "Legend set"
+
+msgid "Please wait..."
+msgstr "Please wait..."
+
+msgid "Min radius"
+msgstr "Min radius"
+
+msgid "Max radius"
+msgstr "Max radius"
+
+msgid "Layer type is required"
+msgstr "Layer type is required"
+
+msgid "Choropleth"
+msgstr "Choropleth"
+
+msgid "Bubble"
+msgstr "Bubble"
+
+msgid "A data item is required"
+msgstr "A data item is required"
+
+msgid "Data Item"
+msgstr "Data Item"
+
+msgid "Change"
+msgstr "Change"
+
+msgid "Select"
+msgstr "Select"
+
+msgid "Legend"
+msgstr "Legend"
+
+msgid "Custom legend"
+msgstr "Custom legend"
+
+msgid "Legend set is required"
+msgstr "Legend set is required"
+
+msgid "Radius"
+msgstr "Radius"
+
+msgid "Configure Thematic Layer"
+msgstr "Configure Thematic Layer"
+
 msgid "Select Organisation Unit"
 msgstr "Select Organisation Unit"
 
 msgid "Select Organisation Unit(s)"
 msgstr "Select Organisation Unit(s)"
-
-msgid "Update"
-msgstr "Update"
 
 msgid "Select Period"
 msgstr "Select Period"
@@ -969,9 +1059,6 @@ msgstr "Start Date"
 
 msgid "End Date"
 msgstr "End Date"
-
-msgid "Period"
-msgstr "Period"
 
 msgid "Date Range"
 msgstr "Date Range"

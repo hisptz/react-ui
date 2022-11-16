@@ -70,7 +70,7 @@ export default function LegendArea({
   layers,
   legends: legendConfig,
 }: {
-  layers: Array<CustomThematicLayer | CustomPointLayer>;
+  layers: Array<CustomThematicLayer | CustomPointLayer | CustomGoogleEngineLayer>;
   position: ControlPosition;
   legends?: MapLegendConfig;
 }) {

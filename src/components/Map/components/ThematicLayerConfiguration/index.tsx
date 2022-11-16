@@ -4,14 +4,14 @@ import { Controller, FormProvider, useForm, UseFormReturn, useWatch } from "reac
 import React, { useMemo, useState } from "react";
 import { compact } from "lodash";
 import { defaultClasses, defaultColorScaleName } from "../../utils/colors";
-import { CustomThematicPrimitiveLayer } from "../MapLayer/interfaces";
+import { ThematicLayerConfig } from "../MapLayer/interfaces";
 import IndicatorSelectorModal from "./components/IndicatorSelectorModal";
 import { LegendSetSelector } from "./components/LegendSetSelector";
 import { CustomLegend } from "./components/CustomLegend";
 
 export interface ThematicLayerConfigurationProps {
   exclude?: string[];
-  form: UseFormReturn<CustomThematicPrimitiveLayer>;
+  form: UseFormReturn<ThematicLayerConfig>;
 }
 
 export function RadiusField() {
@@ -178,14 +178,14 @@ export function ThematicLayerConfiguration({ exclude, form }: ThematicLayerConfi
 
 export interface ThematicLayerConfigModalProps {
   open: boolean;
-  config?: CustomThematicPrimitiveLayer;
+  config?: ThematicLayerConfig;
   exclude?: string[];
   onClose: () => void;
-  onChange: (config: CustomThematicPrimitiveLayer) => void;
+  onChange: (config: ThematicLayerConfig) => void;
 }
 
 export function ThematicLayerConfigModal({ open, exclude, config, onClose, onChange }: ThematicLayerConfigModalProps) {
-  const form = useForm<CustomThematicPrimitiveLayer>({
+  const form = useForm<ThematicLayerConfig>({
     defaultValues: config ?? {
       type: "choropleth",
       radius: {
@@ -201,7 +201,7 @@ export function ThematicLayerConfigModal({ open, exclude, config, onClose, onCha
     },
   });
 
-  const onSubmitClick = (values: CustomThematicPrimitiveLayer) => {
+  const onSubmitClick = (values: ThematicLayerConfig) => {
     onChange(values);
     onClose();
   };

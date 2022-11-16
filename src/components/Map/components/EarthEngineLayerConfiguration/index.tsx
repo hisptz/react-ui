@@ -74,11 +74,12 @@ function AggregationSelector() {
 }
 
 function useDatasetInfo(shouldRun: boolean, config?: EarthEngineOptions) {
-  const { refresh, token, loading } = useGoogleEngineToken();
+  const { refresh } = useGoogleEngineToken();
 
   async function getInfo() {
-    if (config && token) {
-      await EarthEngine.setToken(token, refresh);
+    if (config) {
+      const tokenData = await refresh();
+      await EarthEngine.setToken(tokenData.token, refresh);
       const engine = new EarthEngine({
         options: config,
       });
@@ -86,17 +87,7 @@ function useDatasetInfo(shouldRun: boolean, config?: EarthEngineOptions) {
     }
   }
 
-  const { data, error, isLoading } = useQuery([token, config], getInfo);
-
-  useEffect(() => {
-    async function getToken() {
-      if (shouldRun) {
-        await refresh();
-      }
-    }
-
-    getToken();
-  }, [refresh, shouldRun]);
+  const { data, error, isLoading } = useQuery([config], getInfo);
 
   const periods = useMemo(() => {
     const features = (data as any)?.features;
@@ -106,7 +97,7 @@ function useDatasetInfo(shouldRun: boolean, config?: EarthEngineOptions) {
   }, [data]);
 
   return {
-    loading: loading || isLoading,
+    loading: isLoading,
     error: error as any,
     periods,
   };
