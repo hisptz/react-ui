@@ -11,7 +11,7 @@
       "cypress",
       "node"
     ],
-    "allowJs": true,
+    "allowJs": false,
     "skipLibCheck": true,
     "downlevelIteration": true,
     "esModuleInterop": true,

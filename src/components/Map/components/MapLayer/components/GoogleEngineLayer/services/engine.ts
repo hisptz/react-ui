@@ -1,8 +1,12 @@
 import { MapOrgUnit } from "../../../../../interfaces";
-import ee from "@google/earthengine";
+// @ts-ignore
+import EE from "./api";
 import { EarthEngineOptions, EarthEngineToken, RefreshToken } from "../interfaces";
 import { combineReducers, getFeatureCollectionProperties, getHistogramStatistics, getInfo, getScale, hasClasses } from "../utils";
 import { find, head, isEmpty } from "lodash";
+
+// @ts-ignore
+const ee = EE as any;
 // @ts-ignore
 window.ee = ee;
 
@@ -88,7 +92,7 @@ export class EarthEngine {
     }
 
     const imageCollection = this.instance.distinct("system:time_start").sort("system:time_start", false);
-
+    console.log({ imageCollection });
     const featureCollection = ee.FeatureCollection(imageCollection).select(["system:time_start", "system:time_end"], null, false);
 
     return getInfo(featureCollection);
@@ -137,23 +141,13 @@ export class EarthEngine {
   }
 
   protected getGeometryByType(geoJSON: any) {
-    const geometryType = geoJSON.properties.type;
-    const coordinates = geoJSON.geometry.coordinates;
-    switch (geometryType) {
-      case "MultiPolygon":
-        return ee.Geometry.MultiPolygon(coordinates);
-      case "Polygon":
-        return ee.Geometry.Polygon(coordinates);
-      default:
-        return ee.Geometry.Point(coordinates);
-    }
+    return ee.Geometry(geoJSON?.geometry);
   }
 
   protected getFeatureByType(geoJSON: any) {
     const featureType = geoJSON.type;
     const features = geoJSON.features ?? [];
     const geometry = this.getGeometryByType(geoJSON);
-
     switch (featureType) {
       case "Feature":
         return ee.Feature(geometry);
