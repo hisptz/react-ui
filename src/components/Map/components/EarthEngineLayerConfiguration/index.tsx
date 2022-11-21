@@ -288,6 +288,7 @@ function Name() {
   const { setValue } = useFormContext();
   useEffect(() => {
     setValue("name", config?.name);
+    setValue("id", config?.id);
   }, [config]);
 
   return (
