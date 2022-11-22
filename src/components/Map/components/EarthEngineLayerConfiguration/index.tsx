@@ -349,7 +349,7 @@ export function EarthEngineLayerConfiguration({ form, excluded }: EarthEngineLay
               error={Boolean(fieldState.error)}
               validationText={fieldState.error?.message}
               onChange={({ selected }: { selected: string }) => field.onChange(selected)}
-              selected={field.value}>
+              selected={Boolean(find(supportedLayers, "id", field.value)) ? field.value : undefined}>
               {supportedLayers?.map((layer) => (
                 <SingleSelectOption key={`${layer.id}-option`} value={layer.id} label={layer.name} />
               ))}
