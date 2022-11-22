@@ -121,7 +121,8 @@ export function ThematicLayerConfiguration({ exclude, form }: ThematicLayerConfi
                     const [indicator] = values ?? [];
                     field.onChange({
                       id: indicator.id,
-                      name: indicator.displayName,
+                      displayName: indicator.displayName,
+                      type: "indicator",
                     });
                   }}
                   onClose={() => setDataSelectorOpen(false)}
@@ -129,7 +130,7 @@ export function ThematicLayerConfiguration({ exclude, form }: ThematicLayerConfi
                   selected={compact([
                     {
                       id: field.value?.id,
-                      displayName: field.value?.name,
+                      displayName: field.value?.displayName,
                     },
                   ])}
                 />
