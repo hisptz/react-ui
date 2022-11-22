@@ -1,6 +1,7 @@
 import { MapOrgUnit } from "../../../../../interfaces";
 // @ts-ignore
 import EE from "./api";
+// import EE from "@google/earthengine";
 import { EarthEngineOptions, EarthEngineToken, RefreshToken } from "../interfaces";
 import { combineReducers, getFeatureCollectionProperties, getHistogramStatistics, getInfo, getScale, hasClasses } from "../utils";
 import { find, head, isEmpty } from "lodash";
@@ -92,7 +93,6 @@ export class EarthEngine {
     }
 
     const imageCollection = this.instance.distinct("system:time_start").sort("system:time_start", false);
-    console.log({ imageCollection });
     const featureCollection = ee.FeatureCollection(imageCollection).select(["system:time_start", "system:time_end"], null, false);
 
     return getInfo(featureCollection);

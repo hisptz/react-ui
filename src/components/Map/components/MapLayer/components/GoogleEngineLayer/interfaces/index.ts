@@ -21,6 +21,7 @@ export interface EarthEngineOptions {
   sourceUrl: string;
   img: string;
   defaultAggregations?: string[];
+  maxAggregations?: number;
   periodType?: string;
   filters?: string[];
   legend?: {
