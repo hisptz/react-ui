@@ -1,0 +1,12 @@
+.map-tooltip {
+    padding: 4px 6px;
+    border-radius: 3px;
+    font-size: 13px;
+    line-height: 17px;
+    z-index: 1000000 !important;
+}
+
+[data-test="dhi2-uicore-popper"] {
+
+}
+

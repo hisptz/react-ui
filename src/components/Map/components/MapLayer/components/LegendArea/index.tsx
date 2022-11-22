@@ -1,7 +1,7 @@
-import { IconLegend24, Tooltip } from "@dhis2/ui";
+import { colors, IconLegend24, Popper, Portal } from "@dhis2/ui";
 import { ControlPosition } from "leaflet";
 import { compact, head } from "lodash";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { MapLegendConfig } from "../../../MapArea/interfaces";
 import { CustomControl } from "../../../MapControls/components/CustomControl";
 import { CustomBubbleLayer, CustomGoogleEngineLayer, CustomPointLayer, CustomThematicLayer, SUPPORTED_EARTH_ENGINE_LAYERS } from "../../interfaces";
@@ -9,6 +9,9 @@ import PointLegend from "../PointLayer/components/PointLegend";
 import BubbleLegend from "../ThematicLayer/components/Bubble/components/BubbleLegend";
 import ChoroplethLegend from "../ThematicLayer/components/Choropleth/components/ChoroplethLegend";
 import EarthEngineLegend from "../GoogleEngineLayer/components/EarthEngineLegend";
+import classes from "./LegendArea.module.css";
+
+const TOOLTIP_OFFSET = 4;
 
 function getLegendComponent(layer: CustomThematicLayer | CustomPointLayer | CustomGoogleEngineLayer) {
   if (layer.type === "point") {
@@ -40,6 +43,74 @@ function getLegendComponent(layer: CustomThematicLayer | CustomPointLayer | Cust
   }
 }
 
+function CollapsedLegendIcon({ onCollapse, name }: { name: string; onCollapse: () => void }) {
+  const openDelay = 200;
+  const closeDelay = 200;
+  const [openTooltip, setOpenTooltip] = useState(false);
+  const openTimerRef = useRef<any>(null);
+  const closeTimerRef = useRef<any>(null);
+  const ref = useRef<HTMLDivElement>(null);
+
+  const hideModifier = { name: "hide" };
+  const offsetModifier = {
+    name: "offset",
+    options: {
+      offset: [0, TOOLTIP_OFFSET],
+    },
+  };
+
+  const flipModifier = {
+    name: "flip",
+    options: { altBoundary: true },
+  };
+
+  const onMouseOver = () => {
+    clearTimeout(closeTimerRef.current);
+
+    openTimerRef.current = setTimeout(() => {
+      setOpenTooltip(true);
+    }, openDelay);
+  };
+
+  const onMouseOut = () => {
+    clearTimeout(openTimerRef.current);
+
+    closeTimerRef.current = setTimeout(() => {
+      setOpenTooltip(false);
+    }, closeDelay);
+  };
+
+  useEffect(
+    () => () => {
+      clearTimeout(openTimerRef.current);
+      clearTimeout(closeTimerRef.current);
+    },
+    []
+  );
+
+  return (
+    <div ref={ref} onMouseOver={onMouseOver} onMouseOut={onMouseOut} onClick={onCollapse} style={{ width: 28, height: 28 }} className="legend-card collapsed">
+      <IconLegend24 />
+      {openTooltip && (
+        <Portal className={classes["map-tooltip"]}>
+          <Popper className={classes["map-tooltip"]} reference={ref} modifiers={[offsetModifier, flipModifier, hideModifier]}>
+            <div
+              style={{
+                backgroundColor: `${colors.grey900}`,
+                borderRadius: 3,
+                color: `${colors.white}`,
+                padding: "4px 6px",
+              }}
+              data-test={`content`}>
+              {name}
+            </div>
+          </Popper>
+        </Portal>
+      )}
+    </div>
+  );
+}
+
 function Legend({ children, collapsible }: { children: React.ReactElement; collapsible: boolean }) {
   const [collapsed, setCollapsed] = useState(collapsible);
 
@@ -54,11 +125,7 @@ function Legend({ children, collapsible }: { children: React.ReactElement; colla
   return (
     <div className="w-100">
       {collapsed ? (
-        <Tooltip content={name}>
-          <div onClick={onCollapse} style={{ width: 28, height: 28 }} className="legend-card collapsed">
-            <IconLegend24 />
-          </div>
-        </Tooltip>
+        <CollapsedLegendIcon name={name} onCollapse={onCollapse} />
       ) : (
         React.Children.map(children, (child) => React.cloneElement(child, { collapsible, onCollapse }))
       )}

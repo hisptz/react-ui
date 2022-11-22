@@ -306,7 +306,8 @@ export const EARTH_ENGINE_LAYERS: EarthEngineOptions[] = [
     periodType: "Yearly",
     filters: ["period"],
     selectedBands: ["LC_Type1"],
-    defaultAggregations: ["percentage"],
+    defaultAggregations: ["percentage", "hectares", "acres"],
+    maxAggregations: 1,
     legend: {
       items: [
         // http://www.eomf.ou.edu/static/IGBP.pdf
