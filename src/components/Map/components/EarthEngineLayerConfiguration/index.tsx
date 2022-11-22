@@ -41,9 +41,13 @@ function useType() {
 
 function AggregationSelector() {
   const config = useType();
-  const { setValue } = useFormContext();
+  const { setValue, getValues } = useFormContext();
+  const initialAggregations = getValues("aggregations");
+
   useEffect(() => {
-    setValue("aggregations", config?.defaultAggregations);
+    if (initialAggregations === undefined) {
+      setValue("aggregations", config?.defaultAggregations);
+    }
   }, [config]);
 
   if (!config?.defaultAggregations) {
@@ -52,10 +56,24 @@ function AggregationSelector() {
 
   const supportedAggregations = config?.defaultAggregations ?? [];
 
+  const maxAggregations = config?.maxAggregations;
+
   return (
     <Controller
       render={({ field, fieldState }) => {
-        return (
+        return maxAggregations === 1 ? (
+          <SingleSelectField
+            clearable
+            error={Boolean(fieldState.error)}
+            validationText={fieldState?.error?.message}
+            selected={supportedAggregations.includes(head(field.value) ?? "") ? head(field.value) : undefined}
+            onChange={({ selected }: { selected: string }) => field.onChange([selected])}
+            label={i18n.t("Aggregation")}>
+            {supportedAggregations.map((aggregation) => (
+              <SingleSelectOption key={`${aggregation}-option`} label={capitalize(aggregation)} value={aggregation} />
+            ))}
+          </SingleSelectField>
+        ) : (
           <MultiSelectField
             error={Boolean(fieldState.error)}
             validationText={fieldState?.error?.message}
@@ -105,13 +123,14 @@ function useDatasetInfo(shouldRun: boolean, config?: EarthEngineOptions) {
 
 function PeriodSelector() {
   const config = useType();
-  const { setValue } = useFormContext();
+  const { setValue, getValues } = useFormContext();
   const filters = config?.filters ?? [];
   const hasPeriodFilter = filters.includes("period");
   const { loading, error, periods } = useDatasetInfo(hasPeriodFilter, config);
+  const initialPeriod = getValues("filters.period");
 
   useEffect(() => {
-    if (!isEmpty(periods)) {
+    if (!isEmpty(periods) && !initialPeriod) {
       setValue("filters.period", head(periods));
     }
   }, [periods]);
@@ -137,7 +156,7 @@ function PeriodSelector() {
         required: i18n.t("Period is required"),
       }}
       render={({ field, fieldState }) => (
-        <div className="row gap-8 align-items-center">
+        <div style={{ gap: 4 }} className="row align-items-center">
           <div style={{ flex: 1 }}>
             <SingleSelectField
               helpText={i18n.t("Available periods are set by the source data")}
@@ -288,6 +307,7 @@ function Name() {
   const { setValue } = useFormContext();
   useEffect(() => {
     setValue("name", config?.name);
+    setValue("id", config?.id);
   }, [config]);
 
   return (
