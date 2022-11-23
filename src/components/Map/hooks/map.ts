@@ -47,8 +47,6 @@ export function useCenterMap({ bounds }: { bounds: LatLngTuple[] }) {
   const [ref, { width, height }] = useElementSize();
 
   useEffect(() => {
-    console.log(bounds);
-    console.log("Resized", { width, height });
     if (!isEmpty(bounds)) {
       map.fitBounds(bounds);
     }
