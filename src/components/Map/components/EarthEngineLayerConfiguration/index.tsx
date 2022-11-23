@@ -315,6 +315,8 @@ function TypeField({ excluded }: { excluded?: string[] }) {
 
     if (config?.defaultAggregations) {
       setValue("aggregations", config?.defaultAggregations);
+    } else {
+      setValue("aggregations", undefined);
     }
 
     if (config?.params) {
