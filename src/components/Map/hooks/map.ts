@@ -1,10 +1,12 @@
-import { geoJSON } from "leaflet";
-import { useEffect, useMemo, useState } from "react";
+import { geoJSON, LatLngTuple } from "leaflet";
+import { useEffect, useMemo } from "react";
 import { useMapOrganisationUnit } from "../components/MapProvider/hooks";
+import { useElementSize, useMediaQuery } from "usehooks-ts";
+import { isEmpty } from "lodash";
+import { useMap } from "react-leaflet";
 
 export function useMapBounds() {
   const { orgUnits } = useMapOrganisationUnit();
-  const sizeChanged = useMediaQuery();
   const geoJSONObject = useMemo(
     () =>
       geoJSON({
@@ -16,10 +18,10 @@ export function useMapBounds() {
 
   const center = useMemo(() => {
     return geoJSONObject.getBounds().getCenter();
-  }, [orgUnits, sizeChanged]);
+  }, [orgUnits]);
   const bounds: any = useMemo(() => {
     return geoJSONObject.getBounds();
-  }, [orgUnits, sizeChanged]);
+  }, [orgUnits]);
 
   return {
     center,
@@ -27,14 +29,19 @@ export function useMapBounds() {
   };
 }
 
-export function useMediaQuery() {
-  const [sizeChanges, setSizeChanges] = useState(false);
-  const toggleState = () => setSizeChanges((prevState) => !prevState);
+export function useCenterMap({ bounds }: { bounds: LatLngTuple[] }) {
+  const map = useMap();
+  const [ref, { width, height }] = useElementSize();
+
   useEffect(() => {
-    window.addEventListener("resize", toggleState);
-    return () => {
-      window.removeEventListener("resize", toggleState);
-    };
-  }, []);
-  return sizeChanges;
+    if (!isEmpty(bounds)) {
+      map.fitBounds(bounds);
+    }
+  }, [width, height]);
+
+  return ref;
+}
+
+export function usePrintMedia() {
+  return useMediaQuery("@media print");
 }

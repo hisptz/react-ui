@@ -1,15 +1,8 @@
-import type { LatLngTuple } from "leaflet";
-import { isEmpty } from "lodash";
-import { useEffect } from "react";
-import { useMap } from "react-leaflet";
+import { useCenterMap } from "../../hooks/map";
+import React from "react";
+import { LatLngTuple } from "leaflet";
 
 export default function MapUpdater({ bounds }: { bounds: LatLngTuple[] }) {
-  const map = useMap();
-
-  useEffect(() => {
-    if (!isEmpty(bounds)) {
-      map.fitBounds(bounds);
-    }
-  }, [bounds]);
-  return null;
+  const ref = useCenterMap({ bounds });
+  return <div style={{ width: "100%", height: "100%" }} ref={ref}></div>;
 }

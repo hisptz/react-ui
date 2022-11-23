@@ -10,8 +10,8 @@ import LegendArea from "../MapLayer/components/LegendArea";
 import { CustomThematicLayer } from "../MapLayer/interfaces";
 import { MapLayersProvider } from "../MapProvider/components/MapLayerProvider";
 import { useMapLayers } from "../MapProvider/hooks";
-import MapUpdater from "../MapUpdater";
 import { MapAreaProps, MapControls, MapLegendConfig } from "./interfaces";
+import MapUpdater from "../MapUpdater";
 
 function MapLayerArea({
   id,
@@ -57,6 +57,7 @@ function MapLayerArea({
 const MapArea = ({ base, controls, mapOptions, key, legends, layers }: MapAreaProps, ref: React.Ref<LeafletMap> | undefined) => {
   const { center, bounds } = useMapBounds();
   const { current: id } = useRef<string>(uid());
+
   return (
     <div id="map-container" style={{ height: "100%", width: "100%" }}>
       <MapContainer
@@ -68,6 +69,7 @@ const MapArea = ({ base, controls, mapOptions, key, legends, layers }: MapAreaPr
         bounds={bounds}
         style={{ height: "100%", width: "100%", minHeight: 500 }}
         key={key}
+        trackResize
         {...mapOptions}>
         <MapUpdater bounds={bounds} />
         <MapLayersProvider layers={layers}>

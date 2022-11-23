@@ -12,6 +12,7 @@ import { CustomLegend } from "./components/CustomLegend";
 export interface ThematicLayerConfigurationProps {
   exclude?: string[];
   form: UseFormReturn<ThematicLayerConfig>;
+  [key: string]: any;
 }
 
 export function RadiusField() {
