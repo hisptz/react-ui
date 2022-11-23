@@ -263,7 +263,7 @@ GoogleEarthEngineLayers.args = {
       params: {
         min: 0,
         max: 50,
-        palette: "#fee5d9,#fcbba1,#fc9272,#fb6a4a,#de2d26,#a50f15",
+        palette: "#f7fbff,#deebf7,#c6dbef,#9ecae1,#6baed6,#4292c6,#2171b5,#08519c,#08306b",
       },
       aggregations: ["sum", "mean"],
       filters: {

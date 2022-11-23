@@ -382,8 +382,8 @@ export function EarthEngineLayerConfigModal({ open, exclude, config, onClose, on
     defaultValues: config ?? {},
   });
   const onSubmitClick = (values: EarthEngineLayerConfig) => {
-    onChange(values);
     onClose();
+    onChange(values);
   };
 
   return (

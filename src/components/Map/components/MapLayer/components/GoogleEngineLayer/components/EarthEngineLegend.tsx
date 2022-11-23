@@ -28,7 +28,7 @@ function getLegendsFromParams(params?: { min: number; max: number; palette: stri
     const min = i * interval;
     const max = min + interval;
 
-    const name = i === classes - 1 ? `>${min}` : undefined;
+    const name = i === classes - 1 ? `> ${min}` : undefined;
 
     legends.push({
       id: sanitizedPalette[i],

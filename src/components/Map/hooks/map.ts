@@ -1,6 +1,9 @@
-import { geoJSON } from "leaflet";
+import { geoJSON, LatLngTuple } from "leaflet";
 import { useEffect, useMemo, useState } from "react";
 import { useMapOrganisationUnit } from "../components/MapProvider/hooks";
+import { useElementSize } from "usehooks-ts";
+import { isEmpty } from "lodash";
+import { useMap } from "react-leaflet";
 
 export function useMapBounds() {
   const { orgUnits } = useMapOrganisationUnit();
@@ -37,4 +40,19 @@ export function useMediaQuery() {
     };
   }, []);
   return sizeChanges;
+}
+
+export function useCenterMap({ bounds }: { bounds: LatLngTuple[] }) {
+  const map = useMap();
+  const [ref, { width, height }] = useElementSize();
+
+  useEffect(() => {
+    console.log(bounds);
+    console.log("Resized", { width, height });
+    if (!isEmpty(bounds)) {
+      map.fitBounds(bounds);
+    }
+  }, [width, height]);
+
+  return ref;
 }
