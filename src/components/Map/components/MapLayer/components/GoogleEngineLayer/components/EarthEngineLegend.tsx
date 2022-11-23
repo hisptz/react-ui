@@ -18,17 +18,18 @@ function getLegendsFromParams(params?: { min: number; max: number; palette: stri
   if (!params) return [];
 
   const { palette, min, max } = params;
+  console.log(params);
   const sanitizedPalette = Array.isArray(palette) ? palette : palette.split(",");
   const classes = sanitizedPalette.length;
   const difference = max - min;
-  const interval = Math.ceil(difference / classes);
+  const interval = Math.round(difference / classes);
   const legends = [];
-
+  console.log(10 / 9);
   for (let i = 0; i < classes; i++) {
     const min = i * interval;
     const max = min + interval;
 
-    const name = i === classes - 1 ? `>${min}` : undefined;
+    const name = i === classes - 1 ? `> ${min}` : undefined;
 
     legends.push({
       id: sanitizedPalette[i],
