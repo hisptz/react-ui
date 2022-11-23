@@ -1,6 +1,6 @@
 import i18n from "@dhis2/d2-i18n";
 import { Button, ButtonStrip, Field, InputField, Modal, ModalActions, ModalContent, ModalTitle, Radio, SingleSelectField, SingleSelectOption } from "@dhis2/ui";
-import { Controller, FormProvider, useForm, UseFormReturn, useWatch } from "react-hook-form";
+import { Controller, FormProvider, useForm, useFormContext, UseFormReturn, useWatch } from "react-hook-form";
 import React, { useMemo, useState } from "react";
 import { compact } from "lodash";
 import { defaultClasses, defaultColorScaleName } from "../../utils/colors";
@@ -25,7 +25,7 @@ export function RadiusField() {
             validationText={fieldState.error?.message}
             value={field.value?.toString()}
             onChange={({ value }: { value: string }) => field.onChange(parseInt(value))}
-            label={i18n.t("Min radius")}
+            label={i18n.t("Min")}
             type="number"
           />
         )}
@@ -36,13 +36,53 @@ export function RadiusField() {
           <InputField
             value={field.value?.toString()}
             onChange={({ value }: { value: string }) => field.onChange(parseInt(value))}
-            label={i18n.t("Max radius")}
+            label={i18n.t("Max")}
             type="number"
           />
         )}
         name={"radius.max"}
       />
     </div>
+  );
+}
+
+function TypeField() {
+  const { setValue } = useFormContext();
+  const resetFields = (type: string) => {
+    if (type === "bubble") {
+      setValue(`radius`, {
+        min: 5,
+        max: 30,
+      });
+    } else {
+      setValue(`radius`, undefined);
+    }
+  };
+
+  return (
+    <Controller
+      rules={{
+        required: i18n.t("Layer type is required"),
+      }}
+      render={({ field, fieldState }) => {
+        return (
+          <SingleSelectField
+            label={i18n.t("Layer type")}
+            required
+            error={Boolean(fieldState.error)}
+            validationText={fieldState.error?.message}
+            onChange={({ selected }: { selected: string }) => {
+              resetFields(selected);
+              field.onChange(selected);
+            }}
+            selected={field.value}>
+            <SingleSelectOption value={"choropleth"} label={i18n.t("Choropleth")} />
+            <SingleSelectOption value={"bubble"} label={i18n.t("Bubble")} />
+          </SingleSelectField>
+        );
+      }}
+      name={"type"}
+    />
   );
 }
 
@@ -70,26 +110,7 @@ export function ThematicLayerConfiguration({ exclude, form }: ThematicLayerConfi
   return (
     <FormProvider {...form}>
       <div className="column gap-16">
-        <Controller
-          rules={{
-            required: i18n.t("Layer type is required"),
-          }}
-          render={({ field, fieldState }) => {
-            return (
-              <SingleSelectField
-                label={i18n.t("Layer type")}
-                required
-                error={Boolean(fieldState.error)}
-                validationText={fieldState.error?.message}
-                onChange={({ selected }: { selected: string }) => field.onChange(selected)}
-                selected={field.value}>
-                <SingleSelectOption value={"choropleth"} label={i18n.t("Choropleth")} />
-                <SingleSelectOption value={"bubble"} label={i18n.t("Bubble")} />
-              </SingleSelectField>
-            );
-          }}
-          name={"type"}
-        />
+        <TypeField />
         <Controller
           rules={{
             validate: {
@@ -109,7 +130,7 @@ export function ThematicLayerConfiguration({ exclude, form }: ThematicLayerConfi
                     disabled
                     inputWidth="100%"
                     label={i18n.t("Data Item")}
-                    value={field.value?.name}
+                    value={field.value?.displayName}
                   />
                 </div>
                 <Button onClick={() => setDataSelectorOpen(true)}>{field.value?.id ? i18n.t("Change") : i18n.t("Select")}</Button>
@@ -187,19 +208,7 @@ export interface ThematicLayerConfigModalProps {
 
 export function ThematicLayerConfigModal({ open, exclude, config, onClose, onChange, ...props }: ThematicLayerConfigModalProps) {
   const form = useForm<ThematicLayerConfig>({
-    defaultValues: config ?? {
-      type: "choropleth",
-      radius: {
-        min: 5,
-        max: 30,
-      },
-      dataItem: {
-        legendConfig: {
-          scale: 5,
-          colorClass: defaultColorScaleName,
-        },
-      },
-    },
+    defaultValues: config,
   });
 
   const onSubmitClick = (values: ThematicLayerConfig) => {

@@ -6,7 +6,7 @@ const colorbrewer: Record<string, any> = COLOR_PALETTES;
 
 // Returns a color brewer scale for a number of classes
 export const getColorPalette = (scale: string, classes: number) => {
-  return colorbrewer[scale][classes];
+  return colorbrewer?.[scale]?.[classes];
 };
 
 export const getColorClasses = (palette: string) => {
