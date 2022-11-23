@@ -10,6 +10,7 @@ import BubbleLegend from "../ThematicLayer/components/Bubble/components/BubbleLe
 import ChoroplethLegend from "../ThematicLayer/components/Choropleth/components/ChoroplethLegend";
 import EarthEngineLegend from "../GoogleEngineLayer/components/EarthEngineLegend";
 import classes from "./LegendArea.module.css";
+import { usePrintMedia } from "../../../../hooks/map";
 
 const TOOLTIP_OFFSET = 4;
 
@@ -113,7 +114,7 @@ function CollapsedLegendIcon({ onCollapse, name }: { name: string; onCollapse: (
 
 function Legend({ children, collapsible }: { children: React.ReactElement; collapsible: boolean }) {
   const [collapsed, setCollapsed] = useState(collapsible);
-
+  const inPrintMode = usePrintMedia();
   const onCollapse = () => {
     if (collapsible) {
       setCollapsed((prevState) => !prevState);
@@ -122,9 +123,12 @@ function Legend({ children, collapsible }: { children: React.ReactElement; colla
 
   const name = head(React.Children.toArray(children) as React.ReactElement[])?.props.name;
 
+  const shouldCollapse = collapsed && !inPrintMode;
+  console.log(inPrintMode);
+
   return (
     <div className="w-100">
-      {collapsed ? (
+      {shouldCollapse ? (
         <CollapsedLegendIcon name={name} onCollapse={onCollapse} />
       ) : (
         React.Children.map(children, (child) => React.cloneElement(child, { collapsible, onCollapse }))
