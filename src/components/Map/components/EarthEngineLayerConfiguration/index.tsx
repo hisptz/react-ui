@@ -30,6 +30,7 @@ import { defaultClasses, defaultColorScaleName, getColorClasses, getColorPalette
 export interface EarthEngineLayerConfigurationProps {
   form: UseFormReturn<EarthEngineLayerConfig>;
   excluded?: string[];
+  [key: string]: any;
 }
 
 function useType() {
