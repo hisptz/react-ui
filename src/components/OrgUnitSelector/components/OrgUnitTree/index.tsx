@@ -7,8 +7,15 @@ import FullPageLoader from "../../../shared/components/FullPageLoader";
 import { useFilterOrgUnits } from "../../hooks";
 import { isOrgUnitSelected, onDeselectOrgUnit, onSelectOrgUnit } from "../../utils";
 
-export function CustomOrgUnitNodeLabel({ node, limitSelectionToLevels }: { node: { displayName: string; level: number }; limitSelectionToLevels?: number[] }) {
-  const allowSelection = limitSelectionToLevels?.includes(node.level) ?? true;
+export function CustomOrgUnitNodeLabel({
+  node,
+  limitSelectionToLevels,
+}: {
+  node: { displayName: string; level: number; path: string };
+  limitSelectionToLevels?: number[];
+}) {
+  const orgUnitLevel = node.level ?? node.path.split("/").length - 1;
+  const allowSelection = limitSelectionToLevels?.includes(orgUnitLevel) ?? true;
   return <div style={!allowSelection ? { opacity: 0.5 } : undefined}>{node.displayName}</div>;
 }
 
