@@ -38,8 +38,10 @@ function Tree({
   const selectedOrgUnits = value?.orgUnits ?? [];
 
   const onSelect = (orgUnit: any) => {
+    const orgUnitLevel = orgUnit.level ?? orgUnit.path.split("/").length - 1;
+    const allowSelection = limitSelectionToLevels?.includes(orgUnitLevel) ?? true;
     if (limitSelectionToLevels !== undefined) {
-      if (!limitSelectionToLevels.includes(orgUnit.level)) {
+      if (!allowSelection) {
         return;
       }
     }
