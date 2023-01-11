@@ -16,10 +16,11 @@ export default function OrgUnitSelector({
   showUserOptions,
   showGroups,
   singleSelection,
+  roots: defaultRoots,
   searchable,
   limitSelectionToLevels,
 }: OrgUnitSelectorProps) {
-  const { roots, error, loading } = useOrgUnitsRoot();
+  const { roots, error, loading } = useOrgUnitsRoot(defaultRoots);
   const { userOrgUnit, userSubUnit, userSubX2Unit } = value ?? {};
   const disableSelections = useMemo(() => userOrgUnit || userSubX2Unit || userSubUnit, [userOrgUnit, userSubUnit, userSubX2Unit]);
 
