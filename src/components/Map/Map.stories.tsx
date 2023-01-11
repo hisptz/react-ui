@@ -10,6 +10,22 @@ BaseMap.args = {
   orgUnitSelection: { orgUnits: [], userOrgUnit: true, userSubUnit: true, userSubX2Unit: true },
 };
 
+export const Controls = Template.bind({});
+Controls.args = {
+  orgUnitSelection: { orgUnits: [], userOrgUnit: true, userSubUnit: true, userSubX2Unit: true },
+  controls: [
+    {
+      type: "print",
+      position: "topleft",
+      options: {
+        hidden: false,
+        hideControlContainer: true,
+        sizeModes: ["A4Landscape", "A4Portrait", "Current"],
+      },
+    },
+  ],
+};
+
 export const BoundaryLayer = Template.bind({});
 BoundaryLayer.args = {
   orgUnitSelection: { orgUnits: [], userOrgUnit: true, userSubUnit: true, userSubX2Unit: true },
@@ -213,6 +229,17 @@ ChoroplethThematicLayerWithLevels.args = {
   periodSelection: {
     periods: ["2022"],
   },
+  controls: [
+    {
+      type: "print",
+      position: "topleft",
+      options: {
+        hidden: false,
+        hideControlContainer: true,
+        sizeModes: ["A4Landscape", "A4Portrait", "Current"],
+      },
+    },
+  ],
 };
 
 export const PointLayer = Template.bind({});
