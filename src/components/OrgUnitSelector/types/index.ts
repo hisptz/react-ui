@@ -1,4 +1,4 @@
-import type { OrgUnitSelection } from "@hisptz/dhis2-utils";
+import type { OrganisationUnit, OrgUnitSelection } from "@hisptz/dhis2-utils";
 
 export type OrgUnit = {
   id: string;
@@ -25,4 +25,5 @@ export type OrgUnitSelectorProps = {
   searchable?: boolean;
   limitSelectionToLevels?: number[];
   filterByGroups?: string[];
+  roots?: OrganisationUnit[];
 };

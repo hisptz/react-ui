@@ -97,6 +97,20 @@ FilterByGroups.args = {
   filterByGroups: ["RXL3lPSK8oG"],
 };
 
+export const SpecifyingRoots = Template.bind({});
+SpecifyingRoots.args = {
+  value: { orgUnits: [] },
+  onUpdate: (value) => {
+    console.log(value);
+  },
+  roots: [
+    {
+      id: "OjXNuYyLaCJ",
+      children: [],
+    },
+  ],
+};
+
 export default {
   title: "Components/Organisation Unit Selector",
   component: OrgUnitSelector,

@@ -40,7 +40,7 @@ function MapLayerArea({
         url={base?.url ?? "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"}
       />
       {controls?.map((control) => (
-        <MapControl key={`${control.type}-control`} {...control} />
+        <MapControl mapId={id} key={`${control.type}-control`} {...control} />
       ))}
       {!isEmpty(layers) && (
         <LayersControl hideSingleBase position={"topleft"}>
@@ -59,7 +59,7 @@ const MapArea = ({ base, controls, mapOptions, key, legends, layers }: MapAreaPr
   const { current: id } = useRef<string>(uid());
 
   return (
-    <div id="map-container" style={{ height: "100%", width: "100%" }}>
+    <div id={`${id}-"map-container`} style={{ height: "100%", width: "100%" }}>
       <MapContainer
         attributionControl
         ref={ref}

@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-11-16T18:07:31.380Z\n"
-"PO-Revision-Date: 2022-11-16T18:07:31.380Z\n"
+"POT-Creation-Date: 2023-01-12T19:15:01.877Z\n"
+"PO-Revision-Date: 2023-01-12T19:15:01.877Z\n"
 
 msgid "Download PNG"
 msgstr "Download PNG"
@@ -639,6 +639,9 @@ msgstr ""
 msgid "Submit"
 msgstr "Submit"
 
+msgid "Aggregation"
+msgstr "Aggregation"
+
 msgid "Aggregations"
 msgstr "Aggregations"
 
@@ -969,12 +972,6 @@ msgstr "Legend set"
 
 msgid "Please wait..."
 msgstr "Please wait..."
-
-msgid "Min radius"
-msgstr "Min radius"
-
-msgid "Max radius"
-msgstr "Max radius"
 
 msgid "Layer type is required"
 msgstr "Layer type is required"
