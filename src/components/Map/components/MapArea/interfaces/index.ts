@@ -4,7 +4,7 @@ import { CustomBoundaryLayer, CustomPointLayer, EarthEngineLayerConfig, Thematic
 
 export interface MapControls {
   position: ControlPosition;
-  type: "zoom" | "rotate" | "fullscreen" | "compass" | "scale";
+  type: "zoom" | "rotate" | "fullscreen" | "compass" | "scale" | "print";
   options?: Record<string, any>;
 }
 
