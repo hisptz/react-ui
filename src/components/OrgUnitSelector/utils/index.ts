@@ -118,5 +118,16 @@ export const sanitizeFilters = (filters: Array<OrganisationUnit>): Array<string>
 };
 
 export const sanitizeExpansionPaths = (orgUnitPaths: string[]): string[] => {
-  return orgUnitPaths.map((path: string) => path.split("/").slice(0, -1).join("/"));
+  return uniq(
+    orgUnitPaths
+      .map((path: string) => {
+        const orgUnits = path.split("/").filter((value) => !isEmpty(value));
+        return orgUnits
+          .map((orgUnit, index) => {
+            return `/${orgUnits.slice(0, -(index + 1)).join("/")}`;
+          })
+          .filter((value) => value !== "/");
+      })
+      .flat()
+  );
 };
