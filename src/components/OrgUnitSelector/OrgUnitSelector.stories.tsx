@@ -12,6 +12,22 @@ Default.args = {
     console.log(value);
   },
 };
+
+export const SelectedOrgUnit = Template.bind({});
+SelectedOrgUnit.args = {
+  value: {
+    orgUnits: [
+      {
+        path: "/ImspTQPwCqd/Vth0fbpFcsO/LhaAPLxdSFH/AvGz949akv4",
+        children: [],
+        id: "AvGz949akv4",
+      },
+    ],
+  },
+  onUpdate: (value) => {
+    console.log(value);
+  },
+};
 export const SingleSelection = Template.bind({});
 SingleSelection.args = {
   value: { orgUnits: [] },

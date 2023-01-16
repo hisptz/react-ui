@@ -18,6 +18,7 @@ export default function PeriodSelector({
   singleSelection,
   enableDateRange,
   defaultInputType,
+  allowFuturePeriods,
 }: PeriodSelectorProps) {
   const initialInputType = useMemo(() => {
     if (!isEmpty(selectedPeriods)) {
@@ -61,6 +62,7 @@ export default function PeriodSelector({
       )}
       {inputType === "period" && (
         <CalendarSpecificPeriodSelector
+          allowFuturePeriods={allowFuturePeriods}
           singleSelection={singleSelection}
           excludedPeriodTypes={excludedPeriodTypes ?? []}
           calendar={calendar ?? CalendarTypes.GREGORIAN}

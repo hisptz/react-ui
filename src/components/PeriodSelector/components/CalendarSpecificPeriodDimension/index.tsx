@@ -8,6 +8,19 @@ import { CalendarTypes } from "./constants/calendar";
 import { PeriodCategories } from "./constants/period";
 import { CalendarSpecificPeriodSelectorProps } from "./interfaces/props";
 import "../../../../styles/styles.css";
+import { DateTime, Interval } from "luxon";
+
+function filterFuturePeriods(periods: PeriodInterface[]): PeriodInterface[] {
+  return periods.filter((period) => {
+    if (period.startDate && period.endDate) {
+      const startDate = DateTime.fromFormat(period.startDate, "dd-MM-yyyy");
+      const endDate = DateTime.fromFormat(period.endDate, "dd-MM-yyyy");
+      return startDate.diffNow("days").days < 0 || Interval.fromDateTimes(startDate, endDate).contains(DateTime.now());
+    } else {
+      return true;
+    }
+  });
+}
 
 export default function CalendarSpecificPeriodSelector({
   excludedPeriodTypes,
@@ -17,6 +30,7 @@ export default function CalendarSpecificPeriodSelector({
   excludeFixedPeriods,
   excludeRelativePeriods,
   singleSelection,
+  allowFuturePeriods,
 }: CalendarSpecificPeriodSelectorProps) {
   const periodInstance = new Period().setCalendar(CalendarTypes.ETHIOPIAN);
 
@@ -78,13 +92,21 @@ export default function CalendarSpecificPeriodSelector({
       }
       if (selectedFixedPeriodType) {
         if (selectedPeriodCategory.key === PeriodCategories.FIXED.key) {
-          return new Period()
+          const periods = new Period()
             .setPreferences({ openFuturePeriods: 4, allowFuturePeriods: true })
             .setCalendar(calendar)
             .setYear(year)
             .setType(selectedFixedPeriodType)
             .get()
             .list();
+
+          console.log(periods);
+
+          if (allowFuturePeriods) {
+            return periods;
+          } else {
+            return filterFuturePeriods(periods);
+          }
         }
       }
     }

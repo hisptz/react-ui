@@ -7,12 +7,14 @@ import { useFilterOrgUnits } from "../../hooks";
 export function OrgUnitSearch({ searchable }: { searchable?: boolean }) {
   const [keyword, setKeyword] = useState<string | undefined>();
   const { onSearch } = useFilterOrgUnits();
-  const search = useRef(onSearch ? debounce(onSearch, 500) : null);
+  const search = onSearch;
 
   const onSearchChange = useCallback(
     ({ value }: { value: string }) => {
       setKeyword(value);
-      search.current?.(value);
+      if (onSearch) {
+        onSearch(value);
+      }
     },
     [search]
   );

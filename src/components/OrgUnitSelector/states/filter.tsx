@@ -1,7 +1,7 @@
 import { useDataQuery } from "@dhis2/app-runtime";
 import type { OrganisationUnit } from "@hisptz/dhis2-utils";
-import { compact, isEmpty } from "lodash";
-import React, { createContext, ReactNode, useCallback, useEffect, useMemo, useState } from "react";
+import { compact, debounce, isEmpty } from "lodash";
+import React, { createContext, ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { orgUnitSearchQuery } from "../services";
 import { sanitizeExpansionPaths, sanitizeFilters } from "../utils";
 
@@ -73,14 +73,12 @@ export function FilterStateProvider({
     }
   }, [orgUnitsPaths]);
 
-  const onSearch = useCallback(
-    async (keyword: string) => {
+  const onSearch = useRef(
+    debounce(async (keyword: string) => {
       setSearchValue(keyword);
       return await getSearch(keyword);
-    },
-    [getSearch]
-  );
-
+    }, 500)
+  )?.current;
   const handleExpand = ({ path }: { path: string }) => {
     setExpanded((prevState) => {
       if (prevState.includes(path)) {

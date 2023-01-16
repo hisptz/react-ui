@@ -9,4 +9,5 @@ export interface CalendarSpecificPeriodSelectorProps {
   selectedPeriods?: Array<PeriodInterface>;
   excludeRelativePeriods?: boolean;
   excludeFixedPeriods?: boolean;
+  allowFuturePeriods?: boolean;
 }
