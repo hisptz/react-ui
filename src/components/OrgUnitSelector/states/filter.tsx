@@ -76,7 +76,6 @@ export function FilterStateProvider({
   const onSearch = useRef(
     debounce(async (keyword: string) => {
       setSearchValue(keyword);
-      console.log(keyword);
       return await getSearch(keyword);
     }, 500)
   )?.current;
