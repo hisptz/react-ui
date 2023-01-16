@@ -37,6 +37,8 @@ function Tree({
   const { searchMode, searchValue, expanded, filtering, filteredOrgUnits, handleExpand } = useFilterOrgUnits();
   const selectedOrgUnits = value?.orgUnits ?? [];
 
+  console.log(expanded);
+
   const onSelect = (orgUnit: any) => {
     const orgUnitLevel = orgUnit.level ?? orgUnit.path.split("/").length - 1;
     const allowSelection = limitSelectionToLevels?.includes(orgUnitLevel) ?? true;
@@ -75,6 +77,7 @@ function Tree({
         </div>
       ) : (
         <OrganisationUnitTree
+          initiallyExpanded={expanded}
           forceReload
           filter={filteredOrgUnits}
           disableSelection={disableSelections}
