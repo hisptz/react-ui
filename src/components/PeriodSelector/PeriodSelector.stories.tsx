@@ -100,6 +100,23 @@ SelectedPeriods.args = {
   calendar: CalendarTypes.GREGORIAN,
 };
 
+export const WithAllowedFuturePeriods = Template.bind({});
+WithAllowedFuturePeriods.args = {
+  onSelect: ({ items }) => {
+    console.log(items);
+  },
+  enableDateRange: true,
+  selectedPeriods: [
+    {
+      id: "2022",
+      name: "2022",
+    },
+  ],
+  allowFuturePeriods: false,
+  excludedPeriodTypes: [],
+  calendar: CalendarTypes.GREGORIAN,
+};
+
 export const DateRange = Template.bind({});
 DateRange.args = {
   onSelect: ({ items }) => {

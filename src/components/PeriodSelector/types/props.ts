@@ -14,4 +14,5 @@ export type PeriodSelectorProps = {
   excludeFixedPeriods?: boolean;
   enableDateRange?: boolean;
   defaultInputType?: "period" | "dateRange";
+  allowFuturePeriods?: boolean;
 };

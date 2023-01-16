@@ -3367,7 +3367,7 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
-"@iapps/period-utilities@^1.0.0-beta.7":
+"@iapps/period-utilities@1.0.0-beta.7":
   version "1.0.0-beta.7"
   resolved "https://registry.yarnpkg.com/@iapps/period-utilities/-/period-utilities-1.0.0-beta.7.tgz#9469c0c6d125d6d2b2808470f82f4592079b39a1"
   integrity sha512-E3KqketyDsRw08nTC+NRPzF0L9IncmgYgdVH/j+AL5GybYeRU6jOAticSNOHZCLJ7l567gmna6rIKa37b9QgGw==
