@@ -135,10 +135,18 @@ export function useThematicLayers(): any {
               scale: defaultClasses,
               colorClass: defaultColorScaleName,
             };
-            const sortedData = sortBy(layer.data, "data");
+            const sortedData = sortBy(
+              layer.data.filter((datum) => !!datum.data),
+              "data"
+            );
             const autoLegends = generateLegends(last(sortedData)?.data ?? 0, head(sortedData)?.data ?? 0, {
               classesCount: scale,
               colorClass,
+            });
+            console.log({
+              scale,
+              colorClass,
+              sortedData,
             });
             legends.push(...autoLegends);
           }
