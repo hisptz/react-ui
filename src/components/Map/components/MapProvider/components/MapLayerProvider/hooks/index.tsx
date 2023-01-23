@@ -303,8 +303,16 @@ export function useGoogleEngineLayers() {
 
   const sanitizeLayers = useCallback(
     async (layers: EarthEngineLayerConfig[]): Promise<CustomGoogleEngineLayer[]> => {
+      if (isEmpty(layers)) {
+        return [];
+      }
+
       try {
         const { token } = await refresh();
+        if (!token) {
+          console.error(`Google token not available in this instance`);
+          return [];
+        }
         await EarthEngine.setToken(token, refresh);
         return map(
           layers,
