@@ -41,8 +41,6 @@ export default function CustomAccordion({
   const [expand, setExpanded] = useState(defaultExpanded);
   const [placeholderStyle, setPlaceholderStyle] = useState<any>({});
 
-  console.log(placeholderStyle);
-
   const onExpand = useCallback(() => {
     setExpanded((prevState) => !prevState);
   }, []);

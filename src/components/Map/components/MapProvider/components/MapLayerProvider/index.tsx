@@ -44,8 +44,6 @@ export function MapLayersProvider({ layers, children }: { layers: MapLayerConfig
       const sanitizedPointLayer = head(pointLayers ?? []) ? await sanitizePointLayer(head(pointLayers) as CustomPointLayer) : undefined;
       const sanitizedEarthEngineLayers = await sanitizeEarthEngineLayers([...(earthEngineLayers ?? [])] as unknown as CustomGoogleEngineLayer[]);
 
-      console.log(sanitizedThematicLayers);
-
       setUpdatedLayers(
         compact([...(sanitizedBoundaryLayers ?? []), ...(sanitizedThematicLayers ?? []), sanitizedPointLayer, ...(sanitizedEarthEngineLayers ?? [])])
       );

@@ -143,11 +143,6 @@ export function useThematicLayers(): any {
               classesCount: scale,
               colorClass,
             });
-            console.log({
-              scale,
-              colorClass,
-              sortedData,
-            });
             legends.push(...autoLegends);
           }
           return {
