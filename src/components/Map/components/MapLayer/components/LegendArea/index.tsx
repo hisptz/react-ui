@@ -124,7 +124,6 @@ function Legend({ children, collapsible }: { children: React.ReactElement; colla
   const name = head(React.Children.toArray(children) as React.ReactElement[])?.props.name;
 
   const shouldCollapse = collapsed && !inPrintMode;
-  console.log(inPrintMode);
 
   return (
     <div className="w-100">

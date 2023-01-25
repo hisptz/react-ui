@@ -92,8 +92,8 @@ SelectedPeriods.args = {
   enableDateRange: true,
   selectedPeriods: [
     {
-      id: "2022",
-      name: "2022",
+      id: "202209",
+      name: "September 2022",
     },
   ],
   excludedPeriodTypes: [],
@@ -108,8 +108,8 @@ WithAllowedFuturePeriods.args = {
   enableDateRange: true,
   selectedPeriods: [
     {
-      id: "2022",
-      name: "2022",
+      id: "202209",
+      name: "September 2022",
     },
   ],
   allowFuturePeriods: false,
