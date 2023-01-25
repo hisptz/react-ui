@@ -32,17 +32,21 @@ export default function CalendarSpecificPeriodSelector({
   singleSelection,
   allowFuturePeriods,
 }: CalendarSpecificPeriodSelectorProps) {
-  const periodInstance = new Period().setCalendar(CalendarTypes.ETHIOPIAN);
+  const periodInstance = new Period().setCalendar(CalendarTypes.ETHIOPIAN).setPreferences({ allowFuturePeriods: true });
+  const selectedPeriod = !isEmpty(selectedPeriods) ? periodInstance.getById(head(selectedPeriods)?.id as unknown as string) : undefined;
+  const defaultPeriodType = selectedPeriod?.type;
 
-  const [year, setYear] = useState<number>(new Date().getFullYear());
+  const defaultPeriodTypeIsFixed = typeof selectedPeriod?.id === "string" && /\d{4}/.test(selectedPeriod?.id);
+
+  const [year, setYear] = useState<number>(
+    defaultPeriodTypeIsFixed ? new Date(selectedPeriod?.startDate as unknown as string).getFullYear() ?? new Date().getFullYear() : new Date().getFullYear()
+  );
 
   useEffect(() => {
     periodInstance.setPreferences({ openFuturePeriods: 4, allowFuturePeriods: true });
     periodInstance.setCalendar(calendar);
     if (calendar === CalendarTypes.ETHIOPIAN) {
       setYear(new Date().getFullYear() - 7);
-    } else {
-      setYear(new Date().getFullYear());
     }
   }, [calendar]);
   const periodType = new PeriodType();
@@ -54,8 +58,12 @@ export default function CalendarSpecificPeriodSelector({
   const relativePeriodTypes = filter(filteredPeriodTypes, ({ id }) => id.toLowerCase().match(RegExp("relative".toLowerCase())));
   const fixedPeriodTypes = filter(filteredPeriodTypes, ({ id }) => !id.toLowerCase().match(RegExp("relative".toLowerCase())));
 
-  const [selectedRelativePeriodType, setSelectedRelativePeriodType] = useState(head(relativePeriodTypes)?.id);
-  const [selectedFixedPeriodType, setSelectedFixedPeriodType] = useState(head(fixedPeriodTypes)?.id);
+  const [selectedRelativePeriodType, setSelectedRelativePeriodType] = useState(
+    defaultPeriodTypeIsFixed ? head(relativePeriodTypes)?.id : defaultPeriodType ?? head(relativePeriodTypes)?.id
+  );
+  const [selectedFixedPeriodType, setSelectedFixedPeriodType] = useState(
+    defaultPeriodTypeIsFixed ? defaultPeriodType ?? head(fixedPeriodTypes)?.id : head(fixedPeriodTypes)?.id
+  );
 
   const tabs = useMemo(() => {
     const tabs = [];
@@ -69,7 +77,9 @@ export default function CalendarSpecificPeriodSelector({
     return tabs;
   }, []);
 
-  const [selectedPeriodCategory, setSelectedPeriodCategory] = useState(head(tabs));
+  const defaultTab = find(Object.values(PeriodCategories), ["key", defaultPeriodTypeIsFixed ? "fixed" : "relative"]);
+
+  const [selectedPeriodCategory, setSelectedPeriodCategory] = useState(defaultTab);
 
   useEffect(() => {
     if (excludeFixedPeriods && excludeRelativePeriods) {
@@ -99,8 +109,6 @@ export default function CalendarSpecificPeriodSelector({
             .setType(selectedFixedPeriodType)
             .get()
             .list();
-
-          console.log(periods);
 
           if (allowFuturePeriods) {
             return periods;
@@ -171,7 +179,7 @@ export default function CalendarSpecificPeriodSelector({
                     dense
                     label={i18n.t("Year")}
                     type={"number"}
-                    value={year}
+                    value={year.toString()}
                     onChange={({ value }: { value: number }) => setYear(value)}
                   />
                 </div>
