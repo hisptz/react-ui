@@ -75,9 +75,9 @@ export default function CalendarSpecificPeriodSelector({
     }
 
     return tabs;
-  }, []);
+  }, [relativePeriodTypes, excludeRelativePeriods, fixedPeriodTypes, excludeFixedPeriods]);
 
-  const defaultTab = find(Object.values(PeriodCategories), ["key", defaultPeriodTypeIsFixed ? "fixed" : "relative"]);
+  const defaultTab = isEmpty(selectedPeriods) ? head(tabs) : find(Object.values(PeriodCategories), ["key", defaultPeriodTypeIsFixed ? "fixed" : "relative"]);
 
   const [selectedPeriodCategory, setSelectedPeriodCategory] = useState(defaultTab);
 
